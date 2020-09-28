@@ -1,6 +1,7 @@
 
 ## Description
 > "As a reader I want to read articles and follow authors and topics so that I can get more information on topics that I am interested in."
+
 > "As an author I want to write articles and tutorials about what I know so that I can get exposure and share my great ideas, knowledge, and interests with the world."
 
 ## Technologies used
