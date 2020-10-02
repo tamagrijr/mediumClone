@@ -6,7 +6,7 @@
   * User Authorization/Authentication
   * Profile Page
   * Visual Indication of Sign In
-  * (Bonus) Accound Deletion
+  * (Bonus) Account Deletion
 * Stories
   * Title / Body
   * Display Author
@@ -17,10 +17,11 @@
 * Feed/Follow
   * Home Page with most recent
   * Follow other Authors
-  * (Bonus) Followd Authors/Categories
+  * (Bonus) Followed Authors/Categories
 * Comments
   * Add comments to stories
-  * Owned by a sigle user
+  * Owned by a single user
+  * Navbar of comments
 * Likes
   * Add Likes to stories
   * Owned by a single user
