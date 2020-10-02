@@ -1,6 +1,8 @@
 
 # Schema
 
+![Schema](MVP-Schema.JPG)
+
 ## List of Tables:
 * Users
 * Stories
@@ -16,7 +18,10 @@
 | password  | integer binary              |
 | updatedAt | datetype default new Date() |
 | createdAt | datetype default new Date() |
-
+ 
+<br>
+<br>
+<br>
 
 | Stories   | Data Type                     |
 |-----------|-------------------------------|
@@ -28,6 +33,10 @@
 | updatedAt | datetype default new Date()   |
 | createdAt | datetype default new Date()   |
 
+<br>
+<br>
+<br>
+
 
 | Follows    | Data Type                   |
 |------------|-----------------------------|
@@ -36,6 +45,10 @@
 | followedId | **references Users(id) fk** |
 | updatedAt  | datetype default new Date() |
 | createdAt  | datetype default new Date() |
+
+<br>
+<br>
+<br>
 
 
 | Comments  | Data Type                     |
@@ -47,6 +60,9 @@
 | updatedAt | datetype default new Date()   |
 | createdAt | datetype default new Date()   |
 
+<br>
+<br>
+<br>
 
 | Likes     | Data Type                     |
 |-----------|-------------------------------|
