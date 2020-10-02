@@ -11,11 +11,12 @@
   * Only User Authorized to Edit
   * Display Likes
   * Display Comments
-  
-  
+
+
 * Feed/Follow
   * Home Page with most recent
   * Follow other Authors
 * Comments / Likes
   * Add comments / likes to stories
   * Owned by a single user
+* Likes

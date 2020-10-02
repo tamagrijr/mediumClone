@@ -15,6 +15,7 @@
   - DELETE `stories/:id` Delete story from database.
 
 - comments
+  - GET `/comments/:userId` Grabs comments connected to user
   - POST `stories/:storyId/comments` Creates and stores new comment.
   - PUT `/comments/:id` Edits a comment record from database.
   - DELETE `/comments/:id` Deletes a comment from the database.
