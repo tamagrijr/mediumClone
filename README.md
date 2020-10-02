@@ -7,7 +7,7 @@
 
 ## Features
 The ability to follow and see feeds filled with stories that the user has expressed interest in.
-
+[Features](./documentation/featureList.md)
 0. New account creation, login, and guest/demo login
 1. Stories
 2. Follows and feed
@@ -33,4 +33,3 @@ The ability to follow and see feeds filled with stories that the user has expres
 **Dev Tools**
 * nodemon
 * dotenv dotenv-cli
-
