@@ -10,6 +10,9 @@
 * Comments
 * Likes
 
+<br>
+<br>
+
 | Users     | Data Type                   |
 |-----------|-----------------------------|
 | id        | serial integer pk           |
