@@ -1,14 +1,15 @@
 
 # Schema
 
-![Schema](MVP-Schema.JPG)
+![Schema](MVP-schema.JPG)
 
 ## List of Tables:
 * Users
 * Stories
-* Follows
 * Comments
-* Likes
+* Follows (join table)
+* Bookmarks (join table)
+* Likes (join table)
 
 <br>
 <br>
@@ -16,9 +17,11 @@
 | Users     | Data Type                   |
 |-----------|-----------------------------|
 | id        | serial integer pk           |
-| username  | varchar(255)                |
-| email     | varchar(255)                |
-| password  | integer binary              |
+| firstName | varchar(40)                 |
+| lastName  | varchar(40)                 |
+| username  | varchar(40)                 |
+| email     | varchar(80)                 |
+| hashedPassword | integer binary         |
 | updatedAt | datetype default new Date() |
 | createdAt | datetype default new Date() |
  
@@ -32,27 +35,12 @@
 | title     | varchar(255)                  |
 | body      | text                          |
 | userId    | **references Users(id) fk**   |
-| storyId   | **references Stories(id) fk** |
 | updatedAt | datetype default new Date()   |
 | createdAt | datetype default new Date()   |
 
 <br>
 <br>
 <br>
-
-
-| Follows    | Data Type                   |
-|------------|-----------------------------|
-| id         | serial integer pk           |
-| followerId | **references Users(id) fk** |
-| followedId | **references Users(id) fk** |
-| updatedAt  | datetype default new Date() |
-| createdAt  | datetype default new Date() |
-
-<br>
-<br>
-<br>
-
 
 | Comments  | Data Type                     |
 |-----------|-------------------------------|
@@ -70,8 +58,31 @@
 | Likes     | Data Type                     |
 |-----------|-------------------------------|
 | id        | serial integer pk             |
-| isLiked   | boolean                       |
 | userId    | **references Users(id) fk**   |
 | storyId   | **references Stories(id) fk** |
 | updatedAt | datetype default new Date()   |
 | createdAt | datetype default new Date()   |
+
+<br>
+<br>
+<br>
+
+| Follows    | Data Type                   |
+|------------|-----------------------------|
+| id         | serial integer pk           |
+| followerId | **references Users(id) fk** |
+| followedId | **references Users(id) fk** |
+| updatedAt  | datetype default new Date() |
+| createdAt  | datetype default new Date() |
+
+<br>
+<br>
+<br>
+
+| Bookmarks    | Data Type                     |
+|--------------|-------------------------------|
+| id           | serial integer pk             |
+| userId       | **references Users(id) fk**   |
+| storyId      | **references Stories(id) fk** |
+| updatedAt    | datetype default new Date()   |
+| createdAt    | datetype default new Date()   |

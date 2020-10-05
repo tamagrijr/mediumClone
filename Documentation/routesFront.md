@@ -1,5 +1,31 @@
 
+# Routes - Frontend
+Returns HTML
 
+| HTTP Method | Path        | Action |
+|-------------|-------------|--------|
+| GET         | `/`         | Show homepage (sign-up splash or User feed) |
+
+## Users
+| HTTP Method | Path        | Action |
+|-------------|-------------|--------|
+| GET         | `/login`    | Show login form |
+| POST        | `/login`    | Log in a User???     |
+| GET         | `/signup`   | Show signup form |
+| POST        | `/signup`   | Create a new User??? |
+| GET         | `/users/:id`      | Show a User profile page |
+| GET         | `/users/:id/edit` | Show a User profile edit form |
+
+## Stories 
+| HTTP Method | Path        | Action |
+|-------------|-------------|--------|
+| GET         | `/create`   | Show Story form |
+| POST        | `/create`   | Create a new Story   |
+| GET         | `/stories/:id/edit` | Show a Story edit form |
+| GET         | `/stories/:id`      | Show a Story page |
+
+<!-- MIRA stories/create, users/login, users/signup? -->
+<!-- MIRA QUESTION Do we decide paths also based on readability?  -->
 
 - `/`
   homepage --> splash.pug

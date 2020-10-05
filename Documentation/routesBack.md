@@ -1,5 +1,6 @@
 
 # Routes - Backend
+Returns JSONs
 
 ## Users
 | HTTP Method | Path        | Action |
@@ -21,15 +22,16 @@
 | DELETE      | `stories/:id`          | Delete a Story         |
 
 ## Comments
-| HTTP Method | Path                        | Action                           |
-|-------------|-----------------------------|----------------------------------|
-| GET         | `/comments/:userId`         | Get Comments of a User           |
-| POST        | `stories/:storyId/comments` | Create a new Comment for a Story |
-| PUT/PATCH   | `/comments/:id`             | Edit a Comment                   |
-| DELETE      | `/comments/:id`             | Delete a Comment                 |
+| HTTP Method | Path                         | Action                           |
+|-------------|------------------------------|----------------------------------|
+| GET         | `/comments/:userId`          | Get Comments of a User           |
+| POST        | `/stories/:storyId/comments` | Create a new Comment for a Story |
+| PUT/PATCH   | `/comments/:id`              | Edit a Comment                   |
+| DELETE      | `/comments/:id`              | Delete a Comment                 |
 
 <!-- MIRA Should 'get' be modified to end with a collection-type path instead? -->
 <!-- MIRA Will the comments always be associated with a story in the path, like POST? -->
+<!-- MIRA Bookmarks and Follows? -->
 
 ## Likes
 | HTTP Method | Path                         | Action                     |
