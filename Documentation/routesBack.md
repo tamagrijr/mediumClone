@@ -11,7 +11,6 @@ Returns JSONs
 | DELETE      | `users/:id` | Delete a User's account |
 | POST        | `users/token` | Create a JWT access token |
 
-
 ## Stories
 | HTTP Method | Path                   | Action                 |
 |-------------|------------------------|------------------------|
@@ -36,5 +35,16 @@ Returns JSONs
 ## Likes
 | HTTP Method | Path                         | Action                     |
 |-------------|------------------------------|----------------------------|
-| POST        | `stories/:storyId/likes`     | Creates a Like for a Story |
-| DELETE      | `stories/:storyId/likes/:id` | Deletes a Like             |
+| POST        | `/stories/:storyId/likes`     | Creates a Like for a Story |
+| DELETE      | `/stories/:storyId/likes/:id` | Deletes a Like             |
+
+### Follows
+| HTTP Method | Path                     | Action                     |
+|-------------|--------------------------|----------------------------|
+| GET         | `/users/:userId/follows` |
+| POST        | `/users/:userId/follows` |
+| DELETE      | `/users/:userId/follows/:id` |
+
+
+
+### Bookmarks

@@ -13,6 +13,7 @@
 
 <br>
 <br>
+<br>
 
 | Users     | Data Type                   |
 |-----------|-----------------------------|
@@ -67,13 +68,13 @@
 <br>
 <br>
 
-| Follows    | Data Type                   |
-|------------|-----------------------------|
-| id         | serial integer pk           |
-| followerId | **references Users(id) fk** |
-| followedId | **references Users(id) fk** |
-| updatedAt  | datetype default new Date() |
-| createdAt  | datetype default new Date() |
+| Follows     | Data Type                   |
+|-------------|-----------------------------|
+| id          | serial integer pk           |
+| followerId  | **references Users(id) fk** |
+| followingId | **references Users(id) fk** |
+| updatedAt   | datetype default new Date() |
+| createdAt   | datetype default new Date() |
 
 <br>
 <br>
