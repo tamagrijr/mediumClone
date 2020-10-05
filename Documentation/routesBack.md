@@ -1,25 +1,38 @@
 
+# Routes - Backend
 
-- users
-  - GET `users/:id` Gets user data from database.
-  - POST `users/` Create new user and stores in database.
-  - POST `users/token`
-  - PUT `users/:id` Edit profile in database.
-  - DELETE `users/:id` Delete profile from database.
+## Users
+| HTTP Method | Path        | Action |
+|-------------|-------------|--------|
+| POST        | `users/`    | Create a new User       |
+| GET         | `users/:id` | Get a User's data       |
+| PUT         | `users/:id` | Edit a User's account   |
+| DELETE      | `users/:id` | Delete a User's account |
+| POST        | `users/token` | Create a JWT access token |
 
-- stories
-  - GET `stories/:id` Gets story data from database.
-  - GET `stories/:id/comments` Gets all messages from database for story with id.
-  - POST `stories/` Create new story and stores in database.
-  - PUT `stories/:id` Edit story in database.
-  - DELETE `stories/:id` Delete story from database.
 
-- comments
-  - GET `/comments/:userId` Grabs comments connected to user
-  - POST `stories/:storyId/comments` Creates and stores new comment.
-  - PUT `/comments/:id` Edits a comment record from database.
-  - DELETE `/comments/:id` Deletes a comment from the database.
+## Stories
+| HTTP Method | Path                   | Action                 |
+|-------------|------------------------|------------------------|
+| GET         | `stories/:id/comments` | Get a Story's Comments |
+| POST        | `stories/`             | Create a new Story     |
+| GET         | `stories/:id`          | Get a Story            |
+| PUT/PATH    | `stories/:id`          | Edit a Story           |
+| DELETE      | `stories/:id`          | Delete a Story         |
 
-- like
-  - POST `stories/:storyId/likes` Creates and stores a new like-value.
-  - DELETE `/likes/:id` Deletes the like record.
+## Comments
+| HTTP Method | Path                        | Action                           |
+|-------------|-----------------------------|----------------------------------|
+| GET         | `/comments/:userId`         | Get Comments of a User           |
+| POST        | `stories/:storyId/comments` | Create a new Comment for a Story |
+| PUT/PATCH   | `/comments/:id`             | Edit a Comment                   |
+| DELETE      | `/comments/:id`             | Delete a Comment                 |
+
+<!-- MIRA Should 'get' be modified to end with a collection-type path instead? -->
+<!-- MIRA Will the comments always be associated with a story in the path, like POST? -->
+
+## Likes
+| HTTP Method | Path                         | Action                     |
+|-------------|------------------------------|----------------------------|
+| POST        | `stories/:storyId/likes`     | Creates a Like for a Story |
+| DELETE      | `stories/:storyId/likes/:id` | Deletes a Like             |
