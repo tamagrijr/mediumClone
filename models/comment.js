@@ -2,13 +2,16 @@
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define('Comment', {
     body: {
-        type: DataTypes.TEXT
+      allowNull: false,
+      type: DataTypes.TEXT
     },
     userId: {
-        type: DataTypes.INTEGER
+      allowNull: false,
+      type: DataTypes.INTEGER
     },
     storyId: {
-        type: DataTypes.INTEGER
+      allowNull: false,
+      type: DataTypes.INTEGER
     }
   }, {});
   Comment.associate = function(models) {
