@@ -1,0 +1,27 @@
+{
+  "name": "mediumClone",
+  "version": "1.0.0",
+  "description": "> \"As a reader I want to read articles and follow authors and topics so that I can get more information on topics that I am interested in.\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tamagrijr/mediumClone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tamagrijr/mediumClone/issues"
+  },
+  "homepage": "https://github.com/tamagrijr/mediumClone#readme",
+  "dependencies": {
+    "pg": "^8.4.0",
+    "sequelize": "^5.22.3"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^5.5.1"
+  }
+}
