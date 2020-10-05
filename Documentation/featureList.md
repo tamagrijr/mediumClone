@@ -18,8 +18,11 @@
   * Display buttons to Follow, Bookmark, Like, Comment.
   * (Stretch-Goal) Display creation and last-updated dates
 
-* Feed/Follow
+* Feed
   * Homepage displaying most recent Stories
+  * (Stretch-Goal) Show recent Stories of Followed authors/topics.
+
+* Follow
   * Users able to Follow other Users (authors)
   * A button on User Profiles and next to author portraits.
   * (Stretch-Goal) Followed Categories
