@@ -14,10 +14,13 @@
   * Display Likes
   * Display Comments
 
-* Feed/Follow
+* Feed
   * Homepage displaying most recent Stories
+  * (Stretch-Goal) Show recent Stories of Followed authors/topics.
+
+* Follow
   * Users able to Follow other Users (authors)
-  * A button on User Profiles and/or next to author portraits.
+  * A button on User Profiles and next to author portraits.
   * (Stretch-Goal) Followed Categories
 
 * Comments
