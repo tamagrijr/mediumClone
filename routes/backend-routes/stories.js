@@ -129,16 +129,38 @@ router.delete(
 );
 
 router.post(
-  '/:id(\\d+)/likes',
+  '/:storyId(\\d+)/likes',
   asyncHandler(async (req, res, next) => {
-    const storyId = parseInt(req.params.id);
+    const storyId = parseInt(req.params.storyId);
     const { userId } = req.body;
 
-    if (await Story.findByPk(storyId)) {
-      const like = Like.create({ storyId, userId });
-      res.json({ like });
+    const like = await Like.findAll({
+      where: {
+        userId,
+        storyId
+      }
+    });
+
+    if (like) {
+      res.status(304).end();
     } else {
-      next(storyNotFoundError(storyId));
+      const createdLike = await Like.create({ storyId, userId });
+      res.json({ createdLike });
+    }
+  })
+);
+
+router.delete(
+  '/:storyId(\\d+)/likes/:id(\\d+)',
+  asyncHandler(async (req, res) => {
+    const likeId = parseInt(req.params.id)
+    const like = await Like.findByPk(likeId);
+
+    if (like) {
+      await like.destroy();
+      res.status(204).end();
+    } else {
+      res.status(304).end();
     }
   })
 );
