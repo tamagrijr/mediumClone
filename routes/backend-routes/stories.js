@@ -14,7 +14,6 @@ const storyNotFoundError = id => {
 };
 
 const storyValidations = [
-
   check('authorId')
     .exists({
       checkNull: true,
