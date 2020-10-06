@@ -2,10 +2,9 @@ const express = require('express');
 const { check, validationResult } = require('express-validator');
 const { asyncHandler, handleValidationErrors } = require('../../utils');
 const db = require('../../db/models');
-const { noExtendLeft } = require('sequelize/types/lib/operators');
-const { Story, Comment, Like } = db;
+const { Story, Comment } = db;
 
-const router = express();
+const router = express.Router();
 
 const storyNotFoundError = id => {
   const err = new Error(`Story id ${ id } could not be found!`);
@@ -37,7 +36,7 @@ const storyValidations = [
     .withMessage('Your story must specify the author.')
 ]
 
-router.get('/api/stories/:id(\\d+)', asyncHandler(async (req, res, next) => {
+router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   const storyId = parseInt(req.params.id);
   const story = await Story.findByPk(storyId);
 
@@ -49,7 +48,7 @@ router.get('/api/stories/:id(\\d+)', asyncHandler(async (req, res, next) => {
 }));
 
 router.get(
-  '/api/stories/:id(\\d+)/comments',
+  '/:id(\\d+)/comments',
   asyncHandler(async (req, res, next) => {
     const storyId = parseInt(req.params.id);
     const comments = await Comment.findAll({
@@ -73,7 +72,7 @@ router.get(
 );
 
 router.post(
-  '/api/stories',
+  '/',
   storyValidations,
   handleValidationErrors,
   asyncHandler(async (req, res) => {
@@ -89,7 +88,7 @@ router.post(
 );
 
 router.put(
-  '/stories/:id(\\d+)',
+  '/:id(\\d+)',
   storyValidations,
   handleValidationErrors,
   asyncHandler(async (req, res, next) => {
@@ -113,7 +112,7 @@ router.put(
 
 
 router.delete(
-  '/stories/:id(\\d+)',
+  '/:id(\\d+)',
   asyncHandler(async (req, res, next) => {
     const storyId = parseInt(req.params.id);
     const story = await Story.findByPk(storyId);
