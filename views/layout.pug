@@ -55,6 +55,8 @@ html(lang='en')
         //-         border-radius: 15px;
         //-         color: black;
         //-     }
+
+        //- NEED userId for link to profile
     body
       header
         img(src="logo.svg" alt="MeDaYum Logo")
@@ -64,7 +66,7 @@ html(lang='en')
           ul
             li: a(href="/") Home
             li: a(href="/stories") Stories
-            li: a(href="/users/:id") Profile
+            li: a(href=`/users/${userId}`) Profile
             li: a(href="/log-in") Log-in
             li: a(href="/sign-up") Sign-Up
       

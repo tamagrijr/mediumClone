@@ -1,5 +1,10 @@
 const express = require('express');
 const frontEndRouter = express.Router();
+//TODO  require models from db
+const db = require('../db/models');
+const { User } = db;
+//TODO  require asyncHandler
+const { asyncHandler } = require("../utils");
 //splash page
 frontEndRouter.get("/", (req, res) => {
     res.render('index');
@@ -13,9 +18,14 @@ frontEndRouter.get("/log-in", (req, res) => {
     res.render('log-in');
 });
 //user profile
-frontEndRouter.get("/users/:id", (req, res) => {
-    res.render('profile');
-});
+frontEndRouter.get("/users/:id", asyncHandler( async(req, res) => {
+    //TODO === await/get firstName,lastName,userId from db
+    res.render('profile', {
+        firstName: await User.firstName,
+        lastName: await User.lastName,
+        userId: await User.userId
+    });
+}));
 //edit user profile form
 frontEndRouter.get("/users/:id/edit", (req, res) => {
     res.render('edit-profile');
