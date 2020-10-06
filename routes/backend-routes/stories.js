@@ -34,7 +34,18 @@ router.get('/api/stories/:id', asyncHandler(async (req, res) => {
   res.json({ story });
 }));
 
+router.get(
+  '/api/stories/:id/comments',
+  asyncHandler(async (req, res) => {
+    const comments = await Comment.findAll({
+      where: {
+        storyId: req.params.id
+      }
+    });
 
+
+  })
+);
 
 router.post(
   '/api/stories',
