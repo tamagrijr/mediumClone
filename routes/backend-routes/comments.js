@@ -28,8 +28,8 @@ router.get(
   })
 );
 
-router.put(
+// router.put(
   
-)
+// )
 
 module.exports = router;
