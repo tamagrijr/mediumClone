@@ -58,4 +58,19 @@ router.put(
   })
 );
 
+router.delete(
+  '/comments/:id',
+  asyncHandler(async (req, res, next) => {
+    const commentId = parseInt(req.params.id);
+    const comment = await Comment.findByPk(commentId);
+
+    if (comment) {
+      await comment.destroy();
+      res.status(204).end();
+    } else {
+      next(commentNotFoundError(commentId));
+    }
+  })
+);
+
 module.exports = router;
