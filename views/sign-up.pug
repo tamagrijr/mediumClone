@@ -1,24 +1,23 @@
 extends layout.pug
 
 block content
-    //- script(src="js/sign-up.js")
-    h1 Sign-up Form
-    p #{message}
-    
-    form(method="post" action="/sign-up")
-        input(name="_csrf" type="hidden" value=csrfToken)
-        
-        ul
-            li: label First Name:
-                input(name="firstName" type="text" value=firstName)
-            li: label Last Name:
-                input(name="lastName" type="text" value=lastName)
-            li: label e-mail:
-                input(name="email" type="email" value=email)
-            li: label Password:
-                input(name="password" type="password")
-            li: label Confirm Password:
-                input(name="confirmPassword" type="password")
-        
-        button(type="submit") Create an Account
-    a(href="/log-in") Have an account? Log-in here.
+  div(class="sign-up-container")
+    div(class="errors-container")
+    h2 Sign Up
+    form(class="sign-up-form")
+      .form-group
+        label(for="firstName") First Name
+        input#firstName.form-control(type='text' name='firstName' placeholder="First Name")
+      .form-group
+        label(for="lastName") Last Name
+        input#lastName.form-control(type='text' name='lastName' placeholder="Last Name")
+      .form-group
+        label(for='username') Username
+        input#username.form-control(type='text' name='username' placeholder="Username")
+      include includes/login-fields
+      .form-group
+        label(for="confirmPassword") Confirm Password
+        input#confirmPassword.form-control(type="text" name="confirmPassword" placeholder="Confirm Password")
+      button.btn.btn-primary(type='submit') Sign Up
+    a(href='/log-in') Already have an account? Log in here.
+  script(type="module" src="js/signUp.js")

@@ -1,17 +1,11 @@
 extends layout.pug
 
 block content
-    //- script(src="js/log-in.js")
-    h1 Log-in Form
-    p #{message}
-    
-    form(method="post" action="/log-in")
-        input(name="_csrf" type="hidden" value="csrfToken")
-        
-        ul
-            li: label e-mail
-                input(name="email" type="email")
-            li: label Password
-                input(name="password" type="password")
-        
-        button(type="submit") Log-in
+  div(class="log-in-container")
+    div(class="errors-container")
+    h2 Log In
+    form(class="log-in-form")
+      include includes/login-fields
+      button.btn.btn-primary(type='submit') Log In
+    a(href='/sign-up') Don't have an account? Sign up here.
+  script(type="module" src="js/logIn.js")
