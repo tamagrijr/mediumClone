@@ -131,11 +131,11 @@ router.post(
   '/:storyId(\\d+)/likes',
   asyncHandler(async (req, res, next) => {
     const storyId = parseInt(req.params.storyId);
-    const { authorId } = req.body;
+    const { authorId: userId } = req.body;
 
     const like = await Like.findAll({
       where: {
-        authorId: authorId,
+        authorId: userId,
         storyId
       }
     });
@@ -143,7 +143,7 @@ router.post(
     if (like) {
       res.status(304).end();
     } else {
-      const createdLike = await Like.create({ storyId, authorId });
+      const createdLike = await Like.create({ storyId, authorId: userId });
       res.json({ createdLike });
     }
   })
