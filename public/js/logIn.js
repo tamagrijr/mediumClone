@@ -26,8 +26,8 @@ logInForm.addEventListener("submit", async (e) => {
         //   user: { id },
         // } = await res.json();
         // // storage access_token in localStorage:
-        // localStorage.setItem("TWITTER_LITE_ACCESS_TOKEN", token);
-        // localStorage.setItem("TWITTER_LITE_CURRENT_USER_ID", id);
+        // localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
+        // localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
         // redirect to home page to see all tweets:
         window.location.href = "/";
       } catch (err) {
