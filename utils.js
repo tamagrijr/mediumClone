@@ -8,16 +8,17 @@ function asyncHandler(handler) {
 }
 
 
-function handleValidationErrors(req, res, next) {
-  const validationErrors = validationResult(req)
-  if (validationErrors.isEmpty()) next()
-  const errors = validationErrors.array().map(error => error.msg)
-  const err = Error("400: That is a bad request.")
-  err.errors = errors
-  err.status = 400
-  err.title = "400 Bad Request"
-  next(err)
-}
+const handleValidationErrors = (req, res, next) => {
+  const validationErrors = validationResult(req);
+  if (!validationErrors.isEmpty()) {
+    const errors = validationErrors.array().map(error => error.msg);
+    const err = Error("Bad request.");      err.errors = errors;
+    err.status = 400;
+    err.title = "Bad request.";
+    return next(err);
+  }
+  next();
+};
 
 module.exports = {
   asyncHandler,

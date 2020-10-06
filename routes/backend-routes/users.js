@@ -37,7 +37,7 @@ usersRouter.post("/", asyncHandler(async (req, res) => {
     firstName, lastName, email, hashedPassword
   })
   // const token = makeUserToken(newUser) // TODO Implement auth AFTER routes.
-  await res.status(201).json({ token, user: { id: newUser.id } })
+  await res.status(201).json({ user: { id: newUser.id } })//TODO ADD TOKEN --
 }))
 
 // Create a new JWT token for a user on login(?)
