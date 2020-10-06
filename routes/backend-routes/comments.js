@@ -24,7 +24,7 @@ const commentValidator = [
 
 
 router.patch(
-  '/comments/:id',
+  '/:id(\\d+)',
   commentValidator,
   handleValidationErrors,
   asyncHandler(async (req, res, next) => {
@@ -45,7 +45,7 @@ router.patch(
 );
 
 router.delete(
-  '/comments/:id',
+  '/:id(\\d+)',
   asyncHandler(async (req, res, next) => {
     const commentId = parseInt(req.params.id);
     const comment = await Comment.findByPk(commentId);
