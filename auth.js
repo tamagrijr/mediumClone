@@ -11,7 +11,7 @@ const makeUserToken = (user) => {
         email: user.email,
     };
     const token = jwt.sign(
-        { data, userDataForToken },
+        { data: userDataForToken },
         secret,
         { expiresIn: parseInt(expiresIn, 10) },
     );
@@ -45,6 +45,6 @@ const restoreUser = (req, res, next) => {
     });
 };
 
-const requireAuth = [bearerToken(), restoreUser];
+const requireAuthentication = [bearerToken(), restoreUser];
 
-module.exports = { getUserToken, requireAuth };
+module.exports = { makeUserToken, requireAuth: requireAuthentication };

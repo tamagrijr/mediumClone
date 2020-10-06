@@ -1,5 +1,27 @@
 extends layout.pug
 
 block content
-    h1 Title - #{title}
-    p #{message}
+    h1 #{user.firstName} #{user.lastName}
+    button(value="Edit")
+    img(src="userPortrait.jpg")
+    //- Not sure yet how this will be implemented.
+    .user-bio
+        h2= user.title
+        p= user.bio
+    
+    .followers
+        a(href="/users/:id/followers") ${followerCount} Followers
+    
+    .user-collections
+        section: h2 Stories
+            ul
+            each story in user.stories
+                li: story.title
+        
+        section: h2 Follows
+        
+        section: h2 Bookmarks
+        
+        section: h2 Comments
+        
+        section: h2 Likes

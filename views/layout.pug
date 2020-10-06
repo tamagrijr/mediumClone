@@ -3,6 +3,7 @@ html(lang='en')
     head
         meta(charset='utf-8')
         title - #{title}
+        script(defer src="js/index.js")
         style {
             * {
                 box-sizing: border-box;
@@ -28,11 +29,22 @@ html(lang='en')
                 color: white;
             }
         }
+    
     body
-        div.topnav
-            a.active(href="/") Home
-            a(href="/stories") Stories
-            a(href="/users/:id") Profile
-            a(href="/log-in") Log-in
-            a(href="/sign-up") Sign-Up
+      header
+        img(src="logo.svg" alt="MeDaYum Logo")
+        p Welcome, #{firstname} #{lastName}!
+        
+        nav.topnav
+          ul
+            li: a.active(href="/") Home
+            li: a(href="/stories") Stories
+            li: a(href="/users/:id") Profile
+            li: a(href="/log-in") Log-in
+            li: a(href="/sign-up") Sign-Up
+      
+      main
         block content
+      
+      footer
+        img(src="logo.svg" alt="MeDaYum Logo")

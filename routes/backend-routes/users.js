@@ -10,25 +10,22 @@ const usersRouter = express.Router()
 
 
 // Get User by id
-usersRouter.get("/:id", asyncHandler(async (req, res) => {
+usersRouter.get("/:id(\\d+)", asyncHandler(async (req, res) => {
   const user = await User.findByPk(req.params.id)
   await res.json({ user })
 }))
-
 // Delete User by id.
-usersRouter.delete("/:id", asyncHandler((req, res) => {
+usersRouter.delete("/:id(\\d+)", asyncHandler((req, res) => {
   const user = await User.findByPk(req.params.id)
   await user.destroy()
 }))
-
 // Edit User data by id.
-usersRouter.put("/:id", asyncHandler(async (req, res) => {
+usersRouter.put("/:id(\\d+)", asyncHandler(async (req, res) => {
   const { firstName, lastName, email, password } = req.body
   // TODO MIRA How to handle changing passwords...
   const user = await User.findByPk(req.params.id)
   await user.update({ firstName, lastName, email })
 }))
-
 // Create a new User.
 // TODO MIRA Add validations and validation handlers
 usersRouter.post("/", asyncHandler(async (req, res) => {
@@ -53,17 +50,48 @@ usersRouter.post("/token", asyncHandler(async (req, res, next) => {
     return next(err)
   }
   const token = makeUserToken(user)
-  await res.json({ token, user: { id: user.id }})
+  await res.json({ token, user: { id: user.id } })
+}))
+
+//* Optional? Maybe we'll use or not.
+
+// Get list of Followed Users for a User
+usersRouter.get("/:id(\\d+)/follows", asyncHandler(async (req, res) => {
+  const follows = await Follow.findAll({ where: { userId: req.params.id } })
+  await res.json({ follows })
+}))
+// Add a Follow for a User.
+usersRouter.post("/:id/follows", asyncHandler(async (req, res) => {
+  const follow = await Follow.create({
+    followerId: req.params.id,
+    followingId: req.body.following
+  })
+  await res.json({ follow })
+}))
+// Delete a Follow for a User.
+usersRouter.delete("/:id/follows", asyncHandler(async, (req, res) => {
+  const follow = await Follow.findByPk(req.params.id)
+  await follow.destroy()
 }))
 
 
-// Optional? Maybe we'll use or not.
-// Follows
-usersRouter.get("/:id/follows")
-
-// Bookmarks
+// Get list of Bookmarked Stories for a User
 usersRouter.get("/:id/bookmarks", asyncHandler(async (req, res) => {
-  const bookmarks = Bookmark.
+  const bookmarks = await Bookmark.findAll({ where: {userId: req.params.id }})
+  await res.json({ bookmarks})
+}))
+// Create a Bookmark to a Story for a User
+usersRouter.post("/:id/bookmarks", asyncHandler(async (req, res) => {
+  const bookmark = await Bookmark.create({
+    userId: req.params.id,
+    storyId: req.body.story
+  })
+  await res.json({ bookmark })
+}))
+// Delete a Bookmark to a Story for a User
+usersRouter.delete("/:id/bookmarks", asyncHandler(async (req, res) => {
+  const bookmark = await Bookmark.findByPk(req.params.id)
+  await bookmark.destroy()
 }))
 
 

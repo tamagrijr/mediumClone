@@ -1,5 +1,17 @@
 extends layout.pug
 
 block content
+    script(src="js/log-in.js")
     h1 Title - #{title}
     p #{message}
+    
+    form(method="post" action="/log-in")
+        input(name="_csrf" type="hidden" value="csrfToken")
+        
+        ul
+            li: label e-mail
+                input(name="email" type="email")
+            li: label Password
+                input(name="password" type="password")
+        
+        button(type="submit" value="Log-in")

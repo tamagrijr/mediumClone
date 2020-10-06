@@ -1,8 +1,23 @@
 const express = require('express');
 const frontEndRouter = express.Router();
+
+
+// MIRA Just an idea, we could refactor this with either a function or a loop.
+function renderPage(path, template) {
+  frontEndRouter.get(path, (req, res) => {
+    res.render(template)
+  })
+}
+renderPage("/", "index")
+const frontendRoutes = {
+  "/": "index",
+  "/sign-up": "sign-up",
+  "/log-in": "log-in",
+  // et cetera...
+}
+
 //splash page
-frontEndRouter.get("/", (req, res) => {
-    res.render('index');
+frontEndRouter.get("/", (req, res) => { res.render('index');
 });
 //sign up form
 frontEndRouter.get("/sign-up", (req, res) => {
@@ -20,6 +35,8 @@ frontEndRouter.get("/users/:id", (req, res) => {
 frontEndRouter.get("/users/:id/edit", (req, res) => {
     res.render('edit-profile');
 });
+
+
 //create new story form
 frontEndRouter.get("/create", (req, res) => {
     res.render('create');
