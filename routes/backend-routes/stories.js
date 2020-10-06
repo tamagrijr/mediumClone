@@ -165,4 +165,21 @@ router.delete(
   })
 );
 
+router.post(
+  '/:storyId(\\d+)/comments',
+  asyncHandler(async (req, res, next) => {
+    const storyId = parseInt(req.params.storyId);
+    const { body, userId } = req.body;
+
+    const story = await Story.findByPk(storyId);
+
+    if (story) {
+      const comment = await Comment.create({ body, userId, storyId });
+      res.json({ comment });
+    } else {
+      next(storyNotFoundError(storyId));
+    }
+  })
+);
+
 module.exports = router;
