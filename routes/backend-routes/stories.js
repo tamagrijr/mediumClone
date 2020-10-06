@@ -47,9 +47,9 @@ router.post(
       body,
       authorId
     } = req.body;
-
     const story = await Story.create({ title, body, authorId });
-    res.status(201).json({ story });
+    // console.log(story)
+    await res.status(201).json({ story: {title: story.title, body: story.body, authorId: story.authorId} });
   })
 );
 
@@ -154,8 +154,13 @@ router.post(
 
     const like = await Like.findOne({
       where: {
+<<<<<<< HEAD
         userId, // MIRA This must be userId key for like!
         storyId: req.params.storyId
+=======
+        userId,
+        storyId
+>>>>>>> 0b4eca6597533f25a69cbeab4d466383cb8dc7a3
       }
     });
 

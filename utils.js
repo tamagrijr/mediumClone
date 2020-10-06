@@ -8,6 +8,7 @@ function asyncHandler(handler) {
 }
 
 
+<<<<<<< HEAD
 function handleValidationErrors(req, res, next) {
   const validationErrors = validationResult(req)
   if (validationErrors.isEmpty()) next()
@@ -20,6 +21,19 @@ function handleValidationErrors(req, res, next) {
     next(err)
   }
 }
+=======
+const handleValidationErrors = (req, res, next) => {
+  const validationErrors = validationResult(req);
+  if (!validationErrors.isEmpty()) {
+    const errors = validationErrors.array().map(error => error.msg);
+    const err = Error("Bad request.");      err.errors = errors;
+    err.status = 400;
+    err.title = "Bad request.";
+    return next(err);
+  }
+  next();
+};
+>>>>>>> 0b4eca6597533f25a69cbeab4d466383cb8dc7a3
 
 module.exports = {
   asyncHandler,
