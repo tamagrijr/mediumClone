@@ -2,7 +2,6 @@ const express = require('express');
 const { check } = require('express-validator');
 const { asyncHandler, handleValidationErrors } = require('../../utils');
 const db = require('../../db/models');
-const { like } = require('sequelize/types/lib/operators');
 const { Story, Comment, Like } = db;
 
 const router = express.Router();
