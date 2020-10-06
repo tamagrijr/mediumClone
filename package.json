@@ -4,7 +4,9 @@
   "description": "> \"As a reader I want to read articles and follow authors and topics so that I can get more information on topics that I am interested in.\"",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "per-env",
+    "start:development": "nodemon -r dotenv/config ./bin/www",
+    "start:production": "./bin/www"
   },
   "repository": {
     "type": "git",
