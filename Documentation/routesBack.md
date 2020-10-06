@@ -35,6 +35,8 @@ Returns JSONs
 ## Likes
 | HTTP Method | Path                         | Action                     |
 |-------------|------------------------------|----------------------------|
+| GET         | `/stories/:storyId/likes`     | Gets all likes including users for a story |
+| GET         | `/users/:id/likes`            | Gets all likes by a user for any story |
 | POST        | `/stories/:storyId/likes`     | Creates a Like for a Story |
 | DELETE      | `/stories/:storyId/likes/:id` | Deletes a Like             |
 
