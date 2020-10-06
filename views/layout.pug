@@ -5,12 +5,12 @@ html(lang='en')
         meta(charset='utf-8')
         title - #{title}
         script(defer src="js/index.js")
-        //- style.
+        //- style(type="text/css").
         //-     * {
         //-         box-sizing: border-box;
         //-     }
         //-     body {
-        //-         background-color: whitesmoke;
+        //-         background-color: ghostwhite;
         //-     }
         //-     .topnav {
         //-         background-color: #333;
@@ -35,13 +35,13 @@ html(lang='en')
         //-     }
         //-     .errorButtonDiv {
         //-         display: grid;
-        //-         margin: 20px auto;
+        //-         margin: 20px;
         //-         height: 100px;
         //-         width: 200px;
-        //-         background-color: black;
+        //-         background-color: #333;
         //-         color: whitesmoke;
         //-         border: 1px solid white;
-        //-         border-radius: 25%;
+        //-         border-radius: 15px;
         //-         position: relative;
         //-     }
         //-     .errorButton {
@@ -50,9 +50,9 @@ html(lang='en')
         //-         width: 100px;
         //-         justify-self: center;
         //-         align-self: center;
-        //-         background-color: whitesmoke;
+        //-         background-color: ghostwhite;
         //-         border: 1px solid black;
-        //-         border-radius: 25%;
+        //-         border-radius: 15px;
         //-         color: black;
         //-     }
     body
@@ -62,14 +62,14 @@ html(lang='en')
         
         nav.topnav
           ul
-            li: a.active(href="/") Home
+            li: a(href="/") Home
             li: a(href="/stories") Stories
             li: a(href="/users/:id") Profile
             li: a(href="/log-in") Log-in
             li: a(href="/sign-up") Sign-Up
       
       main
-        div.errorButtonDiv: button.errorButton(action='/error-test') Create 500 Error
+        div.errorButtonDiv: button.errorButton(href='/error-test') Create 500 Error
         block content
       
       footer
