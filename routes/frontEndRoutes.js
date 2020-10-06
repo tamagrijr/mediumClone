@@ -35,6 +35,13 @@ frontEndRouter.get("/stories/:id/edit", (req, res) => {
 //display feed
 frontEndRouter.get("/feed", (req, res) => {
     res.render('feed');
+});
+//throw error
+frontEndRouter.get("/error-test", (req, res, next) => {
+    const err = new Error("500 Internal Server Error.");
+    err.status = 500;
+    err.title = "custom 500 error";
+    next(err);
 })
 
 module.exports = frontEndRouter;
