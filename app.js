@@ -20,7 +20,7 @@ app.use(frontEndRouter)
 app.use("/api/users", usersRouter)
 app.use("/api/stories", storiesRouter)
 app.use("/api/comments", commentsRouter)
-app.use("/", frontEndRouter)
+
 
 // 404 Catch unhandled requests
 app.use((req, res, next) => {
@@ -36,12 +36,16 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(err.status || 500)
   const isProductionEnv = environment === "production"
-  res.json({
+
+  if(err.status === 404) res.render("notFound")
+
+  else{res.json({
     title: err.title || "500 Server Error",
+    status: err.status,
     message: err.message,
     errors: err.errors,
     stack: isProductionEnv ? null : err.stack,
-  })
+  })}
 })
 
 module.exports = app
