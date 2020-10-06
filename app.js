@@ -28,6 +28,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // 404 Catch unhandled requests
 app.use((req, res, next) => {
   const err = new Error("404 We couldn't find that page.")
+  err.title = "404 Not Found"
   err.status = 404
   next(err)
 })
@@ -40,15 +41,16 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500)
   const isProductionEnv = environment === "production"
 
-  if(err.status === 404) res.render("notFound")
-
-  else{res.json({
+  const errorData = {
     title: err.title || "500 Server Error",
-    status: err.status,
     message: err.message,
-    errors: err.errors,
     stack: isProductionEnv ? null : err.stack,
-  })}
-})
+    errors: err.errors || []
+  }
+
+  if(err.status === 404) res.render("notFound", errorData)
+
+  else { res.json(errorData) }
+});
 
 module.exports = app
