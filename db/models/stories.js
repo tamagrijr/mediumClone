@@ -13,6 +13,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       type: DataTypes.INTEGER
     },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {});
   Story.associate = function(models) {
     Story.belongsTo(models.User, { foreignKey: "authorId" });
