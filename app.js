@@ -1,6 +1,6 @@
 const express = require("express")
 const environment = require("./config")
-const indexRouter = require("./routes/index")
+// const indexRouter = require("routes/index")
 const usersRouter = require("./routes/backend-routes/users")
 const storiesRouter = require("./routes/backend-routes/stories")
 const commentsRouter = require("./routes/backend-routes/comments")

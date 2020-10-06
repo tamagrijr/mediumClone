@@ -20,7 +20,7 @@ const storyValidations = [
       checkFalsy: true
     })
     .withMessage('Your story must have a title')
-    .length({ max: 255 })
+    .isLength({ max: 255 })
     .withMessage('Your title may not be longer than 255 characters.'),
   check('body')
     .exists({
@@ -28,7 +28,7 @@ const storyValidations = [
       checkFalsy: true
     })
     .withMessage('Your story needs a body.'),
-  check('userId')
+  check('authorId')
     .exists({
       checkNull: true,
       checkFalsy: true
@@ -131,11 +131,11 @@ router.post(
   '/:storyId(\\d+)/likes',
   asyncHandler(async (req, res, next) => {
     const storyId = parseInt(req.params.storyId);
-    const { userId } = req.body;
+    const { authorId: userId } = req.body;
 
     const like = await Like.findAll({
       where: {
-        userId,
+        authorId: userId,
         storyId
       }
     });
@@ -143,7 +143,7 @@ router.post(
     if (like) {
       res.status(304).end();
     } else {
-      const createdLike = await Like.create({ storyId, userId });
+      const createdLike = await Like.create({ storyId, authorId: userId });
       res.json({ createdLike });
     }
   })
