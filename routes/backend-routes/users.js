@@ -4,7 +4,7 @@ const bearerToken = require("express-bearer-token")
 const { check } = require("express-validator")
 const { asyncHandler, handleValidationErrors } = require("../../utils")
 const { makeUserToken, requireAuthentication } = require("../../auth")
-const { User } = require("../../db/models")
+const { User, Like, Story, Comment } = require("../../db/models")
 const usersRouter = express.Router()
 
 
@@ -92,8 +92,37 @@ usersRouter.post("/:id(\\d+)/bookmarks", asyncHandler(async (req, res) => {
 usersRouter.delete("/:id(\\d+)/bookmarks", asyncHandler(async (req, res) => {
   const bookmark = await Bookmark.findByPk(req.params.id)
   await bookmark.destroy()
+  // maybe do a: res.status(204).end() to set status and end connection
 }))
 
+
+usersRouter.get("/:id(\\d+)/likes", asyncHandler(async (req, res) => {
+  const userId = parseInt(req.params.id);
+  const userLikes = await Like.findAll({
+    where: {
+      userId
+    },
+    include: Story
+  });
+
+  await res.json({ userLikes });
+}))
+
+// Get comments by a user
+usersRouter.get(
+  '/:userId(\\d+)/comments',
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.userId);
+    const userComments = await Comment.findAll({
+      where: {
+        userId
+      },
+      include: Story
+    });
+
+    res.json({ userComments });
+  })
+);
 
 
 // User Validator Middlewares.
