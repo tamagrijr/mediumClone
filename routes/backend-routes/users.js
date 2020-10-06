@@ -1,11 +1,10 @@
 const bcrypt = require("bcryptjs")
+const express = require("express")
 const bearerToken = require("express-bearer-token")
 const { check } = require("express-validator")
 const { asyncHandler, handleValidationErrors } = require("../../utils")
 const { makeUserToken, requireAuthentication } = require("../../auth")
 const { User } = require("../../db/models")
-
-const express = express()
 const usersRouter = express.Router()
 
 
@@ -16,7 +15,7 @@ usersRouter.get("/:id", asyncHandler(async (req, res) => {
 }))
 
 // Delete User by id.
-usersRouter.delete("/:id", asyncHandler((req, res) => {
+usersRouter.delete("/:id", asyncHandler(async (req, res) => {
   const user = await User.findByPk(req.params.id)
   await user.destroy()
 }))
@@ -54,16 +53,6 @@ usersRouter.post("/token", asyncHandler(async (req, res, next) => {
   }
   const token = makeUserToken(user)
   await res.json({ token, user: { id: user.id }})
-}))
-
-
-// Optional? Maybe we'll use or not.
-// Follows
-usersRouter.get("/:id/follows")
-
-// Bookmarks
-usersRouter.get("/:id/bookmarks", asyncHandler(async (req, res) => {
-  const bookmarks = Bookmark.
 }))
 
 

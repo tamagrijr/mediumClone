@@ -47,4 +47,4 @@ const restoreUser = (req, res, next) => {
 
 const requireAuth = [bearerToken(), restoreUser];
 
-module.exports = { getUserToken, requireAuth };
+module.exports = { makeUserToken, requireAuth };
