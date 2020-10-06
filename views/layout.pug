@@ -1,9 +1,10 @@
-  
+
 doctype html
 html(lang='en')
     head
         meta(charset='utf-8')
         title - #{title}
+        link(rel='stylesheet' type='text/css' href='/styles/style.css')
         script(defer src="js/index.js")
         //- style(type="text/css").
         //-     * {
@@ -16,7 +17,7 @@ html(lang='en')
         //-         background-color: #333;
         //-         overflow: hidden;
         //-         display: flex;
-              
+
         //-     }
         //-     .topnav a {
         //-         color: #f2f2f2;
@@ -57,21 +58,21 @@ html(lang='en')
         //-     }
     body
       header
-        img(src="logo.svg" alt="MeDaYum Logo")
-        p Welcome, #{firstname} #{lastName}!
-        
+        //- img(src="logo.svg" alt="MeDaYum Logo")
+        //- p Welcome, #{firstname} #{lastName}!
+
         nav.topnav
-          ul
-            li: a(href="/") Home
+          h1.logo: a(href="/") MeDaYum
+          ul.main-nav
+            //- li: a(href="/") Home
             li: a(href="/stories") Stories
             li: a(href="/users/:id") Profile
             li: a(href="/log-in") Log-in
             li: a(href="/sign-up") Sign-Up
-      
+
       main
         div.errorButtonDiv: button.errorButton(href='/error-test') Create 500 Error
         block content
-      
+
       footer
         img(src="logo.svg" alt="MeDaYum Logo")
-        
