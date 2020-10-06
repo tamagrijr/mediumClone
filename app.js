@@ -5,6 +5,8 @@ const frontEndRouter = require("./routes/frontEndRoutes")
 const usersRouter = require("./routes/backend-routes/users")
 const storiesRouter = require("./routes/backend-routes/stories")
 const commentsRouter = require("./routes/backend-routes/comments")
+const path = require("path");
+
 const app = express()
 app.use(express.json())
 app.set("view engine", "pug")
@@ -20,6 +22,7 @@ app.use(frontEndRouter)
 app.use("/api/users", usersRouter)
 app.use("/api/stories", storiesRouter)
 app.use("/api/comments", commentsRouter)
+app.use(express.static(path.join(__dirname, "public")));
 
 
 // 404 Catch unhandled requests
