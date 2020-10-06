@@ -55,6 +55,46 @@ usersRouter.post("/token", asyncHandler(async (req, res, next) => {
   await res.json({ token, user: { id: user.id }})
 }))
 
+// Get list of Followed Users for a User
+usersRouter.get("/:id(\\d+)/follows", asyncHandler(async (req, res) => {
+  const follows = await Follow.findAll({ where: { userId: req.params.id } })
+  await res.json({ follows })
+}))
+// Add a Follow for a User.
+usersRouter.post("/:id(\\d+)/follows", asyncHandler(async (req, res) => {
+  const follow = await Follow.create({
+    followerId: req.params.id,
+    followingId: req.body.following
+  })
+  await res.json({ follow })
+}))
+// Delete a Follow for a User.
+usersRouter.delete("/:id(\\d+)/follows", asyncHandler(async (req, res) => {
+  const follow = await Follow.findByPk(req.params.id)
+  await follow.destroy()
+}))
+
+
+// Get list of Bookmarked Stories for a User
+usersRouter.get("/:id(\\d+)/bookmarks", asyncHandler(async (req, res) => {
+  const bookmarks = await Bookmark.findAll({ where: {userId: req.params.id }})
+  await res.json({ bookmarks})
+}))
+// Create a Bookmark to a Story for a User
+usersRouter.post("/:id(\\d+)/bookmarks", asyncHandler(async (req, res) => {
+  const bookmark = await Bookmark.create({
+    userId: req.params.id,
+    storyId: req.body.story
+  })
+  await res.json({ bookmark })
+}))
+// Delete a Bookmark to a Story for a User
+usersRouter.delete("/:id(\\d+)/bookmarks", asyncHandler(async (req, res) => {
+  const bookmark = await Bookmark.findByPk(req.params.id)
+  await bookmark.destroy()
+}))
+
+
 
 // User Validator Middlewares.
 // TODO MIRA Should we break them into separate functions, like twitter-clone?
