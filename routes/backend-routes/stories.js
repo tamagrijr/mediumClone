@@ -154,7 +154,7 @@ router.post(
 
     const like = await Like.findOne({
       where: {
-        userId, 
+        userId
         storyId
       }
     });
