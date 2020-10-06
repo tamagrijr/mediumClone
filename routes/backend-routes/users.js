@@ -4,7 +4,7 @@ const bearerToken = require("express-bearer-token")
 const { check } = require("express-validator")
 const { asyncHandler, handleValidationErrors } = require("../../utils")
 const { makeUserToken, requireAuthentication } = require("../../auth")
-const { User } = require("../../db/models")
+const { User, Like, Story } = require("../../db/models")
 const usersRouter = express.Router()
 
 

@@ -2,7 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 const { asyncHandler, handleValidationErrors } = require('../../utils');
 const db = require('../../db/models');
-const { Story, Comment, Like } = db;
+const { Story, Comment, Like, User } = db;
 
 const router = express.Router();
 
@@ -184,6 +184,30 @@ router.delete(
   })
 );
 
+router.get(
+  '/:storyId(\\d+)/likes',
+  asyncHandler(async (req, res) => {
+    const storyId = parseInt(req.params.storyId);
 
+    const likes = await Like.findAll({
+      where: {
+        storyId
+      },
+      include: User
+    });
+
+    const likeList = likes.map(like => {
+      return {
+        storyId: like.storyId,
+        id: like.id,
+        userId: like.userId,
+        firstName: like.User.firstName,
+        lastName: like.User.lastName
+      }
+    });
+
+    res.json({ likeList });
+  })
+);
 
 module.exports = router;
