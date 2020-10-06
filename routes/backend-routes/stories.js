@@ -14,6 +14,7 @@ const storyNotFoundError = id => {
 };
 
 const storyValidations = [
+  // MIRA Tested
   check('title')
     .exists({
       checkNull: true,
@@ -22,12 +23,14 @@ const storyValidations = [
     .withMessage('Your story must have a title')
     .isLength({ max: 255 })
     .withMessage('Your title may not be longer than 255 characters.'),
+  // MIRA Tested
   check('body')
     .exists({
       checkNull: true,
       checkFalsy: true
     })
     .withMessage('Your story needs a body.'),
+  // MIRA Tested
   check('authorId')
     .exists({
       checkNull: true,
@@ -37,6 +40,7 @@ const storyValidations = [
 ]
 
 // Story Routes
+// MIRA Tested
 router.post(
   '/',
   storyValidations,
@@ -48,11 +52,11 @@ router.post(
       authorId
     } = req.body;
     const story = await Story.create({ title, body, authorId });
-    // console.log(story)
     await res.status(201).json({ story: {title: story.title, body: story.body, authorId: story.authorId} });
   })
 );
 
+// MIRA Tested
 router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   const storyId = parseInt(req.params.id);
   const story = await Story.findByPk(storyId);
@@ -64,6 +68,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   }
 }));
 
+// MIRA
 router.put(
   '/:id(\\d+)',
   storyValidations,
@@ -87,6 +92,7 @@ router.put(
   })
 );
 
+// MIRA
 router.delete(
   '/:id(\\d+)',
   asyncHandler(async (req, res, next) => {
@@ -103,6 +109,7 @@ router.delete(
 );
 
 // Story Comments
+// MIRA
 router.get(
   '/:id(\\d+)/comments',
   asyncHandler(async (req, res, next) => {
@@ -127,6 +134,7 @@ router.get(
   })
 );
 
+// MIRA
 router.post(
   '/:storyId(\\d+)/comments',
   asyncHandler(async (req, res, next) => {
@@ -146,6 +154,7 @@ router.post(
 
 
 // Story Likes
+// MIRA
 router.post(
   '/:storyId(\\d+)/likes',
   asyncHandler(async (req, res, next) => {
@@ -169,6 +178,7 @@ router.post(
   })
 );
 
+// MIRA
 router.delete(
   '/:storyId(\\d+)/likes/:id(\\d+)',
   asyncHandler(async (req, res) => {
