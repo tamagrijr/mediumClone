@@ -210,4 +210,23 @@ router.get(
   })
 );
 
+router.post(
+  '/:storyId/comments',
+  asyncHandler(async (req, res, next) => {
+    const storyId = parseInt(req.params.storyId);
+    const story = await Story.findByPk(storyId);
+    const {
+      body,
+      userId
+    } = req.body;
+
+    if (story) {
+      const comment = await Comment.create({ userId, storyId, body });
+      res.json({ comment });
+    } else {
+      next(storyNotFoundError(storyId));
+    }
+  })
+);
+
 module.exports = router;
