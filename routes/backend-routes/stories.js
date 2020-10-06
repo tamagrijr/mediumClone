@@ -43,7 +43,7 @@ router.get(
       }
     });
 
-
+    res.json({ comments });
   })
 );
 
