@@ -21,21 +21,9 @@ const commentValidator = [
     .withMessage('Your comment must have a body')
 ];
 
-router.get(
-  '/:userId(\\d+)',
-  asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.userId);
-    const userComments = await Comment.findAll({
-      where: {
-        userId
-      }
-    });
 
-    res.json({ comments });
-  })
-);
 
-router.put(
+router.patch(
   '/comments/:id',
   commentValidator,
   handleValidationErrors,
@@ -44,13 +32,11 @@ router.put(
     const comment = await Comment.findByPk(commentId);
 
     const {
-      body,
-      userId,
-      storyId
+      body
     } = req.body;
 
     if (comment) {
-      const updatedComment = comment.update({ body, userId, storyId });
+      const updatedComment = comment.update({ body });
       res.json({ updatedComment });
     } else {
       next(commentNotFoundError(commentId));
@@ -68,7 +54,7 @@ router.delete(
       await comment.destroy();
       res.status(204).end();
     } else {
-      next(commentNotFoundError(commentId));
+      res.status(304).end();
     }
   })
 );

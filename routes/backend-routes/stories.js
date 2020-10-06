@@ -64,7 +64,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   }
 }));
 
-router.put(
+router.patch(
   '/:id(\\d+)',
   storyValidations,
   handleValidationErrors,
@@ -74,12 +74,11 @@ router.put(
 
     const {
       title,
-      body,
-      authorId
+      body
     } = req.body;
 
     if (story) {
-      const updatedStory = await story.update({ title, body, authorId });
+      const updatedStory = await story.update({ title, body });
       res.json({ updatedStory });
     } else {
       next(storyNotFoundError(storyId));
@@ -118,7 +117,6 @@ router.get(
     } else {
       const story = await Story.findByPk(storyId);
       if (story) {
-        // TODO: Discuss with group what to do when no comments are found for the story
         res.status(204).end();
       } else {
         next(storyNotFoundError(storyId));
