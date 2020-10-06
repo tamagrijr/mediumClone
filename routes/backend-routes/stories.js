@@ -63,4 +63,23 @@ router.post(
   })
 );
 
+router.put(
+  '/stories/:id',
+  storyValidations,
+  handleValidationErrors,
+  asyncHandler(async (req, res) => {
+    const story = await Story.findByPk(req.params.id);
+
+    const {
+      title,
+      body,
+      authorId
+    } = req.body;
+
+    const updatedStory = await story.update({ title, body, authorId });
+    res.json({ updatedStory });
+  })
+);
+
+
 module.exports = router;
