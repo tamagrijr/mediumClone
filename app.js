@@ -1,6 +1,7 @@
 const express = require("express")
 const environment = require("./config")
-// const indexRouter = require("routes/index")
+const indexRouter = require("./routes/backend-routes/index")
+const frontEndRouter = require("./routes/frontEndRoutes")
 const usersRouter = require("./routes/backend-routes/users")
 const storiesRouter = require("./routes/backend-routes/stories")
 const commentsRouter = require("./routes/backend-routes/comments")
@@ -18,6 +19,7 @@ app.use(morgan("dev"))
 app.use("/api/users", usersRouter)
 app.use("/api/stories", storiesRouter)
 app.use("/api/comments", commentsRouter)
+app.use(frontEndRouter)
 
 // 404 Catch unhandled requests
 app.use((req, res, next) => {

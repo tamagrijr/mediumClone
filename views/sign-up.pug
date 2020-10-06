@@ -1,5 +1,24 @@
 extends layout.pug
 
 block content
-    h1 Title - #{title}
+    //- script(src="js/sign-up.js")
+    h1 Sign-up Form
     p #{message}
+    
+    form(method="post" action="/sign-up")
+        input(name="_csrf" type="hidden" value=csrfToken)
+        
+        ul
+            li: label First Name:
+                input(name="firstName" type="text" value=firstName)
+            li: label Last Name:
+                input(name="lastName" type="text" value=lastName)
+            li: label e-mail:
+                input(name="email" type="email" value=email)
+            li: label Password:
+                input(name="password" type="password")
+            li: label Confirm Password:
+                input(name="confirmPassword" type="password")
+        
+        button(type="submit") Create an Account
+    a(href="/log-in") Have an account? Log-in here.

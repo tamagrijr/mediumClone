@@ -1,5 +1,28 @@
 extends layout.pug
 
 block content
-    h1 Title - #{title}
-    p #{message}
+    script(defer src="js/story-layout.js")
+    
+    article
+        h1= story.title
+        p= story.author
+        img(src="author-portrait.jpg" alt="Author: #{story.author}")
+        a(href="/follow"): img(src="icon-follow.svg")
+        a(href="/bookmark"): img(src="icon-bookmark.svg")
+        
+        .story-body= story.body
+        
+        a(href="/like"): img(src="icon-like.svg")
+        a(href="/comment"): img(src="icon-comment.svg")
+        
+        form(method="post" action="/comments")
+            label Add a Comment:
+                textarea
+            button(type="submit") Submit Comment
+        
+        section
+            h2 Comments
+            
+            ul
+            each comment in comments
+                li: comment

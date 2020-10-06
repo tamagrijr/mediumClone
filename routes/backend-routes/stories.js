@@ -36,6 +36,7 @@ const storyValidations = [
     .withMessage('Your story must specify the author.')
 ]
 
+// Story Routes
 router.post(
   '/',
   storyValidations,
@@ -63,6 +64,45 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   }
 }));
 
+router.put(
+  '/:id(\\d+)',
+  storyValidations,
+  handleValidationErrors,
+  asyncHandler(async (req, res, next) => {
+    const storyId = parseInt(req.params.id);
+    const story = await Story.findByPk(storyId);
+
+    const {
+      title,
+      body,
+      authorId
+    } = req.body;
+
+    if (story) {
+      const updatedStory = await story.update({ title, body, authorId });
+      res.json({ updatedStory });
+    } else {
+      next(storyNotFoundError(storyId));
+    }
+  })
+);
+
+router.delete(
+  '/:id(\\d+)',
+  asyncHandler(async (req, res, next) => {
+    const storyId = parseInt(req.params.id);
+    const story = await Story.findByPk(storyId);
+
+    if (story) {
+      await story.destroy();
+      res.status(204).end();
+    } else {
+      next(storyNotFoundError(storyId));
+    }
+  })
+);
+
+// Story Comments
 router.get(
   '/:id(\\d+)/comments',
   asyncHandler(async (req, res, next) => {
@@ -87,24 +127,17 @@ router.get(
   })
 );
 
-
-router.put(
-  '/:id(\\d+)',
-  storyValidations,
-  handleValidationErrors,
+router.post(
+  '/:storyId(\\d+)/comments',
   asyncHandler(async (req, res, next) => {
-    const storyId = parseInt(req.params.id);
+    const storyId = parseInt(req.params.storyId);
+    const { body, userId } = req.body;
+
     const story = await Story.findByPk(storyId);
 
-    const {
-      title,
-      body,
-      authorId
-    } = req.body;
-
     if (story) {
-      const updatedStory = await story.update({ title, body, authorId });
-      res.json({ updatedStory });
+      const comment = await Comment.create({ body, userId, storyId });
+      res.json({ comment });
     } else {
       next(storyNotFoundError(storyId));
     }
@@ -112,38 +145,24 @@ router.put(
 );
 
 
-router.delete(
-  '/:id(\\d+)',
-  asyncHandler(async (req, res, next) => {
-    const storyId = parseInt(req.params.id);
-    const story = await Story.findByPk(storyId);
-
-    if (story) {
-      await story.destroy();
-      res.status(204).end();
-    } else {
-      next(storyNotFoundError(storyId));
-    }
-  })
-);
-
+// Story Likes
 router.post(
   '/:storyId(\\d+)/likes',
   asyncHandler(async (req, res, next) => {
     const storyId = parseInt(req.params.storyId);
-    const { authorId: userId } = req.body;
+    const { userId } = req.body;
 
-    const like = await Like.findAll({
+    const like = await Like.findOne({
       where: {
-        authorId: userId,
-        storyId
+        userId, // MIRA This must be userId key for like!
+        storyId: req.params.storyId
       }
     });
 
     if (like) {
       res.status(304).end();
     } else {
-      const createdLike = await Like.create({ storyId, authorId: userId });
+      const createdLike = await Like.create({ storyId, userId });
       res.json({ createdLike });
     }
   })
@@ -164,21 +183,6 @@ router.delete(
   })
 );
 
-router.post(
-  '/:storyId(\\d+)/comments',
-  asyncHandler(async (req, res, next) => {
-    const storyId = parseInt(req.params.storyId);
-    const { body, userId } = req.body;
 
-    const story = await Story.findByPk(storyId);
-
-    if (story) {
-      const comment = await Comment.create({ body, userId, storyId });
-      res.json({ comment });
-    } else {
-      next(storyNotFoundError(storyId));
-    }
-  })
-);
 
 module.exports = router;

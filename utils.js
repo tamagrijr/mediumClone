@@ -11,12 +11,14 @@ function asyncHandler(handler) {
 function handleValidationErrors(req, res, next) {
   const validationErrors = validationResult(req)
   if (validationErrors.isEmpty()) next()
-  const errors = validationErrors.array().map(error => error.msg)
-  const err = Error("400: That is a bad request.")
-  err.errors = errors
-  err.status = 400
-  err.title = "400 Bad Request"
-  next(err)
+  else {
+    const errors = validationErrors.array().map(error => error.msg)
+    const err = Error("400: That is a bad request.")
+    err.errors = errors
+    err.status = 400
+    err.title = "400 Bad Request"
+    next(err)
+  }
 }
 
 module.exports = {
