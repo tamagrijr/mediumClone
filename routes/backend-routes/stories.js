@@ -154,10 +154,11 @@ router.post(
 
     const like = await Like.findOne({
       where: {
-        userId, // MIRA This must be userId key for like!
-        storyId: req.params.storyId
+        userId,
+        storyId
       }
     });
+    console.log(like)
 
     if (like) {
       res.status(304).end();
