@@ -6,6 +6,7 @@ const { Story, Comment, Like } = db;
 
 const router = express.Router();
 
+// MIRA Tested
 const storyNotFoundError = id => {
   const err = new Error(`Story id ${ id } could not be found!`);
   err.title = "Story not found";
@@ -52,7 +53,7 @@ router.post(
       authorId
     } = req.body;
     const story = await Story.create({ title, body, authorId });
-    await res.status(201).json({ story: {title: story.title, body: story.body, authorId: story.authorId} });
+    await res.status(201).json({ story });
   })
 );
 
@@ -68,7 +69,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   }
 }));
 
-// MIRA
+// MIRA Tested
 router.put(
   '/:id(\\d+)',
   storyValidations,
@@ -80,7 +81,7 @@ router.put(
     const {
       title,
       body,
-      authorId
+      authorId // MIRA This should never change.
     } = req.body;
 
     if (story) {
@@ -92,7 +93,7 @@ router.put(
   })
 );
 
-// MIRA
+// MIRA Tested
 router.delete(
   '/:id(\\d+)',
   asyncHandler(async (req, res, next) => {
@@ -109,7 +110,7 @@ router.delete(
 );
 
 // Story Comments
-// MIRA
+// MIRA Tested
 router.get(
   '/:id(\\d+)/comments',
   asyncHandler(async (req, res, next) => {
@@ -134,7 +135,7 @@ router.get(
   })
 );
 
-// MIRA
+// MIRA Tested
 router.post(
   '/:storyId(\\d+)/comments',
   asyncHandler(async (req, res, next) => {
@@ -147,6 +148,8 @@ router.post(
       const comment = await Comment.create({ body, userId, storyId });
       res.json({ comment });
     } else {
+      // TODO MIRA Trying to grab a 'story' with a :storyId integer that doesn't
+      // exist does not trigger this path. Ex: /api/stories/1234/comments
       next(storyNotFoundError(storyId));
     }
   })
@@ -154,7 +157,7 @@ router.post(
 
 
 // Story Likes
-// MIRA
+// MIRA Tested
 router.post(
   '/:storyId(\\d+)/likes',
   asyncHandler(async (req, res, next) => {
@@ -167,7 +170,6 @@ router.post(
         storyId
       }
     });
-    console.log(like)
 
     if (like) {
       res.status(304).end();
@@ -178,7 +180,7 @@ router.post(
   })
 );
 
-// MIRA
+// MIRA Tested
 router.delete(
   '/:storyId(\\d+)/likes/:id(\\d+)',
   asyncHandler(async (req, res) => {
