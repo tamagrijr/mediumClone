@@ -1,8 +1,7 @@
 const express = require('express');
-const { check, validationResult } = require('express-validator');
+const { check } = require('express-validator');
 const { asyncHandler, handleValidationErrors } = require('../../utils');
 const db = require('../../db/models');
-const { like } = require('sequelize/types/lib/operators');
 const { Story, Comment, Like } = db;
 
 const router = express.Router();
@@ -161,6 +160,23 @@ router.delete(
       res.status(204).end();
     } else {
       res.status(304).end();
+    }
+  })
+);
+
+router.post(
+  '/:storyId(\\d+)/comments',
+  asyncHandler(async (req, res, next) => {
+    const storyId = parseInt(req.params.storyId);
+    const { body, userId } = req.body;
+
+    const story = await Story.findByPk(storyId);
+
+    if (story) {
+      const comment = await Comment.create({ body, userId, storyId });
+      res.json({ comment });
+    } else {
+      next(storyNotFoundError(storyId));
     }
   })
 );
