@@ -82,4 +82,13 @@ router.put(
 );
 
 
+router.delete(
+  '/stories/:id',
+  asyncHandler(async (req, res) => {
+    const story = await Story.findByPk(req.params.id);
+    await story.destroy();
+    res.status(204).end();
+  })
+);
+
 module.exports = router;
