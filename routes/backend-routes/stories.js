@@ -2,7 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 const { asyncHandler, handleValidationErrors } = require('../../utils');
 const db = require('../../db/models');
-const { Story, Comment, Like, User } = db;
+const { Story, Comment, Like, User, Bookmark } = db;
 
 const router = express.Router();
 
@@ -14,6 +14,16 @@ const storyNotFoundError = id => {
 };
 
 const storyValidations = [
+
+  check('authorId')
+    .exists({
+      checkNull: true,
+      checkFalsy: true
+    })
+    .withMessage('Your story must specify the author.')
+];
+
+const storyUpdateValidations = [
   check('title')
     .exists({
       checkNull: true,
@@ -27,19 +37,14 @@ const storyValidations = [
       checkNull: true,
       checkFalsy: true
     })
-    .withMessage('Your story needs a body.'),
-  check('authorId')
-    .exists({
-      checkNull: true,
-      checkFalsy: true
-    })
-    .withMessage('Your story must specify the author.')
-]
+    .withMessage('Your story needs a body.')
+];
 
 // Story Routes
 router.post(
   '/',
   storyValidations,
+  storyUpdateValidations,
   handleValidationErrors,
   asyncHandler(async (req, res) => {
     const {
@@ -66,7 +71,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 
 router.patch(
   '/:id(\\d+)',
-  storyValidations,
+  storyUpdateValidations,
   handleValidationErrors,
   asyncHandler(async (req, res, next) => {
     const storyId = parseInt(req.params.id);
@@ -93,6 +98,36 @@ router.delete(
     const story = await Story.findByPk(storyId);
 
     if (story) {
+      const comments = await Comment.findAll({
+        where: {
+          storyId
+        }
+      });
+      comments.forEach(async (comment) => {
+        await comment.destroy();
+        return;
+      });
+
+      const likes = await Like.findAll({
+        where: {
+          storyId
+        }
+      });
+      likes.forEach(async (like) => {
+        await like.destroy();
+        return;
+      });
+
+      const bookmarks = await Bookmark.findAll({
+        where: {
+          storyId
+        }
+      });
+      bookmarks.forEach(async (bookmark) => {
+        await bookmark.destroy();
+        return;
+      });
+
       await story.destroy();
       res.status(204).end();
     } else {
@@ -108,7 +143,7 @@ router.get(
     const storyId = parseInt(req.params.id);
     const comments = await Comment.findAll({
       where: {
-        storyId: storyId
+        storyId
       }
     });
 
