@@ -2,7 +2,8 @@ const express = require('express');
 const { check, validationResult } = require('express-validator');
 const { asyncHandler, handleValidationErrors } = require('../../utils');
 const db = require('../../db/models');
-const { Story, Comment } = db;
+const { like } = require('sequelize/types/lib/operators');
+const { Story, Comment, Like } = db;
 
 const router = express.Router();
 
@@ -35,6 +36,22 @@ const storyValidations = [
     })
     .withMessage('Your story must specify the author.')
 ]
+
+router.post(
+  '/',
+  storyValidations,
+  handleValidationErrors,
+  asyncHandler(async (req, res) => {
+    const {
+      title,
+      body,
+      authorId
+    } = req.body;
+
+    const story = await Story.create({ title, body, authorId });
+    res.status(201).json({ story });
+  })
+);
 
 router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   const storyId = parseInt(req.params.id);
@@ -71,21 +88,6 @@ router.get(
   })
 );
 
-router.post(
-  '/',
-  storyValidations,
-  handleValidationErrors,
-  asyncHandler(async (req, res) => {
-    const {
-      title,
-      body,
-      authorId
-    } = req.body;
-
-    const story = await Story.create({ title, body, authorId });
-    res.status(201).json({ story });
-  })
-);
 
 router.put(
   '/:id(\\d+)',
@@ -120,6 +122,21 @@ router.delete(
     if (story) {
       await story.destroy();
       res.status(204).end();
+    } else {
+      next(storyNotFoundError(storyId));
+    }
+  })
+);
+
+router.post(
+  '/:id(\\d+)/likes',
+  asyncHandler(async (req, res, next) => {
+    const storyId = parseInt(req.params.id);
+    const { userId } = req.body;
+
+    if (await Story.findByPk(storyId)) {
+      const like = Like.create({ storyId, userId });
+      res.json({ like });
     } else {
       next(storyNotFoundError(storyId));
     }
