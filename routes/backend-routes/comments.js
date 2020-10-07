@@ -21,8 +21,6 @@ const commentValidator = [
     .withMessage('Your comment must have a body')
 ];
 
-
-
 // Post a new Comment to a Story by id
 // MIRA Tested
 // Existing story/user and body: makes post

@@ -4,13 +4,14 @@ const {
   checkForUser,
   checkForStory,
   checkForContent,
-  userNotFound,
+  contentNotFound,
 } = require("../../utils")
 const { User, Like, Story } = require("../../db/models")
 const router = express.Router()
 
 // Add a Like to a Story by id
 // MIRA Tested
+// 
 router.post(
   '/stories/:id(\\d+)/likes',
   asyncHandler(checkForStory),
@@ -22,7 +23,7 @@ router.post(
     }
     const likeExists = await Like.findOne({ where: newLike });
     if (likeExists) res.status(304).end();
-    else if (!user) userNotFound(req.body.userId)
+    else if (!user) contentNotFound(req.body.userId, "User")
     else {
       const createdLike = await Like.create(newLike);
       res.json(createdLike);
@@ -30,8 +31,56 @@ router.post(
   })
 );
 
+// Get Likes by a User by id
+// Existing user: Gets list of Likes with all associated Story info
+// Existing user, no likes: 204
+// Non-existing user: 404 User Not Found
+// Non-integer user id: 404 Generic Not Found
+router.get("/users/:id(\\d+)/likes",
+  asyncHandler(checkForUser),
+  asyncHandler(async (req, res) => {
+    const userLikes = await Like.findAll({
+      where: { userId: req.params.id },
+      include: Story
+    });
+    checkForContent(res, userLikes)
+  })
+)
+
+// Get Likes for a Story by id
+// Existing story: gets list of likes without sensitive User info
+// Existing story, no likes: 204
+// Non-existing story: 404 Story Not Found
+// Non-integer story id: 404 Generic Not Found
+router.get(
+  '/stories/:id(\\d+)/likes',
+  asyncHandler(checkForStory),
+  asyncHandler(async (req, res) => {
+    const likes = await Like.findAll({
+      where: { storyId: req.params.id },
+      include: User
+    });
+    const likeList = likes.map(like => {
+      return {
+        storyId: like.storyId,
+        id: like.id,
+        userId: like.userId,
+        firstName: like.User.firstName,
+        lastName: like.User.lastName
+      }
+    });
+    checkForContent(res, likeList)
+  })
+);
+
 // Delete a Like by Story and User ids
 // MIRA Tested
+// Existing like: 204, deletes like
+// Existing story, no body: 500 Server Error, WHERE params userId has undefined
+// Non-existing story: 500 Server Error, WHERE params userId has undefined
+// Empty userId value: 500 Server Error, invalid input syntax
+// Non-integer userId value: 500 Server Error, invalid input syntax
+// Non-existing userId value: 304
 router.delete(
   '/stories/:id(\\d+)/likes',
   asyncHandler(async (req, res) => {
@@ -47,43 +96,6 @@ router.delete(
     } else {
       res.status(304).end();
     }
-  })
-);
-
-// Get Likes by a User by id
-router.get("/users/:id(\\d+)/likes",
-  asyncHandler(checkForUser),
-  asyncHandler(async (req, res) => {
-    const userLikes = await Like.findAll({
-      where: { userId: req.params.id },
-      include: Story
-    });
-    checkForContent(userLikes)
-  })
-)
-
-// Get Likes for a Story by id
-router.get(
-  '/stories/:id(\\d+)/likes',
-  asyncHandler(checkForStory),
-  asyncHandler(async (req, res) => {
-    const likes = await Like.findAll({
-      where: {
-        storyId: req.params.id
-      },
-      include: User
-    });
-
-    const likeList = likes.map(like => {
-      return {
-        storyId: like.storyId,
-        id: like.id,
-        userId: like.userId,
-        firstName: like.User.firstName,
-        lastName: like.User.lastName
-      }
-    });
-    checkForContent(likeList)
   })
 );
 

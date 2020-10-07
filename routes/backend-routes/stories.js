@@ -4,6 +4,7 @@ const {
   asyncHandler,
   handleValidationErrors,
   checkForStory,
+  checkForUser,
   deleteForStory } = require('../../utils');
 const db = require('../../db/models');
 const { Story, Comment, Like, Bookmark } = db;
@@ -41,41 +42,78 @@ const storyValidations = [
 
 // Story Routes
 // MIRA Tested
+// Valid body: 201, creates story (non-unique allowed)
+// No body: 400 Bad Request, error messages 'must have title', 'must have author', 'must have body'
+// Empty string body content: 400 Bad Request "Must have body"
 router.post(
-  '/',
+  '/stories',
   authorValidation,
   storyValidations,
   handleValidationErrors,
   asyncHandler(async (req, res) => {
-    const {
-      title,
-      body,
-      authorId
-    } = req.body;
-    const story = await Story.create({ title, body, authorId });
-    res.status(201).json(story);
+    const { title, body, authorId } = req.body;
+    const author = await User.findByPk(authorId)
+    if (author) {
+      const story = await Story.create({ title, body, authorId });
+      res.status(201).json(story);
+    } else {
+      story
+    }
   })
 );
 
+// Get all Stories
+
+
+// Get all Stories by Author
+
+
+// TODO MIRA I just barfed this real quick, untested
+// Get all stories by User Follows
+router.get("/users/:id(\\d+)/follows/stories",
+  asyncHandler(checkForUser),
+  asyncHandler(async (req, res) => {
+    const follows = await Follow.findAll({
+      where: { followerId: req.params.id }
+    })
+    const followedAuthorIds = follows.map(follow => {
+      return follow.followingId
+    })
+    followedAuthorIds.map(authorId => {
+      Stories.findAll({
+        where: { authorId }
+      })
+    })
+  })
+)
+
 // Get a Story by id
 // MIRA Tested
-router.get('/:id(\\d+)', asyncHandler(checkForStory),
+// Existing story: gets story
+// Non-existing story: 404 Story Not Found
+// Non-integer story id: 404 Generic Not FOund
+router.get('/stories/:id(\\d+)',
+  asyncHandler(checkForStory),
   asyncHandler(async (req, res) => {
     res.json(req.story)
-  }));
+  })
+);
 
 // Update a Story by id
 // MIRA Tested
+// Existing story, valid body: updates story contents
+// No body: 400 Bad Request, error messages 'must have title', 'must have body'
+// Body with only title: 400 Bad Request, error message 'must have body'
+// Body with empty string contents: 400 Bad Request, 'must have body'
+// Non-existing story: 404 Story Not Found
+// Non-integer story id: 404 Generic Not Found
 router.patch(
-  '/:id(\\d+)',
+  '/stories/:id(\\d+)',
   asyncHandler(checkForStory),
   storyValidations,
   handleValidationErrors,
   asyncHandler(async (req, res) => {
-    const {
-      title,
-      body,
-    } = req.body;
+    const { title, body, } = req.body;
     const updatedStory = await req.story.update({ title, body });
     res.json(updatedStory);
   })
@@ -83,8 +121,12 @@ router.patch(
 
 // Delete a Story and associated dependencies by Story id
 // MIRA Tested
+// Existing story: 204 deletes story
+// Non-existing story: 404 Story not found
+// Non-integer story id: 404 Generic not found
+
 router.delete(
-  '/:id(\\d+)',
+  '/stories/:id(\\d+)',
   asyncHandler(checkForStory),
   asyncHandler(async (req, res) => {
     await deleteForStory(req.params.id, Comment)

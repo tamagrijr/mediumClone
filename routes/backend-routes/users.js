@@ -10,7 +10,7 @@ const { makeUserToken, requireAuthentication } = require("../../auth")
 const { User } = require("../../db/models")
 const usersRouter = express.Router()
 
-const userValidators = [
+const nameValidators = [
   // MIRA Tested
   check("firstName")
     .exists({ checkFalsy: true })
@@ -23,14 +23,18 @@ const userValidators = [
     .withMessage("Please give us a last name.")
     .isLength({ min: 0, max: 40 })
     .withMessage("A last name can't be longer than 40 characters in length."),
-  // MIRA Tested
+]
+
+const emailValidator = [
   check("email")
     .exists({ checkFalsy: true })
-    .withMessage("Please give us a valid email.")
+    .withMessage("Please give us an email.")
     .isEmail()
-    .withMessage("Please give us a valid email.")
+    .withMessage("Please give us a valid email address.")
     .isLength({ max: 80 })
     .withMessage("An email can't be longer than 80 characters in length."),
+]
+const passwordValidator = [
   // MIRA Tested
   check("password")
     .exists({ checkFalsy: true })
@@ -40,15 +44,18 @@ const userValidators = [
 ]
 
 // Get User by id
-// MIRA Tested x2
+// Existing user: gets User, including sensitive data
+// Non-existing user: 404 User not found
+// Non-integer user: 404 Generic Not Found
 usersRouter.get("/:id(\\d+)",
   asyncHandler(checkForUser),
-  (req, res) => {
-    res.json(req.user)
-  })
+  (req, res) => { res.json(req.user) })
 
 // Delete User by id
-// MIRA Tested
+// Existing user, no dependencies: 204
+// Existing user, dependendies: 500 Server Error, 'update or delete violates constraint'
+// Non-existing user: 404 User Not Found
+// Non-integer user id: 404 Generic not found
 usersRouter.delete("/:id(\\d+)",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
@@ -58,9 +65,12 @@ usersRouter.delete("/:id(\\d+)",
 )
 
 // Create a new User.
-// MIRA Tested x2
+// Valid body: 201 Creates user
+// No body: 400 Bad Request, error messages 'needs first name, valid email, etc.'
 usersRouter.post("/",
-  userValidators,
+  nameValidators,
+  emailValidator,
+  passwordValidator,
   handleValidationErrors,
   asyncHandler(async (req, res) => {
     const { firstName, lastName, email, password } = req.body
@@ -74,9 +84,15 @@ usersRouter.post("/",
 )
 
 // Edit User data by id.
-// MIRA Tested. x2 Works even with omitted values like firstName, email
+// Existing user, valid body: Updates user information, returns user with sensitive data
+// Existing user, No body: 400 Bad Request, error messages 'need a name, last name, email...'
+// Non-existing user: 404 User Not Found
+// Non-integer user id: 500 Server Error, 'invalid input syntax'
 usersRouter.patch("/:id",
   asyncHandler(checkForUser),
+  nameValidators,
+  emailValidator,
+  handleValidationErrors,
   asyncHandler(async (req, res) => {
     const { firstName, lastName, email } = req.body
     await req.user.update({ firstName, lastName, email })
@@ -90,7 +106,7 @@ usersRouter.post("/token",
   asyncHandler(async (req, res, next) => {
     const { email, password } = req.body
     const user = await User.findOne({ where: { email } })
-    if (!user || !user.validatePassword(password)) { // MIRA Add to User model?
+    if (!user || !user.validatePassword(password)) {
       const err = new Error("The login failed.")
       err.title = "401 Login Failed"
       err.status = 401

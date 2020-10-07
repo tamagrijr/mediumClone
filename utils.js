@@ -30,7 +30,8 @@ function contentNotFound(id, contentType) {
 }
 
 async function deleteForStory(id, Model) {
-  const records = Model.findAll({ where: { storyId: id } })
+  const records = await Model.findAll({ where: { storyId: id } })
+  console.log(records)
   records.forEach(async record => await record.destroy())
 }
 
