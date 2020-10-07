@@ -85,9 +85,9 @@ usersRouter.get("/:id(\\d+)/stories", asyncHandler(async (req, res) => {
     }
   });
   if (stories.length) {
-    res.json({ stories });
+    res.json({ stories })
   } else {
-    res.status(204).end();
+    res.status(204).end()
   }
 }))
 

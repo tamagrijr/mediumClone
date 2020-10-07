@@ -6,7 +6,6 @@ block content
     article
         h1= story.title
         p= story.author
-        //- setAttribute('alt', `Author: ${ story.author }`)
         img(id="authorImg" src="author-portrait.jpg" alt="Author: #{story.author}")
         a(href="/follow"): img(src="icon-follow.svg")
         a(href="/bookmark"): img(src="icon-bookmark.svg")

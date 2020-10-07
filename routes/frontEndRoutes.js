@@ -5,12 +5,6 @@ const frontEndRouter = express.Router();
 
 const csrfProtection = csrf({cookie: true});
 
-const fetchFromAPI = async (backEndRoute) => {
-    const dataJSON = await fetch(`http://localhost:3000/api${ backEndRoute }`);
-    const data = await dataJSON.json();
-    return data;
-}
-
 //actual splash page
 frontEndRouter.get("/splash", (req, res) => {
   res.render('splash');
