@@ -10,7 +10,7 @@ html(lang="en")
   body
     header
       div(class="navbar")
-        img(src="logo.svg" alt="MeDaYum Logo")
+        //- img(src="logo.svg" alt="MeDaYum Logo")
         nav
           +navLink("/sign-up", "Sign Up")
           +navLink("/log-in", "Log In")
@@ -22,7 +22,7 @@ html(lang="en")
         p Here are some stories that are definitely Da Yum.
     main
       .splash-tag-container
-        +splashTag("#", "Splash Tag", "#")
     footer
-      img(src="logo.svg" alt="MeDaYum Logo")
+      //- img(src="logo.svg" alt="MeDaYum Logo")
+    script(type="module" src="js/index.js")
     block content
