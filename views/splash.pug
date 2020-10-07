@@ -1,4 +1,4 @@
-include utils.pug
+include includes/includes/utils.pug
 
 doctype html
 html(lang="en")
@@ -6,17 +6,14 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title MeDaYum
-    //- link(rel="icon" href="../assets/favicon-32x32.png")
-    style
-      include ../css/splash.css
+    link(rel="stylesheet" type="text/css" href="/styles/splash.css")
   body
     header
       div(class="navbar")
         img(src="logo.svg" alt="MeDaYum Logo")
         nav
           ul
-            li
-              a(href="http://localhost:3000/sign-up") Sign Up
+            +navLink("http://localhost:3000/sign-up", "Sign Up")
             li
               a(href="/log-in") Log In
             li

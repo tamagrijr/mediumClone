@@ -14,11 +14,11 @@ frontEndRouter.get("/", (req, res) => {
     res.render('index');
 });
 //sign up form
-frontEndRouter.get("/sign-up", (req, res) => {
+frontEndRouter.get("/sign-up", csrfProtection, (req, res) => {
     res.render('sign-up', { csrfToken: req.csrfToken()});
 });
 //log-in form
-frontEndRouter.get("/log-in", (req, res) => {
+frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
     res.render('log-in', { csrfToken: req.csrfToken() });
 });
 //user profile

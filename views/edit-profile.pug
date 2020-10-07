@@ -7,7 +7,7 @@ block content
     p #{message}
 
     form(method="post" action="/edit-profile")
-        input(name="_csrf" type="hidden" value=csrfToken)
+        //- input(name="_csrf" type="hidden" value=csrfToken)
         +input("First Name", "firstName", "text", "First Name")
         +input("Last Name", "lastName", "text", "Last Name")
         include includes/login-fields.pug
