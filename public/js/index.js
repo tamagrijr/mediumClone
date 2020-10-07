@@ -1,7 +1,9 @@
 const errBtn = document.querySelector(".errorButton");
 
 errBtn.addEventListener('click', (e) => {
-    e.preventDefault();
+  e.preventDefault();
+
+
 
     // res.status(500);
 
@@ -13,4 +15,10 @@ errBtn.addEventListener('click', (e) => {
 
     window.location.href = "/error-test";
 
-})
+});
+
+const splashTagContainer = querySelector(".splash-tag-container");
+
+document.addEventListener('DOMContentLoaded', () => {
+  const stories = await fetch('http://localhost:3000/api/')
+});
