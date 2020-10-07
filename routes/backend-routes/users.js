@@ -81,18 +81,16 @@ usersRouter.patch("/:id", asyncHandler(async (req, res, next) => {
 // TODO MIRA How to handle changing passwords.
 
 // Create a new User.
-// MIRA Tested
-usersRouter.post("/", userValidators, handleValidationErrors,
-  asyncHandler(async (req, res) => {
-    const { firstName, lastName, email, password } = req.body
-    const hashedPassword = await bcrypt.hash(password, 10)
-    const newUser = await User.create({
-      firstName, lastName, email, hashedPassword
-    })
-    // const token = makeUserToken(newUser) // TODO Implement auth AFTER routes.
-    await res.status(201).json({ newUser })//TODO ADD TOKEN --
+// TODO MIRA Add validations and validation handlers
+usersRouter.post("/", userValidators, handleValidationErrors, asyncHandler(async (req, res) => {
+  const { firstName, lastName, email, password } = req.body
+  const hashedPassword = await bcrypt.hash(password, 10)
+  const newUser = await User.create({
+    firstName, lastName, email, hashedPassword
   })
-)
+  const token = makeUserToken(newUser) // TODO Implement auth AFTER routes.
+  await res.status(201).json({ user: { id: newUser.id }, token })//TODO ADD TOKEN --
+}))
 
 // Create a new JWT token for a user on login(?)
 usersRouter.post("/token", asyncHandler(async (req, res, next) => {
@@ -147,7 +145,7 @@ usersRouter.post("/:id(\\d+)/follows", asyncHandler(async (req, res) => {
 
   if (followExists || req.params.id === req.body.followingId) { // MIRA User can't follow self.
     res.status(304).end()
-  } 
+  }
   else if (!follower) next(userNotFound(req.params.id))
   else if (!following) next(userNotFound(req.body.followingId))
   else {
