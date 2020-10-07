@@ -4,14 +4,12 @@ block content
   .form-container
     .errors-container
     h2 Sign Up
-    form(class="sign-up-form" method="post" action="/sign-up")
-      //- input(type="hidden" name="_csrf" value=csrfToken)
+    form(class="sign-up-form")
       +input("First Name", "firstName", "text", "First Name")
       +input("Last Name", "lastName", "text", "Last Name")
-      +input("Username", "username", "text", "Username")
-      include includes/login-fields.pug
+      include includes/login-fields
       +input("Confirm Password", "confirmPassword", "password", "Confirm Password")
-      +btn("Sign Up", "btn btn-primary", "sign-up")
+      +btn("Sign Up", "btn btn-primary", "signupBtn")
     p Already have an account?
       a(href='/log-in')   Log in here.
   script(type="module" src="js/signUp.js")
