@@ -13,6 +13,7 @@ const commentNotFoundError = id => {
 };
 
 const commentValidator = [
+  // MIRA 
   check('body')
     .exists({
       checkNull: true,
