@@ -78,6 +78,19 @@ usersRouter.patch("/:id", asyncHandler(async (req, res, next) => {
   }
 }))
 
+usersRouter.get("/:id(\\d+)/stories", asyncHandler(async (req, res) => {
+  const stories = await Story.findAll({
+    where: {
+      authorId: parseInt(req.params.id)
+    }
+  });
+  if (stories.length) {
+    res.json({ stories });
+  } else {
+    res.status(204).end();
+  }
+}))
+
 // TODO MIRA How to handle changing passwords.
 
 // Create a new User.

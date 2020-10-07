@@ -12,7 +12,7 @@ const app = express()
 app.use(express.json())
 app.set("view engine", "pug")
 app.use(cookieParser())
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: false }))
 
 // Dev dependencies
 const morgan = require("morgan")
