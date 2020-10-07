@@ -22,7 +22,7 @@ frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
     res.render('log-in', { csrfToken: req.csrfToken() });
 });
 //user profile
-frontEndRouter.get("/users/:id", (req, res) => {
+frontEndRouter.get("/users", (req, res) => {
     res.render('profile');
 });
 //edit user profile form

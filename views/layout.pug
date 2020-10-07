@@ -5,6 +5,9 @@ html(lang='en')
         meta(charset='utf-8')
         title - #{title}
         link(rel='stylesheet' type='text/css' href='/styles/style.css')
+<<<<<<< HEAD
+        script(defer src="js/index.js" type="module")
+=======
         script(defer src="js/index.js")
         script(defer src="js/logout.js")
         //- style(type="text/css").
@@ -57,6 +60,7 @@ html(lang='en')
         //-         border-radius: 15px;
         //-         color: black;
         //-     }
+>>>>>>> main
     body
       header
         //- img(src="logo.svg" alt="MeDaYum Logo")
@@ -67,8 +71,13 @@ html(lang='en')
           ul.main-nav
             //- li: a(href="/") Home
             li: a(href="/stories") Stories
+<<<<<<< HEAD
+            li: a(href="/users") Profile
+            li: a(href="/log-in") Log-in
+=======
             li: a(href="/users/:id") Profile
             li: a(href="/log-in") Log-In
+>>>>>>> main
             li: a(href="/sign-up") Sign-Up
             li: a.button(id="logoutButton" href="/") Log-Out
 
@@ -79,4 +88,7 @@ html(lang='en')
 
       footer
         img(src="logo.svg" alt="MeDaYum Logo")
+<<<<<<< HEAD
+=======
         //- script(src="../public/js/index.js")
+>>>>>>> main
