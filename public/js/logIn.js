@@ -30,7 +30,7 @@ logInForm.addEventListener("submit", async (e) => {
         // storage access_token in localStorage:
         localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
         localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
-        // redirect to home page
+        // redirect to home page:
         window.location.href = "/";
       } catch (err) {
         handleErrors(err);
