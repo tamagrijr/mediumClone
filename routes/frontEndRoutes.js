@@ -26,7 +26,7 @@ frontEndRouter.get("/users", (req, res) => {
     res.render('profile');
 });
 //edit user profile form
-frontEndRouter.get("/users/:id/edit", csrfProtection, (req, res) => {
+frontEndRouter.get("/users/:id(\\d+)/edit", csrfProtection, (req, res) => {
     res.render('edit-profile', { csrfToken: req.csrfToken() });
 });
 //create new story form
@@ -34,11 +34,11 @@ frontEndRouter.get("/create", csrfProtection, (req, res) => {
     res.render('create', { csrfToken: req.csrfToken() });
 });
 // display story by id
-frontEndRouter.get("/stories/:id", (req, res) => {
+frontEndRouter.get("/stories/:id(\\d+)", (req, res) => {
     res.render('story-layout');
 });
 //display story edit form
-frontEndRouter.get("/stories/:id/edit", csrfProtection, (req, res) => {
+frontEndRouter.get("/stories/:id(\\d+)/edit", csrfProtection, (req, res) => {
     res.render('story-edit-layout', { csrfToken: req.csrfToken() });
 });
 //display feed
