@@ -16,7 +16,7 @@ const bookmarksRouter = express.Router()
 // Existing user, no bookmarks: 204
 // Non-existing user: 404 User Not Found
 // Non-digit user id: 500 Server Error, invalid input syntax
-bookmarksRouter.get("/users/:id/bookmarks",
+bookmarksRouter.get("/users/:id(\\d+)/bookmarks",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
     const userBookmarks = await Bookmark.findAll({
@@ -26,12 +26,12 @@ bookmarksRouter.get("/users/:id/bookmarks",
   }))
 
 // Get a list of Bookmarks for a Story
-// MIRA Tested: 
+// MIRA Tested:
 // Existing story and bookmarks
 // Existing story, no bookmarks: 204
 // Non-existing story: 404 Story Not Found
 // Non-digit Story id: 500 Server Error, invalid input syntax
-bookmarksRouter.get("/stories/:id/bookmarks",
+bookmarksRouter.get("/stories/:id(\\d+)/bookmarks",
   asyncHandler(checkForStory),
   asyncHandler(async (req, res) => {
     const storyBookmarks = await Bookmark.findAll({
@@ -56,7 +56,7 @@ bookmarksRouter.post("/users/:id/bookmarks",
     const newBookmark = { userId: req.params.id, storyId: req.body.storyId }
     const bookmarkExists = await Bookmark.findOne({ where: newBookmark })
     const story = await Story.findByPk(req.body.storyId)
-    
+
     if (bookmarkExists) res.status(304).end()
     else if (!story) next(contentNotFound(req.body.storyId, "Story"))
     else {
