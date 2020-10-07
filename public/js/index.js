@@ -1,3 +1,8 @@
+import { loggedIn } from "./utils.js";
+
+const logoutButton = document.querySelector('#logoutButton');
+const loginRequired = document.querySelector('.authorized-link');
+
 window.addEventListener('DOMContentLoaded', async () => {
   if (window.location.href === 'http://localhost:3000/splash') {
     const tagContainer = document.querySelector(".splash-tag-container");
@@ -17,6 +22,11 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+
+logoutButton.addEventListener('click', (e) => {
+    window.localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
+    window.localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
+})
 // const errBtn = document.querySelector(".errorButton");
 // errBtn.addEventListener('click', (e) => {
 //   e.preventDefault();
