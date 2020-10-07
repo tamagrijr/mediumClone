@@ -1,4 +1,5 @@
 const express = require("express")
+const cookieParser = require("cookie-parser")
 const environment = require("./config")
 const indexRouter = require("./routes/backend-routes/index")
 const frontEndRouter = require("./routes/frontEndRoutes")
@@ -10,6 +11,8 @@ const path = require("path");
 const app = express()
 app.use(express.json())
 app.set("view engine", "pug")
+app.use(cookieParser())
+app.use(express.urlencoded())
 
 // Dev dependencies
 const morgan = require("morgan")

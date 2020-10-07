@@ -1,5 +1,10 @@
 const express = require('express');
+const csrf = require('csurf');
+
 const frontEndRouter = express.Router();
+
+const csrfProtection = csrf({cookie: true});
+
 //actual splash page
 frontEndRouter.get("/splash", (req, res) => {
   res.render('splash');
@@ -10,11 +15,11 @@ frontEndRouter.get("/", (req, res) => {
 });
 //sign up form
 frontEndRouter.get("/sign-up", (req, res) => {
-    res.render('sign-up');
+    res.render('sign-up', { csrfToken: req.csrfToken()});
 });
 //log-in form
 frontEndRouter.get("/log-in", (req, res) => {
-    res.render('log-in');
+    res.render('log-in', { csrfToken: req.csrfToken() });
 });
 //user profile
 frontEndRouter.get("/users/:id", (req, res) => {
@@ -22,11 +27,11 @@ frontEndRouter.get("/users/:id", (req, res) => {
 });
 //edit user profile form
 frontEndRouter.get("/users/:id/edit", (req, res) => {
-    res.render('edit-profile');
+    res.render('edit-profile', { csrfToken: req.csrfToken() });
 });
 //create new story form
 frontEndRouter.get("/create", (req, res) => {
-    res.render('create');
+    res.render('create', { csrfToken: req.csrfToken() });
 });
 // display story by id
 frontEndRouter.get("/stories/:id", (req, res) => {
@@ -34,7 +39,7 @@ frontEndRouter.get("/stories/:id", (req, res) => {
 });
 //display story edit form
 frontEndRouter.get("/stories/:id/edit", (req, res) => {
-    res.render('story-edit-layout');
+    res.render('story-edit-layout', { csrfToken: req.csrfToken() });
 });
 //display feed
 frontEndRouter.get("/feed", (req, res) => {
