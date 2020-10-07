@@ -44,7 +44,7 @@ demoLogin.addEventListener('click', async(e) => {
   const body ={email, password}
   try {
     // ADD THIS ONCE VALIDATION IS IMPLEMENTED
-    const res = await fetch("/api/users/token", {
+    const res = await fetch("http://localhost:3000/api/users/token", {
       method: "POST",
       body: JSON.stringify(body),
       headers: {

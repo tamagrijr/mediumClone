@@ -3,6 +3,8 @@ import { handleErrors } from "./utils.js";
 document.addEventListener('DOMContentLoaded', async (e) => {
     const userId = localStorage.getItem("MEDIUM_CURRENT_USER_ID");
     const userToken = localStorage.getItem("MEDIUM_ACCESS_TOKEN");
+    const isAuth = userId.headers.Authorization.split(' ')[0] = 'authorization';
+    const token = userId.headers.Authorization.split(' ')[1];
     if(userId === null) {
         window.location.href = "/";
         return
@@ -12,8 +14,8 @@ document.addEventListener('DOMContentLoaded', async (e) => {
             // method: "GET",
             // body: JSON.stringify(body),
             headers: {
-                Authorization: `Bearer ${userToken}`,
-                "Content-Type": "applicaiton/json",
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
             }
         })
         if(!res.ok) {
