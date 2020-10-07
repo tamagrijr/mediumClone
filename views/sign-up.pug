@@ -9,9 +9,9 @@ block content
       +input("First Name", "firstName", "text", "First Name")
       +input("Last Name", "lastName", "text", "Last Name")
       +input("Username", "username", "text", "Username")
-      include includes/login-fields
+      include includes/login-fields.pug
       +input("Confirm Password", "confirmPassword", "password", "Confirm Password")
       +btn("Sign Up", "btn btn-primary", "sign-up")
     p Already have an account?
-      a(href='/log-in') Log in here.
+      a(href='/log-in')   Log in here.
   script(type="module" src="js/signUp.js")

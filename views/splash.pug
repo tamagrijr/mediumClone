@@ -1,4 +1,4 @@
-include includes/includes/utils.pug
+include includes/utils.pug
 
 doctype html
 html(lang="en")
@@ -12,12 +12,9 @@ html(lang="en")
       div(class="navbar")
         img(src="logo.svg" alt="MeDaYum Logo")
         nav
-          ul
-            +navLink("http://localhost:3000/sign-up", "Sign Up")
-            li
-              a(href="/log-in") Log In
-            li
-              a(href="#") Demo User
+          +navLink("/sign-up", "Sign Up")
+          +navLink("/log-in", "Log In")
+          +navLink("#", "Demo User")
       div(class="heading")
         h1
           | ME DA YUM. YOU DA YUM
@@ -25,6 +22,6 @@ html(lang="en")
         p Here are some stories that are definitely Da Yum.
     main
       +splashTag("#", "Splash Tag", "#")
-    block content
     footer
       img(src="logo.svg" alt="MeDaYum Logo")
+    block content
