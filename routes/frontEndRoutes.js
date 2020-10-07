@@ -1,5 +1,9 @@
 const express = require('express');
 const frontEndRouter = express.Router();
+//actual splash page
+frontEndRouter.get("/splash", (req, res) => {
+  res.render('splash');
+});
 //splash page
 frontEndRouter.get("/", (req, res) => {
     res.render('index');
