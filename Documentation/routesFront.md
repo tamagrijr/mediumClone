@@ -4,7 +4,8 @@ Returns HTML
 
 | HTTP Method | Path        | Action |
 |-------------|-------------|--------|
-| GET         | `/`         | Show homepage (sign-up splash or User ) |
+| GET         | `/`         | Show homepage |
+| GET         | `/splash`   | Show splash page |
 
 ## Users
 | HTTP Method | Path        | Action |

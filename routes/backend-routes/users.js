@@ -51,19 +51,6 @@ usersRouter.get("/:id(\\d+)",
   asyncHandler(checkForUser),
   (req, res) => { res.json(req.user) })
 
-// Delete User by id
-// Existing user, no dependencies: 204
-// Existing user, dependendies: 500 Server Error, 'update or delete violates constraint'
-// Non-existing user: 404 User Not Found
-// Non-integer user id: 404 Generic not found
-usersRouter.delete("/:id(\\d+)",
-  asyncHandler(checkForUser),
-  asyncHandler(async (req, res) => {
-    await req.user.destroy()
-    res.status(204).end()
-  })
-)
-
 // Create a new User.
 // Valid body: 201 Creates user
 // No body: 400 Bad Request, error messages 'needs first name, valid email, etc.'
@@ -83,24 +70,6 @@ usersRouter.post("/",
   })
 )
 
-// Edit User data by id.
-// Existing user, valid body: Updates user information, returns user with sensitive data
-// Existing user, No body: 400 Bad Request, error messages 'need a name, last name, email...'
-// Non-existing user: 404 User Not Found
-// Non-integer user id: 500 Server Error, 'invalid input syntax'
-usersRouter.patch("/:id",
-  asyncHandler(checkForUser),
-  nameValidators,
-  emailValidator,
-  handleValidationErrors,
-  asyncHandler(async (req, res) => {
-    const { firstName, lastName, email } = req.body
-    await req.user.update({ firstName, lastName, email })
-    res.json(req.user)
-  })
-)
-// TODO MIRA How to handle changing passwords.
-
 // Create a new JWT token for a user on login(?)
 usersRouter.post("/token",
   asyncHandler(async (req, res, next) => {
@@ -118,6 +87,37 @@ usersRouter.post("/token",
   })
 )
 
+// Edit User data by id.
+// Existing user, valid body: Updates user information, returns user with sensitive data
+// Existing user, No body: 400 Bad Request, error messages 'need a name, last name, email...'
+// Non-existing user: 404 User Not Found
+// Non-integer user id: 500 Server Error, 'invalid input syntax'
+usersRouter.patch("/:id",
+  asyncHandler(checkForUser),
+  nameValidators,
+  emailValidator,
+  handleValidationErrors,
+  asyncHandler(async (req, res) => {
+    const { firstName, lastName, email } = req.body
+    await req.user.update({ firstName, lastName, email })
+    res.json(req.user)
+  })
+)
+
+// TODO MIRA How to handle changing passwords.
+
+// Delete User by id
+// Existing user, no dependencies: 204
+// Existing user, dependendies: 500 Server Error, 'update or delete violates constraint'
+// Non-existing user: 404 User Not Found
+// Non-integer user id: 404 Generic not found
+usersRouter.delete("/:id(\\d+)",
+  asyncHandler(checkForUser),
+  asyncHandler(async (req, res) => {
+    await req.user.destroy()
+    res.status(204).end()
+  })
+)
 
 
 module.exports = usersRouter
