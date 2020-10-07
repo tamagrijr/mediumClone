@@ -1,0 +1,31 @@
+include includes/utils.pug
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title MeDaYum
+    link(rel="stylesheet" type="text/css" href="/styles/splash.css")
+  body
+    header
+      div(class="navbar")
+        //- img(src="logo.svg" alt="MeDaYum Logo")
+        nav
+          +navLink("/sign-up", "Sign Up")
+          +navLink("/log-in", "Log In")
+          +btn("Demo Login", "btn btn-primary", "demo")
+      div(class="heading")
+        h1
+          | ME DA YUM. YOU DA YUM
+          | WE DA YUM!
+        p Here are some stories that are definitely Da Yum.
+    main
+      .errors-container
+      .splash-tag-container
+    footer
+      //- img(src="logo.svg" alt="MeDaYum Logo")
+    script(type="module" src="js/index.js")
+    script(type="module" src="js/login.js")
+    i.log-in-form.hidden
+    block content

@@ -1,8 +1,12 @@
 const express = require("express")
+const cookieParser = require("cookie-parser")
 const environment = require("./config")
 const indexRouter = require("./routes/backend-routes/index")
 const frontEndRouter = require("./routes/frontEndRoutes")
 const usersRouter = require("./routes/backend-routes/users")
+const followsRouter = require("./routes/backend-routes/follows")
+const bookmarksRouter = require("./routes/backend-routes/bookmarks")
+const likesRouter = require("./routes/backend-routes/likes")
 const storiesRouter = require("./routes/backend-routes/stories")
 const commentsRouter = require("./routes/backend-routes/comments")
 const path = require("path");
@@ -10,6 +14,8 @@ const path = require("path");
 const app = express()
 app.use(express.json())
 app.set("view engine", "pug")
+app.use(cookieParser())
+app.use(express.urlencoded())
 
 // Dev dependencies
 const morgan = require("morgan")
@@ -20,8 +26,11 @@ app.use(morgan("dev"))
 // app.use("api/", indexRouter)
 app.use(frontEndRouter)
 app.use("/api/users", usersRouter)
-app.use("/api/stories", storiesRouter)
-app.use("/api/comments", commentsRouter)
+app.use("/api/users", followsRouter)
+app.use("/api", storiesRouter)
+app.use("/api", commentsRouter)
+app.use("/api", bookmarksRouter)
+app.use("/api", likesRouter)
 app.use(express.static(path.join(__dirname, "public")));
 
 

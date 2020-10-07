@@ -1,10 +1,12 @@
-  
+
 doctype html
 html(lang='en')
     head
         meta(charset='utf-8')
         title - #{title}
+        link(rel='stylesheet' type='text/css' href='/styles/style.css')
         script(defer src="js/index.js")
+        script(defer src="js/logout.js")
         //- style(type="text/css").
         //-     * {
         //-         box-sizing: border-box;
@@ -16,7 +18,7 @@ html(lang='en')
         //-         background-color: #333;
         //-         overflow: hidden;
         //-         display: flex;
-              
+
         //-     }
         //-     .topnav a {
         //-         color: #f2f2f2;
@@ -59,21 +61,30 @@ html(lang='en')
         //- NEED userId for link to profile
     body
       header
-        img(src="logo.svg" alt="MeDaYum Logo")
-        p Welcome, #{firstname} #{lastName}!
-        
+        //- img(src="logo.svg" alt="MeDaYum Logo")
+        //- p Welcome, #{firstname} #{lastName}!
+
         nav.topnav
-          ul
-            li: a(href="/") Home
+          h1.logo: a(href="/") MeDaYum
+          ul.main-nav
+            //- li: a(href="/") Home
             li: a(href="/stories") Stories
+<<<<<<< HEAD
             li: a(href=`/users/${userId}`) Profile
             li: a(href="/log-in") Log-in
+=======
+            li: a(href="/users/:id") Profile
+            li: a(href="/log-in") Log-In
+>>>>>>> main
             li: a(href="/sign-up") Sign-Up
-      
+            li: a.button(id="logoutButton" href="/") Log-Out
+
+
       main
         div.errorButtonDiv: button.errorButton(href='/error-test') Create 500 Error
         block content
-      
+
       footer
+        //- img(src="logo.svg" alt="MeDaYum Logo")
+        script(src="js/index.js")
         img(src="logo.svg" alt="MeDaYum Logo")
-        
