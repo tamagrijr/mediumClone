@@ -4,7 +4,7 @@ const bearerToken = require("express-bearer-token")
 const { check } = require("express-validator")
 const { asyncHandler, handleValidationErrors } = require("../../utils")
 const { makeUserToken, requireAuthentication } = require("../../auth")
-const { User, Follow, Bookmark, Story } = require("../../db/models")
+const { User, Follow, Bookmark, Story, Like, Comment } = require("../../db/models")
 const usersRouter = express.Router()
 
 const userValidators = [
@@ -222,18 +222,30 @@ usersRouter.delete("/:id(\\d+)/bookmarks",
         storyId: req.body.storyId
       }
     })
-
     if (bookmark) {
       await bookmark.destroy()
       res.status(204).end()
-    } else {
-      res.status(304).end()
-    }
+    } else  res.status(304).end()
   })
 )
+usersRouter.get("/:id(\\d+)/likes", asyncHandler(async (req, res) => {
+  const userId = parseInt(req.params.id);
+  const userLikes = await Like.findAll({
+    where: { userId },
+    include: Story
+  });
+  await res.json({ userLikes });
+}))
 
-// User Validator Middlewares.
-// TODO MIRA Should we break them into separate functions, like twitter-clone?
-
+// Get comments by a user
+usersRouter.get('/:userId(\\d+)/comments',
+  asyncHandler(async (req, res) => {
+    const userComments = await Comment.findAll({
+      where: { userId },
+      include: Story
+    });
+    res.json({ userComments });
+  })
+);
 
 module.exports = usersRouter

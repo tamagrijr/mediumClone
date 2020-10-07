@@ -2,7 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 const { asyncHandler, handleValidationErrors } = require('../../utils');
 const db = require('../../db/models');
-const { Story, Comment, Like } = db;
+const { Story, Comment, Like, User, Bookmark } = db;
 
 const router = express.Router();
 
@@ -16,6 +16,15 @@ const storyNotFoundError = id => {
 
 const storyValidations = [
   // MIRA Tested
+  check('authorId')
+    .exists({
+      checkNull: true,
+      checkFalsy: true
+    })
+    .withMessage('Your story must specify the author.')
+];
+
+const storyUpdateValidations = [
   check('title')
     .exists({
       checkNull: true,
@@ -30,21 +39,15 @@ const storyValidations = [
       checkNull: true,
       checkFalsy: true
     })
-    .withMessage('Your story needs a body.'),
-  // MIRA Tested
-  check('authorId')
-    .exists({
-      checkNull: true,
-      checkFalsy: true
-    })
-    .withMessage('Your story must specify the author.')
-]
+    .withMessage('Your story needs a body.')
+];
 
 // Story Routes
 // MIRA Tested
 router.post(
   '/',
   storyValidations,
+  storyUpdateValidations,
   handleValidationErrors,
   asyncHandler(async (req, res) => {
     const {
@@ -70,9 +73,9 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 }));
 
 // MIRA Tested
-router.put(
+router.patch(
   '/:id(\\d+)',
-  storyValidations,
+  storyUpdateValidations,
   handleValidationErrors,
   asyncHandler(async (req, res, next) => {
     const storyId = parseInt(req.params.id);
@@ -81,11 +84,10 @@ router.put(
     const {
       title,
       body,
-      authorId // MIRA This should never change.
     } = req.body;
 
     if (story) {
-      const updatedStory = await story.update({ title, body, authorId });
+      const updatedStory = await story.update({ title, body });
       res.json({ updatedStory });
     } else {
       next(storyNotFoundError(storyId));
@@ -101,6 +103,36 @@ router.delete(
     const story = await Story.findByPk(storyId);
 
     if (story) {
+      const comments = await Comment.findAll({
+        where: {
+          storyId
+        }
+      });
+      comments.forEach(async (comment) => {
+        await comment.destroy();
+        return;
+      });
+
+      const likes = await Like.findAll({
+        where: {
+          storyId
+        }
+      });
+      likes.forEach(async (like) => {
+        await like.destroy();
+        return;
+      });
+
+      const bookmarks = await Bookmark.findAll({
+        where: {
+          storyId
+        }
+      });
+      bookmarks.forEach(async (bookmark) => {
+        await bookmark.destroy();
+        return;
+      });
+
       await story.destroy();
       res.status(204).end();
     } else {
@@ -117,7 +149,7 @@ router.get(
     const storyId = parseInt(req.params.id);
     const comments = await Comment.findAll({
       where: {
-        storyId: storyId
+        storyId
       }
     });
 
@@ -126,7 +158,6 @@ router.get(
     } else {
       const story = await Story.findByPk(storyId);
       if (story) {
-        // TODO: Discuss with group what to do when no comments are found for the story
         res.status(204).end();
       } else {
         next(storyNotFoundError(storyId));
@@ -196,6 +227,49 @@ router.delete(
   })
 );
 
+router.get(
+  '/:storyId(\\d+)/likes',
+  asyncHandler(async (req, res) => {
+    const storyId = parseInt(req.params.storyId);
 
+    const likes = await Like.findAll({
+      where: {
+        storyId
+      },
+      include: User
+    });
+
+    const likeList = likes.map(like => {
+      return {
+        storyId: like.storyId,
+        id: like.id,
+        userId: like.userId,
+        firstName: like.User.firstName,
+        lastName: like.User.lastName
+      }
+    });
+
+    res.json({ likeList });
+  })
+);
+
+router.post(
+  '/:storyId/comments',
+  asyncHandler(async (req, res, next) => {
+    const storyId = parseInt(req.params.storyId);
+    const story = await Story.findByPk(storyId);
+    const {
+      body,
+      userId
+    } = req.body;
+
+    if (story) {
+      const comment = await Comment.create({ userId, storyId, body });
+      res.json({ comment });
+    } else {
+      next(storyNotFoundError(storyId));
+    }
+  })
+);
 
 module.exports = router;
