@@ -98,7 +98,7 @@ usersRouter.post("/token", asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ where: { email } })
   if (!user || !user.validatePassword(password)) { // MIRA Add to User model?
     const err = new Error("The login failed.")
-    err.status(401)
+    err.status = 401;
     err.title = "401 Login Failed"
     err.errors = "The provided credentials are INVALID."
     return next(err)
