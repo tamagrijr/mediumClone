@@ -41,6 +41,7 @@ const storyValidations = [
     .withMessage('Your story needs a body.')
 ];
 
+// Get all Stories
 // get a list of all stories, just for now for the splash page
 // at least until topics
 router.get(
@@ -50,30 +51,6 @@ router.get(
     checkForContent(res, stories);
   })
 );
-
-// Story Routes
-// MIRA Tested
-// Valid body: 201, creates story (non-unique allowed)
-// No body: 400 Bad Request, error messages 'must have title', 'must have author', 'must have body'
-// Empty string body content: 400 Bad Request "Must have body"
-router.post(
-  '/stories',
-  authorValidation,
-  storyValidations,
-  handleValidationErrors,
-  asyncHandler(async (req, res) => {
-    const { title, body, authorId } = req.body;
-    const author = await User.findByPk(authorId)
-    if (author) {
-      const story = await Story.create({ title, body, authorId });
-      res.status(201).json(story);
-    } else {
-      story
-    }
-  })
-);
-
-// Get all Stories
 
 
 // Get all Stories by Author
@@ -110,6 +87,28 @@ router.get('/stories/:id(\\d+)',
     res.json(req.story)
   })
 );
+
+// MIRA Tested
+// Valid body: 201, creates story (non-unique allowed)
+// No body: 400 Bad Request, error messages 'must have title', 'must have author', 'must have body'
+// Empty string body content: 400 Bad Request "Must have body"
+router.post(
+  '/stories',
+  authorValidation,
+  storyValidations,
+  handleValidationErrors,
+  asyncHandler(async (req, res) => {
+    const { title, body, authorId } = req.body;
+    const author = await User.findByPk(authorId)
+    if (author) {
+      const story = await Story.create({ title, body, authorId });
+      res.status(201).json(story);
+    } else {
+      story
+    }
+  })
+);
+
 
 // Update a Story by id
 // MIRA Tested
