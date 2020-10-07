@@ -1,21 +1,16 @@
-extends layout.pug
+extends splash.pug
 
 block content
-  div(class="sign-up-container")
-    div(class="errors-container")
+  .form-container
+    .errors-container
     h2 Sign Up
     form(class="sign-up-form")
-      .form-group
-        label(for="firstName") First Name
-        input#firstName.form-control(type='text' name='firstName' placeholder="First Name")
-      .form-group
-        label(for="lastName") Last Name
-        input#lastName.form-control(type='text' name='lastName' placeholder="Last Name")
+      +input("First Name", "firstName", "text", "First Name")
+      +input("Last Name", "lastName", "text", "Last Name")
       include includes/login-fields
-      .form-group
-        label(for="confirmPassword") Confirm Password
-        input#confirmPassword.form-control(type="password" name="confirmPassword" placeholder="Confirm Password")
-      button.btn.btn-primary(type='submit') Sign Up
+      +input("Confirm Password", "confirmPassword", "password", "Confirm Password")
+      +btn("Sign Up", "btn btn-primary", "signupBtn")
+    p Already have an account?
+      a(href='/log-in')   Log in here.
     button#demo.btn.btn-primary(type='submit') Demo Login
-    a(href='/log-in') Already have an account? Log in here.
   script(type="module" src="js/signUp.js")
