@@ -1,7 +1,5 @@
-// const errBtn = document.querySelector(".errorButton");
-const splashTagContainer = document.querySelector(".splash-tag-container");
-
 window.addEventListener('DOMContentLoaded', async () => {
+  const tagContainer = document.querySelector(".splash-tag-container");
   const storiesJson = await fetch('http://localhost:3000/api/stories/');
   const stories = await storiesJson.json();
   stories.stories.forEach(story => {
@@ -12,10 +10,11 @@ window.addEventListener('DOMContentLoaded', async () => {
     tagTxt.innerHTML = story.title;
     splashTag.appendChild(tagImg);
     splashTag.appendChild(tagTxt);
-    splashTagContainer.appendChild(splashTag);
+    tagContainer.appendChild(splashTag);
   });
 });
 
+// const errBtn = document.querySelector(".errorButton");
 // errBtn.addEventListener('click', (e) => {
 //   e.preventDefault();
     // res.status(500);

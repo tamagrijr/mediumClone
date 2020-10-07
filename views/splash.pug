@@ -14,15 +14,18 @@ html(lang="en")
         nav
           +navLink("/sign-up", "Sign Up")
           +navLink("/log-in", "Log In")
-          +navLink("#", "Demo User")
+          +btn("Demo Login", "btn btn-primary", "demo")
       div(class="heading")
         h1
           | ME DA YUM. YOU DA YUM
           | WE DA YUM!
         p Here are some stories that are definitely Da Yum.
     main
+      .errors-container
       .splash-tag-container
     footer
       //- img(src="logo.svg" alt="MeDaYum Logo")
     script(type="module" src="js/index.js")
+    script(type="module" src="js/login.js")
+    i.log-in-form.hidden
     block content
