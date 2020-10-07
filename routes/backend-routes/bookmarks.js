@@ -3,7 +3,7 @@ const {
   asyncHandler,
   checkForUser,
   checkForStory,
-  storyNotFound,
+  contentNotFound,
   checkForContent
 } = require("../../utils")
 const { Bookmark, Story } = require("../../db/models")
@@ -11,9 +11,10 @@ const bookmarksRouter = express.Router()
 
 
 // Get list of Bookmarked Stories for a User
-// MIRA Tested: Existing user and bookmarks
-// Non-existing user: 404 User Not Found
+// MIRA Tested:
+// Existing user and bookmarks
 // Existing user, no bookmarks: 204
+// Non-existing user: 404 User Not Found
 // Non-digit user id: 500 Server Error, invalid input syntax
 bookmarksRouter.get("/users/:id/bookmarks",
   asyncHandler(checkForUser),
@@ -25,9 +26,10 @@ bookmarksRouter.get("/users/:id/bookmarks",
   }))
 
 // Get a list of Bookmarks for a Story
-// MIRA Tested: Existing story and bookmarks
+// MIRA Tested: 
+// Existing story and bookmarks
 // Existing story, no bookmarks: 204
-// Non-existing user: 404 Story Not Found
+// Non-existing story: 404 Story Not Found
 // Non-digit Story id: 500 Server Error, invalid input syntax
 bookmarksRouter.get("/stories/:id/bookmarks",
   asyncHandler(checkForStory),
@@ -41,23 +43,38 @@ bookmarksRouter.get("/stories/:id/bookmarks",
 
 // Create a Bookmark to a Story for a User
 // MIRA Tested
+// Existing user/story, no bookmark: makes bookmark
+// Existing user/story/bookmark: 304
+// Non-existing user: 404 User Not Found
+// Non-existing story: 404 Story Not Found
+// Non-digit user id: 500 Server Error, invalid input syntax
+// Non-digit storyId: 500 Server Error, invalid input syntax
+// No body: 500 Server Error, WHERE param storyId has invalid undefined value
 bookmarksRouter.post("/users/:id/bookmarks",
   asyncHandler(checkForUser),
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const newBookmark = { userId: req.params.id, storyId: req.body.storyId }
     const bookmarkExists = await Bookmark.findOne({ where: newBookmark })
     const story = await Story.findByPk(req.body.storyId)
     
     if (bookmarkExists) res.status(304).end()
-    else if (!story) storyNotFound(req.body.storyId)
+    else if (!story) next(contentNotFound(req.body.storyId, "Story"))
     else {
       const bookmark = await Bookmark.create(newBookmark)
       res.json(bookmark)
     }
-  }))
+  })
+)
 
 // Delete a Bookmark to a Story for a User by id
 // MIRA Tested
+// Existing bookmark: 204 deletes bookmark
+// No bookmark: 304
+// Non-existing story: 304
+// Non-existing user: 304
+// Non-digit user id: 500 Server Error, invalid input syntax
+// Non-digit storyId: 500 Server Error, invalid input syntax
+// No body: 500 Server Error, WHERE param storyId has invalid undefined value
 bookmarksRouter.delete("/users/:id/bookmarks",
   asyncHandler(async (req, res) => {
     const bookmark = await Bookmark.findOne({
