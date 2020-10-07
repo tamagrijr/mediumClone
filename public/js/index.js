@@ -1,4 +1,7 @@
+import { loggedIn } from "./utils.js";
+
 window.addEventListener('DOMContentLoaded', async () => {
+  if(window.location.href === "http://localhost:3000/splash"){
   const tagContainer = document.querySelector(".splash-tag-container");
   const storiesJson = await fetch('http://localhost:3000/api/stories/');
   const stories = await storiesJson.json();
@@ -12,8 +15,23 @@ window.addEventListener('DOMContentLoaded', async () => {
     splashTag.appendChild(tagTxt);
     tagContainer.appendChild(splashTag);
   });
+}
 });
 
+const logoutButton = document.querySelector('#logoutButton');
+const loginRequired = document.querySelector('.authorized-link');
+
+loginRequired.addEventListener('click', e =>{
+  if(!loggedIn()){
+    e.preventDefault();
+    window.location.href = "/sign-in";
+  }
+})
+
+logoutButton.addEventListener('click', (e) => {
+    window.localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
+    window.localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
+})
 // const errBtn = document.querySelector(".errorButton");
 // errBtn.addEventListener('click', (e) => {
 //   e.preventDefault();
