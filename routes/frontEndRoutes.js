@@ -1,36 +1,45 @@
 const express = require('express');
+const csrf = require('csurf');
+
 const frontEndRouter = express.Router();
+
+const csrfProtection = csrf({cookie: true});
+
+//actual splash page
+frontEndRouter.get("/splash", (req, res) => {
+  res.render('splash');
+});
 //splash page
 frontEndRouter.get("/", (req, res) => {
     res.render('index');
 });
 //sign up form
-frontEndRouter.get("/sign-up", (req, res) => {
-    res.render('sign-up');
+frontEndRouter.get("/sign-up", csrfProtection, (req, res) => {
+    res.render('sign-up', { csrfToken: req.csrfToken()});
 });
 //log-in form
-frontEndRouter.get("/log-in", (req, res) => {
-    res.render('log-in');
+frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
+    res.render('log-in', { csrfToken: req.csrfToken() });
 });
 //user profile
 frontEndRouter.get("/users/:id", (req, res) => {
     res.render('profile');
 });
 //edit user profile form
-frontEndRouter.get("/users/:id/edit", (req, res) => {
-    res.render('edit-profile');
+frontEndRouter.get("/users/:id/edit", csrfProtection, (req, res) => {
+    res.render('edit-profile', { csrfToken: req.csrfToken() });
 });
 //create new story form
-frontEndRouter.get("/create", (req, res) => {
-    res.render('create');
+frontEndRouter.get("/create", csrfProtection, (req, res) => {
+    res.render('create', { csrfToken: req.csrfToken() });
 });
 // display story by id
 frontEndRouter.get("/stories/:id", (req, res) => {
     res.render('story-layout');
 });
 //display story edit form
-frontEndRouter.get("/stories/:id/edit", (req, res) => {
-    res.render('story-edit-layout');
+frontEndRouter.get("/stories/:id/edit", csrfProtection, (req, res) => {
+    res.render('story-edit-layout', { csrfToken: req.csrfToken() });
 });
 //display feed
 frontEndRouter.get("/feed", (req, res) => {
