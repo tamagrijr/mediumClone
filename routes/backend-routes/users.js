@@ -7,6 +7,31 @@ const { makeUserToken, requireAuthentication } = require("../../auth")
 const { User, Like, Story, Comment } = require("../../db/models")
 const usersRouter = express.Router()
 
+// User Validator Middlewares.
+// TODO MIRA Should we break them into separate functions, like twitter-clone?
+const userValidators = [
+  check("firstName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please give us a first name.")
+    .isLength({ min: 1, max: 40 })
+    .withMessage("A first name must be between 1 to 40 characters in length."),
+  check("lastName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please give us a last name.")
+    .isLength({ min: 0, max: 40 })
+    .withMessage("A last name can't be longer than 40 characters in length."),
+  check("email")
+    .exists({ checkFalsy: true })
+    .isEmail()
+    .withMessage("Please give us a valid email.")
+    .isLength({ max: 80 })
+    .withMessage("An email can't be longer than 80 characters in length."),
+  check("password")
+    .exists({ checkFalsy: true })
+    .withMessage("Please give us a password.")
+    .isLength({ min: 10, max: 80 })
+    .withMessage("A password must be between 10 to 80 characters in length.")
+]
 
 // Get User by id
 usersRouter.get("/:id", asyncHandler(async (req, res) => {
@@ -30,14 +55,14 @@ usersRouter.put("/:id", asyncHandler(async (req, res) => {
 
 // Create a new User.
 // TODO MIRA Add validations and validation handlers
-usersRouter.post("/", asyncHandler(async (req, res) => {
+usersRouter.post("/", userValidators, handleValidationErrors, asyncHandler(async (req, res) => {
   const { firstName, lastName, email, password } = req.body
   const hashedPassword = await bcrypt.hash(password, 10)
   const newUser = await User.create({
     firstName, lastName, email, hashedPassword
   })
-  // const token = makeUserToken(newUser) // TODO Implement auth AFTER routes.
-  await res.status(201).json({ user: { id: newUser.id } })//TODO ADD TOKEN --
+  const token = makeUserToken(newUser) // TODO Implement auth AFTER routes.
+  await res.status(201).json({ user: { id: newUser.id }, token })//TODO ADD TOKEN --
 }))
 
 // Create a new JWT token for a user on login(?)
@@ -125,30 +150,6 @@ usersRouter.get(
 );
 
 
-// User Validator Middlewares.
-// TODO MIRA Should we break them into separate functions, like twitter-clone?
-const userValidators = [
-  check("firstName")
-    .exists({ checkFalsy: true })
-    .withMessage("Please give us a first name.")
-    .isLength({ min: 1, max: 40 })
-    .withMessage("A first name must be between 1 to 40 characters in length."),
-  check("lastName")
-    .exists({ checkFalsy: true })
-    .withMessage("Please give us a last name.")
-    .isLength({ min: 0, max: 40 })
-    .withMessage("A last name can't be longer than 40 characters in length."),
-  check("email")
-    .exists({ checkFalsy: true })
-    .isEmail()
-    .withMessage("Please give us a valid email.")
-    .isLength({ max: 80 })
-    .withMessage("An email can't be longer than 80 characters in length."),
-  check("password")
-    .exists({ checkFalsy: true })
-    .withMessage("Please give us a password.")
-    .isLength({ min: 10, max: 80 })
-    .withMessage("A password must be between 10 to 80 characters in length.")
-]
+
 
 module.exports = usersRouter
