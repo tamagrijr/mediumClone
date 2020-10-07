@@ -10,24 +10,24 @@ logInForm.addEventListener("submit", async (e) => {
     const body = {email, password};
 
     try {
-        //ADD THIS ONCE VALIDATION IS IMPLEMENTED
-        // const res = await fetch("/api/users/token", {
-        //   method: "POST",
-        //   body: JSON.stringify(body),
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        // });
-        // if (!res.ok) {
-        //   throw res;
-        // }
-        // const {
-        //   token,
-        //   user: { id },
-        // } = await res.json();
-        // // storage access_token in localStorage:
-        // localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
-        // localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
+        // ADD THIS ONCE VALIDATION IS IMPLEMENTED
+        const res = await fetch("/api/users/token", {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!res.ok) {
+          throw res;
+        }
+        const {
+          token,
+          user: { id },
+        } = await res.json();
+        // storage access_token in localStorage:
+        localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
+        localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
         // redirect to home page to see all tweets:
         window.location.href = "/";
       } catch (err) {

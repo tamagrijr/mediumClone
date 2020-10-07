@@ -1,20 +1,16 @@
 const express = require('express');
 const { check } = require('express-validator');
-const { asyncHandler, handleValidationErrors } = require('../../utils');
+const {
+  asyncHandler,
+  handleValidationErrors,
+  checkForStory,
+  deleteForStory } = require('../../utils');
 const db = require('../../db/models');
-const { Story, Comment, Like, User, Bookmark } = db;
+const { Story, Comment, Like, Bookmark } = db;
 
 const router = express.Router();
 
-// MIRA Tested
-const storyNotFoundError = id => {
-  const err = new Error(`Story id ${ id } could not be found!`);
-  err.title = "Story not found";
-  err.status = 404;
-  return err;
-};
-
-const storyValidations = [
+const authorValidation = [
   // MIRA Tested
   check('authorId')
     .exists({
@@ -24,7 +20,8 @@ const storyValidations = [
     .withMessage('Your story must specify the author.')
 ];
 
-const storyUpdateValidations = [
+const storyValidations = [
+  // MIRA Tested
   check('title')
     .exists({
       checkNull: true,
@@ -46,8 +43,8 @@ const storyUpdateValidations = [
 // MIRA Tested
 router.post(
   '/',
+  authorValidation,
   storyValidations,
-  storyUpdateValidations,
   handleValidationErrors,
   asyncHandler(async (req, res) => {
     const {
@@ -56,220 +53,51 @@ router.post(
       authorId
     } = req.body;
     const story = await Story.create({ title, body, authorId });
-    await res.status(201).json({ story });
+    res.status(201).json(story);
   })
 );
 
+// Get a Story by id
 // MIRA Tested
-router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
-  const storyId = parseInt(req.params.id);
-  const story = await Story.findByPk(storyId);
+router.get('/:id(\\d+)', asyncHandler(checkForStory),
+  asyncHandler(async (req, res) => {
+    res.json(req.story)
+  }));
 
-  if (story) {
-    res.json({ story });
-  } else {
-    next(storyNotFoundError(storyId));
-  }
-}));
-
+// Update a Story by id
 // MIRA Tested
 router.patch(
   '/:id(\\d+)',
-  storyUpdateValidations,
+  asyncHandler(checkForStory),
+  storyValidations,
   handleValidationErrors,
-  asyncHandler(async (req, res, next) => {
-    const storyId = parseInt(req.params.id);
-    const story = await Story.findByPk(storyId);
-
+  asyncHandler(async (req, res) => {
     const {
       title,
       body,
     } = req.body;
-
-    if (story) {
-      const updatedStory = await story.update({ title, body });
-      res.json({ updatedStory });
-    } else {
-      next(storyNotFoundError(storyId));
-    }
+    const updatedStory = await req.story.update({ title, body });
+    res.json(updatedStory);
   })
 );
 
+// Delete a Story and associated dependencies by Story id
 // MIRA Tested
 router.delete(
   '/:id(\\d+)',
-  asyncHandler(async (req, res, next) => {
-    const storyId = parseInt(req.params.id);
-    const story = await Story.findByPk(storyId);
-
-    if (story) {
-      const comments = await Comment.findAll({
-        where: {
-          storyId
-        }
-      });
-      comments.forEach(async (comment) => {
-        await comment.destroy();
-        return;
-      });
-
-      const likes = await Like.findAll({
-        where: {
-          storyId
-        }
-      });
-      likes.forEach(async (like) => {
-        await like.destroy();
-        return;
-      });
-
-      const bookmarks = await Bookmark.findAll({
-        where: {
-          storyId
-        }
-      });
-      bookmarks.forEach(async (bookmark) => {
-        await bookmark.destroy();
-        return;
-      });
-
-      await story.destroy();
-      res.status(204).end();
-    } else {
-      next(storyNotFoundError(storyId));
-    }
-  })
-);
-
-// Story Comments
-// MIRA Tested
-router.get(
-  '/:id(\\d+)/comments',
-  asyncHandler(async (req, res, next) => {
-    const storyId = parseInt(req.params.id);
-    const comments = await Comment.findAll({
-      where: {
-        storyId
-      }
-    });
-
-    if (comments) {
-      res.json({ comments });
-    } else {
-      const story = await Story.findByPk(storyId);
-      if (story) {
-        res.status(204).end();
-      } else {
-        next(storyNotFoundError(storyId));
-      }
-    }
-  })
-);
-
-// MIRA Tested
-router.post(
-  '/:storyId(\\d+)/comments',
-  asyncHandler(async (req, res, next) => {
-    const storyId = parseInt(req.params.storyId);
-    const { body, userId } = req.body;
-
-    const story = await Story.findByPk(storyId);
-
-    if (story) {
-      const comment = await Comment.create({ body, userId, storyId });
-      res.json({ comment });
-    } else {
-      // TODO MIRA Trying to grab a 'story' with a :storyId integer that doesn't
-      // exist does not trigger this path. Ex: /api/stories/1234/comments
-      next(storyNotFoundError(storyId));
-    }
-  })
-);
-
-
-// Story Likes
-// MIRA Tested
-router.post(
-  '/:storyId(\\d+)/likes',
-  asyncHandler(async (req, res, next) => {
-    const storyId = parseInt(req.params.storyId);
-    const { userId } = req.body;
-
-    const like = await Like.findOne({
-      where: {
-        userId,
-        storyId
-      }
-    });
-
-    if (like) {
-      res.status(304).end();
-    } else {
-      const createdLike = await Like.create({ storyId, userId });
-      res.json({ createdLike });
-    }
-  })
-);
-
-// MIRA Tested
-router.delete(
-  '/:storyId(\\d+)/likes/:id(\\d+)',
+  asyncHandler(checkForStory),
   asyncHandler(async (req, res) => {
-    const likeId = parseInt(req.params.id)
-    const like = await Like.findByPk(likeId);
+    await deleteForStory(req.params.id, Comment)
+    await deleteForStory(req.params.id, Like)
+    await deleteForStory(req.params.id, Bookmark)
 
-    if (like) {
-      await like.destroy();
-      res.status(204).end();
-    } else {
-      res.status(304).end();
-    }
+    await req.story.destroy();
+    res.status(204).end();
   })
 );
 
-router.get(
-  '/:storyId(\\d+)/likes',
-  asyncHandler(async (req, res) => {
-    const storyId = parseInt(req.params.storyId);
 
-    const likes = await Like.findAll({
-      where: {
-        storyId
-      },
-      include: User
-    });
 
-    const likeList = likes.map(like => {
-      return {
-        storyId: like.storyId,
-        id: like.id,
-        userId: like.userId,
-        firstName: like.User.firstName,
-        lastName: like.User.lastName
-      }
-    });
 
-    res.json({ likeList });
-  })
-);
-
-router.post(
-  '/:storyId/comments',
-  asyncHandler(async (req, res, next) => {
-    const storyId = parseInt(req.params.storyId);
-    const story = await Story.findByPk(storyId);
-    const {
-      body,
-      userId
-    } = req.body;
-
-    if (story) {
-      const comment = await Comment.create({ userId, storyId, body });
-      res.json({ comment });
-    } else {
-      next(storyNotFoundError(storyId));
-    }
-  })
-);
 
 module.exports = router;
