@@ -1,5 +1,8 @@
 import { loggedIn } from "./utils.js";
 
+const logoutButton = document.querySelector('#logoutButton');
+const loginRequired = document.querySelector('.authorized-link');
+
 window.addEventListener('DOMContentLoaded', async () => {
   if(window.location.href === "http://localhost:3000/splash"){
   const tagContainer = document.querySelector(".splash-tag-container");
@@ -16,17 +19,9 @@ window.addEventListener('DOMContentLoaded', async () => {
     tagContainer.appendChild(splashTag);
   });
 }
+
 });
 
-const logoutButton = document.querySelector('#logoutButton');
-const loginRequired = document.querySelector('.authorized-link');
-
-loginRequired.addEventListener('click', e =>{
-  if(!loggedIn()){
-    e.preventDefault();
-    window.location.href = "/sign-in";
-  }
-})
 
 logoutButton.addEventListener('click', (e) => {
     window.localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
