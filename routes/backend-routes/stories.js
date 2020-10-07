@@ -40,6 +40,16 @@ const storyValidations = [
     .withMessage('Your story needs a body.')
 ];
 
+// get a list of all stories, just for now for the splash page
+// at least until topics
+router.get(
+  '/',
+  asyncHandler(async (req, res) => {
+    const stories = await Story.findAll();
+    res.json({ stories });
+  })
+);
+
 // Story Routes
 // MIRA Tested
 // Valid body: 201, creates story (non-unique allowed)
