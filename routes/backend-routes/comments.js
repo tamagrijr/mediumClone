@@ -21,6 +21,48 @@ const commentValidator = [
     .withMessage('Your comment must have a body')
 ];
 
+// Get a Comment by id
+// Existing comment: gets comment
+// Non-existing Comment: 404 Comment Not Found
+// Non-integer Comment id: 404 Generic Not Found
+router.get('/comments/:id(\\d+)',
+  asyncHandler(checkForComment),
+  asyncHandler(async (req, res) => {
+    const comment = await Comment.findByPk(req.params.id)
+    res.json(comment)
+  })
+)
+
+// Get all Comments by a User by id
+// Existing user: Gets list of User's comments
+// Non-existing user: 404 User Not Found
+// Non-integer user id: 404 Generic Not Found
+router.get('/users/:id(\\d+)/comments',
+    asyncHandler(checkForUser),
+    asyncHandler(async (req, res) => {
+      const userComments = await Comment.findAll({
+        where: { userId: req.params.id },
+        include: Story
+      });
+      checkForContent(res, userComments)
+    }))
+
+// Get all Comments for a Story by id
+// Existing story: Gets list of Story's comments
+// Non-existing story: 404 Story Not Found
+// Non-integer story: Generic Not Found
+router.get(
+      '/stories/:id(\\d+)/comments',
+      asyncHandler(checkForStory),
+      asyncHandler(async (req, res) => {
+        const storyComments = await Comment.findAll({
+          where: { storyId: req.params.id }
+        });
+        checkForContent(res, storyComments)
+      })
+    )
+
+
 // Post a new Comment to a Story by id
 // MIRA Tested
 // Existing story/user and body: makes post
@@ -43,18 +85,6 @@ router.post(
     res.json(comment);
   })
 );
-
-// Get a Comment by id
-// Existing comment: gets comment
-// Non-existing Comment: 404 Comment Not Found
-// Non-integer Comment id: 404 Generic Not Found
-router.get('/comments/:id(\\d+)',
-  asyncHandler(checkForComment),
-  asyncHandler(async (req, res) => {
-    const comment = await Comment.findByPk(req.params.id)
-    res.json(comment)
-  })
-)
 
 // Update Comment by id
 // Existing comment, valid body: updates comment.
@@ -88,33 +118,5 @@ router.delete(
 );
 
 
-// Get all Comments by a User by id
-// Existing user: Gets list of User's comments
-// Non-existing user: 404 User Not Found
-// Non-integer user id: 404 Generic Not Found
-router.get('/users/:id(\\d+)/comments',
-    asyncHandler(checkForUser),
-    asyncHandler(async (req, res) => {
-      const userComments = await Comment.findAll({
-        where: { userId: req.params.id },
-        include: Story
-      });
-      checkForContent(res, userComments)
-    }))
-
-// Get all Comments for a Story by id
-// Existing story: Gets list of Story's comments
-// Non-existing story: 404 Story Not Found
-// Non-integer story: Generic Not Found
-router.get(
-      '/stories/:id(\\d+)/comments',
-      asyncHandler(checkForStory),
-      asyncHandler(async (req, res) => {
-        const storyComments = await Comment.findAll({
-          where: { storyId: req.params.id }
-        });
-        checkForContent(res, storyComments)
-      })
-    )
 
 module.exports = router;
