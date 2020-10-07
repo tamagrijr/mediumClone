@@ -1,4 +1,5 @@
 const { validationResult } = require("express-validator")
+const { User, Story, Comment } = require("./db/models")
 
 
 function asyncHandler(handler) {
@@ -34,7 +35,7 @@ async function deleteForStory(id, Model) {
 }
 
 async function checkForStory(req, res, next) {
-  const story = await Story.findbyPk(req.params.id)
+  const story = await Story.findByPk(req.params.id)
   if (!story) next(contentNotFound(req.params.id, "Story"))
   else {
     req.story = story

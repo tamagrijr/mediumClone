@@ -11,7 +11,10 @@ const bookmarksRouter = express.Router()
 
 
 // Get list of Bookmarked Stories for a User
-// MIRA Tested
+// MIRA Tested: Existing user and bookmarks
+// Non-existing user: 404 User Not Found
+// Existing user, no bookmarks: 204
+// Non-digit user id: 500 Server Error, invalid input syntax
 bookmarksRouter.get("/users/:id/bookmarks",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
@@ -22,6 +25,10 @@ bookmarksRouter.get("/users/:id/bookmarks",
   }))
 
 // Get a list of Bookmarks for a Story
+// MIRA Tested: Existing story and bookmarks
+// Existing story, no bookmarks: 204
+// Non-existing user: 404 Story Not Found
+// Non-digit Story id: 500 Server Error, invalid input syntax
 bookmarksRouter.get("/stories/:id/bookmarks",
   asyncHandler(checkForStory),
   asyncHandler(async (req, res) => {
