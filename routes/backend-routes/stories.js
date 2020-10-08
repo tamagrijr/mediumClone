@@ -5,7 +5,8 @@ const {
   handleValidationErrors,
   checkForStory,
   checkForUser,
-  deleteForStory } = require('../../utils');
+  deleteForStory,
+  checkForContent} = require('../../utils');
 const db = require('../../db/models');
 const { Story, Comment, Like, Bookmark } = db;
 
@@ -43,10 +44,11 @@ const storyValidations = [
 // Get all Stories
 // get a list of all stories, just for now for the splash page
 // at least until topics
-router.get('/stories',
+router.get(
+  '/stories',
   asyncHandler(async (req, res) => {
     const stories = await Story.findAll();
-    res.json({ stories });
+    checkForContent(res, stories);
   })
 );
 
@@ -70,6 +72,7 @@ router.get("/users/:id(\\d+)/follows/stories",
         where: { authorId }
       })
     })
+    checkForContent(res, followedAuthorIds)
   })
 )
 

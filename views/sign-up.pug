@@ -1,6 +1,7 @@
-extends splash.pug
+include includes/utils.pug
 
-block content
+block signIn
+  script(defer type="module" src="js/signUp.js")
   .form-container
     .errors-container
     h2 Sign Up
@@ -12,5 +13,4 @@ block content
       +btn("Sign Up", "btn btn-primary", "signupBtn")
     p Already have an account?
       a(href='/log-in')   Log in here.
-    button#demo.btn.btn-primary(type='submit') Demo Login
-  script(type="module" src="js/signUp.js")
+    button.demo.btn.btn-primary(type='submit') Demo Login

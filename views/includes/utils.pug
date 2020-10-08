@@ -4,7 +4,7 @@ mixin navLink(route, text)
 mixin input(labelText, fieldName, fieldType, placeholder)
   .form-group
     label(for=fieldName)= labelText
-    input(name=fieldName id=fieldName type=fieldType placeholder=placeholder)
+    input(name=fieldName class=fieldName type=fieldType placeholder=placeholder)
 
 mixin btn(btnTxt, className, idName)
   button(type="submit" class=className id=idName)= btnTxt

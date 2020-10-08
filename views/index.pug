@@ -1,8 +1,12 @@
 extends layout.pug
 
 block content
-    script(type="module" src="js/index.js")
+    script(defer type="module" src="js/index.js")
     div.loggedIn.hidden
-        h1 Home Page Index
+        h1 Logged In Test
     div.loggedOut.hidden
         h1 Logged Out Test
+    div.signIn.hidden
+        include log-in.pug
+    div.signUp.hidden
+        include sign-up.pug
