@@ -8,20 +8,18 @@ html(lang='en')
         script(defer type="module" src="js/index.js")
     body
       header
-        nav.topnav
-          h1.logo: a(href="/") MeDaYum
-          ul.main-nav
-            li: a.button.signInButton Log-In
-            li: a.button.signUpButton Sign-Up
-            li: a.button.logoutButton Log-Out
-            li: a.button.dropdown
-                  button.dropbtn
-                    | Dropdown
-                    i.fa.fa-caret-down
-                  .dropdown-content
-                    a(href='#') Link 1
-                    a(href='#') Link 2
-                    a(href='#') Link 3
+        .nav-div
+          nav.topnav.navbar-default
+            h1.logo: a(href="/") MeDaYum
+            ul.main-nav
+              li: a.button.signInButton Log-In
+              li: a.button.signUpButton Sign-Up
+              li.dropdown
+                a.dropdown-toggle(href='#0', data-toggle='dropdown', data-target='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                  | User
+                ul#dropdon-menu.dropdown-menu
+                  li: a.button.profile Profile
+                  li: a.button.logoutButton Log-Out
 
       main
         div.errorButtonDiv: button.errorButton(href='/error-test') Create 500 Error
