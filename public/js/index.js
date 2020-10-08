@@ -2,26 +2,20 @@ import { loggedIn } from "./utils.js";
 
 const logInScreen = document.querySelector('.loggedIn');
 const logOutScreen = document.querySelector('.loggedOut');
+const signInButton = document.querySelector('#signInButton');
+const signUpButton = document.querySelector('#signUpButton');
 const signInForm = document.querySelector('.signIn');
 const signUpForm = document.querySelector('.signUp');
 
 const demoLogin = document.querySelectorAll('.demo');
-const logoutButton = document.querySelector('#logoutButton');
-const signInButton = document.querySelector('#signInButton');
-const signUpButton = document.querySelector('#signUpButton');
-const profileButton = document.querySelector('#profileButton');
-const signInLi = document.querySelector('.signInButton');
-const signUpLi = document.querySelector('.signUpButton')
 
 let logged = loggedIn();
 if (logged) {
   logInScreen.classList.remove('hidden');
-  signInLi.classList.add('hidden');
-  signUpLi.classList.add('hidden');
 } else {
   logOutScreen.classList.remove('hidden');
-}
 
+}
 signInButton.addEventListener('click', e => {
   e.preventDefault();
   logInScreen.classList.add('hidden');
@@ -35,11 +29,6 @@ signUpButton.addEventListener('click', e => {
   logOutScreen.classList.add('hidden');
   signInForm.classList.add('hidden');
   signUpForm.classList.remove('hidden');
-})
-logoutButton.addEventListener('click', (e) => {
-  localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
-  localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
-  window.location.href = "/";
 })
 demoLogin.forEach(elem => {
   elem.addEventListener('click', async (e) => {
