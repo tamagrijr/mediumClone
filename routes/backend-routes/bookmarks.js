@@ -33,7 +33,7 @@ bookmarksRouter.get("/users/:id(\\d+)/bookmarks",
   }))
 
 // Get a list of Bookmarks for a Story
-// MIRA Tested: 
+// MIRA Tested:
 // Existing story and bookmarks
 // Existing story, no bookmarks: 204
 // Non-existing story: 404 Story Not Found

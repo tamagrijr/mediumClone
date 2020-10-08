@@ -3,30 +3,28 @@ doctype html
 html(lang='en')
     head
         meta(charset='utf-8')
-        title - #{title}
+        title= title
         link(rel='stylesheet' type='text/css' href='/styles/style.css')
         script(defer type="module" src="js/index.js")
     body
       header
-        //- img(src="logo.svg" alt="MeDaYum Logo")
-        //- p Welcome, #{firstname} #{lastName}!
-
-        nav.topnav
-          h1.logo: a(href="/") MeDaYum
-          ul.main-nav
-            //- li: a(href="/") Home
-            li: a(class="authorized-link" href="/stories") Stories
-            li: a(class="authorized-link" href="/users") Profile
-            li: a(href="/log-in") Log-In
-            li: a(href="/sign-up") Sign-Up
-            li: a.button(id="logoutButton" href="/") Log-Out
-
+        .nav-div
+          nav.topnav.navbar-default
+            h1.logo: a(href="/") MeDaYum
+            ul.main-nav
+              li: a.button.signInButton Log-In
+              li: a.button.signUpButton Sign-Up
+              li.dropdown
+                a.button.dropdown-toggle(href='#0', data-toggle='dropdown', data-target='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                  | User
+                ul#dropdon-menu.dropdown-menu
+                  li: a.button.profile Profile
+                  li: a.button.logoutButton Log-Out
 
       main
         div.errorButtonDiv: button.errorButton(href='/error-test') Create 500 Error
         block content
 
       footer
-        //- img(src="logo.svg" alt="MeDaYum Logo")
-        script(type="module" src="js/index.js")
+        img(src="logo.svg" alt="MeDaYum Logo")
         img(src="logo.svg" alt="MeDaYum Logo")

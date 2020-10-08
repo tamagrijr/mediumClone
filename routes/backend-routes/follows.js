@@ -9,7 +9,7 @@ const { Follow, User } = require("../../db/models")
 const followsRouter = express.Router()
 
 // Get list of Followed Users for a User
-// MIRA Tested 
+// MIRA Tested
 // Existing user and follows: gets list of followed users
 // Non-existing user: 404 User not found
 // Non-integer user: 404 Generic not found
@@ -51,7 +51,8 @@ followsRouter.get("/:id(\\d+)/followers",
 // Non-integer user id: 404 Generic Not Found
 // Non-integer followingId user: 500 Server Error, invalid input syntax
 // Existing user, no body: 500 Server Error, WHERE param 'followingid' is undefined
-followsRouter.post("/:id(\\d+)/follows", asyncHandler(checkForUser),
+followsRouter.post("/:id(\\d+)/follows",
+asyncHandler(checkForUser),
   asyncHandler(async (req, res, next) => {
     const newFollow = {
       followerId: req.params.id,

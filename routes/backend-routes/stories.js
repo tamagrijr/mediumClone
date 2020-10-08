@@ -5,7 +5,8 @@ const {
   handleValidationErrors,
   checkForStory,
   checkForUser,
-  deleteForStory } = require('../../utils');
+  deleteForStory,
+  checkForContent} = require('../../utils');
 const db = require('../../db/models');
 const { Story, Comment, Like, Bookmark } = db;
 
@@ -73,7 +74,8 @@ async function attachLikesToStories(stories) {
 //    Likes (id, userId)
 // get a list of all stories, just for now for the splash page
 // at least until topics
-router.get('/stories',
+router.get(
+  '/stories',
   asyncHandler(async (req, res) => {
     let stories = await Story.findAll({
       include: {
@@ -82,7 +84,7 @@ router.get('/stories',
     })
     stories = await attachCommentsToStories(stories)
     stories = await attachLikesToStories(stories)
-    res.json(stories);
+    checkForContent(res, stories);
   })
 );
 
@@ -115,6 +117,7 @@ router.get("/users/:id(\\d+)/follows/stories",
         where: { authorId }
       })
     })
+    checkForContent(res, followedAuthorIds)
   })
 )
 
