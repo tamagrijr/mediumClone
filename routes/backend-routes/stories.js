@@ -5,7 +5,8 @@ const {
   handleValidationErrors,
   checkForStory,
   checkForUser,
-  deleteForStory } = require('../../utils');
+  deleteForStory,
+  checkForContent} = require('../../utils');
 const db = require('../../db/models');
 const { Story, Comment, Like, Bookmark } = db;
 
@@ -40,21 +41,67 @@ const storyValidations = [
     .withMessage('Your story needs a body.')
 ];
 
+async function attachCommentsToStory(story) {
+  story.Comments = await Comment.findAll({
+    where: { storyId: story.id },
+    attributes: ["id", "body", "userId"]
+  })
+  return story
+}
+async function attachLikesToStory(story) {
+  story.Likes = await Like.findAll({
+    where: { storyId: story.id },
+    attributes: ["id", "userId"]
+  })
+  return story
+}
+
+async function attachCommentsToStories(stories) {
+  return await stories.map(async story => {
+    return attachCommentsToStory(story)
+  })
+}
+
+async function attachLikesToStories(stories) {
+  return await stories.map(async story => {
+    return attachLikesToStory(story)
+  })
+}
+
 // Get all Stories
+// Include Author (id, firstName, lastName),
+//    Comments (id, body, userId),
+//    Likes (id, userId)
 // get a list of all stories, just for now for the splash page
 // at least until topics
-router.get('/stories',
+router.get(
+  '/stories',
   asyncHandler(async (req, res) => {
-    const stories = await Story.findAll();
-    res.json({ stories });
+    let stories = await Story.findAll({
+      include: {
+        model: "Author", attributes: ["id", "firstName", "lastName"]
+      }
+    })
+    stories = await attachCommentsToStories(stories)
+    stories = await attachLikesToStories(stories)
+    checkForContent(res, stories);
   })
 );
 
-
 // Get all Stories by Author
+router.get("/users/:id/stories",
+  asyncHandler(checkForUser),
+  asyncHandler(async (req, res) => {
+    let stories = await Story.findAll({
+      where: { authorId: req.params.id },
+      include: { model: "Author", attributes: ["id", "firstName", "lastName"] }
+    })
+    stories = await attachCommentsToStories(stories)
+    stories = await attachLikesToStories(stories)
+  })
+)
 
-
-// TODO MIRA I just barfed this real quick, untested
+// TODO MIRA I just barfed this real quick, untested, haven't done includes
 // Get all stories by User Follows
 router.get("/users/:id(\\d+)/follows/stories",
   asyncHandler(checkForUser),
@@ -70,6 +117,7 @@ router.get("/users/:id(\\d+)/follows/stories",
         where: { authorId }
       })
     })
+    checkForContent(res, followedAuthorIds)
   })
 )
 
@@ -81,6 +129,11 @@ router.get("/users/:id(\\d+)/follows/stories",
 router.get('/stories/:id(\\d+)',
   asyncHandler(checkForStory),
   asyncHandler(async (req, res) => {
+    req.story.Author = await User.findByPk(req.story.authorId,
+      { attributes: ["id, firstName", "lastName"] }
+      )
+    await attachCommentsToStory(req.story)
+    await attachLikesToStory(req.story)
     res.json(req.story)
   })
 );

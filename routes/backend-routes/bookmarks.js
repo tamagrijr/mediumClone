@@ -6,8 +6,10 @@ const {
   contentNotFound,
   checkForContent
 } = require("../../utils")
-const { Bookmark, Story } = require("../../db/models")
+const { Bookmark, Story, User } = require("../../db/models")
 const bookmarksRouter = express.Router()
+
+
 
 
 // Get list of Bookmarked Stories for a User
@@ -21,13 +23,17 @@ bookmarksRouter.get("/users/:id(\\d+)/bookmarks",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
     const userBookmarks = await Bookmark.findAll({
-      where: { userId: req.params.id }
+      where: { userId: req.params.id },
+      include: [
+        {model: User, attributes: ["id", "firstName", "lastName"]},
+        {model: Story, attributes: ["id", "title", "createdAt"]}
+      ]
     })
     checkForContent(res, userBookmarks)
   }))
 
 // Get a list of Bookmarks for a Story
-// MIRA Tested: 
+// MIRA Tested:
 // Existing story and bookmarks
 // Existing story, no bookmarks: 204
 // Non-existing story: 404 Story Not Found
@@ -39,6 +45,10 @@ bookmarksRouter.get("/stories/:id(\\d+)/bookmarks",
   asyncHandler(async (req, res) => {
     let storyBookmarks = await Bookmark.findAll({
       where: { storyId: req.params.id },
+      include: [
+        {model: User, attributes: ["id", "firstName", "lastName"]},
+        {model: Story, attributes: ["id", "title", "createdAt"]}
+      ]
     })
     checkForContent(res, storyBookmarks)
   })

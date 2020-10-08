@@ -1,7 +1,7 @@
 const express = require('express');
 const { check } = require('express-validator');
 const db = require('../../db/models');
-const { Comment, Story } = db;
+const { Comment, Story, User } = db;
 const {
   asyncHandler,
   handleValidationErrors,
@@ -28,7 +28,15 @@ const commentValidator = [
 router.get('/comments/:id(\\d+)',
   asyncHandler(checkForComment),
   asyncHandler(async (req, res) => {
-    const comment = await Comment.findByPk(req.params.id)
+    const comment = await Comment.findByPk(req.params.id, {
+      include: [
+        { model: User, attributes: ["id", "firstName", "lastName"] },
+        { model: Story, attributes: ["id", "title", "createdAt", "authorId"] }
+      ]
+    })
+    comment.Story.Author = await User.findByPk(comment.Story.authorId,
+      { attributes: ["id", "firstName", "lastName"] }
+    )
     res.json(comment)
   })
 )
@@ -38,29 +46,39 @@ router.get('/comments/:id(\\d+)',
 // Non-existing user: 404 User Not Found
 // Non-integer user id: 404 Generic Not Found
 router.get('/users/:id(\\d+)/comments',
-    asyncHandler(checkForUser),
-    asyncHandler(async (req, res) => {
-      const userComments = await Comment.findAll({
-        where: { userId: req.params.id },
-        include: Story
-      });
-      checkForContent(res, userComments)
-    }))
+  asyncHandler(checkForUser),
+  asyncHandler(async (req, res) => {
+    let userComments = await Comment.findAll({
+      where: { userId: req.params.id },
+      include: {
+        model: Story,
+        attributes: ["id", "title", "authorId", "createdAt"]
+      }
+    });
+    userComments = await userComments.map(async comment => {
+      comment.Story.Author = await User.findByPk(comment.Story.authorId,
+        { attributes: ["id", "firstName", "lastName"] }
+      )
+    })
+    checkForContent(res, userComments)
+  }))
 
 // Get all Comments for a Story by id
 // Existing story: Gets list of Story's comments
 // Non-existing story: 404 Story Not Found
 // Non-integer story: Generic Not Found
 router.get(
-      '/stories/:id(\\d+)/comments',
-      asyncHandler(checkForStory),
-      asyncHandler(async (req, res) => {
-        const storyComments = await Comment.findAll({
-          where: { storyId: req.params.id }
-        });
-        checkForContent(res, storyComments)
-      })
-    )
+  '/stories/:id(\\d+)/comments',
+  asyncHandler(checkForStory),
+  asyncHandler(async (req, res) => {
+    storyComments = await Comment.findAll({
+      where: { storyId: req.params.id },
+      include: 
+        { model: User, attributes: ["id", "firstName", "lastName"] }
+    });
+    checkForContent(res, storyComments)
+  })
+)
 
 
 // Post a new Comment to a Story by id

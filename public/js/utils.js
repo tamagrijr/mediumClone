@@ -26,3 +26,9 @@ export const handleErrors = async (err) => {
       );
     }
   };
+
+export const loggedIn = () =>{
+    const userId = localStorage.getItem("MEDIUM_CURRENT_USER_ID");
+    if(userId) return true;
+    return false;
+  }

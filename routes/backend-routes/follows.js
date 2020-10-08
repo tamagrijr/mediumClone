@@ -9,7 +9,7 @@ const { Follow, User } = require("../../db/models")
 const followsRouter = express.Router()
 
 // Get list of Followed Users for a User
-// MIRA Tested 
+// MIRA Tested
 // Existing user and follows: gets list of followed users
 // Non-existing user: 404 User not found
 // Non-integer user: 404 Generic not found
@@ -18,7 +18,9 @@ followsRouter.get("/:id(\\d+)/follows",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
     const follows = await Follow.findAll({
-      where: { followerId: req.params.id }
+      where: { followerId: req.params.id },
+      include:
+        { model: "Following", attributes: ["id", "firstName", "lastName"] }
     })
     checkForContent(res, follows)
   })
@@ -34,7 +36,9 @@ followsRouter.get("/:id(\\d+)/followers",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
     const followers = await Follow.findAll({
-      where: { followingId: req.params.id }
+      where: { followingId: req.params.id },
+      include:
+        { model: "Followers", attributes: ["id", "firstName", "lastName"] },
     })
     checkForContent(res, followers)
   }))
@@ -47,7 +51,8 @@ followsRouter.get("/:id(\\d+)/followers",
 // Non-integer user id: 404 Generic Not Found
 // Non-integer followingId user: 500 Server Error, invalid input syntax
 // Existing user, no body: 500 Server Error, WHERE param 'followingid' is undefined
-followsRouter.post("/:id(\\d+)/follows", asyncHandler(checkForUser),
+followsRouter.post("/:id(\\d+)/follows",
+asyncHandler(checkForUser),
   asyncHandler(async (req, res, next) => {
     const newFollow = {
       followerId: req.params.id,
@@ -68,7 +73,7 @@ followsRouter.post("/:id(\\d+)/follows", asyncHandler(checkForUser),
 
 // Delete a Follow for a User.
 // MIRA Tested
-// Existing follow: 204 deletes fol,low
+// Existing follow: 204 deletes follow
 // Non-existing user: 304
 // Non-existing followingId user: 304
 // Non-integer followingId user: 500 Server Error invalid input syntax
