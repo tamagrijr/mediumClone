@@ -3,3 +3,12 @@ extends layout.pug
 block content
     h2 Create a New Story
     p #{message}
+    article.body-container
+        .story-container
+            section.story-block
+                .story-section-content
+                    .inner-story-section
+                        h3.story-title: span.story-title-content
+                        p.story-message: span.story-message-content
+    script(defer type="text/css" src="styles/create")
+
