@@ -1,7 +1,8 @@
-extends layout.pug
+//- extends index.pug
 include includes/utils.pug
 
-block content
+block logIn
+  script(defer type="module" src="js/logIn.js")
   .form-container
     .errors-container
     h2 Log In
@@ -11,5 +12,4 @@ block content
       +btn("Log In", "btn btn-primary", "log-in")
     p Don't have an account?
       a(href='/sign-up')   Sign up here.
-    +btn("Demo Login", "btn btn-primary", "demo")
-  script(type="module" src="js/logIn.js")
+    button.demo.btn.btn-primary(type='submit') Demo Login
