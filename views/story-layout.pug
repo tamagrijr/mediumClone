@@ -30,5 +30,5 @@ block content
                     each comment in storyInfo.comments
                         li
                             ul
-                                li #{ comment.firstName } #{ comment.lastName }
+                                li: a #{ comment.firstName } #{ comment.lastName }
                                 li= comment.body
