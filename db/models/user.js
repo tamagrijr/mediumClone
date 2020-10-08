@@ -22,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   User.associate = function (models) {
-    User.hasMany(models.Story, { foreignKey: 'authorId' }),
+    User.hasMany(models.Story, { as: "Author", foreignKey: 'authorId' }),
       User.hasMany(models.Comment, { foreignKey: 'userId' }),
       User.hasMany(models.Like, { foreignKey: 'userId' }),
-      User.hasMany(models.Follow, { foreignKey: 'followerId' }),
-      User.hasMany(models.Follow, { foreignKey: 'followingId' }),
+      User.hasMany(models.Follow, { as: "Follower", foreignKey: 'followerId' }),
+      User.hasMany(models.Follow, { as: "Following", foreignKey: 'followingId' }),
       User.hasMany(models.Bookmark, { foreignKey: 'userId' })
   };
   User.prototype.validatePassword = function(password) {

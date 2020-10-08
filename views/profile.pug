@@ -1,33 +1,53 @@
 extends layout.pug
+include includes/utils.pug
+
 block content
-    script(defer type="module" src="js/profile.js")
+  script(defer type="module" src="js/profile.js")
 
-    h1 Profile
-    h2#userName
-    //- ADD BUTTON TO CREATE STORY
-        //- ** if have stories <<
-    //- ADD BUTTON TO EDIT STORIES
-    //- #{user.firstName} #{user.lastName}
-    //- button Edit
-    //- img(src="userPortrait.jpg")
-    //- //- Not sure yet how this will be implemented.
-    //- div.user-bio
-    //-     h2= user.title
-    //-     p= user.bio
+  h1 Profile
+  
+  article user
+    heading
 
-    //- div.followers
-    //-     a(href="/users/:id/followers") ${followerCount} Followers
+      h2 #{user.firstName} #{user.lastName}
+      //- span.user-description #{user.description}
+      span MeDaYum member since #{user.createdAt}
+      //- TODO MIRA Change this to display 'Month Year'
+      
+      img(src="/assets/icons/icon-user-1000x.png" alt="#{user.firstName} #{user.lastName}")
+      
+      .follows
+        #{userFollows.length} Following | #{userFollowers.length} Followers
+        //- TODO Confirm .length works here
+      button Edit Profile
+      button Follow
 
-    //- div.user-collections
-    //-     section: h2 Stories
-    //-         ul
-    //-         each story in user.stories
-    //-             li: story.title
+    nav.user-collections
+      ul
+        li Stories
+          ul
+          each story in userStories
+            li: +storyCardFull(story)
 
-    //-     section: h2 Follows
 
-    //-     section: h2 Bookmarks
+        li Comments
+          ul
+          each comment in userComments
+            li
+              +storyCardMini(comment.story)
+              +authorDate
+              p= comment.body
 
-    //-     section: h2 Comments
+        li Likes
+          ul
+          each like in user.likes
+            li: +storyCardFull(like.story)
+        li Follows
+          ul
+          each f
 
-    //-     section: h2 Likes
+        li Bookmarks
+          ul
+          each bookmark in user.bookmarks
+            li
+              +storyCardFull(bookmark.story)
