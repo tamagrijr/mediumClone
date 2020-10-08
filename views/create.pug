@@ -1,14 +1,50 @@
-extends layout.pug
+//- extends layout.pug
+
+//- block content
+
+//-     article
+//-         h1 Test Title
+//-         p Test Content, Lets get this goin! 
+//-     script(defer type="text/css" src="styles/create")
+//-         //- img(src="author-portrait.jpg" alt=`Author ${ storyInfo.authorInfo.authorFN } ${ storyInfo.authorInfo.authorLN }`)
+//-         //- a(href="/follow"): img(src="icon-follow.svg")
+//-         //- a(href="/bookmark"): img(src="icon-bookmark.svg")
+
+//-         //- .story-body= storyInfo.body
+
+//-         //- a(href="/like")
+//-         //-   img(src="icon-like.svg")
+//-         //-   span= storyInfo.likeCount
+//-         //- a(href="/comment")
+//-         //-   img(src="icon-comment.svg")
+//-         //-   span= storyInfo.commentCount
+
+//-         form(method="post" action="/comments")
+//-             label Add a Comment:
+//-                 textarea
+//-             button(type="submit") Submit Comment
+
+        //- section
+        //-     h2 Comments
+        //-     if comments
+        //-         ul
+        //-             each comment in storyInfo.comments
+        //-                 li
+        //-                     ul
+        //-                         li: a #{ comment.firstName } #{ comment.lastName }
+        //-                         li= comment.body
+
+
+//- extends layout.pug
 
 block content
-    h2 Create a New Story
-    p #{message}
-    article.body-container
+    //- h2 New Story Title Test
+    //- p Hello! This is text content for p tag!
+    div.body-container
         .story-container
-            section.story-block
+            div.story-block
                 .story-section-content
                     .inner-story-section
-                        h3.story-title: span.story-title-content
-                        p.story-message: span.story-message-content
-    script(defer type="text/css" src="styles/create")
-
+                        h3.story-title: span.story-title-content **TITLE**
+                        p.story-message: span.story-message-content **MESSAGE FOR THE P TAG IN THE SPAN**
+    link(rel='stylesheet' type='text/css' href='/styles/create.css')
