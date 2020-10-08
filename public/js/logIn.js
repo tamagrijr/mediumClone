@@ -1,12 +1,12 @@
 import { handleErrors } from "./utils.js";
 
-const logInForm = document.querySelector(".log-in-form");
-
-logInForm.addEventListener("submit", async (e) => {
+const submitLogIn = document.querySelector(".log-in");
+const logInForm = document.querySelector(".log-in-form")
+submitLogIn.addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(logInForm);
     const email = formData.get("email");
-    email.toLocaleLowerCase();
+    email.toLowerCase();
     const password = formData.get("password");
     const body = {email, password};
 

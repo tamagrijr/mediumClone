@@ -6,7 +6,7 @@ block logIn
   .form-container
     .errors-container
     h2 Log In
-    form(class="log-in-form" method="post" action="/log-in")
+    form(class="log-in-form")
       input(type="hidden" name="_csrf" value=csrfToken)
       include includes/login-fields.pug
       +btn("Log In", "btn btn-primary", "log-in")
