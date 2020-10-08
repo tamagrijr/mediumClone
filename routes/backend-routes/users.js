@@ -49,7 +49,9 @@ const passwordValidator = [
 // Non-integer user: 404 Generic Not Found
 usersRouter.get("/:id(\\d+)",
   asyncHandler(checkForUser),
-  (req, res) => { res.json(req.user) })
+  (req, res) => {
+    res.json(req.user)
+  });
 
 // Create a new User.
 // Valid body: 201 Creates user

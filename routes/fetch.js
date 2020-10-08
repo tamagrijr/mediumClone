@@ -32,7 +32,11 @@ module.exports = {
       authorLN: author.lastName
     };
     let likes = await fetch(`http://localhost:3000/api/stories/${ storyId }/likes`);
-    likes = await likes.json();
+    if (likes.statusCode === 200) {
+      likes = await likes.json();
+    } else {
+      likes = [];
+    }
     const likeCount = likes.length;
     let comments = await fetch(`http://localhost:3000/api/stories/${ storyId }/comments`);
     if (comments.statusCode === 200) {
