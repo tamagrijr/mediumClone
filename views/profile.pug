@@ -1,30 +1,30 @@
 extends layout.pug
+
 block content
-    script(defer type="module" src="js/profile.js")
+  script(defer type="module" src="js/profile.js")
 
-    h1 Profile
-    h2#userName
-    //- #{user.firstName} #{user.lastName}
-    //- button Edit
-    //- img(src="userPortrait.jpg")
-    //- //- Not sure yet how this will be implemented.
-    //- div.user-bio
-    //-     h2= user.title
-    //-     p= user.bio
+  h1 Profile
+  button Edit Profile
+  heading
+    h2 #{user.firstName} #{user.lastName}
+    img(src=user.img)
+    //- Not sure yet how this will be implemented.
 
-    //- div.followers
-    //-     a(href="/users/:id/followers") ${followerCount} Followers
+    .follows
+      a(href=followersLink) #{followerCount} Followers
+      a(href=followingLink) #{followingCount} Following
 
-    //- div.user-collections
-    //-     section: h2 Stories
-    //-         ul
-    //-         each story in user.stories
-    //-             li: story.title
+  
+  div.user-collections
+    section: h2 Stories
+      ul
+      each story in user.stories
+        li: story.title
 
-    //-     section: h2 Follows
+    section: h2 Follows
 
-    //-     section: h2 Bookmarks
+    section: h2 Bookmarks
 
-    //-     section: h2 Comments
+    section: h2 Comments
 
-    //-     section: h2 Likes
+    section: h2 Likes
