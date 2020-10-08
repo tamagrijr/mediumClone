@@ -12,9 +12,9 @@ const signUpButton = document.querySelector('.signUpButton');
 const profileButton = document.querySelector('.profile');
 
 let logged = loggedIn();
-if(logged){
+if (logged) {
   logInScreen.classList.remove('hidden');
-}else{
+} else {
   logOutScreen.classList.remove('hidden');
 }
 
@@ -33,8 +33,8 @@ signUpButton.addEventListener('click', e => {
   signUpForm.classList.remove('hidden');
 })
 logoutButton.addEventListener('click', (e) => {
-  window.localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
-  window.localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
+  localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
+  localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
   window.location.href = "/";
 })
 demoLogin.forEach(elem => {
@@ -42,7 +42,7 @@ demoLogin.forEach(elem => {
     e.preventDefault();
     const email = 'demo@user.com'
     const password = '1234567890'
-    const body ={email, password}
+    const body = { email, password }
     try {
       // ADD THIS ONCE VALIDATION IS IMPLEMENTED
       const res = await fetch("/api/users/token", {

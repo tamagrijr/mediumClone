@@ -14,3 +14,34 @@ mixin splashTag(icon, title, storyId)
     .splashTag
       img(src=icon alt=title)
       span=title
+
+
+//- MIRA Mixins
+mixin storyCardFull(story)
+  h3= story.title
+  //- p story.hook
+  //- img(src=story.img)
+  +authorBlurb(story.author)
+  story.createdAt
+  +storyIcons
+
+mixin storyIcons(story)
+  .icons
+    button(name="like")
+      img(src="/assets/icon/icon-like-blue.png" alt="Like")
+    #{story.likes.length}
+    button(name="comments")
+      img(src="/assets/icon/icon-comment-blue.png")
+      #{story.comments.length} comments
+    //- TODO Make button link to a(href="/stories/#{story.id}#comments")
+    button(name="bookmark")
+      img(src="/assets/icon/icon-bookmark-blue.png" alt="Bookmark")
+      
+mixin storyCardMini(story)
+  h4= story.title
+  a(href="/users/${story.authorId}")= story.author.fullName
+  +storyIcons
+
+mixin authorBlurb(author)
+  a(href="/users/#{author.id")= author.fullName
+  img(href="/assets/av-${author.id}.png" alt=author.fullName)
