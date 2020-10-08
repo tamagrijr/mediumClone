@@ -1,5 +1,7 @@
 const express = require('express');
 const csrf = require('csurf');
+const fetch = require('./fetch')
+// import { getAllStoryInfo } from "./fetch";
 
 const frontEndRouter = express.Router();
 
@@ -34,8 +36,10 @@ frontEndRouter.get("/create", csrfProtection, (req, res) => {
     res.render('create', { csrfToken: req.csrfToken() });
 });
 // display story by id
-frontEndRouter.get("/stories/:id(\\d+)", (req, res) => {
-    res.render('story-layout');
+frontEndRouter.get("/stories/:id(\\d+)", async (req, res) => {
+    let storyInfo = await fetch.getAllStoryInfo(req);
+    console.log(storyInfo);
+    res.render('story-layout', { storyInfo });
 });
 //display story edit form
 frontEndRouter.get("/stories/:id(\\d+)/edit", csrfProtection, (req, res) => {

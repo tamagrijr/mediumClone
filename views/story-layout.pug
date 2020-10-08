@@ -1,28 +1,34 @@
 extends layout.pug
 
 block content
-    script(defer src="js/story-layout.js")
-    
+
     article
-        h1= story.title
-        p= story.author
-        img(src="author-portrait.jpg" alt="Author: #{story.author}")
+        h1= storyInfo.title
+        p #{ storyInfo.authorInfo.authorFN } #{ storyInfo.authorInfo.authorLN }
+        img(src="author-portrait.jpg" alt=`Author ${ storyInfo.authorInfo.authorFN } ${ storyInfo.authorInfo.authorLN }`)
         a(href="/follow"): img(src="icon-follow.svg")
         a(href="/bookmark"): img(src="icon-bookmark.svg")
-        
-        .story-body= story.body
-        
-        a(href="/like"): img(src="icon-like.svg")
-        a(href="/comment"): img(src="icon-comment.svg")
-        
+
+        .story-body= storyInfo.body
+
+        a(href="/like")
+          img(src="icon-like.svg")
+          span= storyInfo.likeCount
+        a(href="/comment")
+          img(src="icon-comment.svg")
+          span= storyInfo.commentCount
+
         form(method="post" action="/comments")
             label Add a Comment:
                 textarea
             button(type="submit") Submit Comment
-        
+
         section
             h2 Comments
-            
-            ul
-            each comment in comments
-                li: comment
+            if comments
+                ul
+                    each comment in storyInfo.comments
+                        li
+                            ul
+                                li #{ comment.firstName } #{ comment.lastName }
+                                li= comment.body
