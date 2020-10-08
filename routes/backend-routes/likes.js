@@ -22,7 +22,7 @@ router.get("/users/:id(\\d+)/likes",
       include:
         { model: Story, attributes: ["id", "title", "authorId", "createdAt"] }
     });
-    userLikes = await userLikes.map(like => {
+    userLikes = await userLikes.map(async like => {
       like.Story.Author = await User.findByPk(like.Story.authorId,
         { attributes: ["id", "firstName", "lastName"] })
     })

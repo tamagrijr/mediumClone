@@ -49,7 +49,7 @@ const passwordValidator = [
 // Non-integer user: 404 Generic Not Found
 usersRouter.get("/:id(\\d+)",
   asyncHandler(checkForUser),
-  asyncHandler((req, res) => {
+  asyncHandler(async (req, res) => {
     req.user.Stories = await Story.findAll({
       where: { userId: req.params.id },
       attributes: ["id", "title", "createdAt"]

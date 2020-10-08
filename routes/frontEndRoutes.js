@@ -6,7 +6,6 @@ const fetch = require('./fetch')
 const frontEndRouter = express.Router();
 const csrfProtection = csrf({ cookie: true });
 
-const tokenHeader = { headers: { "Authorization": `Bearer: ${token}` } }
 
 
 async function getUserById(id) {
