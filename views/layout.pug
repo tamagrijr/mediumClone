@@ -11,13 +11,13 @@ html(lang='en')
           nav.topnav.navbar-default
             h1.logo: a(href="/") MeDaYum
             ul.main-nav
-              li: a.button.signInButton Log-In
-              li: a.button.signUpButton Sign-Up
+              li.signInButton: a.button#signInButton Log-In
+              li.signUpButton: a.button#signUpButton Sign-Up
               li.dropdown
                 a.button.dropdown-toggle User
                 ul#dropdown-menu.dropdown-menu
-                  li: a.button.profile Profile
-                  li: a.button.logoutButton Log-Out
+                  li: a.button#profileButton Profile
+                  li: a.button#logoutButton Log-Out
 
       main
         div.errorButtonDiv: button.errorButton(href='/error-test') Create 500 Error
