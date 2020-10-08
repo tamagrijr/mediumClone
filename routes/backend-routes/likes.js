@@ -9,28 +9,6 @@ const {
 const { User, Like, Story } = require("../../db/models")
 const router = express.Router()
 
-// Add a Like to a Story by id
-// MIRA Tested
-// 
-router.post(
-  '/stories/:id(\\d+)/likes',
-  asyncHandler(checkForStory),
-  asyncHandler(async (req, res) => {
-    const user = await User.findByPk(req.body.userId)
-    const newLike = {
-      userId: req.body.userId,
-      storyId: req.params.id
-    }
-    const likeExists = await Like.findOne({ where: newLike });
-    if (likeExists) res.status(304).end();
-    else if (!user) contentNotFound(req.body.userId, "User")
-    else {
-      const createdLike = await Like.create(newLike);
-      res.json(createdLike);
-    }
-  })
-);
-
 // Get Likes by a User by id
 // Existing user: Gets list of Likes with all associated Story info
 // Existing user, no likes: 204
@@ -60,16 +38,40 @@ router.get(
       where: { storyId: req.params.id },
       include: User
     });
-    const likeList = likes.map(like => {
+    const likeList = likes.map(like => { // MIRA Do we need to return all this information? Can we not just return the likes themselves?
       return {
-        storyId: like.storyId,
         id: like.id,
-        userId: like.userId,
-        firstName: like.User.firstName,
-        lastName: like.User.lastName
+        storyId: like.storyId,
+        user: {
+          userId: like.userId,
+          firstName: like.User.firstName,
+          lastName: like.User.lastName
+        }
       }
     });
     checkForContent(res, likeList)
+  })
+);
+
+// Add a Like to a Story by id
+// MIRA Tested
+// 
+router.post(
+  '/stories/:id(\\d+)/likes',
+  asyncHandler(checkForStory),
+  asyncHandler(async (req, res) => {
+    const user = await User.findByPk(req.body.userId)
+    const newLike = {
+      userId: req.body.userId,
+      storyId: req.params.id
+    }
+    const likeExists = await Like.findOne({ where: newLike });
+    if (likeExists) res.status(304).end();
+    else if (!user) contentNotFound(req.body.userId, "User")
+    else {
+      const createdLike = await Like.create(newLike);
+      res.json(createdLike);
+    }
   })
 );
 
