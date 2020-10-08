@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Story.associate = function(models) {
-    Story.belongsTo(models.User, { foreignKey: "authorId" });
+    Story.belongsTo(models.User, { as: "Author", foreignKey: "authorId" });
     Story.hasMany(models.Bookmark, { foreignKey: "storyId" });
     Story.hasMany(models.Like, { foreignKey: "storyId" });
     Story.hasMany(models.Comment, { foreignKey: "storyId" });

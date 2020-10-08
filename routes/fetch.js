@@ -13,7 +13,7 @@
    - Comment author last name
 
 */
-const fetch = require('node-fetch');
+
 module.exports = {
   getAllStoryInfo: async (req) => {
     const storyId = parseInt(req.params.id);

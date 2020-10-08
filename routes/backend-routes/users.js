@@ -7,7 +7,7 @@ const {
   checkForUser
 } = require("../../utils")
 const { makeUserToken, requireAuthentication } = require("../../auth")
-const { User } = require("../../db/models")
+const { User, Story, Comment, Like, Bookmark, Follow } = require("../../db/models")
 const usersRouter = express.Router()
 
 const nameValidators = [
@@ -49,9 +49,23 @@ const passwordValidator = [
 // Non-integer user: 404 Generic Not Found
 usersRouter.get("/:id(\\d+)",
   asyncHandler(checkForUser),
-  (req, res) => {
+  asyncHandler(async (req, res) => {
+    req.user.Stories = await Story.findAll({
+      where: { userId: req.params.id },
+      attributes: ["id", "title", "createdAt"]
+    })
+    req.user.Stories = await attachCommentsToStories(req.user.Stories)
+    req.user.Stories = await attachLikesToStories(req.user.Stories)
+
+    // req.user.Follows =
+    // req.user.Followers =
+    // req.user.Likes =
+    // req.user.Comments =
+    // req.user.Bookmarks =
+    // req.user.
     res.json(req.user)
-  });
+  })
+)
 
 // Create a new User.
 // Valid body: 201 Creates user
