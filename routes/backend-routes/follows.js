@@ -18,7 +18,9 @@ followsRouter.get("/:id(\\d+)/follows",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
     const follows = await Follow.findAll({
-      where: { followerId: req.params.id }
+      where: { followerId: req.params.id },
+      include:
+        { model: "Following", attributes: ["id", "firstName", "lastName"] }
     })
     checkForContent(res, follows)
   })
@@ -34,7 +36,9 @@ followsRouter.get("/:id(\\d+)/followers",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
     const followers = await Follow.findAll({
-      where: { followingId: req.params.id }
+      where: { followingId: req.params.id },
+      include:
+        { model: "Followers", attributes: ["id", "firstName", "lastName"] },
     })
     checkForContent(res, followers)
   }))
@@ -68,7 +72,7 @@ followsRouter.post("/:id(\\d+)/follows", asyncHandler(checkForUser),
 
 // Delete a Follow for a User.
 // MIRA Tested
-// Existing follow: 204 deletes fol,low
+// Existing follow: 204 deletes follow
 // Non-existing user: 304
 // Non-existing followingId user: 304
 // Non-integer followingId user: 500 Server Error invalid input syntax

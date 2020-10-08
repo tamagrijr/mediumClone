@@ -6,6 +6,8 @@ const csrfProtection = csrf({ cookie: true });
 
 const userId = localStorage.getItem('MEDIUM_CURRENT_USER_ID')
 const token = localStorage.getItem('MEDIUM_ACCESS_TOKEN')
+const tokenHeader = { headers: { "Authorization": `Bearer: ${token}` } }
+
 
 async function getUserById(id) {
   const user = await fetch(`/api/users/${id}`)
@@ -13,6 +15,7 @@ async function getUserById(id) {
   // Test if this lazy return works. If not, just be not-lazy.
   // Returns non-sensitive information, no hashedPassword
 }
+
 async function getStoryById(id) {
   let story = await fetch(`/api/stories/${id}`)
   return await story.json()
@@ -74,12 +77,6 @@ async function getCommentsForStory(id) {
 }
 
 
-async function getFromApi(path) {
-  let response = await fetch(path, {
-    headers: { "Authorization": `Bearer: ${token}` }
-  })
-  return await response.json()
-}
 
 //actual splash page
 frontEndRouter.get("/splash", (req, res) => {
@@ -100,29 +97,11 @@ frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
 //user profile
 frontEndRouter.get("/users/:id", async (req, res) => {
   const userId = req.params.id
-  const user = await getUserById(userId)
-  const followingUserIds = await getFollowIdsOfUser(userId)
-  const followerUserIds = await getFollowerIdsOfUser(userId)
-  const userFollows = followingUserIds.map(async userId => {
-    return await getUserById(userId)
-  })
-  const userFollowers = followerUserIds.map(async userId => {
-    return await getUserById(userId)
-  })
-  const userStories = getStoriesByUserId(userId)
-  let userComments = getCommentsForUser(userId)
-  userComments = userComments.map(async comment => {
-    const story = await getStoryById(comment.storyId)
-    return { body: comment.body, story: { title: story.title, }}
-  })
-  const likedStoryIds = getStoryIdsOfLikesForUser(userId)
-  const likedStories = likedStoryIds.map(async storyId => {
-    return await getStoryById(storyId)
-  })
-  const bookmarkedStoryIds = getBookmarkedStoryIdsForUser(userId)
-  const bookmarkedStories = bookmarkedStoryIds.map(async storyId => {
-    await getStoryById(storyId)
-  })
+
+
+  // image names= av-userId.(jpg or png etc.)
+  // story-storyId-01-99
+  // 
   
   // TODO Convert createdAt to Month Year format.
 
