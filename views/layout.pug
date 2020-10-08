@@ -5,7 +5,7 @@ html(lang='en')
         meta(charset='utf-8')
         title= title
         link(rel='stylesheet' type='text/css' href='/styles/style.css')
-        script(defer type="module" src="js/index.js")
+        script(defer type="module" src="js/layout.js")
     body
       header
           nav.topnav.navbar-default
@@ -17,6 +17,7 @@ html(lang='en')
                 a.button.dropdown-toggle User
                 ul#dropdown-menu.dropdown-menu
                   li: a.button#profileButton Profile
+                  li: a.button#createStoryButton Write
                   li: a.button#logoutButton Log-Out
 
       main
