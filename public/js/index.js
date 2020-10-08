@@ -6,14 +6,18 @@ const signInForm = document.querySelector('.signIn');
 const signUpForm = document.querySelector('.signUp');
 
 const demoLogin = document.querySelectorAll('.demo');
-const logoutButton = document.querySelector('.logoutButton');
-const signInButton = document.querySelector('.signInButton');
-const signUpButton = document.querySelector('.signUpButton');
-const profileButton = document.querySelector('.profile');
+const logoutButton = document.querySelector('#logoutButton');
+const signInButton = document.querySelector('#signInButton');
+const signUpButton = document.querySelector('#signUpButton');
+const profileButton = document.querySelector('#profileButton');
+const signInLi = document.querySelector('.signInButton');
+const signUpLi = document.querySelector('.signUpButton')
 
 let logged = loggedIn();
 if (logged) {
   logInScreen.classList.remove('hidden');
+  signInLi.classList.add('hidden');
+  signUpLi.classList.add('hidden');
 } else {
   logOutScreen.classList.remove('hidden');
 }

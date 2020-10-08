@@ -33,7 +33,7 @@ ul {
 	color: #718daa;
 }
 .topnav {
-    padding-top: .5em;
+  padding-top: .5em;
 	padding-bottom: .5em;
 	border: 1px solid #a2a2a2;
 	background-color: #f4f4f4;
@@ -45,7 +45,19 @@ ul {
 	text-decoration: none;
 	background-color: #121212;
 }
-
+#dropdown-menu {
+	display: none;
+	padding-top: .5em;
+	padding-bottom: .5em;
+	border: 1px solid #a2a2a2;
+	background-color: #f4f4f4;
+	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	border-radius: 5px;
+}
+.dropdown:hover #dropdown-menu {
+	display: block;
+	position: absolute;
+}
 @media (min-width: 769px) {
 	.topnav,
 	.main-nav {
