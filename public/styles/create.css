@@ -18,7 +18,7 @@
 .story-container {
     display: grid;
     position: relative;
-    height: 70%;
+    height: fit-content;
     width: 70%;
     margin: 5px auto;
     border: 1px solid whitesmoke;
