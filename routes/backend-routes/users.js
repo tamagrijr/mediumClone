@@ -92,7 +92,7 @@ usersRouter.post("/token",
 // Existing user, No body: 400 Bad Request, error messages 'need a name, last name, email...'
 // Non-existing user: 404 User Not Found
 // Non-integer user id: 500 Server Error, 'invalid input syntax'
-usersRouter.patch("/:id",
+usersRouter.patch("/:id(\\d+)",
   asyncHandler(checkForUser),
   nameValidators,
   emailValidator,

@@ -4,22 +4,22 @@ const logoutButton = document.querySelector('#logoutButton');
 const loginRequired = document.querySelector('.authorized-link');
 
 window.addEventListener('DOMContentLoaded', async () => {
-  if(window.location.href === "http://localhost:3000/splash"){
-  const tagContainer = document.querySelector(".splash-tag-container");
-  const storiesJson = await fetch('http://localhost:3000/api/stories/');
-  const stories = await storiesJson.json();
-  stories.stories.forEach(story => {
-    const splashTag = document.createElement('a');
-    const tagImg = document.createElement('img');
-    const tagTxt = document.createElement('span');
-    tagImg.setAttribute('src', 'favicon-32x32.png');
-    tagTxt.innerHTML = story.title;
-    splashTag.appendChild(tagImg);
-    splashTag.appendChild(tagTxt);
-    tagContainer.appendChild(splashTag);
-  });
-}
-
+  if (window.location.href === 'http://localhost:3000/splash') {
+    const tagContainer = document.querySelector(".splash-tag-container");
+    const storiesJson = await fetch('http://localhost:3000/api/stories/');
+    const stories = await storiesJson.json();
+    stories.stories.forEach(story => {
+      const splashTag = document.createElement('a');
+      const tagImg = document.createElement('img');
+      const tagTxt = document.createElement('span');
+      splashTag.setAttribute('href', `/stories/${ story.id }`);
+      tagImg.setAttribute('src', 'favicon-32x32.png');
+      tagTxt.innerHTML = story.title;
+      splashTag.appendChild(tagImg);
+      splashTag.appendChild(tagTxt);
+      tagContainer.appendChild(splashTag);
+    });
+  }
 });
 
 
