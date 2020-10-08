@@ -24,8 +24,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 
 logoutButton.addEventListener('click', (e) => {
-    window.localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
-    window.localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
+    localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
+    localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
 })
 // const errBtn = document.querySelector(".errorButton");
 // errBtn.addEventListener('click', (e) => {
