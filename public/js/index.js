@@ -1,8 +1,20 @@
 import { loggedIn } from "./utils.js";
 
 const logoutButton = document.querySelector('#logoutButton');
-const loginRequired = document.querySelector('.authorized-link');
+const logInScreen = document.querySelector('.loggedIn');
+const logOutScreen = document.querySelector('.loggedOut')
 
+let logged = loggedIn();
+if(logged){
+  logInScreen.classList.remove('hidden');
+}else{
+  logOutScreen.classList.remove('hidden');
+}
+
+logoutButton.addEventListener('click', (e) => {
+  window.localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
+  window.localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
+})
 window.addEventListener('DOMContentLoaded', async () => {
   if(window.location.href === "http://localhost:3000/splash"){
   const tagContainer = document.querySelector(".splash-tag-container");
@@ -19,14 +31,12 @@ window.addEventListener('DOMContentLoaded', async () => {
     tagContainer.appendChild(splashTag);
   });
 }
-
 });
 
 
-logoutButton.addEventListener('click', (e) => {
-    window.localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
-    window.localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
-})
+
+
+
 // const errBtn = document.querySelector(".errorButton");
 // errBtn.addEventListener('click', (e) => {
 //   e.preventDefault();

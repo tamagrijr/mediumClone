@@ -12,6 +12,9 @@ ul {
     list-style: none;
 }
 
+.hidden {
+	display: none;
+}
 .logo {
 	margin: 0;
 	font-size: 1.45em;
