@@ -12,6 +12,7 @@ const url = "http://localhost:3000"
 function getDate(createdAt) {
   let parsedDate = new Date(createdAt)
   return parsedDate.toDateString().slice(4)
+  return { firstName, lastName, email, createdAt } = user
 }
 
 function getDates(content) {
@@ -138,12 +139,6 @@ frontEndRouter.get("/users/:id", async (req, res) => {
 
   // TODO Convert createdAt to Month Year format.
 
-  res.render('profile', {
-    user, userStories, userComments,
-    userFollows, userFollowers,
-    bookmarkedStories,
-    likedStories,
-  });
 //edit user profile form
 frontEndRouter.get("/users/:id/edit", csrfProtection, (req, res) => {
   res.render('edit-profile', { csrfToken: req.csrfToken() });
