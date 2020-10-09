@@ -6,10 +6,12 @@ const {
   contentNotFound,
   checkForContent
 } = require("../../utils")
-const { Bookmark, Story, User } = require("../../db/models")
+const { Bookmark, Story, User, Comment, Like } = require("../../db/models")
+
 const bookmarksRouter = express.Router()
 
-
+const storyAttributes = ["id", "title", "authorId", "createdAt"]
+const userAttributes = ["id", "firstName", "lastName"]
 
 
 // Get list of Bookmarked Stories for a User
@@ -25,8 +27,21 @@ bookmarksRouter.get("/users/:id(\\d+)/bookmarks",
     const userBookmarks = await Bookmark.findAll({
       where: { userId: req.params.id },
       include: [
-        {model: User, attributes: ["id", "firstName", "lastName"]},
-        {model: Story, attributes: ["id", "title", "createdAt"]}
+        {
+          model: Story,
+          attributes: ["id", "title", "authorId", "createdAt"],
+          include: [{
+            model: User,
+            as: "Author",
+            attributes: ["id", "firstName", "lastName"]
+          }, {
+            model: Like,
+            attributes: ["id"]
+          }, {
+            model: Comment,
+            attributes: ["id"]
+          }]
+        }
       ]
     })
     checkForContent(res, userBookmarks)
@@ -46,8 +61,8 @@ bookmarksRouter.get("/stories/:id(\\d+)/bookmarks",
     let storyBookmarks = await Bookmark.findAll({
       where: { storyId: req.params.id },
       include: [
-        {model: User, attributes: ["id", "firstName", "lastName"]},
-        {model: Story, attributes: ["id", "title", "createdAt"]}
+        { model: User, attributes: ["id", "firstName", "lastName"] },
+        { model: Story, attributes: ["id", "title", "createdAt"] }
       ]
     })
     checkForContent(res, storyBookmarks)

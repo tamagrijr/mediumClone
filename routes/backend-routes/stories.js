@@ -111,19 +111,33 @@ router.get("/users/:id(\\d+)/follows/stories",
 // Existing story: gets story
 // Non-existing story: 404 Story Not Found
 // Non-integer story id: 404 Generic Not FOund
+
 router.get('/stories/:id(\\d+)',
   asyncHandler(checkForStory),
   asyncHandler(async (req, res) => {
-    req.story.Author = await User.findByPk(
-      req.story.authorId,
-      { attributes: [
-          "id",
-          "firstName",
-          "lastName"
-        ]
-      },
+    const story = await Story.findByPk(req.params.id, {
+      include: [{
+        model: User,
+        as: "Author",
+        attributes: ["id", "firstName", "lastName"]
+      }, {
+        model: Comment,
+        attributes: ["id", "body", "createdAt", "updatedAt", "userId"],
+        include: {
+          model: User,
+          attributes: ["id", "firstName", "lastName"]
+        }
+      }, {
+        model: Like,
+        attributes: ["id"],
+        include: {
+          model: User,
+          attributes: ["id", "firstName", "lastName"]
+        }
+      }]
+    }
     )
-    res.json(req.story)
+    res.json(story)
   })
 );
 

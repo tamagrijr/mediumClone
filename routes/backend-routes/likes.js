@@ -6,7 +6,7 @@ const {
   checkForContent,
   contentNotFound,
 } = require("../../utils")
-const { User, Like, Story } = require("../../db/models")
+const { User, Like, Story, Comment } = require("../../db/models")
 const router = express.Router()
 
 // Get Likes by a User by id

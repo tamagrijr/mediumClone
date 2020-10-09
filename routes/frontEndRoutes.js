@@ -15,61 +15,69 @@ async function getUserById(id) {
   // Returns non-sensitive information, no hashedPassword
 }
 
-async function getStoryById(id) {
-  let story = await fetch(`/api/stories/${id}`)
+async function getStoriesByUser(id) {
+  let stories = await fetch(`${url}/api/users/${id}/stories`)
+  stories = await stories.json()
+  stories = getDates(stories)
+  return stories
+}
+
+async function getLikesByUser(id) {
+  let likes = await fetch(`${url}/api/users/${id}/likes`)
+  likes = await likes.json()
+  console.log("likes?!", likes)
+  likes = getDates(likes)
+  likes = likes.map(like => {
+    like.Story.createdAt = getDate(like.Story.createdAt)
+    return like
+  })
+  return likes
+}
+
+async function getCommentsByUser(id) {
+  let comments = await fetch(`${url}/api/users/${id}/comments`)
+  comments = await comments.json()
+  comments = getDates(comments)
+  return comments
+}
+
+async function getFollowedUsers(id) {
+  let followedUsers = await fetch(`${url}/api/users/${id}/follows`)
+  followedUsers = await followedUsers.json()
+  return followedUsers
+}
+
+async function getFollowingUsers(id) {
+  let followingUsers = await fetch(`${url}/api/users/${id}/followers`)
+  followingUsers = await followingUsers.json()
+  return followingUsers
+}
+
+async function getBookmarkedStoriesForUser(id) {
+  let bookmarks = await fetch(`${url}/api/users/${id}/bookmarks`)
+  bookmarks = await bookmarks.json()
+  bookmarks = bookmarks.map(bookmark => {
+    bookmark.Story.createdAt = getDate(bookmark.Story.createdAt)
+    return bookmark
+  })
+  return bookmarks
+}
+
+async function getStory(id) {
+  let story = await fetch(`${url}/api/stories/${id}`)
   return await story.json()
 }
 
-async function getStoriesByUserId(id) {
-  let stories = await fetch(`/api/users/${id}/stories`)
-  return await stories.json()
-}
 async function getAllStories() {
-  let stories = await fetch(`/api/stories`)
+  let stories = await fetch(`${url}/api/stories`)
   return await stories.json()
 }
+
 async function getStoriesByFollowedAuthors(userId) {
-  let stories = await fetch(`/users/${userId}/follows/stories`)
+  let stories = await fetch(`${url}/api/users/${userId}/follows/stories`)
   return await stories()
 }
 
-async function getFollowerIdsOfUser(id) {
-  let followers = await fetch(`/api/users/${id}/followers`)
-  followers = await followers.json()
-  return followers.map(follower => follower.followerId)
-}
-async function getFollowIdsOfUser(id) {
-  let follows = await fetch(`/api/users/${id}/follows`)
-  follows = await follows.json()
-  return follows.map(follow => follow.followingId)
-}
-
-async function getBookmarkedStoryIdsForUser(id) {
-  let bookmarks = await fetch(`/api/users/${id}/bookmarks`)
-  bookmarks = await bookmarks.json()
-  return bookmarks.map(bookmark => bookmark.storyId)
-}
-async function getUserIdsWithBookmarkForStory(id) {
-  let bookmarks = await fetch(`/api/stories/${id}/bookmarks`)
-  bookmarks = await bookmarks.json()
-  return bookmarks.map(bookmark => bookmark.storyId)
-}
-
-async function getUserIdsOfLikesForStory(id) {
-  let likes = await fetch(`/api/stories/${id}/likes`)
-  likes = await likes.json()
-  return likes.map(like => like.userId)
-}
-async function getStoryIdsOfLikesForStory(id) {
-  let likes = await fetch(`/api/users/${id}/likes`)
-  likes = await likes.json()
-  return likes.map(like => like.storyId)
-}
-
-async function getCommentsForUser(id) {
-  let comments = await fetch(`/api/users/${id}/comments`)
-  return await comments.json()
-}
 async function getCommentsForStory(id) {
   let comments = await fetch(`/api/stories/${id}/comments`)
   return await comments.json()
@@ -101,12 +109,20 @@ frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
 });
 //user profile
 frontEndRouter.get("/users/:id", async (req, res) => {
-  const userId = req.params.id
+  const id = req.params.id
 
-
-  // image names= av-userId.(jpg or png etc.)
-  // story-storyId-01-99
-  //
+  const user = await getUser(id)
+  const userStories = await getStoriesByUser(id)
+  const userComments = await getCommentsByUser(id)
+  const userLikes = await getLikesByUser(id)
+  const followedUsers = await getFollowedUsers(id)
+  const followingUsers = await getFollowingUsers(id)
+  const bookmarkedStories = await getBookmarkedStoriesForUser(id)
+  console.log("bookmarkedStories", bookmarkedStories)
+  res.render('profile', {
+    user, userStories, userComments, userLikes, followedUsers, followingUsers, bookmarkedStories
+});
+})
 
   // TODO Convert createdAt to Month Year format.
 
@@ -116,7 +132,6 @@ frontEndRouter.get("/users/:id", async (req, res) => {
     bookmarkedStories,
     likedStories,
   });
-});
 //edit user profile form
 frontEndRouter.get("/users/:id/edit", csrfProtection, (req, res) => {
   res.render('edit-profile', { csrfToken: req.csrfToken() });
