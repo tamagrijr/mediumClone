@@ -6,7 +6,6 @@ const publishNav = document.querySelector('.publishStory');
 
 const form = document.querySelector('.create-story-form');
 const publishStoryButton = document.querySelector('#publishStoryButton');
-
 publishNav.classList.remove('hidden');
 
 publishStoryButton.addEventListener('click', async e =>{

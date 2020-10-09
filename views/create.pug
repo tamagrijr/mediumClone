@@ -9,5 +9,5 @@ block content
         .form-container
             form(class="create-story-form" method='post')
                 input(type='hidden' name='_csrf' value=csrfToken)
-                input(name='title' class=createTitle type=text placeholder='Title')
-                input(name='body' class=createBody type=textarea placeholder='Tell your story....')
+                input#createTitle(name='title' class=createTitle type=text placeholder='Title')
+                textarea#createBody(name="body" placeholder="Tell your story...")
