@@ -1,21 +1,6 @@
-/* Fetch:
- - Story title
- - Story body
- - Story author id
- - Story author first name
- - Story author last name
- - Count of likes
- - Count of comments
- - All comments including:
-   - Comment body
-   - Comment author id
-   - Coment author first name
-   - Comment author last name
+const fetch = require('node-fetch');
 
-*/
-
-module.exports = {
-  getAllStoryInfo: async (req) => {
+async function getAllStoryInfo(req) {
     const storyId = parseInt(req.params.id);
     let story = await fetch(`http://localhost:3000/api/stories/${ storyId }`);
     story = await story.json();
@@ -65,7 +50,9 @@ module.exports = {
       comments,
       commentsCount
     };
-    console.log(storyInfo);
     return storyInfo;
-  }
+}
+
+module.exports = {
+  getAllStoryInfo
 }
