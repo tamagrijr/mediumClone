@@ -1,20 +1,26 @@
-import {
-    handleErrors
-} from "./utils.js";
+// import {
+//     handleErrors
+// } from "./utils.js";
 
-import{ db } from '../../db/models';
-import { checkForUser } from "../../utils.js";
-import { is } from "sequelize/types/lib/operators";
-import { post } from "../../routes/frontEndRoutes.js";
-import { stories } from '../../routes/backend-routes/stories.js'
-const { Story, User } = db;
+// import{ db } from '../../db/models';
+// import { checkForUser } from "../../utils.js";
+// import { is } from "sequelize/types/lib/operators";
+// import { post } from "../../routes/frontEndRoutes.js";
+// import { stories } from '../../routes/backend-routes/stories.js'
+// const { Story, User } = db;
 const createStoryForm = document.querySelector(".create-story-form");
-const createStoryButton = document.querySelector('.create-story-button');
+// const createStoryButton = document.querySelector('.create-story-button');
 
-createStoryButton.addEventListener('click', (e) => {
+const form = document.querySelector('.create-story-form')
+form.addEventListener('submit', e => {
     e.preventDefault();
-    alert('hi');
+    alert('hello')
 })
+
+// createStoryButton.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     alert('hi');
+// })
 //  async function attachStoryToUser(user) {
 //      user.story = await Story.create({
 //          title: data.title,
@@ -39,13 +45,13 @@ createStoryButton.addEventListener('click', (e) => {
 
 //    console.log(data);
 
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
     //   console.log(formData);
     //   console.log(title);
     //   console.log(message);
@@ -65,5 +71,3 @@ createStoryButton.addEventListener('click', (e) => {
     // } catch (error) {
     //     console.error(error)
     // }
-    
-  
