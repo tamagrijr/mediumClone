@@ -60,11 +60,7 @@ async function checkForComment(req, res, next) {
   }
 }
 function checkForContent(res, content) {
-  if (content.length) {
-    res.json(content)
-  } else {
-    res.status(204).end()
-  }
+  res.json(content)
 }
 
 module.exports = {
