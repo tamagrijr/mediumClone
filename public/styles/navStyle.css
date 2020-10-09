@@ -1,7 +1,4 @@
-* {
-    font-family: 'Fira Sans', sans-serif;
-    box-sizing: border-box
-}
+
 a {
     text-decoration: none;
     color: #34495e;
@@ -10,10 +7,6 @@ ul {
     margin: 0;
     padding: 0;
     list-style: none;
-}
-
-.hidden {
-	display: none;
 }
 .logo {
 	margin: 0;
@@ -69,14 +62,13 @@ ul {
 		width: 70%;
 		margin: 0 auto;
 	}
-
-
 }
-
 @media (min-width: 1025px) {
 	.topnav {
 		flex-direction: row;
 		justify-content: space-between;
 	}
-
+}
+.hidden {
+	display: none;
 }
