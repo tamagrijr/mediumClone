@@ -1,15 +1,8 @@
 window.addEventListener('DOMContentLoaded', async () => {
   const feedContainer = document.querySelector('.feedContainer');
-  let stories = await fetch('http://localhost:3000/api/stories');
-  // const {
-  //   storyId: id,
-  //   title,
-  //   authorId,
-  //   createdAt
+  let stories = await fetch('/api/stories');
   stories = await stories.json();
   stories.forEach(async story => {
-    let author = await fetch(`http://localhost:3000/api/users/${ story.authorId }`);
-    author = await author.json();
     let storyContainer = document.createElement('article');
     feedContainer.appendChild(storyContainer);
     let list = document.createElement('ul');
@@ -19,7 +12,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     titleLink.setAttribute('href', `http://localhost:3000/stories/${ story.id }`);
     titleLink.innerHTML = story.title;
     let storyAuthor = document.createElement('li');
-    storyAuthor.innerHTML = `${ author.firstName } ${ author.lastName }`;
+    storyAuthor.innerHTML = `${ story.Author.firstName } ${ story.Author.lastName }`;
     let storyDate = document.createElement('li');
     let date = new Date(story.createdAt);
     let dateFormat = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });

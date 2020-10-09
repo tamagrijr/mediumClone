@@ -8,7 +8,7 @@ const {
   deleteForStory,
   checkForContent} = require('../../utils');
 const db = require('../../db/models');
-const { Story, Comment, Like, Bookmark } = db;
+const { Story, Comment, Like, Bookmark, User } = db;
 
 const router = express.Router();
 
@@ -79,11 +79,13 @@ router.get(
   asyncHandler(async (req, res) => {
     let stories = await Story.findAll({
       include: {
-        model: "Author", attributes: ["id", "firstName", "lastName"]
+        model: User,
+        as: "Author",
+        attributes: ["id", "firstName", "lastName"]
       }
     })
-    stories = await attachCommentsToStories(stories)
-    stories = await attachLikesToStories(stories)
+    // stories = await attachCommentsToStories(stories)
+    // stories = await attachLikesToStories(stories)
     checkForContent(res, stories);
   })
 );
