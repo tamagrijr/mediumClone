@@ -18,30 +18,29 @@ mixin splashTag(icon, title, storyId)
 
 //- MIRA Mixins
 mixin storyCardFull(story)
-  h3= story.title
-  //- p story.hook
-  //- img(src=story.img)
-  +authorBlurb(story.author)
-  story.createdAt
-  +storyIcons
+  a(href="/stories/#{story.id}")
+    h3= story.title
+    p= story.createdAt
+    //- p story.hook
+    //- img(src=story.img)
+    +authorBlurb(story.Author)
+    +storyIcons(story)
 
 mixin storyIcons(story)
   .icons
-    button(name="like")
+    button(name="like") #{story.Likes.length} Likes
       img(src="/assets/icon/icon-like-blue.png" alt="Like")
-    #{story.likes.length}
-    button(name="comments")
+    button(name="comments") #{story.Comments.length} Comments
       img(src="/assets/icon/icon-comment-blue.png")
-      #{story.comments.length} comments
     //- TODO Make button link to a(href="/stories/#{story.id}#comments")
-    button(name="bookmark")
+    button(name="bookmark") Bookmark
       img(src="/assets/icon/icon-bookmark-blue.png" alt="Bookmark")
-      
+
 mixin storyCardMini(story)
   h4= story.title
-  a(href="/users/${story.authorId}")= story.author.fullName
+  a(href="/users/${story.authorId}")= story.Author.fullName
   +storyIcons
 
 mixin authorBlurb(author)
-  a(href="/users/#{author.id")= author.fullName
-  img(href="/assets/av-${author.id}.png" alt=author.fullName)
+  a(href="/users/#{author.id") #{author.firstName} #{author.lastName}
+  img(href="/assets/av/${author.id}.png" alt="full name here")
