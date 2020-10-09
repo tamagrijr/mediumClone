@@ -2,24 +2,13 @@ extends layout.pug
 include includes/utils.pug
 
 block content
-  script(defer type="module" src="js/index.js")
-  //- script(defer type="module" src="js/logIn.js")
-
-
-
-  div.loggedIn.hidden
-    h1 Logged In Test
-  div.loggedOut.hidden
-    include splash.pug
-  div.signIn.hidden
-    form(class="log-in-form" method="post" action="/api/users/token")
-
-      //- input(type="hidden" name="_csrf" value=csrfToken)
-      label(for="email") Email
-      input(type="email" name="email" id="email")
-      label(for="password") Password
-      input(type="password" name="password" id="password")
-      //- button(type="submit") Log-in
-      +btn("Log In", "btn btn-primary", "log-in")
-  div.signUp.hidden
-    include sign-up.pug
+    link(rel='stylesheet' type='text/css' href='/styles/index.css')
+    script(defer type="module" src="js/index.js")
+    div.mainBody.loggedIn.hidden
+        h1 Logged In Test
+    div.mainBody.loggedOut.hidden
+        include splash.pug
+    div.mainBody.signIn.hidden
+        include log-in.pug
+    div.mainBody.signUp.hidden
+        include sign-up.pug

@@ -1,41 +1,38 @@
 import { loggedIn } from "./utils.js";
+import { handleErrors } from "./utils.js";
 
 const logInScreen = document.querySelector('.loggedIn');
 const logOutScreen = document.querySelector('.loggedOut');
-const signInForm = document.querySelector('.signIn');
-const signUpForm = document.querySelector('.signUp');
+const signInButton = document.querySelector('#signInButton');
+const signUpButton = document.querySelector('#signUpButton');
+const signInDisplay = document.querySelector('.signIn');
+const signUpDisplay = document.querySelector('.signUp');
+
+const logInForm = document.querySelector(".logInForm")
+const signUpForm = document.querySelector(".signUpForm");
 
 const demoLogin = document.querySelectorAll('.demo');
-const logoutButton = document.querySelector('.logoutButton');
-const signInButton = document.querySelector('.signInButton');
-const signUpButton = document.querySelector('.signUpButton');
-const profileButton = document.querySelector('.profile');
 
 let logged = loggedIn();
 if (logged) {
   logInScreen.classList.remove('hidden');
 } else {
   logOutScreen.classList.remove('hidden');
-}
 
+}
 signInButton.addEventListener('click', e => {
   e.preventDefault();
   logInScreen.classList.add('hidden');
   logOutScreen.classList.add('hidden');
-  signUpForm.classList.add('hidden');
-  signInForm.classList.remove('hidden');
+  signUpDisplay.classList.add('hidden');
+  signInDisplay.classList.remove('hidden');
 })
 signUpButton.addEventListener('click', e => {
   e.preventDefault();
   logInScreen.classList.add('hidden');
   logOutScreen.classList.add('hidden');
-  signInForm.classList.add('hidden');
-  signUpForm.classList.remove('hidden');
-})
-logoutButton.addEventListener('click', (e) => {
-  localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
-  localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
-  window.location.href = "/";
+  signInDisplay.classList.add('hidden');
+  signUpDisplay.classList.remove('hidden');
 })
 demoLogin.forEach(elem => {
   elem.addEventListener('click', async (e) => {
@@ -70,27 +67,75 @@ demoLogin.forEach(elem => {
   })
 })
 
-// window.addEventListener('DOMContentLoaded', async () => {
-//   if (window.location.href === 'http://localhost:3000/splash') {
-//     const tagContainer = document.querySelector(".splash-tag-container");
-//     const storiesJson = await fetch('http://localhost:3000/api/stories/');
-//     const stories = await storiesJson.json();
-//     stories.stories.forEach(story => {
-//       const splashTag = document.createElement('a');
-//       const tagImg = document.createElement('img');
-//       const tagTxt = document.createElement('span');
-//       splashTag.setAttribute('href', `/stories/${ story.id }`);
-//       tagImg.setAttribute('src', 'favicon-32x32.png');
-//       tagTxt.innerHTML = story.title;
-//       splashTag.appendChild(tagImg);
-//       splashTag.appendChild(tagTxt);
-//       tagContainer.appendChild(splashTag);
-//     });
-//   }
-// });
+logInForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(logInForm);
+  const email = formData.get("email");
+  email.toLowerCase();
+  const password = formData.get("password");
+  const body = {email, password};
 
-
-
+  try {
+      // ADD THIS ONCE VALIDATION IS IMPLEMENTED
+      const res = await fetch("/api/users/token", {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) {
+        throw res;
+      }
+      const {
+        token,
+        user: { id },
+      } = await res.json();
+      // storage access_token in localStorage:
+      localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
+      localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
+      // redirect to home page:
+      window.location.href = "/";
+    } catch (err) {
+      handleErrors(err);
+    }
+})
+signUpForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(signUpForm);
+  const firstName = formData.get("firstName");
+  const lastName = formData.get("lastName");
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const body = { firstName, lastName, email, password };
+  try {
+    //  ADD THIS ONCE AUTHORIZATION IS IMPLEMENTED
+    const res = await fetch("/api/users", {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("res is", res)
+    if (!res.ok) {
+      console.log("okay is...", res.ok, res.status)
+      throw res;
+    } else {
+      const jsonRes = await res.json();
+      console.log("jsonRes is ", jsonRes)
+      const { token, newUser: { id } } = jsonRes
+      // storage access_token in localStorage:
+      localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
+      localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
+      // redirect to home page
+      window.location.href = "/";
+    }
+  } catch (err) {
+    console.log("caught the error", err.ok, err)
+    handleErrors(err);
+  }
+});
 
 
 // const errBtn = document.querySelector(".errorButton");
