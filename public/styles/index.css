@@ -47,3 +47,18 @@
 .hidden {
   display: none;
 }
+
+.btn-primary {
+  margin: .5em;
+  font-weight: 700;
+  border-radius: .3em;
+  text-align: center;
+  padding: .3em;
+  border-color: #0496FF;
+  border-width: .1em;
+  color: #0496FF;
+}
+.btn-primary:hover {
+  background-color: #0496FF;
+  color: white;
+}

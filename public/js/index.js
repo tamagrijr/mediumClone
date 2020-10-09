@@ -10,6 +10,7 @@ const signUpDisplay = document.querySelector('.signUp');
 const swapToLogIn = document.querySelector('.swapToLogIn');
 const swapToSignUp = document.querySelector('.swapToSignUp');
 const errorsContainer = document.querySelectorAll(".errors-container");
+const demoLoginDiv = document.querySelector('.demoLogIn');
 
 const logInForm = document.querySelector(".logInForm")
 const signUpForm = document.querySelector(".signUpForm");
@@ -20,6 +21,7 @@ let logged = loggedIn();
 if (logged) {
   logInScreen.classList.remove('hidden');
 } else {
+  demoLoginDiv.classList.remove('hidden')
   logOutScreen.classList.remove('hidden');
 }
 // document.addEventListener('click', e => {
@@ -164,16 +166,3 @@ swapToSignUp.addEventListener('click', e => {
     e.innerHTML = '';
   })
 })
-
-// const errBtn = document.querySelector(".errorButton");
-// errBtn.addEventListener('click', (e) => {
-//   e.preventDefault();
-    // res.status(500);
-    //         // // storage access_token in localStorage:
-    //         // localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
-    //         // localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
-    //         // redirect to home page to see all tweets:
-
-    // window.location.href = "/error-test";
-
-// });
