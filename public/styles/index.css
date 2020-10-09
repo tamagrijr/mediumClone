@@ -1,0 +1,48 @@
+/* GENERAL STYLINGS FOR THE MAIN HIDDEN BODIES */
+.mainBody {
+  /* padding-top: .5em;
+	padding-bottom: .5em;
+	border: 1px solid #a2a2a2;
+	background-color: #f4f4f4;
+	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+  border-radius: 5px; */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  margin: 0 auto;
+}
+
+/* STYLING FOR THE FORMS */
+.form-container {
+  margin: .5em;
+  padding-top: .5em;
+	padding-bottom: .5em;
+	border: 1px solid #a2a2a2;
+	background-color: #f4f4f4;
+	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logInForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* STYLING FOR THE SPLASH */
+
+/* STYLING FOR THE FEED */
+
+/* CATCH ANY UNHIDDEN ELEMENTS */
+.hidden {
+  display: none;
+}
