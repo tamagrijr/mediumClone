@@ -42,7 +42,7 @@ followsRouter.get("/:id(\\d+)/followers",
       where: { followingId: req.params.id },
       include: {
         model: User,
-        as: "Followers",
+        as: "Follower",
         attributes: ["id", "firstName", "lastName"]
       },
     })

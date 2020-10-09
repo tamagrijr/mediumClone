@@ -23,7 +23,7 @@ logoutButton.addEventListener('click', (e) => {
   window.location.href = "/";
 })
 profileButton.addEventListener('click', e => {
-  window.location.href = `/profile/${userId}`
+  window.location.href = `/users/${userId}`
 })
 writeStoryButton.addEventListener('click', e => {
   window.location.href = '/create'

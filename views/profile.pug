@@ -2,10 +2,10 @@ extends layout.pug
 include includes/utils.pug
 
 block content
-  script(defer type="module" src="js/profile.js")
+  script(defer type="module" src="/js/profile.js")
 
   h1 Profile - #{user.firstName} #{user.lastName}
-  
+
   article
     heading
 
@@ -13,24 +13,24 @@ block content
       //- span.user-description #{user.description}
       p MeDaYum member since #{user.createdAt}
       //- TODO MIRA Change this to display 'Month Year'
-      
+
       img(src="/assets/icons/icon-user-1000x.png" alt=user.firstName user.lastName)
-      
+
       //- .follows
         //- #{userFollows.length} Following | #{userFollowers.length} Followers
       //-     //- TODO Confirm .length works here
       button Edit Profile
       button Follow
-
+      
+    hr
     nav.user-collections
       ul
-        li: a(href="/users/#{user.id}") Stories
+        li Stories
           ul
           each story in userStories
-            li
-              +storyCardFull(story)
-
-        li: a(href="users/#{user.id}/comments") Comments
+            li: +storyCardFull(story)
+          hr
+        li Comments
           ul
           each comment in userComments
             li
@@ -40,18 +40,30 @@ block content
               //- +authorDate
               p= comment.createdAt
               p "#{comment.body}"
-              
+          hr
         li Likes
           ul
           each like in userLikes
-            li
-              //- +storyCardFull(like.Story)
+            li: +storyCardFull(like.Story)
             
         li Follows
+          hr
           ul
-
+          each user in followedUsers
+            li
+              h3 #{user.Following.firstName} #{user.Following.lastName}
+              img(src=`/assets/av/${user.id}.png` alt=`${user.Following.firstName} ${user.Following.lastName}`)
+              button Follow
+          hr
+        li Followers
+          ul
+          each user in followingUsers
+            li
+              h3 #{user.Follower.firstName} #{user.Follower.lastName}
+              img(src=`/assets/av/${user.id}.png` alt=`${user.Follower.firstName} ${user.Follower.lastName}`)
+              button Follow
+          hr
         li Bookmarks
           ul
-          //- each bookmark in user.bookmarks
-            li
-              +storyCardFull(bookmark.story)
+          each bookmark in bookmarkedStories
+            li: +storyCardFull(bookmark.Story)
