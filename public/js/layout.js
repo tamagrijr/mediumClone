@@ -4,16 +4,17 @@ const logoutButton = document.querySelector('#logoutButton');
 
 const profileButton = document.querySelector('#profileButton');
 const writeStoryButton = document.querySelector('#createStoryButton')
-const signInLi = document.querySelector('.signInButton');
-const signUpLi = document.querySelector('.signUpButton');
-const dropdown = document.querySelector('.dropdown');
+
+const signInElement = document.querySelector('.signInButton');
+const signUpElement = document.querySelector('.signUpButton');
+const dropdownElement = document.querySelector('.dropdown');
 
 let logged = loggedIn();
 if (logged) {
-  signInLi.classList.add('hidden');
-  signUpLi.classList.add('hidden');
+  signInElement.classList.add('hidden');
+  signUpElement.classList.add('hidden');
 } else {
-  dropdown.classList.add('hidden');
+  dropdownElement.classList.add('hidden');
 }
 logoutButton.addEventListener('click', (e) => {
   localStorage.removeItem('MEDIUM_ACCESS_TOKEN');

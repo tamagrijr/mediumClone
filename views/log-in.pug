@@ -2,11 +2,10 @@
 include includes/utils.pug
 
 block logIn
-  script(defer type="module" src="js/logIn.js")
   .form-container
     .errors-container
     h2 Log In
-    form(class="log-in-form" method="post" action="/log-in")
+    form(class="logInForm")
       input(type="hidden" name="_csrf" value=csrfToken)
       include includes/login-fields.pug
       +btn("Log In", "btn btn-primary", "log-in")
