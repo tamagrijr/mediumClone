@@ -1,17 +1,18 @@
 const express = require('express');
 const csrf = require('csurf');
-// const fetch = require('./fetch')
-const fetch = require('node-fetch')
-// import { getAllStoryInfo } from "./fetch";
+const { getAllStoryInfo } = require('./fetch');
+const fetch = require('node-fetch');
 
 const frontEndRouter = express.Router();
 const csrfProtection = csrf({ cookie: true });
+
 
 const url = "http://localhost:3000"
 
 function getDate(createdAt) {
   let parsedDate = new Date(createdAt)
   return parsedDate.toDateString().slice(4)
+  return { firstName, lastName, email, createdAt } = user
 }
 
 function getDates(content) {
@@ -25,8 +26,6 @@ async function getUser(id) {
   let user = await fetch(`${url}/api/users/${id}`)
   user = await user.json()
   user.createdAt = getDate(user.createdAt)
-  return { firstName, lastName, email, createdAt } = user
-  // Returns non-sensitive information, no hashedPassword
 }
 
 async function getStoriesByUser(id) {
@@ -97,11 +96,17 @@ async function getCommentsForStory(id) {
   return await comments.json()
 }
 
-// *************************************
+
+// display story by id
+frontEndRouter.get("/stories/:id(\\d+)", async (req, res) => {
+    const storyInfo = await getAllStoryInfo(req);
+    console.log(storyInfo);
+    res.render('story-layout', { storyInfo, title: storyInfo.title });
+});
 
 //actual splash page
 frontEndRouter.get("/splash", (req, res) => {
-  res.render('splash', { title: "MEDAYUM" });
+  res.render('splash', { title: "MEDAYUM"});
 });
 //splash page
 frontEndRouter.get("/", (req, res) => {
@@ -115,9 +120,6 @@ frontEndRouter.get("/sign-up", csrfProtection, (req, res) => {
 frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
   res.render('log-in', { csrfToken: req.csrfToken() });
 });
-
-// *************************************
-
 //user profile
 frontEndRouter.get("/users/:id", async (req, res) => {
   const id = req.params.id
@@ -132,9 +134,10 @@ frontEndRouter.get("/users/:id", async (req, res) => {
   console.log("bookmarkedStories", bookmarkedStories)
   res.render('profile', {
     user, userStories, userComments, userLikes, followedUsers, followingUsers, bookmarkedStories
-});
+  });
 })
 
+  // TODO Convert createdAt to Month Year format.
 
 //edit user profile form
 frontEndRouter.get("/users/:id/edit", csrfProtection, (req, res) => {
@@ -144,10 +147,6 @@ frontEndRouter.get("/users/:id/edit", csrfProtection, (req, res) => {
 frontEndRouter.get("/create", csrfProtection, (req, res) => {
   res.render('create', { csrfToken: req.csrfToken() });
 });
-// display story by id
-frontEndRouter.get("/stories/:id", (req, res) => {
-  res.render('story-layout');
-});
 //display story edit form
 frontEndRouter.get("/stories/:id/edit", csrfProtection, (req, res) => {
   res.render('story-edit-layout', { csrfToken: req.csrfToken() });
@@ -155,41 +154,35 @@ frontEndRouter.get("/stories/:id/edit", csrfProtection, (req, res) => {
 //display feed
 frontEndRouter.get("/feed", (req, res) => {
   res.render('feed');
-  res.render('index', { title: "MEDAYUM" });
+    res.render('index', { title: "MEDAYUM" });
 });
 //sign up form
 frontEndRouter.get("/sign-up", csrfProtection, (req, res) => {
-  res.render('sign-up', { csrfToken: req.csrfToken(), title: "Sign Up" });
+    res.render('sign-up', { csrfToken: req.csrfToken(), title: "Sign Up" });
 });
 //log-in form
 frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
-  res.render('log-in', { csrfToken: req.csrfToken(), title: "Log In" });
+    res.render('log-in', { csrfToken: req.csrfToken(), title: "Log In" });
 });
 //user profile
 frontEndRouter.get("/users", (req, res) => {
-  res.render('profile', { title: "Profile" });
+    res.render('profile', { title: "Profile" });
 });
 //edit user profile form
 frontEndRouter.get("/users/:id(\\d+)/edit", csrfProtection, (req, res) => {
-  res.render('edit-profile', { csrfToken: req.csrfToken(), title: "Edit Profile" });
+    res.render('edit-profile', { csrfToken: req.csrfToken(), title: "Edit Profile" });
 });
 //create new story form
 frontEndRouter.get("/create", csrfProtection, (req, res) => {
-  res.render('create', { csrfToken: req.csrfToken(), title: "Create a Story" });
-});
-// display story by id
-frontEndRouter.get("/stories/:id(\\d+)", async (req, res) => {
-  let storyInfo = await fetch.getAllStoryInfo(req);
-  console.log(storyInfo);
-  res.render('story-layout', { storyInfo, title: storyInfo.title });
+    res.render('create', { csrfToken: req.csrfToken(), title: "Create a Story" });
 });
 //display story edit form
 frontEndRouter.get("/stories/:id(\\d+)/edit", csrfProtection, (req, res) => {
-  res.render('story-edit-layout', { csrfToken: req.csrfToken(), title: "Edit Story" });
+    res.render('story-edit-layout', { csrfToken: req.csrfToken(), title: "Edit Story" });
 });
 //display feed
 frontEndRouter.get("/feed", (req, res) => {
-  res.render('feed', { title: "My Feed" });
+    res.render('feed', { title: "My Feed" });
 });
 //throw error
 frontEndRouter.get("/error-test", (req, res, next) => {
