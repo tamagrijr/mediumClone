@@ -50,19 +50,10 @@ const passwordValidator = [
 usersRouter.get("/:id(\\d+)",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
-    req.user.Stories = await Story.findAll({
-      where: { userId: req.params.id },
-      attributes: ["id", "title", "createdAt"]
-    })
-    req.user.Stories = await attachCommentsToStories(req.user.Stories)
-    req.user.Stories = await attachLikesToStories(req.user.Stories)
-
-    // req.user.Follows =
-    // req.user.Followers =
-    // req.user.Likes =
-    // req.user.Comments =
-    // req.user.Bookmarks =
-    // req.user.
+    // req.user.stories = await Story.findAll({
+    //   where: { authorId: req.params.id },
+    //   attributes: ["id", "title", "createdAt"]
+    // })
     res.json(req.user)
   })
 )

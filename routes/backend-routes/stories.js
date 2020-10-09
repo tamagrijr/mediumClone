@@ -6,7 +6,7 @@ const {
   checkForStory,
   checkForUser,
   deleteForStory,
-  checkForContent} = require('../../utils');
+  checkForContent } = require('../../utils');
 const db = require('../../db/models');
 const { Story, Comment, Like, Bookmark, User } = db;
 
@@ -41,33 +41,6 @@ const storyValidations = [
     .withMessage('Your story needs a body.')
 ];
 
-async function attachCommentsToStory(story) {
-  story.Comments = await Comment.findAll({
-    where: { storyId: story.id },
-    attributes: ["id", "body", "userId"]
-  })
-  return story
-}
-async function attachLikesToStory(story) {
-  story.Likes = await Like.findAll({
-    where: { storyId: story.id },
-    attributes: ["id", "userId"]
-  })
-  return story
-}
-
-async function attachCommentsToStories(stories) {
-  return await stories.map(async story => {
-    return attachCommentsToStory(story)
-  })
-}
-
-async function attachLikesToStories(stories) {
-  return await stories.map(async story => {
-    return attachLikesToStory(story)
-  })
-}
-
 // Get all Stories
 // Include Author (id, firstName, lastName),
 //    Comments (id, body, userId),
@@ -84,11 +57,10 @@ router.get(
         attributes: ["id", "firstName", "lastName"]
       }
     })
-    // stories = await attachCommentsToStories(stories)
-    // stories = await attachLikesToStories(stories)
     checkForContent(res, stories);
   })
 );
+
 
 // Get all Stories by Author
 router.get("/users/:id/stories",
@@ -96,10 +68,21 @@ router.get("/users/:id/stories",
   asyncHandler(async (req, res) => {
     let stories = await Story.findAll({
       where: { authorId: req.params.id },
-      include: { model: "Author", attributes: ["id", "firstName", "lastName"] }
+      include: [{
+        model: User,
+        as: "Author",
+        attributes: ["id", "firstName", "lastName"]
+      }, {
+        model: Comment,
+        attributes: ["id"]
+      }, {
+        model: Like,
+        attributes: ["id"]
+      }]
     })
-    stories = await attachCommentsToStories(stories)
-    stories = await attachLikesToStories(stories)
+    console.log("comments", stories.Comments)
+    res.json(stories)
+    // checkForContent(res, stories)
   })
 )
 
@@ -133,7 +116,7 @@ router.get('/stories/:id(\\d+)',
   asyncHandler(async (req, res) => {
     req.story.Author = await User.findByPk(req.story.authorId,
       { attributes: ["id, firstName", "lastName"] }
-      )
+    )
     await attachCommentsToStory(req.story)
     await attachLikesToStory(req.story)
     res.json(req.story)

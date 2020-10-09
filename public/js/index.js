@@ -7,6 +7,8 @@ const signInButton = document.querySelector('#signInButton');
 const signUpButton = document.querySelector('#signUpButton');
 const signInDisplay = document.querySelector('.signIn');
 const signUpDisplay = document.querySelector('.signUp');
+const swapToLogIn = document.querySelector('.swapToLogIn');
+const swapToSignUp = document.querySelector('.swapToSignUp');
 
 const logInForm = document.querySelector(".logInForm")
 const signUpForm = document.querySelector(".signUpForm");
@@ -136,7 +138,15 @@ signUpForm.addEventListener("submit", async (e) => {
     handleErrors(err);
   }
 });
-
+swapToLogIn.addEventListener('click', e => {
+  e.preventDefault();
+  signUpDisplay.classList.add('hidden');
+  signInDisplay.classList.remove('hidden');
+})
+swapToSignUp.addEventListener('click', e => {
+  signInDisplay.classList.add('hidden');
+  signUpDisplay.classList.remove('hidden');
+})
 
 // const errBtn = document.querySelector(".errorButton");
 // errBtn.addEventListener('click', (e) => {
