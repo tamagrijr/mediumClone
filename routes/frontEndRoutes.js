@@ -91,7 +91,7 @@ async function getStoriesByFollowedAuthors(userId) {
 }
 
 async function getCommentsForStory(id) {
-  let comments = await fetch(`/api/stories/${id}/comments`)
+  let comments = await fetch(`${url}/api/stories/${id}/comments`)
   return await comments.json()
 }
 
