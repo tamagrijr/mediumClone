@@ -19,13 +19,22 @@ router.get("/users/:id(\\d+)/likes",
   asyncHandler(async (req, res) => {
     let userLikes = await Like.findAll({
       where: { userId: req.params.id },
-      include:
-        { model: Story, attributes: ["id", "title", "authorId", "createdAt"] }
+      include: {
+        model: Story,
+        attributes: ["id", "title", "authorId", "createdAt"],
+        include: [{
+          model: Like,
+          attributes: ["id"],
+        }, {
+          model: Comment,
+          attributes: ["id"]
+        }, {
+          model: User,
+          as: "Author",
+          attributes: ["firstName", "lastName"]
+        }]
+      }
     });
-    userLikes = await userLikes.map(async like => {
-      like.Story.Author = await User.findByPk(like.Story.authorId,
-        { attributes: ["id", "firstName", "lastName"] })
-    })
     checkForContent(res, userLikes)
   })
 )
@@ -41,7 +50,10 @@ router.get(
   asyncHandler(async (req, res) => {
     const likes = await Like.findAll({
       where: { storyId: req.params.id },
-      include: { model: User, attributes: ["id", "firstName", "lastName"] }
+      include: {
+        model: User,
+        attributes: ["id", "firstName", "lastName"]
+      }
     })
     checkForContent(res, likes)
   })

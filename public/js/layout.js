@@ -1,5 +1,6 @@
 import { loggedIn } from './utils.js';
 
+const userId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID')
 const logoutButton = document.querySelector('#logoutButton');
 
 const profileButton = document.querySelector('#profileButton');
@@ -22,7 +23,7 @@ logoutButton.addEventListener('click', (e) => {
   window.location.href = "/";
 })
 profileButton.addEventListener('click', e => {
-  window.location.href = '/profile'
+  window.location.href = `/profile/${userId}`
 })
 writeStoryButton.addEventListener('click', e => {
   window.location.href = '/create'
