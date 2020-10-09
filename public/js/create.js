@@ -1,8 +1,15 @@
 import { handleErrors } from "./utils.js";
 
-const authorId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID')
+const authorId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID');
+const publishNav = document.querySelector('.publishStory');
 
-const createStoryForm = document.querySelector(".create-story-form");
+publishNav.classList.remove('hidden')
+
+const publishStoryButton = document.querySelector('#publishStoryButton');
+publishStoryButton.addEventListener('click', e =>{
+  e.preventDefault();
+  ////make submit form
+})
 
 const form = document.querySelector('.create-story-form')
 form.addEventListener('submit', async e => {
