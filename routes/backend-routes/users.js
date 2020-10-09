@@ -8,6 +8,7 @@ const {
 } = require("../../utils")
 const { makeUserToken, requireAuthentication } = require("../../auth")
 const { User, Story, Comment, Like, Bookmark, Follow } = require("../../db/models")
+// const { Model } = require("sequelize/types")
 const usersRouter = express.Router()
 
 const nameValidators = [
@@ -32,15 +33,21 @@ const emailValidator = [
     .isEmail()
     .withMessage("Please give us a valid email address.")
     .isLength({ max: 80 })
-    .withMessage("An email can't be longer than 80 characters in length."),
+    .withMessage("An email can't be longer than 80 characters in length.")
+    .custom(async (val, {req}) => {
+      let emailExists = await User.findOne({where: {email: val}})
+      if(emailExists){
+        throw new Error("Email is in use")
+      }
+    })
 ]
 const passwordValidator = [
   // MIRA Tested
   check("password")
     .exists({ checkFalsy: true })
     .withMessage("Please give us a password.")
-    .isLength({ min: 10, max: 80 })
-    .withMessage("A password must be between 10 to 80 characters in length.")
+    .isLength({ min: 10, max: 20 })
+    .withMessage("A password must be between 10 to 20 characters in length.")
 ]
 
 // Get User by id

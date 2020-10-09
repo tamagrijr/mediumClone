@@ -2,13 +2,14 @@ include includes/utils.pug
 
 block signIn
   .form-container
-    .errors-container
     h2 Sign Up
+    .errors-container
     form(class="signUpForm")
-      +input("First Name", "firstName", "text", "First Name")
-      +input("Last Name", "lastName", "text", "Last Name")
-      include includes/login-fields
-      +input("Confirm Password", "confirmPassword", "password", "Confirm Password")
+      input(name='firstName' class='signUpInput' type='text' placeholder='First Name' required)
+      input(name='lastName' class='signUpInput' type='text' placeholder='Last Name' required)
+      input(name='email' class='signUpInput' type='email' placeholder='Enter Email' required)
+      input(name='password' class='signUpInput' type='password' placeholder='Enter Password' required)
+      input(name='confirmPassword' class='signUpInput' type='password' placeholder='Confirm Password')
       +btn("Sign Up", "btn btn-primary", "signupBtn")
     p Already have an account?
       a.swapToLogIn Log in here.

@@ -62,3 +62,59 @@
   background-color: #0496FF;
   color: white;
 }
+.emailLogIn {
+  font-weight: 700;
+  border-radius: .3em;
+  text-align: center;
+  border-color: #0496FF;
+  border-width: .1em;
+  padding: .3em;
+  margin: .1em;
+}
+.emailLogIn::placeholder{
+  color: #0496FF;
+}
+.passwordLogIn {
+  font-weight: 700;
+  border-radius: .3em;
+  text-align: center;
+  border-color: #0496FF;
+  border-width: .1em;
+  padding: .3em;
+  margin: .1em;
+}
+.passwordLogIn::placeholder{
+  color: #0496FF;
+}
+.signUpInput {
+  font-weight: 700;
+  border-radius: .3em;
+  text-align: center;
+  border-color: #0496FF;
+  border-width: .1em;
+  padding: .3em;
+  margin: .1em;
+}
+.signUpInput::placeholder {
+  color: #0496FF;
+}
+a.swapToSignUp {
+  color: #0496FF
+}
+a.swapToLogIn {
+  color: #0496FF
+}
+.form-container{
+  padding: .3em;
+}
+.alert-danger {
+  background-color: rgba(249, 57, 67, .2);
+  text-align: center;
+  border-style: solid;
+  border-color: #F93943;
+  font-weight: 700;
+  border-radius: .3em;
+  border-width: .1em;
+  padding: .3em;
+  margin: .2em;
+}
