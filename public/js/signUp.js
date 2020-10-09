@@ -9,6 +9,7 @@ signUpForm.addEventListener("submit", async (e) => {
   const lastName = formData.get("lastName");
   const email = formData.get("email");
   const password = formData.get("password");
+  // csrf James make csrf in body
   const body = { firstName, lastName, email, password };
   try {
     //  ADD THIS ONCE AUTHORIZATION IS IMPLEMENTED
@@ -21,11 +22,9 @@ signUpForm.addEventListener("submit", async (e) => {
     });
     console.log("res is", res)
     if (!res.ok) {
-      console.log("okay is...", res.ok, res.status)
       throw res;
     } else {
       const jsonRes = await res.json();
-      console.log("jsonRes is ", jsonRes)
       const { token, newUser: { id } } = jsonRes
       // storage access_token in localStorage:
       localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
