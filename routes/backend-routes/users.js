@@ -86,7 +86,7 @@ usersRouter.post("/token",
       const err = new Error("The login failed.")
       err.title = "401 Login Failed"
       err.status = 401
-      err.errors = "The provided credentials are INVALID."
+      err.errors = ["The provided credentials are INVALID."]
       return next(err)
     }
     const token = makeUserToken(user)

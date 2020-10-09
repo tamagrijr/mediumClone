@@ -9,6 +9,7 @@ const signInDisplay = document.querySelector('.signIn');
 const signUpDisplay = document.querySelector('.signUp');
 const swapToLogIn = document.querySelector('.swapToLogIn');
 const swapToSignUp = document.querySelector('.swapToSignUp');
+const errorsContainer = document.querySelectorAll(".errors-container");
 
 const logInForm = document.querySelector(".logInForm")
 const signUpForm = document.querySelector(".signUpForm");
@@ -20,14 +21,21 @@ if (logged) {
   logInScreen.classList.remove('hidden');
 } else {
   logOutScreen.classList.remove('hidden');
-
 }
+// document.addEventListener('click', e => {
+//   errorsContainer.forEach(e => {
+//     e.innerHTML = '';
+//   })
+// })
 signInButton.addEventListener('click', e => {
   e.preventDefault();
   logInScreen.classList.add('hidden');
   logOutScreen.classList.add('hidden');
   signUpDisplay.classList.add('hidden');
   signInDisplay.classList.remove('hidden');
+  errorsContainer.forEach(e => {
+    e.innerHTML = '';
+  })
 })
 signUpButton.addEventListener('click', e => {
   e.preventDefault();
@@ -35,6 +43,9 @@ signUpButton.addEventListener('click', e => {
   logOutScreen.classList.add('hidden');
   signInDisplay.classList.add('hidden');
   signUpDisplay.classList.remove('hidden');
+  errorsContainer.forEach(e => {
+    e.innerHTML = '';
+  })
 })
 demoLogin.forEach(elem => {
   elem.addEventListener('click', async (e) => {
@@ -142,10 +153,16 @@ swapToLogIn.addEventListener('click', e => {
   e.preventDefault();
   signUpDisplay.classList.add('hidden');
   signInDisplay.classList.remove('hidden');
+  errorsContainer.forEach(e => {
+    e.innerHTML = '';
+  })
 })
 swapToSignUp.addEventListener('click', e => {
   signInDisplay.classList.add('hidden');
   signUpDisplay.classList.remove('hidden');
+  errorsContainer.forEach(e => {
+    e.innerHTML = '';
+  })
 })
 
 // const errBtn = document.querySelector(".errorButton");
