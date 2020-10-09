@@ -1,6 +1,7 @@
 import { handleErrors } from "./utils.js";
 
-const userId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID')
+const authorId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID')
+// const authorId =parseInt(userId);
 // import{ db } from '../../db/models';
 // import { checkForUser } from "../../utils.js";
 // import { is } from "sequelize/types/lib/operators";
@@ -17,7 +18,7 @@ form.addEventListener('submit', async e => {
     const formData = new FormData(form);
     const title = formData.get("title");
     const body = formData.get("body");
-    const obj = {title, body, userId};
+    const obj = {title, body, authorId};
     try {
         // ADD THIS ONCE VALIDATION IS IMPLEMENTED
         const res = await fetch("/api/stories", {
@@ -30,14 +31,6 @@ form.addEventListener('submit', async e => {
         if (!res.ok) {
           throw res;
         }
-        // const {
-        //   token,
-        //   user: { id },
-        // } = await res.json();
-        // storage access_token in localStorage:
-        // localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
-        // localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
-        // redirect to home page:
         window.location.href = "/";
       } catch (err) {
         console.log(err)
