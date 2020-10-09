@@ -2,20 +2,20 @@
 //     handleErrors
 // } from "./utils.js";
 
-// import{ db } from '../../db/models';
+const { db } = require('../../db/models');
 // import { checkForUser } from "../../utils.js";
 // import { is } from "sequelize/types/lib/operators";
 // import { post } from "../../routes/frontEndRoutes.js";
 // import { stories } from '../../routes/backend-routes/stories.js'
-// const { Story, User } = db;
+const { Story, User } = db;
 const createStoryForm = document.querySelector(".create-story-form");
 // const createStoryButton = document.querySelector('.create-story-button');
 
 const form = document.querySelector('.create-story-form')
-form.addEventListener('submit', e => {
-    e.preventDefault();
-    alert('hello')
-})
+// form.addEventListener('submit', e => {
+//     e.preventDefault();
+//     alert('hello')
+// })
 
 // createStoryButton.addEventListener('click', (e) => {
 //     e.preventDefault();
@@ -45,18 +45,20 @@ createStoryForm.addEventListener("submit", async (e) => {
         // updatedAt: new Date()
     };
     // await attachStoryToUser(data.authorId)
-    console.log(data.title)
+    console.log(data)
       
 
     // try {
-    //     const isValid = checkForUser(story.userId);
-    //     if (isValid) {
-    //         await Story.create({
-    //             title: story.title,
-    //             body: story.body
-    //         })
-    //         const user
-    //     }
+        // const isValid = checkForUser(data.authorId);
+        // console.log(isValid);
+        // if (isValid) {
+            await Story.create({
+                title: story.title,
+                body: story.body,
+                authorId: story.authorId
+            })
+        //     window.location.href = '/';
+        // }
     // } catch (error) {
     //     console.error(error)
     // }
