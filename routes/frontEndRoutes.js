@@ -1,20 +1,23 @@
 const express = require('express');
 const csrf = require('csurf');
+const { asyncHandler } = require('../utils')
+const fetch = require('node-fetch')
 const { getAllStoryInfo } = require('./fetch');
-const fetch = require('node-fetch');
 
 const frontEndRouter = express.Router();
 const csrfProtection = csrf({ cookie: true });
 
-
 const url = "http://localhost:3000"
 
+
+// Provide a 'createdAt' value and receive a string in form 'Jan 01 2020'
 function getDate(createdAt) {
   let parsedDate = new Date(createdAt)
   return parsedDate.toDateString().slice(4)
-  return { firstName, lastName, email, createdAt } = user
 }
 
+// Provide a list of objects with the 'createdAt' property to update their
+// values to strings in form 'Jan 01 2020'.
 function getDates(content) {
   return content.map(item => {
     item.createdAt = getDate(item.createdAt)
@@ -22,6 +25,7 @@ function getDates(content) {
   })
 }
 
+// Fetch a User by id, without password info.
 async function getUser(id) {
   let user = await fetch(`${url}/api/users/${id}`)
   user = await user.json()
@@ -29,6 +33,11 @@ async function getUser(id) {
   return user
 }
 
+// Fetch array of Stories by Author's id and convert 'createdAt' to be readable.
+// Includes:
+//  .Author.firstName,  .Author.lastName
+//  .Comments (array, ids only)
+//  .Likes (array, ids only)
 async function getStoriesByUser(id) {
   let stories = await fetch(`${url}/api/users/${id}/stories`)
   stories = await stories.json()
@@ -36,6 +45,12 @@ async function getStoriesByUser(id) {
   return stories
 }
 
+// Fetch array of Stories Liked by User (id).= and convert 'createdAt' to be readable.
+// Includes:
+// .Story.id, .Story.title, .Story.createdAt, .Story.authorId
+// .Story.Likes (ids only)
+// .Story.Comments (ids only)
+// .Story.Author.firstName, .Story.Author.lastName
 async function getLikesByUser(id) {
   let likes = await fetch(`${url}/api/users/${id}/likes`)
   likes = await likes.json()
@@ -48,6 +63,7 @@ async function getLikesByUser(id) {
   return likes
 }
 
+// Fetch array of Comments by User (id) with associated Stories
 async function getCommentsByUser(id) {
   let comments = await fetch(`${url}/api/users/${id}/comments`)
   comments = await comments.json()
@@ -122,9 +138,8 @@ frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
   res.render('log-in', { csrfToken: req.csrfToken() });
 });
 //user profile
-frontEndRouter.get("/users/:id", async (req, res) => {
+frontEndRouter.get("/users/:id", csrfProtection, asyncHandler(async (req, res) => {
   const id = req.params.id
-
   const user = await getUser(id)
   const userStories = await getStoriesByUser(id)
   const userComments = await getCommentsByUser(id)
@@ -132,18 +147,24 @@ frontEndRouter.get("/users/:id", async (req, res) => {
   const followedUsers = await getFollowedUsers(id)
   const followingUsers = await getFollowingUsers(id)
   const bookmarkedStories = await getBookmarkedStoriesForUser(id)
-  console.log("bookmarkedStories", bookmarkedStories)
   res.render('profile', {
-    user, userStories, userComments, userLikes, followedUsers, followingUsers, bookmarkedStories
+    csrfToken: req.csrfToken(),
+    user,
+    userStories,
+    userComments,
+    userLikes,
+    followedUsers,
+    followingUsers,
+    bookmarkedStories,
   });
-})
+}))
 
   // TODO Convert createdAt to Month Year format.
 
 //edit user profile form
-frontEndRouter.get("/users/:id/edit", csrfProtection, (req, res) => {
-  res.render('edit-profile', { csrfToken: req.csrfToken() });
-});
+// frontEndRouter.get("/users/:id/edit", csrfProtection, (req, res) => {
+//   res.render('edit-profile', { csrfToken: req.csrfToken() });
+// });
 //create new story form
 frontEndRouter.get("/create", csrfProtection, (req, res) => {
   res.render('create', { csrfToken: req.csrfToken() });
