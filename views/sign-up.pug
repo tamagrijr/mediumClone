@@ -1,11 +1,10 @@
 include includes/utils.pug
 
 block signIn
-  script(defer type="module" src="js/signUp.js")
   .form-container
     .errors-container
     h2 Sign Up
-    form(class="sign-up-form")
+    form(class="signUpForm")
       +input("First Name", "firstName", "text", "First Name")
       +input("Last Name", "lastName", "text", "Last Name")
       include includes/login-fields
