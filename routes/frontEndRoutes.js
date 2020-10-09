@@ -7,12 +7,24 @@ const frontEndRouter = express.Router();
 const csrfProtection = csrf({ cookie: true });
 
 
+const url = "http://localhost:3000"
 
-async function getUserById(id) {
-  const user = await fetch(`/api/users/${id}`)
-  return { firstName, lastName, email, createdAt } = user
-  // Test if this lazy return works. If not, just be not-lazy.
-  // Returns non-sensitive information, no hashedPassword
+function getDate(createdAt) {
+  let parsedDate = new Date(createdAt)
+  return parsedDate.toDateString().slice(4)
+}
+
+function getDates(content) {
+  return content.map(item => {
+    item.createdAt = getDate(item.createdAt)
+    return item
+  })
+}
+
+async function getUser(id) {
+  let user = await fetch(`${url}/api/users/${id}`)
+  user = await user.json()
+  user.createdAt = getDate(user.createdAt)
 }
 
 async function getStoriesByUser(id) {
