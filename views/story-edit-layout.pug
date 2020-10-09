@@ -1,5 +1,12 @@
 extends layout.pug
 
-block content
+block storyEdit
     h2 Edit Story
     p #{message}
+
+    .stories: ul
+        each story in stories
+            .title: li
+                h3= story.title
+            .message: li: 
+                p= story.message

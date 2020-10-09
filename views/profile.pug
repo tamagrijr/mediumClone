@@ -2,52 +2,56 @@ extends layout.pug
 include includes/utils.pug
 
 block content
-  script(defer type="module" src="js/profile.js")
+  script(defer type="module" src="/js/profile.js")
 
-  h1 Profile
-  
-  article user
+  h1 Profile - #{user.firstName} #{user.lastName}
+
+  article
     heading
 
       h2 #{user.firstName} #{user.lastName}
       //- span.user-description #{user.description}
-      span MeDaYum member since #{user.createdAt}
+      p MeDaYum member since #{user.createdAt}
       //- TODO MIRA Change this to display 'Month Year'
-      
-      img(src="/assets/icons/icon-user-1000x.png" alt="#{user.firstName} #{user.lastName}")
-      
-      .follows
-        #{userFollows.length} Following | #{userFollowers.length} Followers
-        //- TODO Confirm .length works here
+
+      img(src="/assets/icons/icon-user-1000x.png" alt=user.firstName user.lastName)
+
+      //- .follows
+        //- #{userFollows.length} Following | #{userFollowers.length} Followers
+      //-     //- TODO Confirm .length works here
       button Edit Profile
       button Follow
 
     nav.user-collections
       ul
-        li Stories
+        li: a(href="/users/#{user.id}") Stories
           ul
           each story in userStories
-            li: +storyCardFull(story)
+            li
+              +storyCardFull(story)
 
-
-        li Comments
+        li: a(href="users/#{user.id}/comments") Comments
           ul
           each comment in userComments
             li
-              +storyCardMini(comment.story)
-              +authorDate
-              p= comment.body
+              h3= comment.Story.title
+              p #{comment.Story.Author.firstName} #{comment.Story.Author.lastName}
+              //- +storyCardMini(comment.story)
+              //- +authorDate
+              p= comment.createdAt
+              p "#{comment.body}"
 
         li Likes
           ul
-          each like in user.likes
-            li: +storyCardFull(like.story)
+          each like in userLikes
+            li
+              //- +storyCardFull(like.Story)
+
         li Follows
           ul
-          each f
 
         li Bookmarks
           ul
-          each bookmark in user.bookmarks
+          //- each bookmark in user.bookmarks
             li
               +storyCardFull(bookmark.story)
