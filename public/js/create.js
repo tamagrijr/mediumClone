@@ -40,7 +40,7 @@ form.addEventListener('submit', async e => {
         // redirect to home page:
         window.location.href = "/";
       } catch (err) {
-        handleErrors(err);
+        console.log(err)
       }
 })
 
