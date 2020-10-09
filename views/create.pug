@@ -7,13 +7,7 @@ block content
     link(rel='stylesheet' type='text/css' href='/styles/create.css')
     .mainBody
         .form-container
-            h2 Tell Your Story
             form(class="create-story-form" method='post')
                 input(type='hidden' name='_csrf' value=csrfToken)
                 input(name='title' class=createTitle type=text placeholder='Title')
-                input(name='body' class=createBody type=textarea placeholder='...')
-                //- +input("message", "message", "textarea", "Enter a creative message for your post here...")
-                +btn("Create Story", "create-story-button", "create-story-button")
-            .story-redirect
-                a(href='/')  Back to Home
-        //- script(defer type="module" src="../routes/backend-routes/stories.js")
+                input(name='body' class=createBody type=textarea placeholder='Tell your story....')
