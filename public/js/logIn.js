@@ -1,8 +1,7 @@
 import { handleErrors } from "./utils.js";
 
-const submitLogIn = document.querySelector(".log-in");
 const logInForm = document.querySelector(".log-in-form")
-submitLogIn.addEventListener("submit", async (e) => {
+logInForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(logInForm);
     const email = formData.get("email");

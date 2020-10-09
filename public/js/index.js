@@ -62,45 +62,6 @@ demoLogin.forEach(elem => {
     }
   })
 })
-
-logInForm.addEventListener("submit", async (e) => {
-  console.log('hello world')
-    e.preventDefault();
-    const formData = new FormData(logInForm);
-    const email = formData.get("email");
-    email.toLowerCase();
-    const password = formData.get("password");
-    const body = {email, password};
-
-    try {
-        // ADD THIS ONCE VALIDATION IS IMPLEMENTED
-        console.log('before-fetch')
-        const res = await fetch("/api/users/token", {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        console.log(res);
-        if (!res.ok) {
-          throw res;
-        }
-        const {
-          token,
-          user: { id },
-        } = await res.json();
-        console.log(token)
-        console.log(id)
-        // storage access_token in localStorage:
-        localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
-        localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
-        // redirect to home page:
-        window.location.href = "/";
-      } catch (err) {
-        handleErrors(err);
-      }
-})
 // window.addEventListener('DOMContentLoaded', async () => {
 //   if (window.location.href === 'http://localhost:3000/splash') {
 //     const tagContainer = document.querySelector(".splash-tag-container");
