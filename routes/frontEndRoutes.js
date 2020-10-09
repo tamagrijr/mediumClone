@@ -1,7 +1,7 @@
 const express = require('express');
 const csrf = require('csurf');
 const { getAllStoryInfo } = require('./fetch');
-// import { getAllStoryInfo } from "./fetch";
+const fetch = require('node-fetch');
 
 const frontEndRouter = express.Router();
 const csrfProtection = csrf({ cookie: true });
@@ -134,7 +134,7 @@ frontEndRouter.get("/users/:id", async (req, res) => {
   console.log("bookmarkedStories", bookmarkedStories)
   res.render('profile', {
     user, userStories, userComments, userLikes, followedUsers, followingUsers, bookmarkedStories
-});
+  });
 })
 
   // TODO Convert createdAt to Month Year format.
