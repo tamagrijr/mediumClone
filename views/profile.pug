@@ -21,15 +21,16 @@ block content
       //-     //- TODO Confirm .length works here
       button Edit Profile
       button Follow
-
+      
+    hr
     nav.user-collections
       ul
-        li: a(href=`/users/${user.id}`) Stories
+        li Stories
           ul
           each story in userStories
             li: +storyCardFull(story)
-
-        li: a(href=`users/${user.id}/comments`) Comments
+          hr
+        li Comments
           ul
           each comment in userComments
             li
@@ -39,18 +40,30 @@ block content
               //- +authorDate
               p= comment.createdAt
               p "#{comment.body}"
-              
+          hr
         li Likes
           ul
           each like in userLikes
             li: +storyCardFull(like.Story)
             
         li Follows
+          hr
           ul
           each user in followedUsers
             li
+              h3 #{user.Following.firstName} #{user.Following.lastName}
+              img(src=`/assets/av/${user.id}.png` alt=`${user.Following.firstName} ${user.Following.lastName}`)
+              button Follow
+          hr
+        li Followers
+          ul
+          each user in followingUsers
+            li
+              h3 #{user.Follower.firstName} #{user.Follower.lastName}
+              img(src=`/assets/av/${user.id}.png` alt=`${user.Follower.firstName} ${user.Follower.lastName}`)
+              button Follow
+          hr
         li Bookmarks
           ul
-          //- each bookmark in user.bookmarks
-            li
-              +storyCardFull(bookmark.story)
+          each bookmark in bookmarkedStories
+            li: +storyCardFull(bookmark.Story)
