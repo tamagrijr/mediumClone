@@ -9,7 +9,7 @@ block content
         form(class="create-story-form" method='post')
             input(type='hidden' name='_csrf' value=csrfToken)
             +input("title", "title", "text", "Title here...")
-            +input("message", "message", "textarea", "Enter a creative message for your post here...")
+            +input("body", "body", "textarea", "Enter a creative message for your post here...")
             +btn("Create Story", "create-story-button", "create-story-button")
         .story-redirect
             a(href='/')  Back to Home

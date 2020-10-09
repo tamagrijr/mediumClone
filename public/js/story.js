@@ -31,43 +31,33 @@ form.addEventListener('submit', e => {
 //  }
 
 
-// createStoryForm.addEventListener("submit", async (e) => {
-//     e.preventDefault();
-//     alert('wtffffff');
-//     const formData = new FormData(createStoryForm);
-//     const title = formData.get("Title");
-//     const message = formData.get("Message");
-//     const data = {
-//         title,
-//         message
-//     };
-    // attachStoryToUser(req.params.userId)
+createStoryForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(createStoryForm);
+    const title = formData.get("title");
+    const body = formData.get("body");
 
-//    console.log(data);
-
-
-
-
-
-
-
-
-    //   console.log(formData);
-    //   console.log(title);
-    //   console.log(message);
-    //   console.log(story);
-    //   console.log(story.title);
-    //   console.log(story.message);
+    const data = {
+        title,
+        body,
+        authorId: localStorage.getItem("MEDIUM_CURRENT_USER_ID")
+        // createdAt: new Date(),
+        // updatedAt: new Date()
+    };
+    // await attachStoryToUser(data.authorId)
+    console.log(data.title)
+      
 
     // try {
     //     const isValid = checkForUser(story.userId);
     //     if (isValid) {
-            // await Story.create({
-            //     title: story.title,
-            //     message: story.message
-            // })
-            // const user
+    //         await Story.create({
+    //             title: story.title,
+    //             body: story.body
+    //         })
+    //         const user
     //     }
     // } catch (error) {
     //     console.error(error)
     // }
+})
