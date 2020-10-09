@@ -44,11 +44,12 @@ async function getStoriesByUser(id) {
 async function getLikesByUser(id) {
   let likes = await fetch(`${url}/api/users/${id}/likes`)
   likes = await likes.json()
-  // likes = getDates(likes)
-  // likes = likes.map(like => {
-  //   like.Story.createdAt = getDate(like.Story.createdAt)
-  //   return like
-  // })
+  console.log("likes?!", likes)
+  likes = getDates(likes)
+  likes = likes.map(like => {
+    like.Story.createdAt = getDate(like.Story.createdAt)
+    return like
+  })
   return likes
 }
 
