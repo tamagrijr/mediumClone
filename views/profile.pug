@@ -2,10 +2,10 @@ extends layout.pug
 include includes/utils.pug
 
 block content
-  script(defer type="module" src="js/profile.js")
+  script(defer type="module" src="/js/profile.js")
 
   h1 Profile - #{user.firstName} #{user.lastName}
-  
+
   article
     heading
 
@@ -13,9 +13,9 @@ block content
       //- span.user-description #{user.description}
       p MeDaYum member since #{user.createdAt}
       //- TODO MIRA Change this to display 'Month Year'
-      
+
       img(src="/assets/icons/icon-user-1000x.png" alt=user.firstName user.lastName)
-      
+
       //- .follows
         //- #{userFollows.length} Following | #{userFollowers.length} Followers
       //-     //- TODO Confirm .length works here
