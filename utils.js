@@ -63,7 +63,8 @@ function checkForContent(res, content) {
   if (content.length) {
     res.json(content)
   } else {
-    res.status(204).end()
+    res.status(204)
+    res.json(content)
   }
 }
 
