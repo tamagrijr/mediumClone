@@ -26,6 +26,7 @@ async function getUser(id) {
   let user = await fetch(`${url}/api/users/${id}`)
   user = await user.json()
   user.createdAt = getDate(user.createdAt)
+  return user
 }
 
 async function getStoriesByUser(id) {
