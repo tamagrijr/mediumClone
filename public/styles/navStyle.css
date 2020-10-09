@@ -8,10 +8,6 @@ ul {
     padding: 0;
     list-style: none;
 }
-
-.hidden {
-	display: none;
-}
 .logo {
 	margin: 0;
 	font-size: 1.45em;
@@ -66,14 +62,13 @@ ul {
 		width: 70%;
 		margin: 0 auto;
 	}
-
-
 }
-
 @media (min-width: 1025px) {
 	.topnav {
 		flex-direction: row;
 		justify-content: space-between;
 	}
-
+}
+.hidden {
+	display: none;
 }
