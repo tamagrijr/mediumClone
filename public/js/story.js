@@ -1,5 +1,5 @@
 import {
-    handleErrors
+    handleErrors, checkForUser
 } from "./utils.js";
 
 import{ db } from '../../db/models';
@@ -12,7 +12,7 @@ const createStoryForm = document.querySelector(".create-story-form");
 const createStoryButton = document.querySelector('.create-story-button');
 
 createStoryButton.addEventListener('click', (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     alert('hi');
 })
 //  async function attachStoryToUser(user) {
@@ -25,19 +25,32 @@ createStoryButton.addEventListener('click', (e) => {
 //  }
 
 
-// createStoryForm.addEventListener("submit", async (e) => {
-//     e.preventDefault();
-//     alert('wtffffff');
-//     const formData = new FormData(createStoryForm);
-//     const title = formData.get("Title");
-//     const message = formData.get("Message");
-//     const data = {
-//         title,
-//         message
-//     };
-    // attachStoryToUser(req.params.userId)
+createStoryForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const userId = localStorage.getItem("MEDIUM_CURRENT_USER_ID");
+    const formData = new FormData(createStoryForm);
+    const title = formData.get("title");
+    const message = formData.get("body");
+    const data = {
+        title,
+        message,
+        authorId: userId
+    };
+    
+    try {
+        const isValid = checkForUser(data.authorId);
+        if (isValid) {
+            await Story.create({
+                title: data.title,
+                body: data.body,
+                authorId: data.authorId
+            })
+            window.location.href = '/';
+        }
+    } catch (error) {
+        console.error(error)
+    }
 
-//    console.log(data);
 
     
     
@@ -53,17 +66,6 @@ createStoryButton.addEventListener('click', (e) => {
     //   console.log(story.title);
     //   console.log(story.message);
 
-    // try {
-    //     const isValid = checkForUser(story.userId);
-    //     if (isValid) {
-            // await Story.create({
-            //     title: story.title,
-            //     message: story.message
-            // })
-            // const user
-    //     }
-    // } catch (error) {
-    //     console.error(error)
-    // }
+    // 
     
-  
+    });

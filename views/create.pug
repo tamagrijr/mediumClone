@@ -3,14 +3,13 @@ extends layout.pug
 include includes/utils.pug
 
 block content
+    script(defer type="module" src="/js/story.js")
     .form-container
         h2 Create Story
-        form(class="create-story-form" action='/stories' method='post')
-            input(type='hidden' name='_csrf' value=csrfToken)
+        form(class="create-story-form" method='post')
+            //- input(type='hidden' name='_csrf' value=csrfToken)
             +input("title", "title", "text", "Title here...")
-            +input("message", "message", "textarea", "Enter a creative message for your post here...")
+            +input("body", "body", "textarea", "Enter a creative message for your post here...")
             +btn("Create Story", "create-story-button", "create-story-button")
         .story-redirect
             a(href='/')  Back to Home
-    script(defer type="module" src="../routes/backend-routes/stories.js")
-    script(defer type="module" src="/js/story.js")
