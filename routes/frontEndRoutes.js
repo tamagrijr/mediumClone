@@ -167,7 +167,12 @@ frontEndRouter.get("/users/:id/edit", csrfProtection, (req, res) => {
   res.render('edit-profile', { csrfToken: req.csrfToken() });
 });
 //create new story form
+//  localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
 frontEndRouter.get("/create", csrfProtection, (req, res) => {
+  console.log(req.userId)
+  console.log(req.user)
+  // console.log(localStorage.getItem('MEDIUM_CURRENT_USER_ID'))
+  // const userId = localStorage.getItem('MEDIUM_CURRENT_USER_ID');
   res.render('create', { csrfToken: req.csrfToken() });
 });
 // display story by id

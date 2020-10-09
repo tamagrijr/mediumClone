@@ -37,26 +37,28 @@ createStoryForm.addEventListener("submit", async (e) => {
     const formData = new FormData(createStoryForm);
     const title = formData.get("title");
     const body = formData.get("body");
-
+    const userId = localStorage.getItem("MEDIUM_CURRENT_USER_ID");
     const data = {
         title,
-        body
+        body,
+        authorId: userId
     };
-    data.authorId = localStorage.getItem("MEDIUM_CURRENT_USER_ID");
+    console.log(data.authorId)
+    // data.authorId = localStorage.getItem("MEDIUM_CURRENT_USER_ID");
     // await attachStoryToUser(data.authorId)
     // console.log(data.authorId)
     try {
-        const newStory = await fetch('http://localhost:3000/api/stories', {
-            method: 'POST',
+        await fetch('http://localhost:3000/api/stories', {
+            method: "POST",
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json"
             },
         });
         
-        if (!newStory.ok) {
-            throw newStory;
-        }
+        // if (!newStory.ok) {
+        //     throw newStory;
+        // }
     } catch (error) {
         // handleErrors(error)
         // console.error(error);

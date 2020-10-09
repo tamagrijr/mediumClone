@@ -115,7 +115,7 @@ router.get('/stories/:id(\\d+)',
   asyncHandler(checkForStory),
   asyncHandler(async (req, res) => {
     req.story.Author = await User.findByPk(req.story.authorId,
-      { attributes: ["id, firstName", "lastName"] }
+      { attributes: ["id", "firstName", "lastName"] }
     )
     await attachCommentsToStory(req.story)
     await attachLikesToStory(req.story)

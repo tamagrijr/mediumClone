@@ -8,6 +8,7 @@ block content
         h2 Create Story
         form(class="create-story-form" action="/api/stories" method='post')
             input(type='hidden' name='_csrf' value=csrfToken)
+            input(type='hidden' name='authorId' value=userId)
             +input("title", "title", "text", "Title here...")
             +input("body", "body", "textarea", "Enter a creative message for your post here...")
             +btn("Create Story", "create-story-button", "create-story-button")
