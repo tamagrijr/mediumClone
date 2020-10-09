@@ -19,8 +19,11 @@ followsRouter.get("/:id(\\d+)/follows",
   asyncHandler(async (req, res) => {
     const follows = await Follow.findAll({
       where: { followerId: req.params.id },
-      include:
-        { model: "Following", attributes: ["id", "firstName", "lastName"] }
+      include: {
+        model: User,
+        as: "Following",
+        attributes: ["id", "firstName", "lastName"]
+      }
     })
     checkForContent(res, follows)
   })
@@ -37,8 +40,11 @@ followsRouter.get("/:id(\\d+)/followers",
   asyncHandler(async (req, res) => {
     const followers = await Follow.findAll({
       where: { followingId: req.params.id },
-      include:
-        { model: "Followers", attributes: ["id", "firstName", "lastName"] },
+      include: {
+        model: User,
+        as: "Followers",
+        attributes: ["id", "firstName", "lastName"]
+      },
     })
     checkForContent(res, followers)
   }))
@@ -52,7 +58,7 @@ followsRouter.get("/:id(\\d+)/followers",
 // Non-integer followingId user: 500 Server Error, invalid input syntax
 // Existing user, no body: 500 Server Error, WHERE param 'followingid' is undefined
 followsRouter.post("/:id(\\d+)/follows",
-asyncHandler(checkForUser),
+  asyncHandler(checkForUser),
   asyncHandler(async (req, res, next) => {
     const newFollow = {
       followerId: req.params.id,

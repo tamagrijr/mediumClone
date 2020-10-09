@@ -50,18 +50,19 @@ router.get('/users/:id(\\d+)/comments',
   asyncHandler(async (req, res) => {
     let userComments = await Comment.findAll({
       where: { userId: req.params.id },
-      include: {
+      include: [{
         model: Story,
-        attributes: ["id", "title", "authorId", "createdAt"]
-      }
+        attributes: ["id", "title", "authorId", "createdAt"],
+        include: {
+          model: User,
+          as: "Author",
+          attributes: ["firstName", "lastName"]
+        }
+      }]
     });
-    userComments = await userComments.map(async comment => {
-      comment.Story.Author = await User.findByPk(comment.Story.authorId,
-        { attributes: ["id", "firstName", "lastName"] }
-      )
-    })
     checkForContent(res, userComments)
-  }))
+  })
+)
 
 // Get all Comments for a Story by id
 // Existing story: Gets list of Story's comments
@@ -73,7 +74,7 @@ router.get(
   asyncHandler(async (req, res) => {
     storyComments = await Comment.findAll({
       where: { storyId: req.params.id },
-      include: 
+      include:
         { model: User, attributes: ["id", "firstName", "lastName"] }
     });
     checkForContent(res, storyComments)
