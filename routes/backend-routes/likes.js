@@ -35,7 +35,8 @@ router.get("/users/:id(\\d+)/likes",
         }]
       }
     });
-    checkForContent(res, userLikes)
+    res.json(userLikes)
+    // checkForContent(res, userLikes)
   })
 )
 
@@ -59,9 +60,8 @@ router.get(
   })
 );
 
-// Add a Like to a Story by id
+// Create or Delete a Like to a Story by id
 // MIRA Tested
-// 
 router.post(
   '/stories/:id(\\d+)/likes',
   asyncHandler(checkForStory),
@@ -71,10 +71,12 @@ router.post(
       userId: req.body.userId,
       storyId: req.params.id
     }
-    const likeExists = await Like.findOne({ where: newLike });
-    if (likeExists) res.status(304).end();
-    else if (!user) contentNotFound(req.body.userId, "User")
-    else {
+    const like = await Like.findOne({ where: newLike });
+    if (!user) contentNotFound(req.body.userId, "User")
+    else if (like) {
+      await like.destroy()
+      res.status(204).end()
+    } else {
       const createdLike = await Like.create(newLike);
       res.json(createdLike);
     }

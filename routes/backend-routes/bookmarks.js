@@ -69,7 +69,7 @@ bookmarksRouter.get("/stories/:id(\\d+)/bookmarks",
   })
 )
 
-// Create a Bookmark to a Story for a User
+// Create or Delete a Bookmark to a Story for a User
 // MIRA Tested
 // Existing user/story, no bookmark: makes bookmark
 // Existing user/story/bookmark: 304
@@ -83,11 +83,14 @@ bookmarksRouter.post("/users/:id(\\d+)/bookmarks",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res, next) => {
     const newBookmark = { userId: req.params.id, storyId: req.body.storyId }
-    const bookmarkExists = await Bookmark.findOne({ where: newBookmark })
+    const bookmark = await Bookmark.findOne({ where: newBookmark })
     const story = await Story.findByPk(req.body.storyId)
 
-    if (bookmarkExists) res.status(304).end()
-    else if (!story) next(contentNotFound(req.body.storyId, "Story"))
+    if (!story) next(contentNotFound(req.body.storyId, "Story"))
+    else if (bookmark) {
+      await bookmark.destroy()
+      res.status(204).end()
+    }
     else {
       const bookmark = await Bookmark.create(newBookmark)
       res.json(bookmark)

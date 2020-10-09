@@ -80,7 +80,6 @@ router.get("/users/:id/stories",
         attributes: ["id"]
       }]
     })
-    console.log("comments", stories.Comments)
     res.json(stories)
     // checkForContent(res, stories)
   })

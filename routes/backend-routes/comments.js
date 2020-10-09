@@ -60,7 +60,7 @@ router.get('/users/:id(\\d+)/comments',
         }
       }]
     });
-    checkForContent(res, userComments)
+    res.json(userComments)
   })
 )
 

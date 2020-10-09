@@ -60,12 +60,6 @@ async function checkForComment(req, res, next) {
   }
 }
 function checkForContent(res, content) {
-  // if (content.length) {
-  //   res.json(content)
-  // } else {
-  //   res.status(204)
-  //   res.json(content)
-  // }
   res.json(content)
 }
 
