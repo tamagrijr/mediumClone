@@ -10,16 +10,21 @@ html(lang='en')
     body
       header
           nav.topnav.navbar-default
-            h1.logo: a(href="/") MeDaYum
+            .logo-container
+              h1.logo: a(href="/") MeDaYum
+                span.greet  | Welcome back, {insert name here}
             ul.main-nav
               li.signInButton: a.button#signInButton Log-In
               li.signUpButton: a.button#signUpButton Sign-Up
               li.dropdown
-                a.button.dropdown-toggle User
-                ul#dropdown-menu.dropdown-menu
-                  li: a.button#profileButton Profile
-                  li: a.button#createStoryButton Write
-                  li: a.button#logoutButton Log-Out
+                .dropdown-container
+                  img(href=`/assets/av/{userId}.png`).button.navAv
+                  ul#dropdown-menu.dropdown-menu
+                    li: a.button#profileButton 
+                      img(href=`/assets/av/{user.id}.png`).av
+                      p Profile 
+                    li: a.button#createStoryButton Write
+                    li: a.button#logoutButton Log out
 
       main
         //- div.errorButtonDiv: button.errorButton(href='/error-test') Create 500 Error

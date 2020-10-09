@@ -97,17 +97,14 @@ async function getStory(id) {
   let story = await fetch(`${url}/api/stories/${id}`)
   return await story.json()
 }
-
 async function getAllStories() {
   let stories = await fetch(`${url}/api/stories`)
   return await stories.json()
 }
-
 async function getStoriesByFollowedAuthors(userId) {
   let stories = await fetch(`${url}/api/users/${userId}/follows/stories`)
   return await stories()
 }
-
 async function getCommentsForStory(id) {
   let comments = await fetch(`${url}/api/stories/${id}/comments`)
   return await comments.json()
@@ -127,6 +124,7 @@ frontEndRouter.get("/splash", (req, res) => {
 });
 //splash page
 frontEndRouter.get("/", (req, res) => {
+  
   res.render('index');
 });
 //sign up form

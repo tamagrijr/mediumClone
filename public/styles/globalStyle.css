@@ -1,6 +1,11 @@
+
+body {
+  margin: 0;
+}
 * {
   font-family: 'Fira Sans', sans-serif;
-  box-sizing: border-box
+  box-sizing: border-box;
+  outline: 1px dashed red;
 }
 .hidden {
 	display: none;
