@@ -3,15 +3,18 @@ import { handleErrors } from "./utils.js";
 const authorId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID');
 const publishNav = document.querySelector('.publishStory');
 
-publishNav.classList.remove('hidden')
 
+const form = document.querySelector('.create-story-form');
 const publishStoryButton = document.querySelector('#publishStoryButton');
+
+publishNav.classList.remove('hidden');
 publishStoryButton.addEventListener('click', e =>{
   e.preventDefault();
   ////make submit form
+  form.submit();
 })
 
-const form = document.querySelector('.create-story-form')
+
 form.addEventListener('submit', async e => {
     e.preventDefault();
     const formData = new FormData(form);
