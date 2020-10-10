@@ -122,7 +122,8 @@ signUpForm.addEventListener("submit", async (e) => {
   const lastName = formData.get("lastName");
   const email = formData.get("email");
   const password = formData.get("password");
-  const body = { firstName, lastName, email, password };
+  const confirmPassword = formData.get('confirmPassword')
+  const body = { firstName, lastName, email, password, confirmPassword };
   try {
     //  ADD THIS ONCE AUTHORIZATION IS IMPLEMENTED
     const res = await fetch("/api/users", {

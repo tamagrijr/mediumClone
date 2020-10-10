@@ -8,6 +8,7 @@ const {
 } = require("../../utils")
 const { makeUserToken, requireAuthentication } = require("../../auth")
 const { User, Story, Comment, Like, Bookmark, Follow } = require("../../db/models")
+// const { values } = require("sequelize/types/lib/operators")
 // const { Model } = require("sequelize/types")
 const usersRouter = express.Router()
 
@@ -48,6 +49,13 @@ const passwordValidator = [
     .withMessage("Please give us a password.")
     .isLength({ min: 10, max: 20 })
     .withMessage("A password must be between 10 to 20 characters in length.")
+    .custom((val, {req}) => {
+      if(val !== req.body.confirmPassword) {
+        throw new Error('Passwords do not match')
+      }else{
+        return val;
+      }
+    })
 ]
 
 // Get User by id
