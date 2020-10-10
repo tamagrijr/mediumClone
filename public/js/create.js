@@ -1,4 +1,16 @@
+
+import { loggedIn } from "./utils.js";
 import { handleErrors } from "./utils.js";
+
+const navHeader = document.querySelector('.navHeader')
+const topnav = document.querySelector('.topnav');
+
+let logged = loggedIn();
+if (logged) {
+  navHeader.classList.remove('navHeaderStyles')
+} else {
+  topnav.classList.remove('topNavStyles');
+}
 
 const authorId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID');
 const publishNav = document.querySelector('.publishStory');

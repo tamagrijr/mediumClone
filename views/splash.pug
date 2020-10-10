@@ -1,17 +1,18 @@
-include includes/utils.pug
 
-doctype html
-html(lang="en")
-  body.splashBody
-    .headlineOne
-      h1 ME DAYUM!
-    .signUpBanner
-      button.signUpBanner Get Started
-    .headlineTwo
-      h1 YOU DAYUM!
-    .headlineThree
-      h1 WE DAYUM!
+body.splashBody
+  .headlineOne
+    h1.splashHead ME DAYUM
+    h3.splashText Find riveting stories about bears here!
+  .signUpBanner
+    button.signUpBanner#signUpBanner Get Started
+  .headlineTwo
+    h1.splashHead YOU DAYUM
+    h3.splashText Bring your stories to life here!
+  .headlineThree
+    h1.splashHead WE DAYUM
+    h3.splashText Become a part of our community!
+  .signUpBanner
+    button.signUpBanner#signUpBanner Get Started
 
-    footer
-    i.log-in-form.hidden
-    block content
+footer.splashFooter
+  h1 This be a footer

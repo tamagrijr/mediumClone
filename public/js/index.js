@@ -4,13 +4,15 @@ import { handleErrors } from "./utils.js";
 const logInScreen = document.querySelector('.loggedIn');
 const logOutScreen = document.querySelector('.loggedOut');
 const signInButton = document.querySelector('#signInButton');
-const signUpButton = document.querySelector('#signUpButton');
+const signUpButton = document.querySelectorAll('.signUpBanner');
 const signInDisplay = document.querySelector('.signIn');
 const signUpDisplay = document.querySelector('.signUp');
 const swapToLogIn = document.querySelector('.swapToLogIn');
 const swapToSignUp = document.querySelector('.swapToSignUp');
 const errorsContainer = document.querySelectorAll(".errors-container");
 const demoLoginDiv = document.querySelector('.demoLogIn');
+const navHeader = document.querySelector('.navHeader')
+const topnav = document.querySelector('.topnav');
 
 const logInForm = document.querySelector(".logInForm")
 const signUpForm = document.querySelector(".signUpForm");
@@ -19,16 +21,13 @@ const demoLogin = document.querySelectorAll('.demo');
 
 let logged = loggedIn();
 if (logged) {
+  navHeader.classList.remove('navHeaderStyles')
   logInScreen.classList.remove('hidden');
 } else {
-  demoLoginDiv.classList.remove('hidden')
+  topnav.classList.remove('topNavStyles');
+  demoLoginDiv.classList.remove('hidden');
   logOutScreen.classList.remove('hidden');
 }
-// document.addEventListener('click', e => {
-//   errorsContainer.forEach(e => {
-//     e.innerHTML = '';
-//   })
-// })
 signInButton.addEventListener('click', e => {
   e.preventDefault();
   logInScreen.classList.add('hidden');
@@ -39,16 +38,19 @@ signInButton.addEventListener('click', e => {
     e.innerHTML = '';
   })
 })
-signUpButton.addEventListener('click', e => {
-  e.preventDefault();
-  logInScreen.classList.add('hidden');
-  logOutScreen.classList.add('hidden');
-  signInDisplay.classList.add('hidden');
-  signUpDisplay.classList.remove('hidden');
-  errorsContainer.forEach(e => {
+signUpButton.forEach( e => {
+  e.addEventListener('click' , e => {
+    e.preventDefault();
+    logInScreen.classList.add('hidden');
+    logOutScreen.classList.add('hidden');
+    signInDisplay.classList.add('hidden');
+    signUpDisplay.classList.remove('hidden');
+    errorsContainer.forEach(e => {
     e.innerHTML = '';
+    })
   })
 })
+
 demoLogin.forEach(elem => {
   elem.addEventListener('click', async (e) => {
     e.preventDefault();

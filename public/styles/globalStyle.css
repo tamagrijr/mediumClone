@@ -2,6 +2,9 @@
   font-family: 'Fira Sans', sans-serif;
   box-sizing: border-box
 }
+body {
+  margin: 0;
+}
 .hidden {
 	display: none;
 }
