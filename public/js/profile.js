@@ -1,5 +1,15 @@
-// import { handleErrors } from "./utils.js";
+import { loggedIn } from "./utils.js";
+import { handleErrors } from "./utils.js";
 
+const navHeader = document.querySelector('.navHeader')
+const topnav = document.querySelector('.topnav');
+
+let logged = loggedIn();
+if (logged) {
+  navHeader.classList.remove('navHeaderStyles')
+} else {
+  topnav.classList.remove('topNavStyles');
+}
 // document.addEventListener('DOMContentLoaded', async (e) => {
 //     const userId = localStorage.getItem("MEDIUM_CURRENT_USER_ID");
 //     const userToken = localStorage.getItem("MEDIUM_ACCESS_TOKEN");

@@ -4,11 +4,15 @@ import { handleErrors } from "./utils.js";
 const logInScreen = document.querySelector('.loggedIn');
 const logOutScreen = document.querySelector('.loggedOut');
 const signInButton = document.querySelector('#signInButton');
-const signUpButton = document.querySelector('#signUpButton');
+const signUpButton = document.querySelectorAll('.signUpBanner');
 const signInDisplay = document.querySelector('.signIn');
 const signUpDisplay = document.querySelector('.signUp');
 const swapToLogIn = document.querySelector('.swapToLogIn');
 const swapToSignUp = document.querySelector('.swapToSignUp');
+const errorsContainer = document.querySelectorAll(".errors-container");
+const demoLoginDiv = document.querySelector('.demoLogIn');
+const navHeader = document.querySelector('.navHeader')
+const topnav = document.querySelector('.topnav');
 
 const logInForm = document.querySelector(".logInForm")
 const signUpForm = document.querySelector(".signUpForm");
@@ -17,10 +21,12 @@ const demoLogin = document.querySelectorAll('.demo');
 
 let logged = loggedIn();
 if (logged) {
+  navHeader.classList.remove('navHeaderStyles')
   logInScreen.classList.remove('hidden');
 } else {
+  topnav.classList.remove('topNavStyles');
+  demoLoginDiv.classList.remove('hidden');
   logOutScreen.classList.remove('hidden');
-
 }
 signInButton.addEventListener('click', e => {
   e.preventDefault();
@@ -28,14 +34,23 @@ signInButton.addEventListener('click', e => {
   logOutScreen.classList.add('hidden');
   signUpDisplay.classList.add('hidden');
   signInDisplay.classList.remove('hidden');
+  errorsContainer.forEach(e => {
+    e.innerHTML = '';
+  })
 })
-signUpButton.addEventListener('click', e => {
-  e.preventDefault();
-  logInScreen.classList.add('hidden');
-  logOutScreen.classList.add('hidden');
-  signInDisplay.classList.add('hidden');
-  signUpDisplay.classList.remove('hidden');
+signUpButton.forEach( e => {
+  e.addEventListener('click' , e => {
+    e.preventDefault();
+    logInScreen.classList.add('hidden');
+    logOutScreen.classList.add('hidden');
+    signInDisplay.classList.add('hidden');
+    signUpDisplay.classList.remove('hidden');
+    errorsContainer.forEach(e => {
+    e.innerHTML = '';
+    })
+  })
 })
+
 demoLogin.forEach(elem => {
   elem.addEventListener('click', async (e) => {
     e.preventDefault();
@@ -109,7 +124,8 @@ signUpForm.addEventListener("submit", async (e) => {
   const lastName = formData.get("lastName");
   const email = formData.get("email");
   const password = formData.get("password");
-  const body = { firstName, lastName, email, password };
+  const confirmPassword = formData.get('confirmPassword')
+  const body = { firstName, lastName, email, password, confirmPassword };
   try {
     //  ADD THIS ONCE AUTHORIZATION IS IMPLEMENTED
     const res = await fetch("/api/users", {
@@ -142,21 +158,14 @@ swapToLogIn.addEventListener('click', e => {
   e.preventDefault();
   signUpDisplay.classList.add('hidden');
   signInDisplay.classList.remove('hidden');
+  errorsContainer.forEach(e => {
+    e.innerHTML = '';
+  })
 })
 swapToSignUp.addEventListener('click', e => {
   signInDisplay.classList.add('hidden');
   signUpDisplay.classList.remove('hidden');
+  errorsContainer.forEach(e => {
+    e.innerHTML = '';
+  })
 })
-
-// const errBtn = document.querySelector(".errorButton");
-// errBtn.addEventListener('click', (e) => {
-//   e.preventDefault();
-    // res.status(500);
-    //         // // storage access_token in localStorage:
-    //         // localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
-    //         // localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
-    //         // redirect to home page to see all tweets:
-
-    // window.location.href = "/error-test";
-
-// });
