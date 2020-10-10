@@ -1,7 +1,7 @@
 export const handleErrors = async (err) => {
     if (err.status >= 400 && err.status < 600) {
       const errorJSON = await err.json();
-      const errorsContainer = document.querySelector(".errors-container");
+      const errorsContainer = document.querySelectorAll(".errors-container");
       let errorsHtml = [
         `
           <div class="alert alert-danger">
@@ -19,7 +19,9 @@ export const handleErrors = async (err) => {
           `
         );
       }
-      errorsContainer.innerHTML = errorsHtml.join("");
+      errorsContainer.forEach(e => {
+        e.innerHTML = errorsHtml.join("");
+      })
     } else {
       alert(
         "Something went wrong. Please check your internet connection and try again!"
@@ -29,6 +31,6 @@ export const handleErrors = async (err) => {
 
 export const loggedIn = () =>{
     const userId = localStorage.getItem("MEDIUM_CURRENT_USER_ID");
-    if(userId) return true;
+    if(userId) return userId;
     return false;
   }

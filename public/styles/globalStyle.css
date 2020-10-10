@@ -7,6 +7,15 @@ body {
   box-sizing: border-box;
   outline: 1px dashed red;
 }
+body {
+  margin: 0;
+}
 .hidden {
 	display: none;
+}
+a {
+  cursor: pointer;
+}
+button {
+  cursor: pointer;
 }

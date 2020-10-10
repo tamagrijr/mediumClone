@@ -8,14 +8,16 @@ html(lang='en')
         link(rel='stylesheet' type='text/css' href='/styles/navStyle.css')
         script(defer type="module" src="/js/layout.js")
     body
-      header
-          nav.topnav.navbar-default
-            .logo-container
+      header.navHeader.navHeaderStyles
+          nav.topnav.navbar-default.topNavStyles
+            .leftNav
               h1.logo: a(href="/") MeDaYum
-                span.greet  | Welcome back, {insert name here}
+              p.greetingTag
             ul.main-nav
+              li.demoLogIn.hidden: a.button.demo#demoLink Demo Log-In
               li.signInButton: a.button#signInButton Log-In
-              li.signUpButton: a.button#signUpButton Sign-Up
+              li.signUpButton: a.button#signUpButton.signUpBanner Sign-Up
+              li.publishStory.hidden: a.button#publishStoryButton Publish
               li.dropdown
                 .dropdown-container
                   img(href=`/assets/av/{userId}.png`).button.navAv
@@ -26,10 +28,7 @@ html(lang='en')
                     li: a.button#createStoryButton Write
                     li: a.button#logoutButton Log out
 
-      main
-        //- div.errorButtonDiv: button.errorButton(href='/error-test') Create 500 Error
-        block content
+      block content
 
-      footer
-        //- img(src="logo.svg" alt="MeDaYum Logo")
-        //- img(src="logo.svg" alt="MeDaYum Logo")
+      footer.splashFooter.hidden
+        h1 this should be a footer

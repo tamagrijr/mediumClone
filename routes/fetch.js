@@ -24,25 +24,30 @@ async function getAllStoryInfo(req) {
     }
     const likeCount = likes.length;
     let comments = await fetch(`http://localhost:3000/api/stories/${ storyId }/comments`);
-    if (comments.statusCode === 200) {
-      comments = await comments.json();
-    } else {
-      comments = [];
-    }
+    comments = await comments.json();
     if (comments.length) {
-      comments = comments.map( async (comment) => {
-        let commentingUser = await fetch(`http://localhost:3000/api/users/${ comment.userId }`);
-        commentingUser = await commentingUser.json();
+      comments = comments.map(comment => {
+        let date = new Date(comment.createdAt);
+        let dateFormat = new Intl.DateTimeFormat('en-US', {
+          month: 'short',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit' });
+        let created = dateFormat.format(date, dateFormat);
         comment = {
-          firstName: commentingUser.firstName,
-          lastName: commentingUser.lastName,
-          body: comment.body
+          id: comment.id,
+          userId: comment.User.id,
+          firstName: comment.User.firstName,
+          lastName: comment.User.lastName,
+          body: comment.body,
+          created
         };
         return comment;
       });
     }
     const commentsCount = comments.length;
     const storyInfo = {
+      storyId,
       title,
       body,
       authorInfo,

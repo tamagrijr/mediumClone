@@ -1,4 +1,3 @@
-// import { handleErrors } from "./utils.js";
 
 // document.addEventListener('DOMContentLoaded', async (e) => {
 //     const userId = localStorage.getItem("MEDIUM_CURRENT_USER_ID");

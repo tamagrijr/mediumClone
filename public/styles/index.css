@@ -1,12 +1,5 @@
 /* GENERAL STYLINGS FOR THE MAIN HIDDEN BODIES */
 .mainBody {
-  /* padding-top: .5em;
-	padding-bottom: .5em;
-	border: 1px solid #a2a2a2;
-	background-color: #f4f4f4;
-	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-  border-radius: 5px; */
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,14 +9,14 @@
 
 /* STYLING FOR THE FORMS */
 .form-container {
-  margin: .5em;
+  margin: 6em auto;
   padding-top: .5em;
 	padding-bottom: .5em;
 	border: 1px solid #a2a2a2;
 	background-color: #f4f4f4;
 	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
   border-radius: 5px;
-
+  width: 20em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,10 +33,268 @@
 }
 
 /* STYLING FOR THE SPLASH */
-
+#signUpBanner {
+  margin: .5em;
+  font-weight: 300;
+  font-size: 24px;
+  border-radius: .3em;
+  text-align: center;
+  padding: 8px 16px;
+  border-color: #0496FF;
+  border: solid;
+  border-width: 2px;
+  color: white;
+  background-color: rgba(4, 150, 255, .8);
+  height: 3rem;
+  width: 10rem;
+}
+#signUpBanner:hover {
+  background-color: #0496FF;;
+}
+.splashBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.headlineOne {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+}
+.headlineTwo {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 2em;
+  justify-content: space-around;
+}
+.headlineThree {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-top: 2em;
+  justify-content: space-around;
+}
+.healineOneSpan {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 1em;
+}
+.mainLayoutDiv {
+  width: 80%;
+}
+.splashSubHeadGroup {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.headlineOneTag {
+  margin-top: .5em;
+  padding: 0;
+  text-align: center;
+}
+.splashTextOne {
+  align-self: flex-end;
+/* make it prettier */
+}
 /* STYLING FOR THE FEED */
 
 /* CATCH ANY UNHIDDEN ELEMENTS */
 .hidden {
   display: none;
+}
+
+.btn-primary {
+  margin: .5em;
+  font-weight: 700;
+  border-radius: .3em;
+  text-align: center;
+  padding: .3em;
+  border-color: #0496FF;
+  border-width: .1em;
+  color: #0496FF;
+}
+.btn-primary:hover {
+  background-color: #0496FF;
+  color: white;
+}
+.emailLogIn {
+  font-weight: 700;
+  border-radius: .3em;
+  text-align: center;
+  border-color: #0496FF;
+  border-width: .1em;
+  padding: .3em;
+  margin: .1em;
+}
+.emailLogIn::placeholder{
+  color: #0496FF;
+}
+.passwordLogIn {
+  font-weight: 700;
+  border-radius: .3em;
+  text-align: center;
+  border-color: #0496FF;
+  border-width: .1em;
+  padding: .3em;
+  margin: .1em;
+}
+.passwordLogIn::placeholder{
+  color: #0496FF;
+}
+.signUpInput {
+  font-weight: 700;
+  border-radius: .3em;
+  text-align: center;
+  border-color: #0496FF;
+  border-width: .1em;
+  padding: .3em;
+  margin: .1em;
+}
+.signUpInput::placeholder {
+  color: #0496FF;
+}
+a.swapToSignUp {
+  color: #0496FF
+}
+a.swapToLogIn {
+  color: #0496FF
+}
+.form-container{
+  padding: .3em;
+}
+.alert-danger {
+  background-color: rgba(249, 57, 67, .2);
+  text-align: center;
+  border-style: solid;
+  border-color: #F93943;
+  font-weight: 700;
+  border-radius: .3em;
+  border-width: .1em;
+  padding: .3em;
+  margin: .2em;
+}
+
+
+/* Testing Modul stuff */
+.signInFormDiv {
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  bottom:0;
+  margin: 0 auto;
+  background-color: rgba(244, 244, 244, .95);
+}
+.signUpFormDiv {
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  bottom:0;
+  margin: 0 auto;
+  background-color: rgba(244, 244, 244, .95);
+}
+.opaqueBackground {
+  background-color: rgba(244, 244, 244, .95);
+}
+.logHeader {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 99%;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.closeForm {
+  align-self: flex-end;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+/* grid of buttons */
+.gridOfButtons {
+  margin-top: 2em;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(1fr, auto);
+  grid-template-rows: repeat(1fr, auto);
+  justify-content: center;
+  align-content: center;
+  gap: 1em 1em;
+  grid-template-areas:
+  '. button1 button2 button3 button4 button5 button6 button7 .'
+  '. . button8 button9 button10 button11 button12 . .'
+  '. . . button13 button14 button15 . . .';
+}
+.bearButton1{
+  grid-area: button1;
+}
+.bearButton2 {
+  grid-area: button2;
+}
+.bearButton3{
+  grid-area: button3;
+}
+.bearButton4 {
+  grid-area: button4;
+}
+.bearButton5{
+  grid-area: button5;
+}
+.bearButton6 {
+  grid-area: button6;
+}
+.bearButton7{
+  grid-area: button7;
+}
+.bearButton8 {
+  grid-area: button8;
+}
+.bearButton9{
+  grid-area: button9;
+}
+.bearButton10 {
+  grid-area: button10;
+}
+.bearButton11{
+  grid-area: button11;
+}
+.bearButton12 {
+  grid-area: button12;
+}
+.bearButton13{
+  grid-area: button13;
+}
+.bearButton14 {
+  grid-area: button14;
+}
+.bearButton15 {
+  grid-area: button15;
+}
+.bearButtonContainer {
+  padding: 0.5em;
+  border-radius: 99em;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  background-color: rgba(242, 242, 242, 1);
+  color: rgba(117, 117, 117, 1);
+}
+.bearButtonContainerHover:hover {
+      background-color: rgba(200, 200, 200, 1);
+}
+.clickedBearButton {
+  background-color: rgba(4, 150, 255, .8);
+}
+.buttonBear {
+  z-index: 1;
+}
+.bearButtonText {
+  padding-left: .5em;
 }
