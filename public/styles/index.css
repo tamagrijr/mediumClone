@@ -9,14 +9,14 @@
 
 /* STYLING FOR THE FORMS */
 .form-container {
-  margin: .5em;
+  margin: 6em auto;
   padding-top: .5em;
 	padding-bottom: .5em;
 	border: 1px solid #a2a2a2;
 	background-color: #f4f4f4;
 	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
   border-radius: 5px;
-
+  width: 20em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,12 +33,6 @@
 }
 
 /* STYLING FOR THE SPLASH */
-.headlineOne {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
 #signUpBanner {
   margin: .5em;
   font-weight: 300;
@@ -56,6 +50,59 @@
 }
 #signUpBanner:hover {
   background-color: #0496FF;;
+}
+.splashBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.headlineOne {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5rem;
+}
+.headlineTwo {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 2em;
+  justify-content: space-around;
+}
+.headlineThree {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-top: 2em;
+  justify-content: space-around;
+}
+.healineOneSpan {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 1em;
+}
+.mainLayoutDiv {
+  width: 80%;
+}
+.splashSubHeadGroup {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.headlineOneTag {
+  margin-top: .5em;
+  padding: 0;
+  text-align: center;
+}
+.splashTextOne {
+  align-self: flex-end;
+/* make it prettier */
 }
 /* STYLING FOR THE FEED */
 
@@ -133,4 +180,40 @@ a.swapToLogIn {
   border-width: .1em;
   padding: .3em;
   margin: .2em;
+}
+
+
+/* Testing Modul stuff */
+.signInFormDiv {
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  bottom:0;
+  margin: 0 auto;
+  background-color: rgba(244, 244, 244, .95);
+}
+.signUpFormDiv {
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  bottom:0;
+  margin: 0 auto;
+  background-color: rgba(244, 244, 244, .95);
+}
+.opaqueBackground {
+  background-color: rgba(244, 244, 244, .95);
+}
+.logHeader {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 99%;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.closeForm {
+  align-self: flex-end;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
