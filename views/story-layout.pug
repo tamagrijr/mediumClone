@@ -1,34 +1,37 @@
 extends layout.pug
 
 block content
-
+    script(defer type="module" src="/js/story.js")
     article
-        h1= storyInfo.title
-        p #{ storyInfo.authorInfo.authorFN } #{ storyInfo.authorInfo.authorLN }
-        img(src="author-portrait.jpg" alt=`Author ${ storyInfo.authorInfo.authorFN } ${ storyInfo.authorInfo.authorLN }`)
-        a(href="/follow"): img(src="icon-follow.svg")
-        a(href="/bookmark"): img(src="icon-bookmark.svg")
+      h1= storyInfo.title
+      p #{ storyInfo.authorInfo.authorFN } #{ storyInfo.authorInfo.authorLN }
+      img(src="author-portrait.jpg" alt=`Author ${ storyInfo.authorInfo.authorFN } ${ storyInfo.authorInfo.authorLN }`)
+      a(href="/follow"): img(src="icon-follow.svg")
+      a(href="/bookmark"): img(src="icon-bookmark.svg")
 
-        .story-body= storyInfo.body
+      .story-body= storyInfo.body
 
-        a(href="/like")
-          img(src="icon-like.svg")
-          span= storyInfo.likeCount
-        a(href="/comment")
-          img(src="icon-comment.svg")
-          span= storyInfo.commentCount
+      a(href="/like")
+        img(src="icon-like.svg")
+        span= storyInfo.likeCount
+      a(href="/comment")
+        img(src="icon-comment.svg")
+        span= storyInfo.commentCount
 
-        form(method="post" action="/comments")
-            label Add a Comment:
-                textarea
-            button(type="submit") Submit Comment
+      form(method="post" action="/comments" id="commentForm" data-story=storyInfo.storyId)
+        label(for="comment") Add a Comment:
+        textarea(id="comment" name="comment")
+        button(type="submit" id="submitComment") Submit Comment
 
-        section
-            h2 Comments
-            if comments
+      section
+        h2 Comments
+        ul(id="commentList")
+          if storyInfo.commentsCount > 0
+            each comment in storyInfo.comments
+              li
                 ul
-                    each comment in storyInfo.comments
-                        li
-                            ul
-                                li: a #{ comment.firstName } #{ comment.lastName }
-                                li= comment.body
+                  li #{ comment.firstName } #{ comment.lastName }
+                  li= comment.body
+                  li
+                    span= comment.created
+                  li(class="comOps" data-comment=comment.id data-user=comment.userId)

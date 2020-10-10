@@ -75,9 +75,10 @@ router.get(
     storyComments = await Comment.findAll({
       where: { storyId: req.params.id },
       include:
-        { model: User, attributes: ["id", "firstName", "lastName"] }
+        { model: User, attributes: ["id", "firstName", "lastName"] },
+      order: [['createdAt', 'DESC']]
     });
-    checkForContent(res, storyComments)
+    res.json(storyComments)
   })
 )
 
