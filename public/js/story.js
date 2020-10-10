@@ -49,11 +49,19 @@ commentSubmitBtn.addEventListener('click', async e => {
     const myCommentEditBtn = document.createElement('button');
     myCommentEditBtn.setAttribute('class', 'editBtn');
     myCommentEditBtn.innerHTML = 'Edit';
-    commentContainer.appendChild(myCommentEditBtn);
+    myCommentOptions.appendChild(myCommentEditBtn);
     const mmyCommentDltBtn = document.createElement('button');
     mmyCommentDltBtn.setAttribute('class', 'dltBtn');
     mmyCommentDltBtn.innerHTML = 'Delete';
-    commentContainer.appendChild(mmyCommentDltBtn);
+    myCommentOptions.appendChild(mmyCommentDltBtn);
+
+    myCommentOptions.style.display = 'none';
+    commentContainer.addEventListener('mouseover', () => {
+      myCommentOptions.style.display = 'block';
+    });
+    commentContainer.addEventListener('mouseout', () => {
+      myCommentOptions.style.display = 'none';
+    });
 
     let user = await fetch(`http://localhost:3000/api/users/${ currentUser }`);
     user = await user.json();
@@ -74,12 +82,34 @@ commentSubmitBtn.addEventListener('click', async e => {
 
     let commentsListItems = commentList.childNodes;
     commentList.insertBefore(commentItem, commentsListItems[0]);
-    console.log(commentForm);
+
+    myCommentEditBtn.addEventListener('click', async (event) => {
+      const fullCommentItem = event.target.parentNode.parentNode.parentNode;
+      const commentBodyEl = fullCommentItem.querySelectorAll('.comment-body')[0];
+      commentBodyEl.setAttribute('contenteditable', 'true');
+      const submitNewCommentBtn = document.createElement('button');
+      submitNewCommentBtn.innerHTML = 'Submit Edit';
+      myCommentOptions.insertBefore(submitNewCommentBtn, myCommentEditBtn);
+      myCommentOptions.removeChild(myCommentEditBtn);
+      submitNewCommentBtn.addEventListener('click', async event => {
+        let newCommentBody = commentBodyEl.innerHTML;
+        await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
+          method: 'PATCH',
+          body: JSON.stringify({ body: newCommentBody }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        commentBodyEl.removeAttribute('contenteditable');
+        myCommentOptions.insertBefore(myCommentEditBtn, submitNewCommentBtn);
+        myCommentOptions.removeChild(submitNewCommentBtn);
+      });
+    });
 
     mmyCommentDltBtn.addEventListener('click', async (event) => {
-      const fullCommentItem = event.target.parentNode.parentNode;
+      const fullCommentItem = event.target.parentNode.parentNode.parentNode;
       commentList.removeChild(fullCommentItem);
-      await fetch(`http://localhost:3000/api/stories/${ fullCommentItem.dataset.commentid }`, {
+      await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
         method: 'DELETE'
       });
     });
@@ -89,10 +119,55 @@ commentSubmitBtn.addEventListener('click', async e => {
   }
 });
 
-async function deleteMyComment(event) {
-  const fullCommentItem = event.target.parentNode.parentNode.parentNode;
-  commentList.removeChild(fullCommentItem);
-  await fetch(`http://localhost:3000/api/stories/${ commentForm.dataset.comment }`, {
-    method: 'DELETE'
-  });
-}
+window.addEventListener('DOMContentLoaded', async () => {
+  const eachComment = document.querySelectorAll('.full-comment');
+  // const editButtons = document.querySelectorAll('.editBtn');
+  // const deleteButtons = document.querySelectorAll('.dltBtn');
+  eachComment.forEach(async comment => {
+    const commentOptions = comment.querySelectorAll('.my-comment-options')[0];
+    commentOptions.style.display = 'none';
+    comment.addEventListener('mouseover', () => {
+      if (comment.dataset.user === currentUser) {
+        commentOptions.style.display = 'block';
+      }
+    });
+    comment.addEventListener('mouseout', () => {
+      commentOptions.style.display = 'none';
+    })
+    if (comment.dataset.user === currentUser) {
+      const editButton = comment.querySelectorAll('.editBtn')[0];
+      const deleteButton = comment.querySelectorAll('.dltBtn')[0];
+      const myCommentOptions = comment.querySelectorAll('.my-comment-options')[0];
+      editButton.addEventListener('click', async event => {
+        const fullCommentItem = event.target.parentNode.parentNode.parentNode;
+        const commentBodyEl = fullCommentItem.querySelectorAll('.comment-body')[0];
+        commentBodyEl.setAttribute('contenteditable', 'true');
+        const submitNewCommentBtn = document.createElement('button');
+        submitNewCommentBtn.innerHTML = 'Submit Edit';
+        myCommentOptions.insertBefore(submitNewCommentBtn, editButton);
+        myCommentOptions.removeChild(editButton);
+        submitNewCommentBtn.addEventListener('click', async event => {
+          let newCommentBody = commentBodyEl.innerHTML;
+          await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
+            method: 'PATCH',
+            body: JSON.stringify({ body: newCommentBody }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          commentBodyEl.removeAttribute('contenteditable');
+          myCommentOptions.insertBefore(editButton, submitNewCommentBtn);
+          myCommentOptions.removeChild(submitNewCommentBtn);
+        });
+      });
+      deleteButton.addEventListener('click', async event => {
+        const fullCommentItem = event.target.parentNode.parentNode.parentNode;
+        commentList.removeChild(fullCommentItem);
+        await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
+          method: 'DELETE'
+        });
+      });
+    }
+  })
+
+})
