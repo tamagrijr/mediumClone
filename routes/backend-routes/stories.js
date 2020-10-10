@@ -55,7 +55,8 @@ router.get(
         model: User,
         as: "Author",
         attributes: ["id", "firstName", "lastName"]
-      }
+      },
+      order: [['createdAt', 'DESC']]
     })
     checkForContent(res, stories);
   })
@@ -78,7 +79,8 @@ router.get("/users/:id/stories",
       }, {
         model: Like,
         attributes: ["id"]
-      }]
+      }],
+      order: [['createdAt', 'DESC']]
     })
     res.json(stories)
     // checkForContent(res, stories)
@@ -91,7 +93,8 @@ router.get("/users/:id(\\d+)/follows/stories",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
     const follows = await Follow.findAll({
-      where: { followerId: req.params.id }
+      where: { followerId: req.params.id },
+      order: [['createdAt', 'DESC']]
     })
     const followedAuthorIds = follows.map(follow => {
       return follow.followingId
@@ -133,7 +136,8 @@ router.get('/stories/:id(\\d+)',
           model: User,
           attributes: ["id", "firstName", "lastName"]
         }
-      }]
+      }],
+      order: [['createdAt', 'DESC']]
     }
     )
     res.json(story)
@@ -151,7 +155,9 @@ router.post(
   handleValidationErrors,
   asyncHandler(async (req, res) => {
     const { title, body, authorId } = req.body;
-    const author = await User.findByPk(authorId)
+    const author = await User.findByPk(authorId, {
+      order: [['createdAt', 'DESC']]
+    })
     if (author) {
       const story = await Story.create({ title, body, authorId });
       res.status(201).json(story);
