@@ -33,12 +33,6 @@
 }
 
 /* STYLING FOR THE SPLASH */
-.headlineOne {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
 #signUpBanner {
   margin: .5em;
   font-weight: 300;
@@ -56,6 +50,57 @@
 }
 #signUpBanner:hover {
   background-color: #0496FF;;
+}
+.splashBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* width: 80%; */
+  margin: 0 auto;
+}
+.headlineOne {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5rem;
+}
+.headlineTwo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2em;
+}
+.headlineThree {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2em;
+}
+.healineOneSpan {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+}
+.mainLayoutDiv {
+  width: 80%;
+}
+.splashSubHeadGroup {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.headlineOneTag {
+  margin-top: .5em;
+  padding: 0;
+  text-align: center;
+}
+.splashTextOne {
+  align-self: flex-end;
+
 }
 /* STYLING FOR THE FEED */
 
