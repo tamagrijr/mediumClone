@@ -5,3 +5,9 @@
 .hidden {
 	display: none;
 }
+a {
+  cursor: pointer;
+}
+button {
+  cursor: pointer;
+}
