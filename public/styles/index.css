@@ -62,7 +62,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 5rem;
+  padding-top: 2rem;
 }
 .headlineTwo {
   width: 100%;
@@ -216,4 +216,85 @@ a.swapToLogIn {
   align-self: flex-end;
   margin-bottom: 0;
   padding-bottom: 0;
+}
+/* grid of buttons */
+.gridOfButtons {
+  margin-top: 2em;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(1fr, auto);
+  grid-template-rows: repeat(1fr, auto);
+  justify-content: center;
+  align-content: center;
+  gap: 1em 1em;
+  grid-template-areas:
+  '. button1 button2 button3 button4 button5 button6 button7 .'
+  '. . button8 button9 button10 button11 button12 . .'
+  '. . . button13 button14 button15 . . .';
+}
+.bearButton1{
+  grid-area: button1;
+}
+.bearButton2 {
+  grid-area: button2;
+}
+.bearButton3{
+  grid-area: button3;
+}
+.bearButton4 {
+  grid-area: button4;
+}
+.bearButton5{
+  grid-area: button5;
+}
+.bearButton6 {
+  grid-area: button6;
+}
+.bearButton7{
+  grid-area: button7;
+}
+.bearButton8 {
+  grid-area: button8;
+}
+.bearButton9{
+  grid-area: button9;
+}
+.bearButton10 {
+  grid-area: button10;
+}
+.bearButton11{
+  grid-area: button11;
+}
+.bearButton12 {
+  grid-area: button12;
+}
+.bearButton13{
+  grid-area: button13;
+}
+.bearButton14 {
+  grid-area: button14;
+}
+.bearButton15 {
+  grid-area: button15;
+}
+.bearButtonContainer {
+  padding: 0.5em;
+  border-radius: 99em;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  background-color: rgba(242, 242, 242, 1);
+  color: rgba(117, 117, 117, 1);
+}
+.bearButtonContainerHover:hover {
+      background-color: rgba(200, 200, 200, 1);
+}
+.clickedBearButton {
+  background-color: rgba(4, 150, 255, .8);
+}
+.buttonBear {
+  z-index: 1;
+}
+.bearButtonText {
+  padding-left: .5em;
 }

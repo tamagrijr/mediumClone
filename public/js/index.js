@@ -15,9 +15,10 @@ const closeForm = document.querySelectorAll('.closeForm')
 const logInForm = document.querySelector(".logInForm")
 const signUpForm = document.querySelector(".signUpForm");
 
+
 const demoLogin = document.querySelectorAll('.demo');
 
-window.addEventListener("DOMContentLoaded", e => {
+window.addEventListener("DOMContentLoaded", async e => {
   let logged = loggedIn();
   if (logged) {
     logInScreen.classList.remove('hidden');
@@ -77,7 +78,6 @@ demoLogin.forEach(elem => {
     }
   })
 })
-
 logInForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const formData = new FormData(logInForm);
@@ -169,4 +169,82 @@ closeForm.forEach(e => {
     signInDisplay.classList.add('hidden');
     signUpDisplay.classList.add('hidden');
   })
+})
+
+
+let b1 = document.querySelector('.bearButton1')
+let b2 = document.querySelector('.bearButton2')
+let b3 = document.querySelector('.bearButton3')
+let b4 = document.querySelector('.bearButton4')
+let b5 = document.querySelector('.bearButton5')
+let b6 = document.querySelector('.bearButton6')
+let b7 = document.querySelector('.bearButton7')
+let b8 = document.querySelector('.bearButton8')
+let b9 = document.querySelector('.bearButton9')
+let b10 = document.querySelector('.bearButton10')
+let b11 = document.querySelector('.bearButton11')
+let b12 = document.querySelector('.bearButton12')
+let b13 = document.querySelector('.bearButton13')
+let b14 = document.querySelector('.bearButton14')
+let b15 = document.querySelector('.bearButton15')
+
+b1.addEventListener('click', e => {
+  b1.classList.add('clickedBearButton');
+  b1.classList.remove('bearButtonContainerHover');
+})
+b2.addEventListener('click', e => {
+  b2.classList.add('clickedBearButton');
+  b2.classList.remove('bearButtonContainerHover');
+})
+b3.addEventListener('click', e => {
+  b3.classList.add('clickedBearButton');
+  b3.classList.remove('bearButtonContainerHover');
+})
+b4.addEventListener('click', e => {
+  b4.classList.add('clickedBearButton');
+  b4.classList.remove('bearButtonContainerHover');
+})
+b5.addEventListener('click', e => {
+  b5.classList.add('clickedBearButton');
+  b5.classList.remove('bearButtonContainerHover');
+})
+b6.addEventListener('click', e => {
+  b6.classList.add('clickedBearButton');
+  b6.classList.remove('bearButtonContainerHover');
+})
+b7.addEventListener('click', e => {
+  b7.classList.add('clickedBearButton');
+  b7.classList.remove('bearButtonContainerHover');
+})
+b8.addEventListener('click', e => {
+  b8.classList.add('clickedBearButton');
+  b8.classList.remove('bearButtonContainerHover');
+})
+b9.addEventListener('click', e => {
+  b9.classList.add('clickedBearButton');
+  b9.classList.remove('bearButtonContainerHover');
+})
+b10.addEventListener('click', e => {
+  b10.classList.add('clickedBearButton');
+  b10.classList.remove('bearButtonContainerHover');
+})
+b11.addEventListener('click', e => {
+  b11.classList.add('clickedBearButton');
+  b11.classList.remove('bearButtonContainerHover');
+})
+b12.addEventListener('click', e => {
+  b12.classList.add('clickedBearButton');
+  b12.classList.remove('bearButtonContainerHover');
+})
+b13.addEventListener('click', e => {
+  b13.classList.add('clickedBearButton');
+  b13.classList.remove('bearButtonContainerHover');
+})
+b14.addEventListener('click', e => {
+  b14.classList.add('clickedBearButton');
+  b14.classList.remove('bearButtonContainerHover');
+})
+b15.addEventListener('click', e => {
+  b15.classList.add('clickedBearButton');
+  b15.classList.remove('bearButtonContainerHover');
 })
