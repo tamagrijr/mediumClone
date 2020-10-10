@@ -8,6 +8,7 @@ ul {
     padding: 0;
     list-style: none;
 }
+
 .navHeaderStyles {
 	padding-top: .5em;
 	padding-bottom: .5em;
@@ -58,6 +59,19 @@ ul {
 .dropdown:hover #dropdown-menu {
 	display: block;
 	position: absolute;
+}
+.demoLogIn {
+	border: solid;
+	border-radius: .3em;
+	border-color: #0496FF;
+	border-width: 2px;
+  background-color: rgba(4, 150, 255, .8);
+}
+.demoLogIn:hover {
+	background-color: #0496FF;
+}
+#demoLink {
+	color: white;
 }
 @media (min-width: 769px) {
 	.topnav,
