@@ -1,17 +1,16 @@
 //- script(defer type="module" src="js/feed.js")
 //- .feedBody
 link(rel='stylesheet' type='text/css' href='/styles/feed.css')
-//- .feedBody
+//- .feedBody NEED 'readtime' FOR TIME TO READ ARTICLE
 block feedBlock
     .feedContainer
         .storyContainer
-            ul.ulContainer
-                each story in stories
-                    .storySection
-                        .storyInfoDiv
-                            li.storyAuthorName #{story.Author.firstName} #{story.Author.lastName}
-                            li.storyLink: a(href=`http://localhost:3000/stories/${story.authorId}`) #{story.title}
-                            li.storyCreatedAt #{story.createdAt}
-                        .storyPicDiv
-                            img(src="/assets/icons/icon-user-blue.png", alt="*Cool Picture*")
-                            
+            each story in stories
+                .storySection
+                    .storyInfoDiv
+                        .storyAuthorName #{story.Author.firstName} #{story.Author.lastName}
+                        .storyLink: a(href=`http://localhost:3000/stories/${story.authorId}`) #{story.title}
+                        .storyCreatedAt #{story.createdAt} • #{readTime}
+                        a.createBookmarkButtonFeed(href=`http://localhost:3000/users/${story.authorId}/bookmarks`) √
+                    .storyPicDiv
+                        .storyImgDiv
