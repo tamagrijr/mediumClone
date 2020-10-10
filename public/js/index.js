@@ -14,7 +14,7 @@ const demoLoginDiv = document.querySelector('.demoLogIn');
 const closeForm = document.querySelectorAll('.closeForm')
 const logInForm = document.querySelector(".logInForm")
 const signUpForm = document.querySelector(".signUpForm");
-const greeting = document.querySelector('.greetingTag')
+
 
 const demoLogin = document.querySelectorAll('.demo');
 
@@ -22,9 +22,6 @@ window.addEventListener("DOMContentLoaded", async e => {
   let logged = loggedIn();
   if (logged) {
     logInScreen.classList.remove('hidden');
-    let user = await fetch(`/api/users/${logged}`);
-    user = await user.json();
-    greeting.innerHTML = `Hello, ${user.firstName}`
   } else {
     demoLoginDiv.classList.remove('hidden');
     logOutScreen.classList.remove('hidden');

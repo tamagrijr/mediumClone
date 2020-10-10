@@ -18,7 +18,7 @@ ul {
 	border-bottom: 1px solid #a2a2a2;
 	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
 	background-color: rgba(244, 244, 244, .95);
-	position: fixed;
+	position: sticky;
   top: 0;
 }
 .logo {
