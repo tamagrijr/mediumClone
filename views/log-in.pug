@@ -7,8 +7,8 @@ block logIn
     div(class='errors-container')
     form(class="logInForm")
       input(type="hidden" name="_csrf" value=csrfToken)
-      input(name='email' class='emailLogIn' type='email' placeholder='Enter Email')
-      input(name='password' class='passwordLogIn' type='password' placeholder='Enter Password')
+      input(name='email' class='emailLogIn' type='email' placeholder='Enter Email' required)
+      input(name='password' class='passwordLogIn' type='password' placeholder='Enter Password' required)
       button.btn.btn-primary(type='submit') Log In
     //- button.demo.btn.btn-primary(type='submit') Demo Login
     p Don't have an account?
