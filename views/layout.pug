@@ -8,12 +8,14 @@ html(lang='en')
         link(rel='stylesheet' type='text/css' href='/styles/navStyle.css')
         script(defer type="module" src="/js/layout.js")
     body
-      header
-          nav.topnav.navbar-default
+      header.navHeader.navHeaderStyles
+          nav.topnav.navbar-default.topNavStyles
             h1.logo: a(href="/") MeDaYum
             ul.main-nav
+              li.demoLogIn.hidden: a.button.demo Demo Log-In
               li.signInButton: a.button#signInButton Log-In
-              li.signUpButton: a.button#signUpButton Sign-Up
+              li.signUpButton: a.button#signUpButton.signUpBanner Sign-Up
+              li.publishStory.hidden: a.button#publishStoryButton Publish
               li.dropdown
                 a.button.dropdown-toggle User
                 ul#dropdown-menu.dropdown-menu
