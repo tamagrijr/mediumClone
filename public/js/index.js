@@ -5,30 +5,31 @@ const logInScreen = document.querySelector('.loggedIn');
 const logOutScreen = document.querySelector('.loggedOut');
 const signInButton = document.querySelector('#signInButton');
 const signUpButton = document.querySelectorAll('.signUpBanner');
-const signInDisplay = document.querySelector('.signIn');
-const signUpDisplay = document.querySelector('.signUp');
+const signInDisplay = document.querySelector('.signInFormDiv');
+const signUpDisplay = document.querySelector('.signUpFormDiv');
 const swapToLogIn = document.querySelector('.swapToLogIn');
 const swapToSignUp = document.querySelector('.swapToSignUp');
 const errorsContainer = document.querySelectorAll(".errors-container");
 const demoLoginDiv = document.querySelector('.demoLogIn');
-
+const closeForm = document.querySelectorAll('.closeForm')
 const logInForm = document.querySelector(".logInForm")
 const signUpForm = document.querySelector(".signUpForm");
 
 const demoLogin = document.querySelectorAll('.demo');
 
-let logged = loggedIn();
-if (logged) {
-  logInScreen.classList.remove('hidden');
-} else {
-  demoLoginDiv.classList.remove('hidden');
-  logOutScreen.classList.remove('hidden');
-}
+window.addEventListener("DOMContentLoaded", e => {
+  let logged = loggedIn();
+  if (logged) {
+    logInScreen.classList.remove('hidden');
+  } else {
+    demoLoginDiv.classList.remove('hidden');
+    logOutScreen.classList.remove('hidden');
+  }
+})
+
+
 signInButton.addEventListener('click', e => {
   e.preventDefault();
-  logInScreen.classList.add('hidden');
-  logOutScreen.classList.add('hidden');
-  signUpDisplay.classList.add('hidden');
   signInDisplay.classList.remove('hidden');
   errorsContainer.forEach(e => {
     e.innerHTML = '';
@@ -37,9 +38,6 @@ signInButton.addEventListener('click', e => {
 signUpButton.forEach( e => {
   e.addEventListener('click' , e => {
     e.preventDefault();
-    logInScreen.classList.add('hidden');
-    logOutScreen.classList.add('hidden');
-    signInDisplay.classList.add('hidden');
     signUpDisplay.classList.remove('hidden');
     errorsContainer.forEach(e => {
     e.innerHTML = '';
@@ -163,5 +161,12 @@ swapToSignUp.addEventListener('click', e => {
   signUpDisplay.classList.remove('hidden');
   errorsContainer.forEach(e => {
     e.innerHTML = '';
+  })
+})
+closeForm.forEach(e => {
+  e.addEventListener('click', e => {
+    e.preventDefault();
+    signInDisplay.classList.add('hidden');
+    signUpDisplay.classList.add('hidden');
   })
 })
