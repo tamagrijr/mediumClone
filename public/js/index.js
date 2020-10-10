@@ -11,8 +11,6 @@ const swapToLogIn = document.querySelector('.swapToLogIn');
 const swapToSignUp = document.querySelector('.swapToSignUp');
 const errorsContainer = document.querySelectorAll(".errors-container");
 const demoLoginDiv = document.querySelector('.demoLogIn');
-const navHeader = document.querySelector('.navHeader')
-const topnav = document.querySelector('.topnav');
 
 const logInForm = document.querySelector(".logInForm")
 const signUpForm = document.querySelector(".signUpForm");
@@ -21,10 +19,8 @@ const demoLogin = document.querySelectorAll('.demo');
 
 let logged = loggedIn();
 if (logged) {
-  navHeader.classList.remove('navHeaderStyles')
   logInScreen.classList.remove('hidden');
 } else {
-  topnav.classList.remove('topNavStyles');
   demoLoginDiv.classList.remove('hidden');
   logOutScreen.classList.remove('hidden');
 }
