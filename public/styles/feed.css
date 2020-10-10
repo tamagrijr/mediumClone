@@ -1,33 +1,128 @@
+/* @import '../../assets/icons'; */
+
 * {
     box-sizing: border-box;
+    letter-spacing: 1.1px;
 }
 
-.feedBody {
+/* .feedBody {
     display: grid;
     position: relative;
-    height: fit-content;
+    height: 100%;
     width: 95%;
     border: 3px solid black;
     border-radius: 18px;
     margin: 40px auto;
-}
+} */
 
 .feedContainer {
     display: grid;
-    position: absolute;
+    position: relative;
     height: fit-content;
     width: 80%;
-    border: 2px solid red;
+    border: 2px solid blue;
     border-radius: 18px;
     align-self: center;
     justify-self: flex-start;
-    top: 75px;
-    right: 25%;
+    top: 50px;
+    right: 15%;
 }
 
-li {
+
+.storyContainer {
+    display: grid;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: 2px solid hotpink;
+    border-radius: 18px;
+}
+li.storyAuthorName,
+li.storyLink,
+li.storyCreatedAt {
     padding: 5px;
+    border: 1px dotted black;
+    width: 100%;
 } 
+li.storyCreatedAt::before {
+    content: 'Published: ';
+    font-weight: bolder;
+    font-style: italic;
+}
+ul.ulContainer {
+    border: 2px dotted greenyellow;
+}
+.storySection {
+    display: grid;
+    grid-template-rows: .5fr 1.5fr .5fr;
+    grid-template-columns: 2.5fr 1.5fr;
+    grid-template-areas: 
+        'info pic'
+        'info pic'
+        'info pic';
+    position: relative;
+    height: fit-content;
+    width: 100%;
+    border: 2px solid purple;
+    padding: 1em;
+    /* margin: 1em; */
+}
+.storyInfoDiv {
+    display: grid;
+    grid-area: info;
+    grid-template-columns: 1fr;
+    grid-template-rows: .5fr 1.5fr .5fr;
+    grid-template-areas: 
+        'name'
+        'title'
+        'created'
+    ;
+    width: 100%;
+    position: relative;
+    /* width: fit-content; */
+}
+li.storyAuthorName {
+    grid-area: name;
+    font-size: xx-small;
+    font-weight: 300;
+}
+li.storyAuthorName::before {
+    /* replace content with pic */
+    content: '∆';
+    /* content: ''; */
+    /* background-image: url(icon-user-blue.png); */
+    color: cyan;
+    padding-right: 1em;
+}
+
+li.storyLink {
+    grid-area: title;
+    font-weight: 700;
+}
+
+li.storyCreatedAt {
+    grid-area: created;
+    font-weight: 200;
+    font-size: x-small;
+}
+
+.storyPicDiv {
+    grid-area: pic;
+    display: grid;
+    position: relative;
+    /* width: 20%; */
+}
+/* .imgDiv {
+    /* content: ''; */
+    /* background-size: fit-content; */
+    /* background-image: url(/assets/icons/icon-user-blue.png);
+
+} */ 
+
+.storyLink > a {
+    font-size: x-large;
+}
+
 
 /* .feedContainer {
 

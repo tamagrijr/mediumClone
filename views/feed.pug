@@ -1,5 +1,17 @@
 //- script(defer type="module" src="js/feed.js")
-.feedContainer
-    ul
-        each story in stories
-            li #{story.title}
+//- .feedBody
+link(rel='stylesheet' type='text/css' href='/styles/feed.css')
+//- .feedBody
+block feedBlock
+    .feedContainer
+        .storyContainer
+            ul.ulContainer
+                each story in stories
+                    .storySection
+                        .storyInfoDiv
+                            li.storyAuthorName #{story.Author.firstName} #{story.Author.lastName}
+                            li.storyLink: a(href=`http://localhost:3000/stories/${story.authorId}`) #{story.title}
+                            li.storyCreatedAt #{story.createdAt}
+                        .storyPicDiv
+                            img(src="/assets/icons/icon-user-blue.png", alt="*Cool Picture*")
+                            
