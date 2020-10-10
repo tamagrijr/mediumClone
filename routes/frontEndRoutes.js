@@ -126,9 +126,16 @@ frontEndRouter.get("/splash", (req, res) => {
   res.render('splash', { title: "MEDAYUM"});
 });
 //splash page
-frontEndRouter.get("/", (req, res) => {
-  res.render('index');
-});
+frontEndRouter.get("/", asyncHandler( async(req, res) => {
+  try {
+    let stories = await fetch(`${url}/api/stories`);
+    stories = await stories.json();
+    
+    res.render('index', { stories });
+  } catch (error) {
+    res.render('index')
+  }
+}));
 //sign up form
 frontEndRouter.get("/sign-up", csrfProtection, (req, res) => {
   res.render('sign-up', { csrfToken: req.csrfToken() });
@@ -173,11 +180,6 @@ frontEndRouter.get("/create", csrfProtection, (req, res) => {
 frontEndRouter.get("/stories/:id/edit", csrfProtection, (req, res) => {
   res.render('story-edit-layout', { csrfToken: req.csrfToken() });
 });
-//display feed
-// frontEndRouter.get("/feed", (req, res) => {
-//   res.render('feed');
-//     res.render('index', { title: "MEDAYUM" });
-// });
 //sign up form
 frontEndRouter.get("/sign-up", csrfProtection, (req, res) => {
     res.render('sign-up', { csrfToken: req.csrfToken(), title: "Sign Up" });
@@ -204,7 +206,7 @@ frontEndRouter.get("/stories/:id(\\d+)/edit", csrfProtection, (req, res) => {
 });
 //display feed
 frontEndRouter.get("/feed", asyncHandler( async(req, res) => {
-    const stories = await getAllStoryInfo(req);
+    
     res.render('feed', { title: "My Feed", stories });
 }));
 //throw error
