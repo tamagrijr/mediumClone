@@ -1,2 +1,5 @@
 .feedContainer
+    ul
+        each story in stories
+            li #{story.title}
 script(defer type="module" src="js/feed.js")

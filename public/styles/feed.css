@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+}
+
+.feedBody {
+    display: grid;
+    position: relative;
+    height: fit-content;
+    width: 95%;
+    border: 3px solid black;
+    border-radius: 18px;
+    margin: 40px auto;
+}
+
+.feedContainer {
+    display: grid;
+    position: absolute;
+    height: fit-content;
+    width: 80%;
+    border: 2px solid red;
+    border-radius: 18px;
+    align-self: center;
+    justify-self: flex-start;
+    top: 75px;
+    right: 25%;
+}
+
+li {
+    padding: 5px;
+} 
+
+/* .feedContainer {
+
+}
+.storyContainer {
+
+}
+a {
+
+} 
+.storyTitle {
+
+} 
+.storyAuthor {
+
+} 
+.storyDate {
+
+} */
