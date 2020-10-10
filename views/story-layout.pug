@@ -28,10 +28,11 @@ block content
         ul(id="commentList")
           if storyInfo.commentsCount > 0
             each comment in storyInfo.comments
-              li
+              li(class="wholeComment")
                 ul
                   li #{ comment.firstName } #{ comment.lastName }
                   li= comment.body
-                  li
-                    span= comment.created
+                  li= comment.created
                   li(class="comOps" data-comment=comment.id data-user=comment.userId)
+                    button(class="editBtn optBtn") Edit
+                    button(class="dltBtn optBtn")
