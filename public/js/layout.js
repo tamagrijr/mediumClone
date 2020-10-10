@@ -1,4 +1,18 @@
 import { loggedIn } from './utils.js';
+const navHeader = document.querySelector('.navHeader');
+const topnav = document.querySelector('.topnav');
+const footer = document.querySelector('.splashFooter');
+
+document.addEventListener('DOMContentLoaded', e => {
+  let logged = loggedIn();
+if (logged) {
+  navHeader.classList.remove('navHeaderStyles')
+} else {
+  footer.classList.remove('hidden')
+  topnav.classList.remove('topNavStyles');
+}
+})
+
 
 const userId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID')
 const logoutButton = document.querySelector('#logoutButton');
