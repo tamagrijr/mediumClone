@@ -10,7 +10,9 @@ html(lang='en')
     body
       header.navHeader.navHeaderStyles
           nav.topnav.navbar-default.topNavStyles
-            h1.logo: a(href="/") MeDaYum
+            .leftNav
+              h1.logo: a(href="/") MeDaYum
+              p.greetingTag
             ul.main-nav
               li.demoLogIn.hidden: a.button.demo#demoLink Demo Log-In
               li.signInButton: a.button#signInButton Log-In
