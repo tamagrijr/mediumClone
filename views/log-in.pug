@@ -3,12 +3,13 @@ include includes/utils.pug
 
 block logIn
   .form-container
-    .errors-container
     h2 Log In
+    div(class='errors-container')
     form(class="logInForm")
       input(type="hidden" name="_csrf" value=csrfToken)
-      include includes/login-fields.pug
-      +btn("Log In", "btn btn-primary", "log-in")
+      input(name='email' class='emailLogIn' type='email' placeholder='Enter Email' required)
+      input(name='password' class='passwordLogIn' type='password' placeholder='Enter Password' required)
+      button.btn.btn-primary(type='submit') Log In
+    //- button.demo.btn.btn-primary(type='submit') Demo Login
     p Don't have an account?
       a.swapToSignUp  Sign up here.
-    button.demo.btn.btn-primary(type='submit') Demo Login
