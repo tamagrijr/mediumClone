@@ -23,10 +23,7 @@ html(lang='en')
                   li: a.button#createStoryButton Write
                   li: a.button#logoutButton Log-Out
 
-      main.mainLayoutDiv
-        //- div.errorButtonDiv: button.errorButton(href='/error-test') Create 500 Error
-        block content
+      block content
 
-      footer
-        //- img(src="logo.svg" alt="MeDaYum Logo")
-        //- img(src="logo.svg" alt="MeDaYum Logo")
+      footer.splashFooter.hidden
+        h1 this should be a footer
