@@ -22,21 +22,19 @@ block content
 
       div(class="author-below-body")
         img(class="author-below-item md-icon" src="/icons/avatar (1).svg" alt=`Author ${ storyInfo.authorInfo.authorFN } ${ storyInfo.authorInfo.authorLN }`)
-        p(class="author-below-item auth-name") #{ storyInfo.authorInfo.authorFN } #{ storyInfo.authorInfo.authorLN }
+        span(class="author-below-item auth-name") #{ storyInfo.authorInfo.authorFN } #{ storyInfo.authorInfo.authorLN }
         button(class="author-below-item follow-button btn-primary" data-author=storyInfo.authorInfo.authorId) Follow
 
     div(class="story-options")
-      a(href="/follow")
-        span #{ storyInfo.authorInfo.authorFN } #{ storyInfo.authorInfo.authorLN }
-        button(class="follow-button btn-primary" data-author=storyInfo.authorInfo.authorId) Follow
-      hr
-      a(href="/like")
+      span #{ storyInfo.authorInfo.authorFN } #{ storyInfo.authorInfo.authorLN }
+      button(class="follow-button btn-primary" data-author=storyInfo.authorInfo.authorId) Follow
+      span(class="flex-opt double")
         img(class="sm-icon" src="/icons/heart.svg")
-        span= storyInfo.likeCount
-      a(href="/comment")
+        span(class="count")= storyInfo.likeCount
+      span(class="flex-opt double")
         img(class="sm-icon" src="/icons/chat.svg")
-        span= storyInfo.commentCount
-      img(class="bkmrk sm-icon" src="/icons/bookmark.svg")
+        span(class="count")= storyInfo.commentsCount
+      img(class="bkmrk sm-icon flex-opt" src="/icons/bookmark.svg")
 
     div(class="below-body-options")
       a(href="/like")

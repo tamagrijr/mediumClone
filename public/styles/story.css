@@ -54,6 +54,17 @@ article.story-container {
   grid-area: bookmark;
 }
 
+.sm-icon {
+  height: 20px;
+  margin-right: 5px;
+  width: 20px;
+}
+
+.md-icon.bkmrk {
+  height: 40px;
+  width: 40px;
+}
+
 .bookmark-top:hover {
   cursor: pointer;
 }
@@ -81,31 +92,33 @@ article.story-container {
   display: grid;
   grid-area: bottomAuthor;
   grid-template-areas:
-    "authimg authname authname authname"
-    "authimg authname authbtn authbtn";
+    "authimg authname authname"
+    "authimg authbtn authbtn";
 }
 
-.author-below-item.md-icon {
+img.author-below-item.md-icon {
+  align-self: center;
+  background-color: #C0C0C0;
+  border-radius: 50%;
   grid-area: authimg;
+  justify-self: end;
+  max-height: 50px;
+  max-width: 50px;
+  padding: 5px;
 }
 
 .author-below-item.auth-name {
+  align-self: end;
   grid-area: authname;
+  justify-self: start;
 }
 
 .author-below-item.follow-button {
+  align-self: start;
   grid-area: authbtn;
+  justify-self: start;
 }
 
-.sm-icon {
-  height: 20px;
-  width: 20px;
-}
-
-.md-icon {
-  height: 40px;
-  width: 40px;
-}
 
 .btn-primary {
   margin: .5em;
@@ -116,4 +129,28 @@ article.story-container {
   border-color: #0496FF;
   border-width: .1em;
   color: #0496FF;
+}
+
+.btn-primary:hover {
+  background-color: #0496FF;
+  color: white;
+}
+
+.story-options {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 15%;
+  left: 10%;
+  position: fixed;
+  top: 35%;
+  width: 10%;
+}
+
+.flex-opt {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  margin-bottom: 5px;
 }
