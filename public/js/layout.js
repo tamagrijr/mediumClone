@@ -18,6 +18,20 @@ const dropdownElement = document.querySelector('.dropdown');
 
 document.addEventListener('DOMContentLoaded', async e => {
   let logged = loggedIn();
+if (logged) {
+  navHeader.classList.remove('navHeaderStyles');
+  navHeader.classList.remove('cardShadow')
+  let user = await fetch(`/api/users/${logged}`);
+    user = await user.json();
+    greeting.innerHTML = `Hello, ${user.firstName}`
+} else {
+  footer.classList.remove('hidden')
+  topnav.classList.remove('topNavStyles');
+}
+})
+
+document.addEventListener('DOMContentLoaded', async e => {
+  let logged = loggedIn();
   if (logged) {
     // navHeader.classList.remove('navHeaderStyles');
     let user = await fetch(`/api/users/${logged}`);
