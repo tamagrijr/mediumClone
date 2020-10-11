@@ -34,6 +34,7 @@ main{
     border-style: hidden;
     outline: none;
     font-size: 3rem;
+    background-color: #F4FAFF;
 }
 #createBody {
     border-style: hidden;
@@ -42,4 +43,5 @@ main{
     box-sizing: border-box;
     height: 100%;
     font-size: 1.5rem;
+    background-color: #F4FAFF;
 }
