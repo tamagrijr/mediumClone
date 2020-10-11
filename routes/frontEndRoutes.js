@@ -143,26 +143,49 @@ frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
 });
 //user profile
 frontEndRouter.get("/users/:id", csrfProtection, asyncHandler(async (req, res) => {
-  const id = req.params.id
-  const user = await getUser(id)
-  const userStories = await getStoriesByUser(id)
-  const userComments = await getCommentsByUser(id)
-  const userLikes = await getLikesByUser(id)
-  const followedUsers = await getFollowedUsers(id)
-  const followingUsers = await getFollowingUsers(id)
-  const bookmarkedStories = await getBookmarkedStoriesForUser(id)
-  res.render('profile', {
-    csrfToken: req.csrfToken(),
-    user,
-    userStories,
-    userComments,
-    userLikes,
-    followedUsers,
-    followingUsers,
-    bookmarkedStories,
+  const user = await getUser(req.params.id)
+  const userStories = await getStoriesByUser(req.params.id)
+  res.render('profile-tab-stories', {
+    csrfToken: req.csrfToken(), user, userStories,
   });
 }))
 
+frontEndRouter.get("/users/:id/comments", csrfProtection, asyncHandler(async (req, res) => {
+  const user = await getUser(req.params.id)
+  const userComments = await getCommentsByUser(req.params.id)
+  res.render('profile-tab-comments', {
+    csrfToken: req.csrfToken(), user, userComments,
+
+  });
+}))
+frontEndRouter.get("/users/:id/likes", csrfProtection, asyncHandler(async (req, res) => {
+  const user = await getUser(req.params.id)
+  const userLikes = await getLikesByUser(req.params.id)
+  res.render('profile-tab-likes', {
+    csrfToken: req.csrfToken(), user, userLikes,
+  });
+}))
+frontEndRouter.get("/users/:id/follows", csrfProtection, asyncHandler(async (req, res) => {
+  const user = await getUser(req.params.id)
+  const followedUsers = await getFollowedUsers(req.params.id)
+  res.render('profile-tab-follows', {
+    csrfToken: req.csrfToken(), user, followedUsers,
+  });
+}))
+frontEndRouter.get("/users/:id/followers", csrfProtection, asyncHandler(async (req, res) => {
+  const user = await getUser(req.params.id)
+  const followingUsers = await getFollowingUsers(req.params.id)
+  res.render('profile-tab-followers', {
+    csrfToken: req.csrfToken(), user, followingUsers,
+  });
+}))
+frontEndRouter.get("/users/:id/bookmarks", csrfProtection, asyncHandler(async (req, res) => {
+  const user = await getUser(req.params.id)
+  const bookmarkedStories = await getBookmarkedStoriesForUser(req.params.id)
+  res.render('profile-tab-bookmarks', {
+    csrfToken: req.csrfToken(), user, bookmarkedStories
+  });
+}))
   // TODO Convert createdAt to Month Year format.
 
 //edit user profile form

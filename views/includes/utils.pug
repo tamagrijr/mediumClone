@@ -17,6 +17,13 @@ mixin splashTag(icon, title, storyId)
 
 
 //- MIRA Mixins
+mixin userCard(user)
+  .userCard
+    h3.userName #{user.firstName} #{user.lastName}
+    button.btnIconic Follow
+    img(src=`/assets/av/${user.id}.jpg` alt=`${user.firstName} ${user.lastName}`).userCardAv
+
+
 mixin storyCardFull(story)
   a(href=`/stories/${story.id}`)
     h3.cardTitle= story.title
@@ -30,14 +37,14 @@ mixin storyIcons(story)
   .icons
     button(name="like").btnLike
       div.storyIcon.likeIcon
-      span #{story.Likes.length} Likes
+      span.iconLabel #{story.Likes.length} Likes
     a(href=`/stories/${story.id}#comments`)
       button(name="comments").btnComment
         span.storyIcon.commentIcon
-        span #{story.Comments.length} Comments
+        span.iconLabel #{story.Comments.length} Comments
     button(name="bookmark")
       div.storyIcon.bookmarkIcon
-      
+
 mixin storyCardMini(story)
   h4= story.title
   a(href=`/users/${story.authorId}`)= story.Author.fullName
@@ -45,6 +52,7 @@ mixin storyCardMini(story)
 
 mixin authorBlurb(author)
   .authorBlurb
-    img(src=`/assets/av/${author.id}.png` alt=`${author.firstName} ${author.lastName}`).authorAv
-    a(href=`/users/${author.id}`) #{author.firstName} #{author.lastName}
-    button.btnIconic Follow
+    img(src=`/assets/av/${author.id}.jpg` alt=`${author.firstName} ${author.lastName}`).authorAv
+    .authorInfo
+      button.btnIconic Follow
+      a(href=`/users/${author.id}`).authorName #{author.firstName} #{author.lastName}

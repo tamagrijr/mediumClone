@@ -1,6 +1,30 @@
 
-/* Profile page classes start with pr- */
 
+.profileTabs {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0;
+  list-style: none;
+  margin: 0 20%;
+  border-bottom: 1px solid #888;
+}
+
+.profileTabs > li > a {
+  position: relative;
+  top: 1px;
+  padding: 0.5rem;
+  color: #888;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+.profileTabs > li > a:hover {
+  position: relative;
+  top: 1px;
+  color: #333;
+  border-bottom: 1px solid #333
+}
 .pr-userInfo {
   display: grid;
   grid:
@@ -11,7 +35,7 @@
   justify-items: start;
   align-items: start;
   margin: 2rem auto 6rem;
-  width: 80%;
+  width: 70%;
 }
 #userContainer {
   grid-area: name;
@@ -19,13 +43,25 @@
   align-items: center;
   align-content: center;
 }
-#userAv {
+#userAvContainer {
   grid-area: avatar;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  border-top: 2px solid rgb(4, 150, 255);
+  border-bottom: 2px solid rgb(4, 150, 255);
+  /* border-left: 2px solid transparent; */
+  /* border-right: 2px solid transparent; */
+}
+.userAv {
   width: 8rem;
   height: 8rem;
   border-radius: 50%;
-  border: 10px solid lightgrey;
 }
+
 #profileName {
   font-size: 3rem;
   font-family: Cambria, serif;
@@ -39,7 +75,7 @@
   font-style: italic;
 }
 .btnIconic {
-  margin: 0 1rem;
+  margin: 0 0.5rem;
   border-radius: 5px;
   border: 1px solid rgb(4, 150, 255);
   color: rgb(4, 150, 255);
@@ -47,6 +83,10 @@
 }
 
 /* For mixins storyIcons */
+.iconLabel {
+  font-size: 0.8rem;
+  color: #666;
+}
 .storyIcon {
   width: 1rem;
   height: 1rem;
@@ -58,8 +98,9 @@
   justify-content: space-around;
 }
 .icons button {
+  outline: none;
   border-width: 0px;
-  background-color: white;
+  background-color: transparent;
   font-size: 1rem;
 }
 .btnLike, .btnComment {
@@ -95,30 +136,31 @@
   margin: 1rem;
   font-size: 0.8
 }
+.authorName {
+  color: #666;
+  font-size: 0.8rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-style: italic;
+}
 .authorAv {
   width: 1.5rem;
   height: 1.5rem;
-  margin-right: 1rem;
   border-radius: 50%;
+  object-fit: cover;
+}
+.authorBlurb > .btnIconic {
+  display: block;
+  background-color: red;
 }
 
 
-.profileTabs {
-  display: flex;
-  margin: 0;
-  border-bottom: 1px #666 solid;
-  list-style: none;
-  width: max-content;
-}
 
-.userCollections {
-  width: 80%;
-  
-}
 
 .profileFeed {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ***** */
@@ -128,21 +170,21 @@
 }
 
 /* For mixin storyCardFull */
-.storyCard {
-  width: 600px;
-  border: 1px solid rgba(150,150,150,0.3);
+.card {
+  width: 40%;
+  border-radius: 5px;
   padding: 1rem 0;
-	box-shadow: 0px 0px 14px 0px rgba(150,150,150,0.6);
-	/* background-color: rgba(244, 244, 244, .95); */
+	box-shadow: 0px 0px 6px 0px rgba(150,150,150,0.5);
 }
 .cardTitle {
   margin: 2rem 1rem 0;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .cardCreatedDate {
   margin: 0 1rem;
-  font-size: 0.8rem;
+  color: #888;
+  font-size: 0.7rem;
   font-style: italic;
 }
 .cardBanner {
@@ -150,4 +192,21 @@
   width: 100%;
   height: 14rem;
   margin: 1rem 0;
+}
+
+/* For mixin userCard */
+.userCard {
+  margin: 0 auto;
+  padding: 1rem;
+}
+.userName {
+  margin: 0;
+  font-size: 1.5rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.userCardAv {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
 }

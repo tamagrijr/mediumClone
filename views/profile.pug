@@ -13,52 +13,20 @@ block content
       //- span.user-description #{user.description}
       p#joinDate MeDaYum member since #{user.createdAt}.
 
-      img(src=`/assets/av/1.png` alt=`${user.firstName} ${user.lastName}`)#userAv
+      #userAvContainer
+        img(src=`/assets/av/1.jpg` alt=`${user.firstName} ${user.lastName}`).userAv
 
       //- .follows
-        //- #{userFollows.length} Following | #{userFollowers.length} Followers
-      //-     //- TODO Confirm .length works here
+      //- #{userFollows.length} Following | #{userFollowers.length} Followers
       //- button Edit Profile
-      
-      
+
     nav.userCollections
       ul.profileTabs
-        li.storyTab Stories
-          ul.profileFeed
-            each story in userStories
-              li.storyCard: +storyCardFull(story)
-        li.commentTab Comments
-          ul.profileFeed
-            each comment in userComments
-              li.commentCard
-                h3.prFeed= comment.Story.title
-                p #{comment.Story.Author.firstName} #{comment.Story.Author.lastName}
-                //- +storyCardMini(comment.story)
-                //- +authorDate
-                p= comment.createdAt
-                p "#{comment.body}"
-        li.likeTab Likes
-          ul.profileFeed
-            each like in userLikes
-              li: +storyCardFull(like.Story)
-            
-        li.followTab Follows
-          ul.profileFeed
-            each user in followedUsers
-              li
-                h3 #{user.Following.firstName} #{user.Following.lastName}
-                img(src=`/assets/av/${user.id}.png` alt=`${user.Following.firstName} ${user.Following.lastName}`)
-                button.btnIconic Follow
-                
-        li.followerTab Followers
-          ul.profileFeed
-            each user in followingUsers
-              li
-                h3 #{user.Follower.firstName} #{user.Follower.lastName}
-                img(src=`/assets/av/${user.id}.png` alt=`${user.Follower.firstName} ${user.Follower.lastName}`)
-                button.btnIconic Follow
+        li.storyTab: a(href=`/users/${user.id}`) Stories
+        li.commentTab: a(href=`/users/${user.id}/comments`) Comments
+        li.likeTab: a(href=`/users/${user.id}/likes`) Likes
+        li.followTab: a(href=`/users/${user.id}/follows`) Follows
+        li.followerTab: a(href=`/users/${user.id}/followers`) Followers
+        li.bookmarkTab: a(href=`/users/${user.id}/bookmarks`) Bookmarks
 
-        li.bookmarkTab Bookmarks
-          ul.profileFeed
-            each bookmark in bookmarkedStories
-              li: +storyCardFull(bookmark.Story)
+    block userTabContent

@@ -28,15 +28,7 @@ button {
 
 /* footer */
 footer {
-  clear: both;
-  position: relative;
-  height: 200px;
-  margin-top: -200px;
-  background-color: black;
   box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
-}
-footer a {
-  color: white;
 }
 #footerLogo > a {
   background-color: white;
