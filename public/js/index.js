@@ -331,3 +331,70 @@ b15.addEventListener('click', e => {
     b15.classList.remove('bearButtonContainerHover');
   }
 })
+
+//Slideshow handlers
+const slide1 = document.querySelector(".slide1");
+const slide2 = document.querySelector(".slide2");
+const slide3 = document.querySelector(".slide3");
+const slide4 = document.querySelector(".slide4");
+const slide5 = document.querySelector(".slide5");
+const slideButton1 = document.querySelector(".slideShowNavigationButton1");
+const slideButton2 = document.querySelector(".slideShowNavigationButton2");
+const slideButton3 = document.querySelector(".slideShowNavigationButton3");
+const slideButton4 = document.querySelector(".slideShowNavigationButton4");
+const slideButton5 = document.querySelector(".slideShowNavigationButton5");
+const wipeCss = () => {
+  slide1.classList.add('hidden')
+  slide2.classList.add('hidden')
+  slide3.classList.add('hidden')
+  slide4.classList.add('hidden')
+  slide5.classList.add('hidden')
+  slideButton1.classList.remove('currentSlideButton')
+  slideButton2.classList.remove('currentSlideButton')
+  slideButton3.classList.remove('currentSlideButton')
+  slideButton4.classList.remove('currentSlideButton')
+  slideButton5.classList.remove('currentSlideButton')
+}
+
+let count = 1;
+const displaySlideEventListener = (slide, slideButton, counter) => {
+  slideButton.addEventListener('click', e => {
+    wipeCss();
+    slide.classList.remove('hidden')
+    slideButton.classList.add('currentSlideButton')
+    count = counter;
+  })
+}
+displaySlideEventListener(slide1, slideButton1, 1);
+displaySlideEventListener(slide2, slideButton2, 2);
+displaySlideEventListener(slide3, slideButton3, 3);
+displaySlideEventListener(slide4, slideButton4, 4);
+displaySlideEventListener(slide5, slideButton5, 5);
+
+const displaySlide = (slide, slideButton) => {
+  wipeCss();
+  slide.classList.remove('hidden')
+  slideButton.classList.add('currentSlideButton')
+}
+setInterval(function dynamicDisplay(){
+  if(count === 1){
+    displaySlide(slide2, slideButton2);
+    count++
+  }
+  else if(count === 2){
+    displaySlide(slide3, slideButton3);
+    count++
+  }
+  else if(count === 3){
+    displaySlide(slide4, slideButton4);
+    count++
+  }
+  else if(count === 4){
+    displaySlide(slide5, slideButton5);
+    count++
+  }
+  else if(count === 5){
+    displaySlide(slide1, slideButton1);
+    count = 1
+  }
+}, 7000)
