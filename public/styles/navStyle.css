@@ -1,6 +1,5 @@
 
 .topnav {
-  /* background-color: lightblue; */
   height: 2.5rem;
 }
 .logo {
@@ -24,6 +23,16 @@
   padding: 0;
   list-style-type: none;
 }
+
+.signInButton, .signUpButton {
+  font-style: italic;
+}
+
+.main-nav li {
+  margin: 0 0.5rem;
+  border-radius: 5px;
+  padding: 0.2rem;
+}
 .dropdown {
   height: 1.5 rem;
 }
@@ -33,11 +42,14 @@
   align-items: center;
 }
 .navAv {
-  width: 1.5rem;
-  height: 1.5rem;
+  /* width: 1.5rem; */
+  /* height: 1.5rem; */
   border-radius: 0.75rem;
   padding: 0;
   background-color: crimson;
+}
+.navAv.clickedDropdownMenu {
+  border: 2px gray solid;
 }
 .av {
   width: 2.5rem;
@@ -51,31 +63,11 @@
   top: 0;
 }
 
-/*
-.logo {
-	margin: 0;
-	font-size: 1.45em;
-} */
-
 /* .main-nav a {
 	padding: 10px 15px;
 	text-transform: uppercase;
 	text-align: center;
 	display: block;
-} */
-/* .main-nav a {
-    color: #34495e;
-}
-.main-nav a:hover {
-	color: #718daa;
-}
-.topNavStyles {
-  padding-top: .5em;
-	padding-bottom: .5em;
-	border: 1px solid #a2a2a2;
-	background-color: #f4f4f4;
-	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-	border-radius: 5px;
 }
 .topnav a.button:hover {
 	color: #c9c3c3;
@@ -107,17 +99,15 @@ a:hover {
 	background-color: rgba(244, 244, 244, .95);
 }
 
-.dropdown:hover #dropdown-menu {
+.dropdown:hover #dropdown-menu, .clickedDropdownMenu {
 	display: block;
   position: absolute;
   top: 2.5rem;
 }
 .demoLogIn {
-	border: solid;
-	border-radius: .3em;
-	border-color: #0496FF;
-	border-width: 2px;
   background-color: rgba(4, 150, 255, .8);
+  font-weight: bold;
+  padding: 0.2rem 0.5rem;
 }
 .demoLogIn:hover {
 	background-color: #0496FF;

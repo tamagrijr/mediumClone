@@ -3,8 +3,9 @@ body {
   margin: 0;
 }
 * {
-  font-family: 'Fira Sans', sans-serif;
+  font-family: 'Calibri', 'Fira Sans', sans-serif;
   box-sizing: border-box;
+  color: #333;
   /* outline: 1px dashed red; */
 }
 body {
