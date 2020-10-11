@@ -133,10 +133,14 @@ commentSubmitBtn.addEventListener('click', async e => {
   }
 });
 
-document.getElementById('comment').addEventListener('click', () => {
+document.addEventListener('click', () => {
   const activeElement = document.activeElement;
   if (activeElement === document.getElementById('comment')) {
     document.getElementById('submitComment').style.display = 'inline-block';
+    document.getElementById('curentCommentingUserDisplay').style.display = 'inline-block';
+  } else {
+    document.getElementById('submitComment').style.display = 'none';
+    document.getElementById('curentCommentingUserDisplay').style.display = 'none';
   }
 });
 

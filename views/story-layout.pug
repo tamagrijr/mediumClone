@@ -45,7 +45,7 @@ block content
     .comments-bar
       h2 Comments (#{ storyInfo.commentsCount })
       form(method="post" action="/comments" id="commentForm" data-story=storyInfo.storyId)
-        span
+        span(id="curentCommentingUserDisplay")
           img(class="sm-icon" src="/icons/avatar (1).svg")
           span(id="currentUserName")
         textarea(id="comment" name="comment" placeholder="Tell us what you think...")

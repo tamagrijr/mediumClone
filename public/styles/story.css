@@ -183,13 +183,14 @@ img.author-below-item.md-icon {
 #commentForm {
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 }
 
 #commentForm-focus-form {
 
 }
 
-#submitComment {
+#submitComment, #curentCommentingUserDisplay {
   display: none;
 }
 
@@ -198,5 +199,8 @@ img.author-below-item.md-icon {
 }
 
 .comments-bar {
+  position: fixed;
+  right: 0px;
+  top: 50px;
   width: 20%;
 }
