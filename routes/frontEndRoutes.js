@@ -7,7 +7,7 @@ const { getAllStoryInfo } = require('./fetch');
 const frontEndRouter = express.Router();
 const csrfProtection = csrf({ cookie: true });
 
-const url = "http://localhost:3000"
+const { api } = require('../config');
 
 
 // Provide a 'createdAt' value and receive a string in form 'Jan 01 2020'
@@ -27,7 +27,7 @@ function getDates(content) {
 
 // Fetch a User by id, without password info.
 async function getUser(id) {
-  let user = await fetch(`${url}/api/users/${id}`)
+  let user = await fetch(`${api}/api/users/${id}`)
   user = await user.json()
   user.createdAt = getDate(user.createdAt)
   return user
@@ -39,7 +39,7 @@ async function getUser(id) {
 //  .Comments (array, ids only)
 //  .Likes (array, ids only)
 async function getStoriesByUser(id) {
-  let stories = await fetch(`${url}/api/users/${id}/stories`)
+  let stories = await fetch(`${api}/api/users/${id}/stories`)
   stories = await stories.json()
   stories = getDates(stories)
   return stories
@@ -52,7 +52,7 @@ async function getStoriesByUser(id) {
 // .Story.Comments (ids only)
 // .Story.Author.firstName, .Story.Author.lastName
 async function getLikesByUser(id) {
-  let likes = await fetch(`${url}/api/users/${id}/likes`)
+  let likes = await fetch(`${api}/api/users/${id}/likes`)
   likes = await likes.json()
   console.log("likes?!", likes)
   likes = getDates(likes)
@@ -65,26 +65,26 @@ async function getLikesByUser(id) {
 
 // Fetch array of Comments by User (id) with associated Stories
 async function getCommentsByUser(id) {
-  let comments = await fetch(`${url}/api/users/${id}/comments`)
+  let comments = await fetch(`${api}/api/users/${id}/comments`)
   comments = await comments.json()
   comments = getDates(comments)
   return comments
 }
 
 async function getFollowedUsers(id) {
-  let followedUsers = await fetch(`${url}/api/users/${id}/follows`)
+  let followedUsers = await fetch(`${api}/api/users/${id}/follows`)
   followedUsers = await followedUsers.json()
   return followedUsers
 }
 
 async function getFollowingUsers(id) {
-  let followingUsers = await fetch(`${url}/api/users/${id}/followers`)
+  let followingUsers = await fetch(`${api}/api/users/${id}/followers`)
   followingUsers = await followingUsers.json()
   return followingUsers
 }
 
 async function getBookmarkedStoriesForUser(id) {
-  let bookmarks = await fetch(`${url}/api/users/${id}/bookmarks`)
+  let bookmarks = await fetch(`${api}/api/users/${id}/bookmarks`)
   bookmarks = await bookmarks.json()
   bookmarks = bookmarks.map(bookmark => {
     bookmark.Story.createdAt = getDate(bookmark.Story.createdAt)
@@ -94,22 +94,22 @@ async function getBookmarkedStoriesForUser(id) {
 }
 
 async function getStory(id) {
-  let story = await fetch(`${url}/api/stories/${id}`)
+  let story = await fetch(`${api}/api/stories/${id}`)
   return await story.json()
 }
 
 async function getAllStories() {
-  let stories = await fetch(`${url}/api/stories`)
+  let stories = await fetch(`${api}/api/stories`)
   return await stories.json()
 }
 
 async function getStoriesByFollowedAuthors(userId) {
-  let stories = await fetch(`${url}/api/users/${userId}/follows/stories`)
+  let stories = await fetch(`${api}/api/users/${userId}/follows/stories`)
   return await stories()
 }
 
 async function getCommentsForStory(id) {
-  let comments = await fetch(`${url}/api/stories/${id}/comments`)
+  let comments = await fetch(`${api}/api/stories/${id}/comments`)
   return await comments.json()
 }
 
@@ -118,31 +118,31 @@ async function getCommentsForStory(id) {
 frontEndRouter.get("/stories/:id(\\d+)", async (req, res) => {
     const storyInfo = await getAllStoryInfo(req);
     console.log(storyInfo);
-    res.render('story-layout', { storyInfo, title: storyInfo.title });
+    res.render('story-layout', { storyInfo, title: storyInfo.title, api });
 });
 
 //actual splash page
 frontEndRouter.get("/splash", (req, res) => {
-  res.render('splash', { title: "MEDAYUM"});
+  res.render('splash', { title: "MEDAYUM", api });
 });
 //splash page
 frontEndRouter.get("/", asyncHandler( async(req, res) => {
   try {
-    let stories = await fetch(`${url}/api/stories`);
+    let stories = await fetch(`${api}/api/stories`);
     stories = await stories.json();
-    
-    res.render('index', { stories });
+
+    res.render('index', { stories, api });
   } catch (error) {
     res.render('index')
   }
 }));
 //sign up form
 frontEndRouter.get("/sign-up", csrfProtection, (req, res) => {
-  res.render('sign-up', { csrfToken: req.csrfToken() });
+  res.render('sign-up', { csrfToken: req.csrfToken(), api });
 });
 //log-in form
 frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
-  res.render('log-in', { csrfToken: req.csrfToken() });
+  res.render('log-in', { csrfToken: req.csrfToken(), api });
 });
 //user profile
 frontEndRouter.get("/users/:id", csrfProtection, asyncHandler(async (req, res) => {
@@ -163,6 +163,7 @@ frontEndRouter.get("/users/:id", csrfProtection, asyncHandler(async (req, res) =
     followedUsers,
     followingUsers,
     bookmarkedStories,
+    api
   });
 }))
 
@@ -174,40 +175,40 @@ frontEndRouter.get("/users/:id", csrfProtection, asyncHandler(async (req, res) =
 // });
 //create new story form
 frontEndRouter.get("/create", csrfProtection, (req, res) => {
-  res.render('create', { csrfToken: req.csrfToken() });
+  res.render('create', { csrfToken: req.csrfToken(), api });
 });
 //display story edit form
 frontEndRouter.get("/stories/:id/edit", csrfProtection, (req, res) => {
-  res.render('story-edit-layout', { csrfToken: req.csrfToken() });
+  res.render('story-edit-layout', { csrfToken: req.csrfToken(), api });
 });
 //sign up form
 frontEndRouter.get("/sign-up", csrfProtection, (req, res) => {
-    res.render('sign-up', { csrfToken: req.csrfToken(), title: "Sign Up" });
+    res.render('sign-up', { csrfToken: req.csrfToken(), title: "Sign Up", api });
 });
 //log-in form
 frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
-    res.render('log-in', { csrfToken: req.csrfToken(), title: "Log In" });
+    res.render('log-in', { csrfToken: req.csrfToken(), title: "Log In", api });
 });
 //user profile
 frontEndRouter.get("/users", (req, res) => {
-    res.render('profile', { title: "Profile" });
+    res.render('profile', { title: "Profile", api });
 });
 //edit user profile form
 frontEndRouter.get("/users/:id(\\d+)/edit", csrfProtection, (req, res) => {
-    res.render('edit-profile', { csrfToken: req.csrfToken(), title: "Edit Profile" });
+    res.render('edit-profile', { csrfToken: req.csrfToken(), title: "Edit Profile", api });
 });
 //create new story form
 frontEndRouter.get("/create", csrfProtection, (req, res) => {
-    res.render('create', { csrfToken: req.csrfToken(), title: "Create a Story" });
+    res.render('create', { csrfToken: req.csrfToken(), title: "Create a Story", api });
 });
 //display story edit form
 frontEndRouter.get("/stories/:id(\\d+)/edit", csrfProtection, (req, res) => {
-    res.render('story-edit-layout', { csrfToken: req.csrfToken(), title: "Edit Story" });
+    res.render('story-edit-layout', { csrfToken: req.csrfToken(), title: "Edit Story", api });
 });
 //display feed
 frontEndRouter.get("/feed", asyncHandler( async(req, res) => {
-    
-    res.render('feed', { title: "My Feed", stories });
+
+    res.render('feed', { title: "My Feed", stories, api });
 }));
 //throw error
 frontEndRouter.get("/error-test", (req, res, next) => {
