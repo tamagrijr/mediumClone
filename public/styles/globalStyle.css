@@ -26,37 +26,6 @@ button {
   cursor: pointer;
 }
 
-/* footer */
-footer {
-  box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
-}
-#footerLogo > a {
-  background-color: white;
-  color: black;
-  border-radius: 1px;
-  padding: 2px;
-  text-align: center;
-}
-.footerLogoContainer {
-  height: 100%;
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-footer .links {
-  display: flex;
-
-}
-.footerLink {
-  margin-right: 1.5em;
-}
-.copy {
-  margin-top: 1em;
-  color: white;
-}
-
-
 
 /* For mixins storyIcons */
 .iconLabel {

@@ -8,7 +8,7 @@ block feedBlock
   .feedContainer
     .storyContainer
       each story in stories
-        .storySection.card
+        .storySection
           .storyInfoDiv
             +authorBlurb(story.Author)
             //- .storyAuthorName: a(href=`${ api }/users/${story.authorId}`) #{story.Author.firstName} #{story.Author.lastName}
