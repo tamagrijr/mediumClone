@@ -1,8 +1,8 @@
 import { loggedIn } from './utils';
 
-  
+
 window.addEventListener('DOMContentLoaded', async () => {
-  
+
   const feedContainer = document.querySelector('.feedContainer');
   const storyContainer = document.querySelector('.storyContainer');
   const storySection = document.querySelectorAll('.storySection');
@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   const storyImgDiv = document.querySelectorAll('.storyImgDiv');
 
   /*
-      TODO  When user clicks bookmark tab 
+      TODO  When user clicks bookmark tab
   ?           change bookmark img to red one
       TODO  When user clicks author link, story link
   ?           set as active when navigating back to feed
@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         if (!e.target.classList.contains('clicked')) {
           console.log('class isnt included')
           try {
-            await fetch(`http://localhost:3000/api/users/${userId}/bookmarks`, {
+            await fetch(`/api/users/${userId}/bookmarks`, {
               method: "POST",
               body: JSON.stringify({
                 storyId: e.target.dataset.storyid,
@@ -52,14 +52,14 @@ window.addEventListener('DOMContentLoaded', async () => {
           } catch (error) {
             console.error(error)
           }
-          
+
           e.target.classList.toggle('clicked');
           console.log('class switched!');
         } else {
           if (e.target.classList.contains('clicked')) {
           //   try {
           //     const userId = await loggedIn()
-          //     const story = await fetch(`http://localhost:3000/users/${userId}/stories`, {
+          //     const story = await fetch(`/api/users/${userId}/stories`, {
           //       method: "DELETE",
           //       body: JSON.stringify(story),
           //       headers: {
@@ -84,4 +84,3 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 
 });
-

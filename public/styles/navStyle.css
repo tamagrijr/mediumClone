@@ -50,8 +50,9 @@
   text-align: center;
 }
 .navHeaderStyles {
-	width: 100%;
+  z-index: 1;
 	position: sticky;
+	width: 100%;
   top: 0;
 }
 
@@ -85,6 +86,7 @@
 	/* background-color: #121212;
 }*/
 .dropdown-menu {
+  z-index: 10;
   display: none;
 	border-radius: 0 0 5px 5px;
   padding: 0.5rem 1rem;
@@ -157,7 +159,8 @@ a:hover {
 }
 @media (min-width: 1025px) {
 	.topnav {
-		flex-direction: row;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
 	}

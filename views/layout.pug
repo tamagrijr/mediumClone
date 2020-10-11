@@ -28,13 +28,13 @@ html(lang='en')
                 li: a.button#logoutButton Log out
     block content
     footer.mainFooter.splashFooter.hidden
-      h2.logo: a(href="/").whiteLink M
+      h2.logo: a(href="/").footerLogo M
       p The place to get the latest Yum. We can put credits and stuff here for icons, pictures, ourselves, and what have yous. 
       small © 2020 Warren Tamagri, Cinthia Spence, Clayton Reinhardt, Mira Kim
       
       nav: ul.footerNavList
-        li: a(href="#top") Top
-        li: a(href="/about") About
-        li: a(href="/contact") Contact Us
-        li: a.footerLink(href="/") Get Started
+        li: a(href="#top").footerLink Top
+        li: a(href="/about").footerLink About
+        li: a(href="/contact").footerLink Contact Us
+        li: a(href="/").footerLink Get Started
         li: a.footerLink.signInBanner Sign In

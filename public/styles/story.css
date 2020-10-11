@@ -50,6 +50,13 @@ article.story-container {
   grid-area: follow;
 }
 
+.below-body-options {
+  align-self: center;
+  align-items: center;
+  display: flex;
+  grid-area: bottomOps;
+}
+
 .bookmark-top {
   grid-area: bookmark;
 }
@@ -147,10 +154,26 @@ img.author-below-item.md-icon {
   width: 10%;
 }
 
+.bottom-option-span {
+  margin-right: 10px;
+}
+
 .flex-opt {
   align-self: center;
   display: flex;
   justify-content: center;
   justify-self: center;
   margin-bottom: 5px;
+}
+
+textarea {
+  border: 2px solid #393D3F;
+  border-radius: 5px;
+  background-color: #F4FAFF;
+  height: 2em;
+  padding: 3px;
+}
+
+#submitComment {
+  display: none;
 }
