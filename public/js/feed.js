@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   // createBookmarkButton.addEventListener('click', (e) => {
   //   alert('hi')
   // })
-  // bookmarkButtonFeed.addEventListener('click', (e) => {
+  bookmarkButtonFeed.addEventListener('click', (e) => {
   const userId = loggedIn();
     bookmarkButtonFeed.forEach( bm => {
       bm.addEventListener('click', async (e) => {
@@ -52,7 +52,6 @@ window.addEventListener('DOMContentLoaded', async () => {
           } catch (error) {
             console.error(error)
           }
-          
           e.target.classList.toggle('clicked');
           console.log('class switched!');
         } else {
@@ -77,11 +76,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             console.log('hi');
           }
         }
-
       }, false);
-    // }
   }, false);
-
-
 });
-
+});

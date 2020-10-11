@@ -8,30 +8,30 @@ block feedBlock
             each story in stories
                 .storySection
                     .storyInfoDiv
-                        .storyAuthorName: a(href=`http://localhost:3000/users/${story.authorId}`) #{story.Author.firstName} #{story.Author.lastName}
+                        .storyAuthorName: a(href=`http://localhost:3000/api/users/${story.authorId}`) #{story.Author.firstName} #{story.Author.lastName}
                         .storyLink: a(href=`http://localhost:3000/stories/${story.authorId}`) #{story.title}
                         .storyCreatedAt #{date} • <30min read
                         .createBookmarkButtonFeed: a(data-storyid=story.storyId).bookmarkButtonFeed
                     .storyPicDiv
                         .storyImgDiv
         .bookmarkFeedContainer
-            .bookmarkSection
-                .bookmarkTitle 
-                .bookmarkAuthor
-            .bookmarkSection
-                .bookmarkTitle 
-                .bookmarkAuthor
-            .bookmarkSection
-                .bookmarkTitle 
-                .bookmarkAuthor
-            .bookmarkSection
-                .bookmarkTitle 
-                .bookmarkAuthor
-            .bookmarkSection
-                .bookmarkTitle 
-                .bookmarkAuthor
-                //- .bookmarkTitle #{bookmark.title}
-                //- .bookmarkAuthor #{bookmark.authorId}
+                .bookmarkSection
+                    .bookmarkTitle 
+                    .bookmarkAuthor 
+        //-     each bookmark in bookmarks
+            //- .bookmarkSection
+            //-     .bookmarkTitle 
+            //-     .bookmarkAuthor
+            //- .bookmarkSection
+            //-     .bookmarkTitle 
+            //-     .bookmarkAuthor
+            //- .bookmarkSection
+            //-     .bookmarkTitle 
+            //-     .bookmarkAuthor
+            //- .bookmarkSection
+            //-     .bookmarkTitle 
+            //-     .bookmarkAuthor
+                
             
     
 //-  each bookmark in bookmarks

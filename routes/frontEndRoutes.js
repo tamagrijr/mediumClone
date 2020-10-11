@@ -3,6 +3,7 @@ const csrf = require('csurf');
 const { asyncHandler } = require('../utils')
 const fetch = require('node-fetch')
 const { getAllStoryInfo } = require('./fetch');
+const { loggedIn } = require('../public/js/utils');
 
 const frontEndRouter = express.Router();
 const csrfProtection = csrf({ cookie: true });
@@ -130,8 +131,11 @@ frontEndRouter.get("/", asyncHandler( async(req, res) => {
   try {
     let stories = await fetch(`${url}/api/stories`);
     stories = await stories.json();
+    const storyInfo = await getAllStoryInfo(req);
+    let userId = loggedIn();
+    const bookmarks = await getBookmarkedStoriesForUser(userId);
     
-    res.render('index', { stories });
+    res.render('index', { stories, bookmarks, date: storyInfo.createdAt });
   } catch (error) {
     res.render('index')
   }
