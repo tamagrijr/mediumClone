@@ -19,6 +19,11 @@ block content
 
       hr
 
+      div(class="below-body-options")
+        img(class="sm-icon" src="/icons/heart.svg")
+        span(class="bottom-option-span") #{ storyInfo.likeCount } Likes
+        img(class="sm-icon" src="/icons/chat.svg")
+        span(class="bottom-option-span") #{ storyInfo.commentsCount } Comments
 
       div(class="author-below-body")
         img(class="author-below-item md-icon" src="/icons/avatar (1).svg" alt=`Author ${ storyInfo.authorInfo.authorFN } ${ storyInfo.authorInfo.authorLN }`)
@@ -36,18 +41,11 @@ block content
         span(class="count")= storyInfo.commentsCount
       img(class="bkmrk sm-icon flex-opt" src="/icons/bookmark.svg")
 
-    div(class="below-body-options")
-      a(href="/like")
-        img(class="sm-icon" src="/icons/heart.svg")
-        span= storyInfo.likeCount
-      a(href="/comment")
-        img(class="sm-icon" src="/icons/chat.svg")
-        span= storyInfo.commentCount
 
     .comments-bar
       section
-        h2 Comments (#{ storyInfo.commentsCount })
         form(method="post" action="/comments" id="commentForm" data-story=storyInfo.storyId)
+          h2 Comments (#{ storyInfo.commentsCount })
           label(for="comment") Add a Comment:
           textarea(id="comment" name="comment")
           button(type="submit" id="submitComment") Submit Comment

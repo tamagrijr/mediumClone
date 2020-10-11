@@ -94,6 +94,11 @@ commentSubmitBtn.addEventListener('click', async e => {
       const fullCommentItem = event.target.parentNode.parentNode.parentNode;
       const commentBodyEl = fullCommentItem.querySelectorAll('.comment-body')[0];
       commentBodyEl.setAttribute('contenteditable', 'true');
+      commentBodyEl.style.borderWidth = '2px';
+      commentBodyEl.style.borderStyle = 'solid';
+      commentBodyEl.style.borderColor = '#393D3F';
+      commentBodyEl.style.borderRadius = '0.25em';
+      commentBodyEl.style.backgroundColor = '#C0C0C0';
       const submitNewCommentBtn = document.createElement('button');
       submitNewCommentBtn.innerHTML = 'Submit Edit';
       myCommentOptions.insertBefore(submitNewCommentBtn, myCommentEditBtn);
@@ -162,12 +167,19 @@ window.addEventListener('DOMContentLoaded', async () => {
         const fullCommentItem = event.target.parentNode.parentNode.parentNode;
         const commentBodyEl = fullCommentItem.querySelectorAll('.comment-body')[0];
         commentBodyEl.setAttribute('contenteditable', 'true');
+        commentBodyEl.style.borderWidth = '2px';
+        commentBodyEl.style.borderStyle = 'solid';
+        commentBodyEl.style.borderColor = '#0496FF';
+        commentBodyEl.style.borderRadius = '0.25em';
+        commentBodyEl.style.backgroundColor = '#C0C0C0';
         const submitNewCommentBtn = document.createElement('button');
         submitNewCommentBtn.innerHTML = 'Submit Edit';
         myCommentOptions.insertBefore(submitNewCommentBtn, editButton);
         myCommentOptions.removeChild(editButton);
         submitNewCommentBtn.addEventListener('click', async event => {
           let newCommentBody = commentBodyEl.innerHTML;
+          commentBodyEl.style.border = 'none';
+          commentBodyEl.style.backgroundColor = 'rgba(0, 0, 0, 0)';
           await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
             method: 'PATCH',
             body: JSON.stringify({ body: newCommentBody }),
