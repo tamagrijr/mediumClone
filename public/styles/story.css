@@ -4,11 +4,11 @@ article.story-container {
   grid-template-columns: repeat(5, 1fr);
   grid-template-areas:
     "title title title title title"
-    "author author . . bookmark"
+    "author author author . bookmark"
     "img img img img img"
     "body body body body body"
     "bottomOps bottomOps bottomOps bottomOps bottomOps"
-    "bottomAuthor bottomAuthor bottomAuthor bottomAuthor bottomAuthor";
+    "bottomAuthor bottomAuthor . . .";
   margin: 0 auto;
   width: 45%;
 }
@@ -22,10 +22,45 @@ article.story-container {
 
 .story-author-info-top {
   grid-area: author;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-areas:
+    "img name name follow"
+    "img date date follow";
+  grid-template-rows: 1fr 1fr 0.5fr 1fr;
+}
+
+.top-author-img {
+  align-self: center;
+  grid-area: img;
+}
+
+.top-author-name {
+  align-self: end;
+  grid-area: name;
+}
+
+.top-story-date {
+  align-self: start;
+  grid-area: date;
+}
+
+.top-author-follow {
+  align-self: center;
+  grid-area: follow;
 }
 
 .bookmark-top {
   grid-area: bookmark;
+}
+
+.bookmark-top:hover {
+  cursor: pointer;
+}
+
+.bookmarked {
+  border-radius: 5px;
+  padding: 3px 0px;
 }
 
 .story-image {
@@ -42,7 +77,24 @@ article.story-container {
 }
 
 .author-below-body {
+  align-items: center;
+  display: grid;
   grid-area: bottomAuthor;
+  grid-template-areas:
+    "authimg authname authname authname"
+    "authimg authname authbtn authbtn";
+}
+
+.author-below-item.md-icon {
+  grid-area: authimg;
+}
+
+.author-below-item.auth-name {
+  grid-area: authname;
+}
+
+.author-below-item.follow-button {
+  grid-area: authbtn;
 }
 
 .sm-icon {
@@ -53,4 +105,15 @@ article.story-container {
 .md-icon {
   height: 40px;
   width: 40px;
+}
+
+.btn-primary {
+  margin: .5em;
+  font-weight: 700;
+  border-radius: .3em;
+  text-align: center;
+  padding: .3em;
+  border-color: #0496FF;
+  border-width: .1em;
+  color: #0496FF;
 }

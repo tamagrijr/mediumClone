@@ -192,6 +192,22 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 });
 
+document.querySelectorAll('.bkmrk').forEach(bkmrk => {
+  bkmrk.addEventListener('click', e => {
+    if (e.target.classList.contains('bookmarked')) {
+      document.querySelectorAll('.bkmrk').forEach(mrk => {
+        mrk.setAttribute('src', '/icons/bookmark.svg');
+        mrk.classList.remove('bookmarked');
+      });
+    } else {
+      document.querySelectorAll('.bkmrk').forEach(mrk => {
+        mrk.setAttribute('src', '/icons/bookmarked.svg');
+        mrk.classList.add('bookmarked');
+      });
+    }
+  });
+});
+
 // document.querySelectorAll('.follow-button').forEach(btn => {
 //   btn.addEventListener('click', async () => {
 //     const authorId = btn.dataset.author;
