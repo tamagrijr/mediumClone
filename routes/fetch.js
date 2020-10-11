@@ -7,7 +7,8 @@ async function getAllStoryInfo(req) {
     const {
       title,
       body,
-      authorId
+      authorId,
+      createdAt
     } = story;
     let author = await fetch(`http://localhost:3000/api/users/${ authorId }`);
     author = await author.json();
@@ -51,6 +52,7 @@ async function getAllStoryInfo(req) {
       title,
       body,
       authorInfo,
+      createdAt,
       likeCount,
       comments,
       commentsCount
