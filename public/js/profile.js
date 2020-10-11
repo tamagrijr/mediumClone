@@ -1,4 +1,4 @@
-import { api } from "../../config";
+
 // document.addEventListener('DOMContentLoaded', async (e) => {
 //     const userId = localStorage.getItem("MEDIUM_CURRENT_USER_ID");
 //     const userToken = localStorage.getItem("MEDIUM_ACCESS_TOKEN");
@@ -7,7 +7,7 @@ import { api } from "../../config";
 //         return
 //     }
 //     try{
-//         const res = await fetch(`${ api }/api/users/${userId}`,{
+//         const res = await fetch(`/api/users/${userId}`,{
 //             // method: "GET",
 //             // body: JSON.stringify(body),
 //             headers: {

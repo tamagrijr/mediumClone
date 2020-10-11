@@ -1,5 +1,4 @@
 import { handleErrors } from "./utils.js";
-import { api } from "../../config";
 
 const authorId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID');
 const publishNav = document.querySelector('.publishStory');
@@ -16,7 +15,7 @@ publishStoryButton.addEventListener('click', async e =>{
     const obj = {title, body, authorId};
     try {
         // ADD THIS ONCE VALIDATION IS IMPLEMENTED
-        const res = await fetch(`${ api }/api/stories`, {
+        const res = await fetch(`/api/stories`, {
           method: "POST",
           body: JSON.stringify(obj),
           headers: {
@@ -41,7 +40,7 @@ form.addEventListener('submit', async e => {
     const obj = {title, body, authorId};
     try {
         // ADD THIS ONCE VALIDATION IS IMPLEMENTED
-        const res = await fetch(`${ api }/api/stories`, {
+        const res = await fetch(`/api/stories`, {
           method: "POST",
           body: JSON.stringify(obj),
           headers: {

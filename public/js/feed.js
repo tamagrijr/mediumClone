@@ -1,5 +1,4 @@
 import { loggedIn } from './utils';
-import { api } from "../../config";
 
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -36,7 +35,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         if (!e.target.classList.contains('clicked')) {
           console.log('class isnt included')
           try {
-            await fetch(`${ api }/api/users/${userId}/bookmarks`, {
+            await fetch(`/api/users/${userId}/bookmarks`, {
               method: "POST",
               body: JSON.stringify({
                 storyId: e.target.dataset.storyid,
@@ -60,7 +59,7 @@ window.addEventListener('DOMContentLoaded', async () => {
           if (e.target.classList.contains('clicked')) {
           //   try {
           //     const userId = await loggedIn()
-          //     const story = await fetch(`${ api }/api/users/${userId}/stories`, {
+          //     const story = await fetch(`/api/users/${userId}/stories`, {
           //       method: "DELETE",
           //       body: JSON.stringify(story),
           //       headers: {
