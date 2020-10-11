@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 70%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -297,7 +297,64 @@ a.swapToLogIn {
 .clickedBearButton {
   background-color: rgba(4, 150, 255, .8);
 }
+.clickedBearButton > .bearButtonText {
+  color: black;
+}
 .bearButtonText {
   padding-left: .5em;
   cursor: pointer;
+}
+.leftHThreediv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.splashText {
+  text-align: center;
+}
+.slideShowContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 25em;
+  width: 50em;
+  background-color: rgba(4, 150, 255, .6);
+  border-radius: 2px;
+}
+.slideShowText {
+  text-align: center;
+  font-size: 1.5em;
+}
+.slideShowImgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 90%;
+  margin-top: 1em;
+}
+.slideImg {
+  width: 100;
+  height: 100%;
+  border-radius: 2px;
+}
+.slideShowNavigation {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.slideShowButton {
+  width: 1em;
+  height: 1em;
+  border: 1px solid black;
+  border-radius: 99em;
+  margin: 4px 4px;
+}
+.currentSlideButton {
+  background-color: black;
+}
+.hidden {
+  display: none;
 }
