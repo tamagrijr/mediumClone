@@ -1,32 +1,39 @@
+// const { render } = require("pug");
+
 window.addEventListener('DOMContentLoaded', async () => {
+
   const feedContainer = document.querySelector('.feedContainer');
-  let stories = await fetch('/api/stories');
-  stories = await stories.json();
-  stories.forEach(async story => {
-    let storyContainer = document.createElement('article');
-    feedContainer.appendChild(storyContainer);
-    let list = document.createElement('ul');
-    let storyTitle = document.createElement('li');
-    let titleLink = document.createElement('a');
-    storyTitle.appendChild(titleLink);
-    titleLink.setAttribute('href', `http://localhost:3000/stories/${ story.id }`);
-    titleLink.innerHTML = story.title;
-    let storyAuthor = document.createElement('li');
-    storyAuthor.innerHTML = `${ story.Author.firstName } ${ story.Author.lastName }`;
-    let storyDate = document.createElement('li');
-    let date = new Date(story.createdAt);
-    let dateFormat = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });
-    storyDate.innerHTML = dateFormat.format(date, dateFormat);
-    storyContainer.appendChild(list);
-    list.appendChild(storyTitle);
-    list.appendChild(storyAuthor);
-    list.appendChild(storyDate);
-  });
+  const storyContainer = document.querySelector('.storyContainer');
+  const storySection = document.querySelectorAll('.storySection');
+  const storyInfoDiv = document.querySelectorAll('.storyInfoDiv');
+  const storyAuthorNameDiv = document.querySelectorAll('.storyAuthorName');
+  const storyAuthorNameLink = document.querySelectorAll('.storyAuthorName a')
+  const storyLinkDiv = document.querySelectorAll('.storyLink');
+  const storyLink = document.querySelectorAll('.storyLink a');
+  const storyCreatedAtDiv = document.querySelectorAll('.storyCreatedAt')
+  const createBookmarkDiv = document.querySelectorAll('.createBookmarkButtonFeed')
+  const bookmarkButtonFeed = document.querySelectorAll('.bookmarkButtonFeed')
+  const storyPicDiv = document.querySelectorAll('.storyPicDiv');
+  const storyImgDiv = document.querySelectorAll('.storyImgDiv');
+
+  /*
+      TODO  When user clicks bookmark tab 
+  ?           change bookmark img to red one
+      TODO  When user clicks author link, story link
+  ?           set as active when navigating back to feed
+      TODO  
+  */
+  // createBookmarkButton.addEventListener('click', (e) => {
+  //   alert('hi')
+  // })
+  bookmarkButtonFeed[0].addEventListener('click', (e) => {
+    // e.preventDefault();
+      //  alert('worked')
+    // if (e.target.tagName === 'DIV') {
+      e.target.classList.toggle('clicked');
+    // }
+  }, false);
+
+
 });
 
-
-// article
-//   ul
-//     li title
-//     li author first and last name
-//     li date (createdAt/updatedAt)
