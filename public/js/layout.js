@@ -2,11 +2,15 @@ import { loggedIn } from './utils.js';
 const navHeader = document.querySelector('.navHeader');
 const topnav = document.querySelector('.topnav');
 const footer = document.querySelector('.splashFooter');
+const greeting = document.querySelector('.greetingTag')
 
-document.addEventListener('DOMContentLoaded', e => {
+document.addEventListener('DOMContentLoaded', async e => {
   let logged = loggedIn();
 if (logged) {
-  navHeader.classList.remove('navHeaderStyles')
+  navHeader.classList.remove('navHeaderStyles');
+  let user = await fetch(`/api/users/${logged}`);
+    user = await user.json();
+    greeting.innerHTML = `Hello, ${user.firstName}`
 } else {
   footer.classList.remove('hidden')
   topnav.classList.remove('topNavStyles');
