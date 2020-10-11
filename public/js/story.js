@@ -4,6 +4,7 @@ const commentList = document.getElementById('commentList');
 const commentText = document.getElementById('comment');
 const currentUser = localStorage.MEDIUM_CURRENT_USER_ID;
 
+
 commentSubmitBtn.addEventListener('click', async e => {
   e.preventDefault();
 
@@ -65,7 +66,7 @@ commentSubmitBtn.addEventListener('click', async e => {
       myCommentOptions.style.display = 'none';
     });
 
-    let user = await fetch(`http://localhost:3000/api/users/${ currentUser }`);
+    let user = await fetch(`/api/users/${ currentUser }`);
     user = await user.json();
 
     commentText.value = "";
@@ -94,13 +95,18 @@ commentSubmitBtn.addEventListener('click', async e => {
       const fullCommentItem = event.target.parentNode.parentNode.parentNode;
       const commentBodyEl = fullCommentItem.querySelectorAll('.comment-body')[0];
       commentBodyEl.setAttribute('contenteditable', 'true');
+      commentBodyEl.style.borderWidth = '2px';
+      commentBodyEl.style.borderStyle = 'solid';
+      commentBodyEl.style.borderColor = '#393D3F';
+      commentBodyEl.style.borderRadius = '0.25em';
+      commentBodyEl.style.backgroundColor = '#C0C0C0';
       const submitNewCommentBtn = document.createElement('button');
       submitNewCommentBtn.innerHTML = 'Submit Edit';
       myCommentOptions.insertBefore(submitNewCommentBtn, myCommentEditBtn);
       myCommentOptions.removeChild(myCommentEditBtn);
       submitNewCommentBtn.addEventListener('click', async event => {
         let newCommentBody = commentBodyEl.innerHTML;
-        await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
+        await fetch(`/api/comments/${ fullCommentItem.dataset.commentid }`, {
           method: 'PATCH',
           body: JSON.stringify({ body: newCommentBody }),
           headers: {
@@ -116,7 +122,7 @@ commentSubmitBtn.addEventListener('click', async e => {
     mmyCommentDltBtn.addEventListener('click', async (event) => {
       const fullCommentItem = event.target.parentNode.parentNode.parentNode;
       commentList.removeChild(fullCommentItem);
-      await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
+      await fetch(`/api/comments/${ fullCommentItem.dataset.commentid }`, {
         method: 'DELETE'
       });
     });
@@ -162,13 +168,20 @@ window.addEventListener('DOMContentLoaded', async () => {
         const fullCommentItem = event.target.parentNode.parentNode.parentNode;
         const commentBodyEl = fullCommentItem.querySelectorAll('.comment-body')[0];
         commentBodyEl.setAttribute('contenteditable', 'true');
+        commentBodyEl.style.borderWidth = '2px';
+        commentBodyEl.style.borderStyle = 'solid';
+        commentBodyEl.style.borderColor = '#0496FF';
+        commentBodyEl.style.borderRadius = '0.25em';
+        commentBodyEl.style.backgroundColor = '#C0C0C0';
         const submitNewCommentBtn = document.createElement('button');
         submitNewCommentBtn.innerHTML = 'Submit Edit';
         myCommentOptions.insertBefore(submitNewCommentBtn, editButton);
         myCommentOptions.removeChild(editButton);
         submitNewCommentBtn.addEventListener('click', async event => {
           let newCommentBody = commentBodyEl.innerHTML;
-          await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
+          commentBodyEl.style.border = 'none';
+          commentBodyEl.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+          await fetch(`/api/comments/${ fullCommentItem.dataset.commentid }`, {
             method: 'PATCH',
             body: JSON.stringify({ body: newCommentBody }),
             headers: {
@@ -183,7 +196,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       deleteButton.addEventListener('click', async event => {
         const fullCommentItem = event.target.parentNode.parentNode.parentNode;
         commentList.removeChild(fullCommentItem);
-        await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
+        await fetch(`/api/comments/${ fullCommentItem.dataset.commentid }`, {
           method: 'DELETE'
         });
       });

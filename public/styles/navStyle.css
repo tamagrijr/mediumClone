@@ -105,8 +105,14 @@ a:hover {
 
 .cardShadow {
   border-bottom: 1px solid rgba(150,150,150,0.3);
-	box-shadow: 0px 0px 14px 0px rgba(150,150,150,0.6);
-	background-color: rgba(244, 244, 244, .95);
+	box-shadow: 0px 0px 14px 0px rgba(150,150,150,0.5);
+	background-color: rgb(244, 244, 244);
+	display: none;
+	padding-top: .5em;
+	padding-bottom: .5em;
+	border: 1px solid #a2a2a2;
+	border-radius: 5px;
+	z-index: 10;
 }
 
 .dropdown:hover #dropdown-menu, .clickedDropdownMenu {
