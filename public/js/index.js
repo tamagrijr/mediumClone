@@ -3,7 +3,7 @@ import { handleErrors } from "./utils.js";
 
 const logInScreen = document.querySelector('.loggedIn');
 const logOutScreen = document.querySelector('.loggedOut');
-const signInButton = document.querySelector('#signInButton');
+const signInButton = document.querySelectorAll('.signInBanner');
 const signUpButton = document.querySelectorAll('.signUpBanner');
 const signInDisplay = document.querySelector('.signInFormDiv');
 const signUpDisplay = document.querySelector('.signUpFormDiv');
@@ -15,9 +15,10 @@ const closeForm = document.querySelectorAll('.closeForm')
 const logInForm = document.querySelector(".logInForm")
 const signUpForm = document.querySelector(".signUpForm");
 
+
 const demoLogin = document.querySelectorAll('.demo');
 
-window.addEventListener("DOMContentLoaded", e => {
+window.addEventListener("DOMContentLoaded", async e => {
   let logged = loggedIn();
   if (logged) {
     logInScreen.classList.remove('hidden');
@@ -27,14 +28,22 @@ window.addEventListener("DOMContentLoaded", e => {
   }
 })
 
-
-signInButton.addEventListener('click', e => {
-  e.preventDefault();
-  signInDisplay.classList.remove('hidden');
-  errorsContainer.forEach(e => {
-    e.innerHTML = '';
+signInButton.forEach( e => {
+  e.addEventListener('click', e => {
+    e.preventDefault();
+    signInDisplay.classList.remove('hidden');
+    errorsContainer.forEach(e => {
+      e.innerHTML = '';
+    })
   })
 })
+// signInButton.addEventListener('click', e => {
+//   e.preventDefault();
+//   signInDisplay.classList.remove('hidden');
+//   errorsContainer.forEach(e => {
+//     e.innerHTML = '';
+//   })
+// })
 signUpButton.forEach( e => {
   e.addEventListener('click' , e => {
     e.preventDefault();
@@ -77,7 +86,6 @@ demoLogin.forEach(elem => {
     }
   })
 })
-
 logInForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const formData = new FormData(logInForm);
@@ -169,4 +177,157 @@ closeForm.forEach(e => {
     signInDisplay.classList.add('hidden');
     signUpDisplay.classList.add('hidden');
   })
+})
+
+
+let b1 = document.querySelector('.bearButton1')
+let b2 = document.querySelector('.bearButton2')
+let b3 = document.querySelector('.bearButton3')
+let b4 = document.querySelector('.bearButton4')
+let b5 = document.querySelector('.bearButton5')
+let b6 = document.querySelector('.bearButton6')
+let b7 = document.querySelector('.bearButton7')
+let b8 = document.querySelector('.bearButton8')
+let b9 = document.querySelector('.bearButton9')
+let b10 = document.querySelector('.bearButton10')
+let b11 = document.querySelector('.bearButton11')
+let b12 = document.querySelector('.bearButton12')
+let b13 = document.querySelector('.bearButton13')
+let b14 = document.querySelector('.bearButton14')
+let b15 = document.querySelector('.bearButton15')
+
+b1.addEventListener('click', e => {
+  if(b1.classList.contains('clickedBearButton')){
+    b1.classList.remove('clickedBearButton');
+    b1.classList.add('bearButtonContainerHover');
+  }else{
+    b1.classList.add('clickedBearButton');
+    b1.classList.remove('bearButtonContainerHover');
+  }
+})
+b2.addEventListener('click', e => {
+  if(b2.classList.contains('clickedBearButton')){
+    b2.classList.remove('clickedBearButton');
+    b2.classList.add('bearButtonContainerHover');
+  }else{
+    b2.classList.add('clickedBearButton');
+    b2.classList.remove('bearButtonContainerHover');
+  }
+})
+b3.addEventListener('click', e => {
+  if(b3.classList.contains('clickedBearButton')){
+    b3.classList.remove('clickedBearButton');
+    b3.classList.add('bearButtonContainerHover');
+  }else{
+    b3.classList.add('clickedBearButton');
+    b3.classList.remove('bearButtonContainerHover');
+  }
+})
+b4.addEventListener('click', e => {
+  if(b4.classList.contains('clickedBearButton')){
+    b4.classList.remove('clickedBearButton');
+    b4.classList.add('bearButtonContainerHover');
+  }else{
+    b4.classList.add('clickedBearButton');
+    b4.classList.remove('bearButtonContainerHover');
+  }
+})
+b5.addEventListener('click', e => {
+  if(b5.classList.contains('clickedBearButton')){
+    b5.classList.remove('clickedBearButton');
+    b5.classList.add('bearButtonContainerHover');
+  }else{
+    b5.classList.add('clickedBearButton');
+    b5.classList.remove('bearButtonContainerHover');
+  }
+})
+b6.addEventListener('click', e => {
+  if(b6.classList.contains('clickedBearButton')){
+    b6.classList.remove('clickedBearButton');
+    b6.classList.add('bearButtonContainerHover');
+  }else{
+    b6.classList.add('clickedBearButton');
+    b6.classList.remove('bearButtonContainerHover');
+  }
+})
+b7.addEventListener('click', e => {
+  if(b7.classList.contains('clickedBearButton')){
+    b7.classList.remove('clickedBearButton');
+    b7.classList.add('bearButtonContainerHover');
+  }else{
+    b7.classList.add('clickedBearButton');
+    b7.classList.remove('bearButtonContainerHover');
+  }
+})
+b8.addEventListener('click', e => {
+  if(b8.classList.contains('clickedBearButton')){
+    b8.classList.remove('clickedBearButton');
+    b8.classList.add('bearButtonContainerHover');
+  }else{
+    b8.classList.add('clickedBearButton');
+    b8.classList.remove('bearButtonContainerHover');
+  }
+})
+b9.addEventListener('click', e => {
+  if(b9.classList.contains('clickedBearButton')){
+    b9.classList.remove('clickedBearButton');
+    b9.classList.add('bearButtonContainerHover');
+  }else{
+    b9.classList.add('clickedBearButton');
+    b9.classList.remove('bearButtonContainerHover');
+  }
+})
+b10.addEventListener('click', e => {
+  if(b10.classList.contains('clickedBearButton')){
+    b10.classList.remove('clickedBearButton');
+    b10.classList.add('bearButtonContainerHover');
+  }else{
+    b10.classList.add('clickedBearButton');
+    b10.classList.remove('bearButtonContainerHover');
+  }
+})
+b11.addEventListener('click', e => {
+  if(b11.classList.contains('clickedBearButton')){
+    b11.classList.remove('clickedBearButton');
+    b11.classList.add('bearButtonContainerHover');
+  }else{
+    b11.classList.add('clickedBearButton');
+    b11.classList.remove('bearButtonContainerHover');
+  }
+})
+b12.addEventListener('click', e => {
+  if(b12.classList.contains('clickedBearButton')){
+    b12.classList.remove('clickedBearButton');
+    b12.classList.add('bearButtonContainerHover');
+  }else{
+    b12.classList.add('clickedBearButton');
+    b12.classList.remove('bearButtonContainerHover');
+  }
+})
+b13.addEventListener('click', e => {
+  if(b13.classList.contains('clickedBearButton')){
+    b13.classList.remove('clickedBearButton');
+    b13.classList.add('bearButtonContainerHover');
+  }else{
+    b13.classList.add('clickedBearButton');
+    b13.classList.remove('bearButtonContainerHover');
+  }
+})
+b14.addEventListener('click', e => {
+  if(b14.classList.contains('clickedBearButton')){
+    b14.classList.remove('clickedBearButton');
+    b14.classList.add('bearButtonContainerHover');
+  }else{
+    b14.classList.add('clickedBearButton');
+    b14.classList.remove('bearButtonContainerHover');
+  }
+})
+b15.addEventListener('click', e => {
+  if(b15.classList.contains('clickedBearButton')){
+    b15.classList.remove('clickedBearButton');
+    b15.classList.add('bearButtonContainerHover');
+  }else{
+    b15.classList.add('clickedBearButton');
+    b15.classList.remove('bearButtonContainerHover');
+  }
 })
