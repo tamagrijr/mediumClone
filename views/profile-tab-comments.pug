@@ -1,0 +1,13 @@
+extends profile
+include includes/utils
+
+block userTabContent
+  ul.profileFeed
+    each comment in userComments
+      li.commentCard
+        h3.prFeed= comment.Story.title
+        p #{comment.Story.Author.firstName} #{comment.Story.Author.lastName}
+        //- +storyCardMini(comment.story)
+        //- +authorDate
+        p= comment.createdAt
+        p "#{comment.body}"
