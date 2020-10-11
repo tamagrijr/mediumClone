@@ -355,20 +355,22 @@ const wipeCss = () => {
   slideButton4.classList.remove('currentSlideButton')
   slideButton5.classList.remove('currentSlideButton')
 }
-const displaySlideEventListener = (slide, slideButton) => {
+
+let count = 1;
+const displaySlideEventListener = (slide, slideButton, counter) => {
   slideButton.addEventListener('click', e => {
     wipeCss();
     slide.classList.remove('hidden')
     slideButton.classList.add('currentSlideButton')
+    count = counter;
   })
 }
-displaySlideEventListener(slide1, slideButton1);
-displaySlideEventListener(slide2, slideButton2);
-displaySlideEventListener(slide3, slideButton3);
-displaySlideEventListener(slide4, slideButton4);
-displaySlideEventListener(slide5, slideButton5);
+displaySlideEventListener(slide1, slideButton1, 1);
+displaySlideEventListener(slide2, slideButton2, 2);
+displaySlideEventListener(slide3, slideButton3, 3);
+displaySlideEventListener(slide4, slideButton4, 4);
+displaySlideEventListener(slide5, slideButton5, 5);
 
-let count = 1;
 const displaySlide = (slide, slideButton) => {
   wipeCss();
   slide.classList.remove('hidden')
