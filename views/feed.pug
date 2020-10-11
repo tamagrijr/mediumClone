@@ -1,5 +1,5 @@
-//- script(defer type="module" src="js/feed.js")
 //- .feedBody
+script(defer type="module" src="js/feed.js")
 link(rel='stylesheet' type='text/css' href='/styles/feed.css')
 //- .feedBody NEED 'readtime' FOR TIME TO READ ARTICLE
 block feedBlock
@@ -8,9 +8,10 @@ block feedBlock
             each story in stories
                 .storySection
                     .storyInfoDiv
-                        .storyAuthorName #{story.Author.firstName} #{story.Author.lastName}
+                        .storyAuthorName: a(href=`http://localhost:3000/users/${story.authorId}`) #{story.Author.firstName} #{story.Author.lastName}
                         .storyLink: a(href=`http://localhost:3000/stories/${story.authorId}`) #{story.title}
-                        .storyCreatedAt #{story.createdAt} • #{readTime}
-                        a.createBookmarkButtonFeed(href=`http://localhost:3000/users/${story.authorId}/bookmarks`) √
+                        .storyCreatedAt #{story.createdAt} • <30min read
+                        .createBookmarkButtonFeed: a.bookmarkButtonFeed.clicked
                     .storyPicDiv
                         .storyImgDiv
+    
