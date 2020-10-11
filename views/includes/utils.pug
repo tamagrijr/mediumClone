@@ -17,25 +17,33 @@ mixin splashTag(icon, title, storyId)
 
 
 //- MIRA Mixins
+mixin userCard(user)
+  .userCard
+    h3.userName #{user.firstName} #{user.lastName}
+    button.btnIconic Follow
+    img(src=`/assets/av/${user.id}.jpg` alt=`${user.firstName} ${user.lastName}`).userCardAv
+
+
 mixin storyCardFull(story)
-  a(href="/stories/#{story.id}")
-    h3= story.title
-    p= story.createdAt
+  a(href=`/stories/${story.id}`)
+    h3.cardTitle= story.title
+    p.cardCreatedDate= story.createdAt
     //- p story.hook
-    //- img(src=story.img)
-    +authorBlurb(story.Author)
-    +storyIcons(story)
+  +authorBlurb(story.Author)
+  img(src=`/assets/stories/${story.id}-1.jpg` href="Story splash banner.").cardBanner
+  +storyIcons(story)
 
 mixin storyIcons(story)
   .icons
-    button(name="like") #{story.Likes.length} Likes
-      img(src="/assets/icon/icon-like-blue.png" alt="Like")
+    button(name="like").btnLike
+      div.storyIcon.likeIcon
+      span.iconLabel #{story.Likes.length} Likes
     a(href=`/stories/${story.id}#comments`)
-      button(name="comments") #{story.Comments.length} Comments
-        img(src="/assets/icon/icon-comment-blue.png")
-    //- TODO Make button link to a(href="/stories/#{story.id}#comments")
-    button(name="bookmark") Bookmark
-      img(src="/assets/icon/icon-bookmark-blue.png" alt="Bookmark")
+      button(name="comments").btnComment
+        span.storyIcon.commentIcon
+        span.iconLabel #{story.Comments.length} Comments
+    button(name="bookmark")
+      div.storyIcon.bookmarkIcon
 
 mixin storyCardMini(story)
   h4= story.title
@@ -43,5 +51,8 @@ mixin storyCardMini(story)
   +storyIcons
 
 mixin authorBlurb(author)
-  a(href=`/users/${author.id}`) #{author.firstName} #{author.lastName}
-  img(href=`/assets/av/${author.id}.png` alt=`${author.firstName} ${author.lastName}`)
+  .authorBlurb
+    img(src=`/assets/av/${author.id}.jpg` alt=`${author.firstName} ${author.lastName}`).authorAv
+    .authorInfo
+      button.btnIconic Follow
+      a(href=`/users/${author.id}`).authorName #{author.firstName} #{author.lastName}

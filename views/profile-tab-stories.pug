@@ -1,0 +1,7 @@
+extends profile
+include includes/utils
+
+block userTabContent
+  ul.profileFeed
+    each story in userStories
+      li.card: +storyCardFull(story)

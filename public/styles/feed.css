@@ -195,7 +195,7 @@
         'title title'
         'created bookmark'
     ;
-    gap: 1em 1em;
+    /* gap: 1em 1em; */
     width: 100%;
     height: 100%;
     position: relative;
@@ -206,13 +206,10 @@
     font-size: xx-small;
     font-weight: 700;
     letter-spacing: .5px;
-    color: black;
 }
 .storyAuthorName::before {
     /* replace content with pic */
     content: '';
-    /* content: ''; */
-    
     background-image: url('/icons/icon-user-blue.png');
     background-size: cover;
     height: 100%;
@@ -225,18 +222,19 @@
 
 .storyLink {
     grid-area: title;
-    font-weight: 600;
-    font-size: medium;
-    font-style: normal;
-    color: black;
+    margin: 0;
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     /* width: 90%;
     max-width: 90%; */
 }
 
 .storyCreatedAt {
     grid-area: created;
-    font-weight: 200;
-    font-size: x-small;
+    color: #666;
+    font-size: 0.8rem;
+    font-style: italic;
 }
 
 .createBookmarkButtonFeed {
@@ -269,17 +267,19 @@ justify-self: center;
 }
 .storyImgDiv {
     position: relative;
-    content: url('/icons/happyGrizzly.jpg');
-    height: 100%;
-    width: 100%;
-    max-width: 150px;
-    max-height: 150px;
-    justify-self: stretch;
-    align-self: stretch;
-    /* content: ''; */
+    object-fit: contain;
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+    /* justify-self: stretch; */
+    /* align-self: stretch; */
     /* width: fit-content;
     height: fit-content; */
     /* background-size: fit-content; */
+}
+.storyImgDiv > img {
+  height: 100%;
+  
 }
 
 .bookmarkButtonFeed::before {
