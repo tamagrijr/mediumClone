@@ -26,7 +26,7 @@ ul {
 	font-size: 1.45em;
 }
 .logo a,
-.main-nav a {
+.main-nav a.button {
 	padding: 10px 15px;
 	text-transform: uppercase;
 	text-align: center;
@@ -45,26 +45,30 @@ ul {
 	background-color: #f4f4f4;
 	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75); */
 	border-radius: 5px;
-
 }
 .topnav a.button:hover {
 	color: #c9c3c3;
 	text-decoration: none;
 	/* background-color: #121212; */
 }
-#dropdown-menu {
+.dropdown-menu {
 	display: none;
 	padding-top: .5em;
 	padding-bottom: .5em;
 	border: 1px solid #a2a2a2;
-	background-color: #f4f4f4;
-	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-	border-radius: 5px;
+	/* background-color: #f4f4f4; */
+	/* box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75); */
+	border-radius: 4px;
 }
-.dropdown:hover #dropdown-menu {
+.clickedDropdownMenu {
 	display: block;
 	position: absolute;
 }
+
+/* .dropdown:hover #dropdown-menu {
+	display: block;
+	position: absolute;
+} */
 .demoLogIn {
 	border: solid;
 	border-radius: .3em;
@@ -117,6 +121,7 @@ ul {
 		flex-direction: row;
 		justify-content: space-between;
 		margin-bottom: 1em;
+		align-items: center;
 	}
 }
 .hidden {

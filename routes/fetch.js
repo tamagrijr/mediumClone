@@ -4,12 +4,19 @@ async function getAllStoryInfo(req) {
     const storyId = parseInt(req.params.id);
     let story = await fetch(`http://localhost:3000/api/stories/${ storyId }`);
     story = await story.json();
-    const {
+    let {
       title,
       body,
       authorId,
       createdAt
     } = story;
+    createdAt = new Date(createdAt);
+    let dateFormat = new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit' });
+    createdAt = dateFormat.format(createdAt, dateFormat);
     let author = await fetch(`http://localhost:3000/api/users/${ authorId }`);
     author = await author.json();
     const authorInfo = {
@@ -29,11 +36,6 @@ async function getAllStoryInfo(req) {
     if (comments.length) {
       comments = comments.map(comment => {
         let date = new Date(comment.createdAt);
-        let dateFormat = new Intl.DateTimeFormat('en-US', {
-          month: 'short',
-          day: 'numeric',
-          hour: 'numeric',
-          minute: '2-digit' });
         let created = dateFormat.format(date, dateFormat);
         comment = {
           id: comment.id,
@@ -51,6 +53,7 @@ async function getAllStoryInfo(req) {
       storyId,
       title,
       body,
+      createdAt,
       authorInfo,
       createdAt,
       likeCount,
