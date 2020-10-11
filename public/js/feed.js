@@ -1,8 +1,5 @@
-// const { render } = require("pug");
-
-// import { fetch } from '/';
 import { loggedIn } from './utils';
-// const { loggedIn } = require('./utils')
+
   
 window.addEventListener('DOMContentLoaded', async () => {
   
@@ -25,7 +22,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   ?           change bookmark img to red one
       TODO  When user clicks author link, story link
   ?           set as active when navigating back to feed
-      TODO  
+      TODO  FIX ALL OF THIS SHIZZZZZZZ WITH BOOKMARKS ON FRONT END
   */
   // createBookmarkButton.addEventListener('click', (e) => {
   //   alert('hi')
@@ -47,11 +44,11 @@ window.addEventListener('DOMContentLoaded', async () => {
                 "Content-Type": "application/json",
               }
             });
-            // if(!story.ok){
-            //   throw story;
-            // } else {
-            //   console.log('added to database')
-            // }
+            if(!story.ok){
+              throw story;
+            } else {
+              console.log('added to database')
+            }
           } catch (error) {
             console.error(error)
           }
@@ -60,23 +57,24 @@ window.addEventListener('DOMContentLoaded', async () => {
           console.log('class switched!');
         } else {
           if (e.target.classList.contains('clicked')) {
-            try {
-              const userId = await loggedIn()
-              const story = await fetch(`http://localhost:3000/users/${userId}/stories`, {
-                method: "DELETE",
-                body: JSON.stringify(story),
-                headers: {
-                  "Content-Type": "application/json",
-                }
-              });
-              if(!story.ok){
-                throw story;
-              } else {
-                console.log('added to database')
-              }
-            } catch (error) {
-              console.error(error)
-            }
+          //   try {
+          //     const userId = await loggedIn()
+          //     const story = await fetch(`http://localhost:3000/users/${userId}/stories`, {
+          //       method: "DELETE",
+          //       body: JSON.stringify(story),
+          //       headers: {
+          //         "Content-Type": "application/json",
+          //       }
+          //     });
+          //     if(!story.ok){
+          //       throw story;
+          //     } else {
+          //       console.log('added to database')
+          //     }
+          //   } catch (error) {
+          //     console.error(error)
+          //   }
+            console.log('hi');
           }
         }
 
