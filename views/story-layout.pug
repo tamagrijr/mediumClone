@@ -43,22 +43,23 @@ block content
 
 
     .comments-bar
-      section
-        form(method="post" action="/comments" id="commentForm" data-story=storyInfo.storyId)
-          h2 Comments (#{ storyInfo.commentsCount })
-          label(for="comment") Add a Comment:
-          textarea(id="comment" name="comment")
-          button(type="submit" id="submitComment") Submit Comment
-        ul(id="commentList")
-          if storyInfo.commentsCount > 0
-            each comment in storyInfo.comments
-              li(class="full-comment" data-commentid=comment.id data-user=comment.userId)
-                ul(class="comment-ul")
-                  li(class="commenting-user")
-                    img(class="sm-icon" src="/icons/avatar (1).svg")
-                    span #{ comment.firstName } #{ comment.lastName }
-                  li(class="comment-body")= comment.body
-                  li(class="comment-time")= comment.created
-                  li(class="my-comment-options" data-user=comment.userId)
-                    button(class="editBtn") Edit
-                    button(class="dltBtn") Delete
+      h2 Comments (#{ storyInfo.commentsCount })
+      form(method="post" action="/comments" id="commentForm" data-story=storyInfo.storyId)
+        span
+          img(class="sm-icon" src="/icons/avatar (1).svg")
+          span(id="currentUserName")
+        textarea(id="comment" name="comment" placeholder="Tell us what you think...")
+        button(type="submit" id="submitComment") Submit Comment
+      ul(id="commentList")
+        if storyInfo.commentsCount > 0
+          each comment in storyInfo.comments
+            li(class="full-comment" data-commentid=comment.id data-user=comment.userId)
+              ul(class="comment-ul")
+                li(class="commenting-user")
+                  img(class="sm-icon" src="/icons/avatar (1).svg")
+                  span #{ comment.firstName } #{ comment.lastName }
+                li(class="comment-body")= comment.body
+                li(class="comment-time")= comment.created
+                li(class="my-comment-options" data-user=comment.userId)
+                  button(class="editBtn") Edit
+                  button(class="dltBtn") Delete

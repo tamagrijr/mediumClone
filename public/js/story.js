@@ -3,7 +3,17 @@ const commentForm = document.getElementById('commentForm');
 const commentList = document.getElementById('commentList');
 const commentText = document.getElementById('comment');
 const currentUser = localStorage.MEDIUM_CURRENT_USER_ID;
+const userNameDisplay = document.getElementById('currentUserName');
 
+
+async function displayCurrentName() {
+  let currentUserName = await fetch(`/api/users/${ currentUser }`);
+  currentUserName = await currentUserName.json();
+  let { firstName, lastName } = currentUserName;
+  userNameDisplay.innerHTML = `${ firstName } ${ lastName }`;
+}
+
+displayCurrentName();
 
 commentSubmitBtn.addEventListener('click', async e => {
   e.preventDefault();
@@ -21,16 +31,6 @@ commentSubmitBtn.addEventListener('click', async e => {
     });
     comment = await comment.json();
 
-    // li(class= "full-comment") => commentItem
-    //   ul(class= "comment-ul") => commentContainer
-    //     li(class= "commenting-user") => commentingUser = fn ln
-    //     li(class= "comment-body") => commentBody = comment text
-    //     li(class= "comment-time") => commentTime = Oct 10, 9:17 AM
-    //     li(class= "my-comment-options")
-    //       button(class="Edit") Edit
-    //       button(class="Delete") Edit
-
-    // img(src="/icons/avatar (1).svg")
     const commentItem = document.createElement('li');
     commentItem.setAttribute('class', 'full-comment');
     commentItem.setAttribute('data-commentid', comment.id);
@@ -74,6 +74,7 @@ commentSubmitBtn.addEventListener('click', async e => {
     let commentingUserName = document.createElement('span');
     let commentingUserImg = document.createElement('img');
     commentingUserImg.setAttribute('src', '/icons/avatar (1).svg');
+    commentingUserImg.setAttribute('class', 'sm-icon');
     commentingUser.appendChild(commentingUserImg);
     commentingUserName.innerHTML = `${ user.firstName } ${ user.lastName }`;
     commentingUser.appendChild(commentingUserName);
@@ -132,23 +133,15 @@ commentSubmitBtn.addEventListener('click', async e => {
   }
 });
 
+document.getElementById('comment').addEventListener('click', () => {
+  const activeElement = document.activeElement;
+  if (activeElement === document.getElementById('comment')) {
+    document.getElementById('submitComment').style.display = 'inline-block';
+  }
+});
+
 window.addEventListener('DOMContentLoaded', async () => {
-  // let follows = await fetch(`/api/users/${ currentUser }/follows`);
-  // follows = await follows.json();
-  // console.log(follows);
-  // follows.map(f => f.Following.id );
-  // document.querySelectorAll('.follow-button').forEach(btn => {
-  //   if (follows.includes(btn.dataset.author)) {
-  //     console.log('You are already following this user')
-  //     btn.innerHTML = 'Unfollow';
-  //   } else {
-  //     console.log('You are not following this user');
-  //     btn.innerHTML = 'Follow';
-  //   }
-  // });
   const eachComment = document.querySelectorAll('.full-comment');
-  // const editButtons = document.querySelectorAll('.editBtn');
-  // const deleteButtons = document.querySelectorAll('.dltBtn');
   eachComment.forEach(async comment => {
     const commentOptions = comment.querySelectorAll('.my-comment-options')[0];
     commentOptions.style.display = 'none';
@@ -168,11 +161,11 @@ window.addEventListener('DOMContentLoaded', async () => {
         const fullCommentItem = event.target.parentNode.parentNode.parentNode;
         const commentBodyEl = fullCommentItem.querySelectorAll('.comment-body')[0];
         commentBodyEl.setAttribute('contenteditable', 'true');
-        commentBodyEl.style.borderWidth = '2px';
-        commentBodyEl.style.borderStyle = 'solid';
-        commentBodyEl.style.borderColor = '#0496FF';
-        commentBodyEl.style.borderRadius = '0.25em';
-        commentBodyEl.style.backgroundColor = '#C0C0C0';
+        // commentBodyEl.style.borderWidth = '2px';
+        // commentBodyEl.style.borderStyle = 'solid';
+        // commentBodyEl.style.borderColor = '#0496FF';
+        // commentBodyEl.style.borderRadius = '0.25em';
+        // commentBodyEl.style.backgroundColor = '#C0C0C0';
         const submitNewCommentBtn = document.createElement('button');
         submitNewCommentBtn.innerHTML = 'Submit Edit';
         myCommentOptions.insertBefore(submitNewCommentBtn, editButton);
