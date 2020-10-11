@@ -41,10 +41,11 @@ ul {
 .topNavStyles {
   padding-top: .5em;
 	padding-bottom: .5em;
-	border: 1px solid #a2a2a2;
+	/* border: 1px solid #a2a2a2;
 	background-color: #f4f4f4;
-	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75); */
 	border-radius: 5px;
+
 }
 .topnav a.button:hover {
 	color: #c9c3c3;
@@ -82,7 +83,7 @@ ul {
 	padding: 0;
 	border-bottom: 1px solid #a2a2a2;
 	width: 40%;
-	margin-bottom: 5em;
+	margin-bottom: 3em;
 	margin-top: 2em;
 }
 .splashFooter {
@@ -108,12 +109,14 @@ ul {
 		align-items: center;
 		width: 70%;
 		margin: 0 auto;
+		margin-bottom: 1em;
 	}
 }
 @media (min-width: 1025px) {
 	.topnav {
 		flex-direction: row;
 		justify-content: space-between;
+		margin-bottom: 1em;
 	}
 }
 .hidden {
