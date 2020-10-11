@@ -26,13 +26,15 @@ window.addEventListener('DOMContentLoaded', async () => {
   // createBookmarkButton.addEventListener('click', (e) => {
   //   alert('hi')
   // })
-  bookmarkButtonFeed[0].addEventListener('click', (e) => {
-    // e.preventDefault();
-      //  alert('worked')
-    // if (e.target.tagName === 'DIV') {
-      e.target.classList.toggle('clicked');
+  // bookmarkButtonFeed.addEventListener('click', (e) => {
+    bookmarkButtonFeed.forEach( bm => {
+      bm.addEventListener('click', (e) => {
+        e.target.classList.toggle('clicked');
+        console.log('class switched!');
+      }, false)
+    })
     // }
-  }, false);
+  // }, false);
 
 
 });
