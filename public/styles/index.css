@@ -320,7 +320,7 @@ a.swapToLogIn {
   justify-content: space-between;
   height: 25em;
   width: 50em;
-  background-color: rgba(4, 150, 255, .6);
+  background-color: rgba(4, 150, 255, .4);
   border-radius: 2px;
 }
 .slideShowText {
@@ -354,7 +354,7 @@ a.swapToLogIn {
   cursor: pointer;
 }
 .currentSlideButton {
-  background-color: #0496FF;
+  background-color: #F4FAFF;
 }
 .hidden {
   display: none;
