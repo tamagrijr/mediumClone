@@ -28,6 +28,8 @@ commentSubmitBtn.addEventListener('click', async e => {
     //     li(class= "my-comment-options")
     //       button(class="Edit") Edit
     //       button(class="Delete") Edit
+
+    // img(src="/icons/avatar (1).svg")
     const commentItem = document.createElement('li');
     commentItem.setAttribute('class', 'full-comment');
     commentItem.setAttribute('data-commentid', comment.id);
@@ -68,7 +70,12 @@ commentSubmitBtn.addEventListener('click', async e => {
 
     commentText.value = "";
 
-    commentingUser.innerHTML = `${ user.firstName } ${ user.lastName }`;
+    let commentingUserName = document.createElement('span');
+    let commentingUserImg = document.createElement('img');
+    commentingUserImg.setAttribute('src', '/icons/avatar (1).svg');
+    commentingUser.appendChild(commentingUserImg);
+    commentingUserName.innerHTML = `${ user.firstName } ${ user.lastName }`;
+    commentingUser.appendChild(commentingUserName);
     commentBody.innerHTML = comment.body;
 
     let date = new Date(comment.createdAt);
@@ -120,6 +127,19 @@ commentSubmitBtn.addEventListener('click', async e => {
 });
 
 window.addEventListener('DOMContentLoaded', async () => {
+  // let follows = await fetch(`/api/users/${ currentUser }/follows`);
+  // follows = await follows.json();
+  // console.log(follows);
+  // follows.map(f => f.Following.id );
+  // document.querySelectorAll('.follow-button').forEach(btn => {
+  //   if (follows.includes(btn.dataset.author)) {
+  //     console.log('You are already following this user')
+  //     btn.innerHTML = 'Unfollow';
+  //   } else {
+  //     console.log('You are not following this user');
+  //     btn.innerHTML = 'Follow';
+  //   }
+  // });
   const eachComment = document.querySelectorAll('.full-comment');
   // const editButtons = document.querySelectorAll('.editBtn');
   // const deleteButtons = document.querySelectorAll('.dltBtn');
@@ -168,6 +188,25 @@ window.addEventListener('DOMContentLoaded', async () => {
         });
       });
     }
-  })
+  });
 
-})
+});
+
+// document.querySelectorAll('.follow-button').forEach(btn => {
+//   btn.addEventListener('click', async () => {
+//     const authorId = btn.dataset.author;
+//     console.log('You are user #', currentUser);
+//     let follow = await fetch(`/api/users/${ currentUser }/follows`, {
+//       method: 'POST',
+//       body: JSON.stringify({ followingId: authorId }),
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     });
+//     if (btn.innerHTML === 'Follow') {
+//       btn.innerHTML = 'Unfollow';
+//     } else {
+//       btn.innerHTML = 'Follow';
+//     }
+//   });
+// });

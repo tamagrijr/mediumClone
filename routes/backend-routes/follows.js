@@ -75,7 +75,7 @@ followsRouter.post("/:id(\\d+)/follows",
       res.status(204).end()
     } else {
       const follow = await Follow.create(newFollow)
-      res.json(follow)
+      res.status(200).json(follow)
     }
   })
 )

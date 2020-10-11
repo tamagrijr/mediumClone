@@ -1,0 +1,56 @@
+article.story-container {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas:
+    "title title title title title"
+    "author author . . bookmark"
+    "img img img img img"
+    "body body body body body"
+    "bottomOps bottomOps bottomOps bottomOps bottomOps"
+    "bottomAuthor bottomAuthor bottomAuthor bottomAuthor bottomAuthor";
+  margin: 0 auto;
+  width: 45%;
+}
+
+.story-title {
+  font-family: serif;
+  font-size: 42px;
+  font-weight: normal;
+  grid-area: title;
+}
+
+.story-author-info-top {
+  grid-area: author;
+}
+
+.bookmark-top {
+  grid-area: bookmark;
+}
+
+.story-image {
+  grid-area: img;
+  max-width: 100%;
+}
+
+.story-body {
+  grid-area: body;
+}
+
+.below-body-options {
+  grid-area: bottomOps;
+}
+
+.author-below-body {
+  grid-area: bottomAuthor;
+}
+
+.sm-icon {
+  height: 20px;
+  width: 20px;
+}
+
+.md-icon {
+  height: 40px;
+  width: 40px;
+}
