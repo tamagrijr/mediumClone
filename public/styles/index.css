@@ -351,9 +351,10 @@ a.swapToLogIn {
   border: 1px solid black;
   border-radius: 99em;
   margin: 4px 4px;
+  cursor: pointer;
 }
 .currentSlideButton {
-  background-color: black;
+  background-color: #0496FF;
 }
 .hidden {
   display: none;
