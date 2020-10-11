@@ -369,7 +369,10 @@ a.swapToLogIn {
   align-items: center;
   justify-content: space-around;
 }
-
+.modalInput {
+  font-size: 1.2em;
+  margin: .5em;
+}
 .hidden {
   display: none;
 }
