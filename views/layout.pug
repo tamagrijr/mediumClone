@@ -4,8 +4,8 @@ html(lang='en')
     head
         meta(charset='utf-8')
         title= title
-        link(rel='stylesheet' type='text/css' href='/styles/globalStyle.css')
         link(rel='stylesheet' type='text/css' href='/styles/navStyle.css')
+        link(rel='stylesheet' type='text/css' href='/styles/globalStyle.css')
         script(defer type="module" src="/js/layout.js")
     body
       header.navHeader.navHeaderStyles
@@ -15,7 +15,7 @@ html(lang='en')
               p.greetingTag
             ul.main-nav
               li.demoLogIn.hidden: a.button.demo#demoLink Demo Log-In
-              li.signInButton: a.button#signInButton Log-In
+              li.signInButton: a.button#signInButton.signInBanner Log-In
               li.signUpButton: a.button#signUpButton.signUpBanner Sign-Up
               li.publishStory.hidden: a.button#publishStoryButton Publish
               li.dropdown
@@ -28,4 +28,10 @@ html(lang='en')
       block content
 
       footer.splashFooter.hidden
-        h1 this should be a footer
+        .footerLogoContainer
+          h1#footerLogo: a(href="/") M
+          .links
+            a.footerLink(href="/") Get Started
+            a.footerLink.signUpBanner Subscribe
+            a.footerLink.signInBanner Already have an account? Sign In
+          .copy © 2020 Team Three
