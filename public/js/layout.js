@@ -28,22 +28,19 @@ if (logged) {
   footer.classList.remove('hidden')
   topnav.classList.remove('topNavStyles');
 }
-})
 
-document.addEventListener('DOMContentLoaded', async e => {
-  let logged = loggedIn();
-  if (logged) {
-    // navHeader.classList.remove('navHeaderStyles');
-    let user = await fetch(`/api/users/${logged}`);
-    user = await user.json();
-    greeting.innerHTML = `Hello, ${user.firstName}`
-    signInElement.classList.add('hidden');
-    signUpElement.classList.add('hidden');
-  } else {
-    footer.classList.remove('hidden')
-    topnav.classList.remove('topNavStyles');
-    dropdownElement.classList.add('hidden');
-  }
+if (logged) {
+  // navHeader.classList.remove('navHeaderStyles');
+  let user = await fetch(`/api/users/${logged}`);
+  user = await user.json();
+  greeting.innerHTML = `Hello, ${user.firstName}`
+  signInElement.classList.add('hidden');
+  signUpElement.classList.add('hidden');
+} else {
+  footer.classList.remove('hidden')
+  topnav.classList.remove('topNavStyles');
+  dropdownElement.classList.add('hidden');
+}
 })
 
 logoutButton.addEventListener('click', (e) => {

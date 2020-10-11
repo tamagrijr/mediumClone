@@ -355,6 +355,7 @@ a.swapToLogIn {
 }
 .slideShowButton:hover {
   background-color: #F4FAFF;
+  border: none;
 }
 .currentSlideButton {
   background-color: #0496FF;
