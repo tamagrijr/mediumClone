@@ -30,7 +30,8 @@
     border-radius: 18px; */
     align-self: center;
     justify-self: flex-start;
-    top: 150px;
+    /* top: 150px; */
+    padding-top: 5em;
     /* right: 15%; */
 }
 
@@ -41,10 +42,11 @@
     height: fit-content;
     width: 100%;
     grid-area: bookmark;
-    border: 2px solid pink;
+    /* border: 2px solid pink; */
     border-radius: 18px;
     position: sticky;
     top: 1.85%;
+    background-color: rgb(240, 240, 240);
 }
 
 .bookmarkSection {
@@ -76,9 +78,60 @@
     height: 100%;
     width: 100%;
     position: relative;
-    border: 1px solid greenyellow;
-    border-radius: 18px;
+    /* border: 1px solid greenyellow;
+    border-radius: 18px; */
 }
+
+.noBookmarksForAuthor {
+    display: grid;
+    grid-template-columns: repeat(1fr, auto);
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    'bookmarkMessage'
+    'bookmarkInstructions'
+    ;
+    gap: .6em;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    /* border: 2px dotted indigo; */
+    border-radius: 18px;
+    padding: .9em;
+}
+
+
+.noBookmarksForAuthor.hidden {
+    display: none;
+}
+.bookmarkMessage {
+    grid-area: bookmarkMessage;
+    height: fit-content;
+    width: fit-content;
+    position: relative;
+    /* border: 1px solid greenyellow;
+    border-radius: 18px; */
+    font-size: 600;
+    font-weight: 600;
+    align-self: center;
+}
+.bookmarkMessage::after {
+    content: '';
+    background-image: url(/icons/bookmark.svg);
+    height: fit-content;
+    width: fit-content;
+    padding-left: .92em;
+    margin-left: 1em;
+}
+.bookmarkInstructions {
+    grid-area: bookmarkInstructions;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    /* border: 1px solid greenyellow;
+    border-radius: 18px; */
+    color: gray;
+}
+
 
 
 .storyContainer {
