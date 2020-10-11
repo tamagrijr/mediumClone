@@ -289,6 +289,7 @@ a.swapToLogIn {
   align-items: center;
   background-color: rgba(242, 242, 242, 1);
   color: rgba(117, 117, 117, 1);
+  cursor: pointer;
 }
 .bearButtonContainerHover:hover {
       background-color: rgba(200, 200, 200, 1);
@@ -298,4 +299,5 @@ a.swapToLogIn {
 }
 .bearButtonText {
   padding-left: .5em;
+  cursor: pointer;
 }
