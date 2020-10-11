@@ -296,43 +296,46 @@ a {
     position: relative;
     /* margin-right: 1rem; */
     margin-top: 2em;
+    padding: 4em;
 }
 
 .trendingHeaderContainer {
     position: relative;
     grid-area: title;
-    /* grid-template-areas: 'headTitle ... ...'; */
+    grid-template-areas: 'headTitle ... ...';
     /* gap: 1em; */
-    /* display: grid; */
-    /* content: fit-content; */
+    display: grid;
+    content: fit-content;
     /* left: 3em; */
-    height: fit-content;
+    height: 100%;
     width: fit-content;
-    border: 1px dotted blue;
+    /* border: 1px dotted blue; */
 }
 
 .trendingSectionHeaderTitle {
-    /* grid-area: headTitle; */
+    grid-area: headTitle;
     position: relative;
     height: fit-content;
     padding: 1em;
+    font-size: small;
+    left: .23em;
 }
 
 .trendingSectionHeaderTitle::before {
     content: '';
     background-image: url(/icons/Bear_of_California_glow.svg);
-    height: cover;
-    width: cover;
-    padding-right: 2.2rem;
+    height: 100%;
+    width: 100%;
+    padding-right: 1.85rem;
     letter-spacing: 1.4px;
-    /* margin-left: 1rem; */
+    margin-right: 2.2em;
 }
 
 .trendingPostBlock {
     /* grid-area: trendPost; */
     display: grid;
-    /* grid-template-columns: 0.2fr 1fr; */
-    grid-template-rows: .5fr 1fr .2fr;
+    grid-template-columns: 0.2fr 1fr;
+    grid-template-rows: .2fr 1fr .2fr;
     grid-template-areas: 
         'tPostRating tPostName'
         '...         tPostTitle'
@@ -340,12 +343,51 @@ a {
     ;
     gap: 1em;
     position: relative;
-    height: fit-content;
-    width: fit-content;
-    border: 2px dotted lime;
+    height: 100%;
+    width: 100%;
+    /* border: 2px dotted lime; */
 }
 
 .trendingPostNumberSection {
     grid-area: tPostRating;
-
+    color: lightgrey;
+    font-weight: 600;
+    font-size: xx-large;
+    align-self: center;
+    justify-self: center;
+    height: fit-content;
+    width: fit-content;
+    /* padding-right: 1em; */
+    /* text-shadow: black; */
+}
+.trendingPostAuthor {
+    grid-area: tPostName;
+    align-self: flex-end;
+    justify-self: flex-start;
+    height: fit-content;
+    width: fit-content;
+    font-size: small;
+    font-weight: 600;
+}
+.trendingPostAuthor::before {
+    content: '';
+    background-image: url(/icons/icon-user-blue.png);
+    height: cover;
+    width: cover;
+    padding-right: 2em;
+}
+.trendingPostTitle {
+    grid-area: tPostTitle;
+    align-self: center;
+    justify-self: flex-start;
+    width: fit-content;
+    height: fit-content;
+    font-size: x-large;
+    font-weight: 600;
+}
+.trendingPostDate {
+    grid-area: tPostDate;
+    font-weight: 400;
+    color: gray;
+    font-size: small;
 }
