@@ -1,4 +1,4 @@
-
+const url = (process.env.NODE_ENV === 'development') ? "http://localhost:3000" : "https://medayum.herokuapp.com";
 // document.addEventListener('DOMContentLoaded', async (e) => {
 //     const userId = localStorage.getItem("MEDIUM_CURRENT_USER_ID");
 //     const userToken = localStorage.getItem("MEDIUM_ACCESS_TOKEN");
@@ -7,7 +7,7 @@
 //         return
 //     }
 //     try{
-//         const res = await fetch(`http://localhost:3000/api/users/${userId}`,{
+//         const res = await fetch(`${ url }/api/users/${userId}`,{
 //             // method: "GET",
 //             // body: JSON.stringify(body),
 //             headers: {

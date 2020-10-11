@@ -7,7 +7,7 @@ const { getAllStoryInfo } = require('./fetch');
 const frontEndRouter = express.Router();
 const csrfProtection = csrf({ cookie: true });
 
-const url = "http://localhost:3000"
+const url = (process.env.NODE_ENV === 'development') ? "http://localhost:3000" : "https://medayum.herokuapp.com";
 
 
 // Provide a 'createdAt' value and receive a string in form 'Jan 01 2020'
@@ -118,31 +118,31 @@ async function getCommentsForStory(id) {
 frontEndRouter.get("/stories/:id(\\d+)", async (req, res) => {
     const storyInfo = await getAllStoryInfo(req);
     console.log(storyInfo);
-    res.render('story-layout', { storyInfo, title: storyInfo.title });
+    res.render('story-layout', { storyInfo, title: storyInfo.title, url });
 });
 
 //actual splash page
 frontEndRouter.get("/splash", (req, res) => {
-  res.render('splash', { title: "MEDAYUM"});
+  res.render('splash', { title: "MEDAYUM", url });
 });
 //splash page
 frontEndRouter.get("/", asyncHandler( async(req, res) => {
   try {
     let stories = await fetch(`${url}/api/stories`);
     stories = await stories.json();
-    
-    res.render('index', { stories });
+
+    res.render('index', { stories, url });
   } catch (error) {
     res.render('index')
   }
 }));
 //sign up form
 frontEndRouter.get("/sign-up", csrfProtection, (req, res) => {
-  res.render('sign-up', { csrfToken: req.csrfToken() });
+  res.render('sign-up', { csrfToken: req.csrfToken(), url });
 });
 //log-in form
 frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
-  res.render('log-in', { csrfToken: req.csrfToken() });
+  res.render('log-in', { csrfToken: req.csrfToken(), url });
 });
 //user profile
 frontEndRouter.get("/users/:id", csrfProtection, asyncHandler(async (req, res) => {
@@ -163,6 +163,7 @@ frontEndRouter.get("/users/:id", csrfProtection, asyncHandler(async (req, res) =
     followedUsers,
     followingUsers,
     bookmarkedStories,
+    url
   });
 }))
 
@@ -174,40 +175,40 @@ frontEndRouter.get("/users/:id", csrfProtection, asyncHandler(async (req, res) =
 // });
 //create new story form
 frontEndRouter.get("/create", csrfProtection, (req, res) => {
-  res.render('create', { csrfToken: req.csrfToken() });
+  res.render('create', { csrfToken: req.csrfToken(), url });
 });
 //display story edit form
 frontEndRouter.get("/stories/:id/edit", csrfProtection, (req, res) => {
-  res.render('story-edit-layout', { csrfToken: req.csrfToken() });
+  res.render('story-edit-layout', { csrfToken: req.csrfToken(), url });
 });
 //sign up form
 frontEndRouter.get("/sign-up", csrfProtection, (req, res) => {
-    res.render('sign-up', { csrfToken: req.csrfToken(), title: "Sign Up" });
+    res.render('sign-up', { csrfToken: req.csrfToken(), title: "Sign Up", url });
 });
 //log-in form
 frontEndRouter.get("/log-in", csrfProtection, (req, res) => {
-    res.render('log-in', { csrfToken: req.csrfToken(), title: "Log In" });
+    res.render('log-in', { csrfToken: req.csrfToken(), title: "Log In", url });
 });
 //user profile
 frontEndRouter.get("/users", (req, res) => {
-    res.render('profile', { title: "Profile" });
+    res.render('profile', { title: "Profile", url });
 });
 //edit user profile form
 frontEndRouter.get("/users/:id(\\d+)/edit", csrfProtection, (req, res) => {
-    res.render('edit-profile', { csrfToken: req.csrfToken(), title: "Edit Profile" });
+    res.render('edit-profile', { csrfToken: req.csrfToken(), title: "Edit Profile", url });
 });
 //create new story form
 frontEndRouter.get("/create", csrfProtection, (req, res) => {
-    res.render('create', { csrfToken: req.csrfToken(), title: "Create a Story" });
+    res.render('create', { csrfToken: req.csrfToken(), title: "Create a Story", url });
 });
 //display story edit form
 frontEndRouter.get("/stories/:id(\\d+)/edit", csrfProtection, (req, res) => {
-    res.render('story-edit-layout', { csrfToken: req.csrfToken(), title: "Edit Story" });
+    res.render('story-edit-layout', { csrfToken: req.csrfToken(), title: "Edit Story", url });
 });
 //display feed
 frontEndRouter.get("/feed", asyncHandler( async(req, res) => {
-    
-    res.render('feed', { title: "My Feed", stories });
+
+    res.render('feed', { title: "My Feed", stories, url });
 }));
 //throw error
 frontEndRouter.get("/error-test", (req, res, next) => {

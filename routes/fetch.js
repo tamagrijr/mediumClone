@@ -1,8 +1,10 @@
 const fetch = require('node-fetch');
 
+const url = (process.env.NODE_ENV === 'development') ? "http://localhost:3000" : "https://medayum.herokuapp.com";
+
 async function getAllStoryInfo(req) {
     const storyId = parseInt(req.params.id);
-    let story = await fetch(`http://localhost:3000/api/stories/${ storyId }`);
+    let story = await fetch(`${ url }/api/stories/${ storyId }`);
     story = await story.json();
     let {
       title,
@@ -17,21 +19,21 @@ async function getAllStoryInfo(req) {
       hour: 'numeric',
       minute: '2-digit' });
     createdAt = dateFormat.format(createdAt, dateFormat);
-    let author = await fetch(`http://localhost:3000/api/users/${ authorId }`);
+    let author = await fetch(`${ url }/api/users/${ authorId }`);
     author = await author.json();
     const authorInfo = {
       authorId,
       authorFN: author.firstName,
       authorLN: author.lastName
     };
-    let likes = await fetch(`http://localhost:3000/api/stories/${ storyId }/likes`);
+    let likes = await fetch(`${ url }/api/stories/${ storyId }/likes`);
     if (likes.statusCode === 200) {
       likes = await likes.json();
     } else {
       likes = [];
     }
     const likeCount = likes.length;
-    let comments = await fetch(`http://localhost:3000/api/stories/${ storyId }/comments`);
+    let comments = await fetch(`${ url }/api/stories/${ storyId }/comments`);
     comments = await comments.json();
     if (comments.length) {
       comments = comments.map(comment => {
