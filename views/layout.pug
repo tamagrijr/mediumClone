@@ -1,34 +1,32 @@
 
 doctype html
 html(lang='en')
-    head
-        meta(charset='utf-8')
-        title= title
-        link(rel='stylesheet' type='text/css' href='/styles/globalStyle.css')
-        link(rel='stylesheet' type='text/css' href='/styles/navStyle.css')
-        script(defer type="module" src="/js/layout.js")
-    body
-      header.navHeader.navHeaderStyles
-          nav.topnav.navbar-default.topNavStyles
-            .leftNav
-              h1.logo: a(href="/") MeDaYum
-              p.greetingTag
-            ul.main-nav
-              li.demoLogIn.hidden: a.button.demo#demoLink Demo Log-In
-              li.signInButton: a.button#signInButton Log-In
-              li.signUpButton: a.button#signUpButton.signUpBanner Sign-Up
-              li.publishStory.hidden: a.button#publishStoryButton Publish
-              li.dropdown
-                .dropdown-container
-                  img(href=`/assets/av/{userId}.png`).button.navAv
-                  ul#dropdown-menu.dropdown-menu
-                    li: a.button#profileButton 
-                      img(href=`/assets/av/{user.id}.png`).av
-                      p Profile 
-                    li: a.button#createStoryButton Write
-                    li: a.button#logoutButton Log out
+  head
+    meta(charset='utf-8')
+    title= title
+    link(rel='stylesheet' type='text/css' href='/styles/globalStyle.css')
+    link(rel='stylesheet' type='text/css' href='/styles/navStyle.css')
+    script(defer type="module" src="/js/layout.js")
+  body
+    header.navHeader.navHeaderStyles.cardShadow
+      nav.topnav.navbar-default.topNavStyles
+        .leftNav
+          h1.logo: a(href="/") MeDaYum
+          p.greetingTag
+        ul.main-nav
+          li.demoLogIn.hidden: a.button.demo#demoLink Demo Log-In
+          li.signInButton: a.button#signInButton Log-In
+          li.signUpButton: a.button#signUpButton.signUpBanner Sign-Up
+          li.publishStory.hidden: a.button#publishStoryButton Publish
+          li.dropdown
+            .dropdown-container
+              img(href=`/assets/av/{userId}.png`).button.navAv
+              ul#dropdown-menu.dropdown-menu
+                li: a.button#profileButton Profile
+                li: a.button#createStoryButton Write
+                li: a.button#logoutButton Log out
 
-      block content
+    block content
 
-      footer.splashFooter.hidden
-        h1 this should be a footer
+    footer.splashFooter.hidden
+      h1 this should be a footer

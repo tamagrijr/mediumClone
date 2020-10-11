@@ -5,7 +5,7 @@ body {
 * {
   font-family: 'Fira Sans', sans-serif;
   box-sizing: border-box;
-  outline: 1px dashed red;
+  /* outline: 1px dashed red; */
 }
 body {
   margin: 0;
