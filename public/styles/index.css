@@ -85,7 +85,7 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-around;
-  /* margin-top: 1em; */
+  margin-top: 1em;
 }
 .mainLayoutDiv {
   width: 80%;
@@ -353,8 +353,11 @@ a.swapToLogIn {
   margin: 4px 4px;
   cursor: pointer;
 }
-.currentSlideButton {
+.slideShowButton:hover {
   background-color: #F4FAFF;
+}
+.currentSlideButton {
+  background-color: #0496FF;
 }
 .hidden {
   display: none;
