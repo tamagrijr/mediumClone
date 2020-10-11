@@ -5,13 +5,12 @@ const footer = document.querySelector('.splashFooter');
 const greeting = document.querySelector('.greetingTag')
 const dropdownDiv = document.querySelector('#dropdown-menu')
 const dropdownButton = document.querySelector('.dropdown-toggle')
-import { api } from "../../config";
 
 document.addEventListener('DOMContentLoaded', async e => {
   let logged = loggedIn();
 if (logged) {
   navHeader.classList.remove('navHeaderStyles');
-  let user = await fetch(`${ api }/api/users/${logged}`);
+  let user = await fetch(`/api/users/${logged}`);
     user = await user.json();
     greeting.innerHTML = `Hello, ${user.firstName}`
 } else {

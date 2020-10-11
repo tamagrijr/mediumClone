@@ -1,6 +1,6 @@
 import { loggedIn } from "./utils.js";
 import { handleErrors } from "./utils.js";
-import { api } from "../../config";
+// import { api } from "../../config";
 
 const logInScreen = document.querySelector('.loggedIn');
 const logOutScreen = document.querySelector('.loggedOut');
@@ -63,7 +63,7 @@ demoLogin.forEach(elem => {
     const body = { email, password }
     try {
       // ADD THIS ONCE VALIDATION IS IMPLEMENTED
-      const res = await fetch(`${ api }/api/users/token`, {
+      const res = await fetch(`/api/users/token`, {
         method: "POST",
         body: JSON.stringify(body),
         headers: {
@@ -97,7 +97,7 @@ logInForm.addEventListener("submit", async (e) => {
 
   try {
       // ADD THIS ONCE VALIDATION IS IMPLEMENTED
-      const res = await fetch(`${ api }/api/users/token`, {
+      const res = await fetch(`/api/users/token`, {
         method: "POST",
         body: JSON.stringify(body),
         headers: {
@@ -131,7 +131,7 @@ signUpForm.addEventListener("submit", async (e) => {
   const body = { firstName, lastName, email, password, confirmPassword };
   try {
     //  ADD THIS ONCE AUTHORIZATION IS IMPLEMENTED
-    const res = await fetch(`${ api }/api/users`, {
+    const res = await fetch(`/api/users`, {
       method: "POST",
       body: JSON.stringify(body),
       headers: {

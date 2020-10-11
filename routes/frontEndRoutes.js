@@ -7,7 +7,7 @@ const { getAllStoryInfo } = require('./fetch');
 const frontEndRouter = express.Router();
 const csrfProtection = csrf({ cookie: true });
 
-import { api } from "../../config";
+const { api } = require('../config');
 
 
 // Provide a 'createdAt' value and receive a string in form 'Jan 01 2020'

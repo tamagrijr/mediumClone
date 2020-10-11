@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-import { api } from "../../config";
+const { api } = require('../config');
 
 async function getAllStoryInfo(req) {
     const storyId = parseInt(req.params.id);
