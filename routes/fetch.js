@@ -55,7 +55,6 @@ async function getAllStoryInfo(req) {
       body,
       createdAt,
       authorInfo,
-      createdAt,
       likeCount,
       comments,
       commentsCount
