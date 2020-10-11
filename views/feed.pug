@@ -8,7 +8,7 @@ block feedBlock
             each story in stories
                 .storySection
                     .storyInfoDiv
-                        .storyAuthorName: a(href=`/users/${story.authorId}`) #{story.Author.firstName} #{story.Author.lastName}
+                        .storyAuthorName: a(href=`${ url }/users/${story.authorId}`) #{story.Author.firstName} #{story.Author.lastName}
                         .storyLink: a(href=`/stories/${story.authorId}`) #{story.title}
                         .storyCreatedAt #{date} • <30min read
                         .createBookmarkButtonFeed: a(data-storyid=story.storyId).bookmarkButtonFeed
