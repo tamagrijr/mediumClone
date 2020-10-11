@@ -30,7 +30,7 @@
     border-radius: 18px; */
     align-self: center;
     justify-self: flex-start;
-    top: 50px;
+    top: 150px;
     /* right: 15%; */
 }
 
@@ -43,7 +43,7 @@
     grid-area: bookmark;
     border: 2px solid pink;
     border-radius: 18px;
-    position: relative;
+    position: sticky;
     top: 1.85%;
 }
 
@@ -271,3 +271,81 @@ a {
 .storyDate {
 
 } */
+/* .trendingStory {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-
+} */
+
+.trendingStory {
+    display: grid;
+    grid-template-columns: 1fr, 1fr, 1fr;
+    grid-template-rows: 0.25fr, 1fr, 1fr;
+    grid-template-areas: 
+        'title title title'
+        'trendPost trendPost trendPost'
+        'trendPost trendPost trendPost'
+    ;
+    gap: 1em;
+    height: fit-content;
+    width: 100%;
+    border-top: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    position: relative;
+    /* margin-right: 1rem; */
+    margin-top: 2em;
+}
+
+.trendingHeaderContainer {
+    position: relative;
+    grid-area: title;
+    /* grid-template-areas: 'headTitle ... ...'; */
+    /* gap: 1em; */
+    /* display: grid; */
+    /* content: fit-content; */
+    /* left: 3em; */
+    height: fit-content;
+    width: fit-content;
+    border: 1px dotted blue;
+}
+
+.trendingSectionHeaderTitle {
+    /* grid-area: headTitle; */
+    position: relative;
+    height: fit-content;
+    padding: 1em;
+}
+
+.trendingSectionHeaderTitle::before {
+    content: '';
+    background-image: url(/icons/Bear_of_California_glow.svg);
+    height: cover;
+    width: cover;
+    padding-right: 2.2rem;
+    letter-spacing: 1.4px;
+    /* margin-left: 1rem; */
+}
+
+.trendingPostBlock {
+    /* grid-area: trendPost; */
+    display: grid;
+    /* grid-template-columns: 0.2fr 1fr; */
+    grid-template-rows: .5fr 1fr .2fr;
+    grid-template-areas: 
+        'tPostRating tPostName'
+        '...         tPostTitle'
+        '...         tPostDate'
+    ;
+    gap: 1em;
+    position: relative;
+    height: fit-content;
+    width: fit-content;
+    border: 2px dotted lime;
+}
+
+.trendingPostNumberSection {
+    grid-area: tPostRating;
+
+}
