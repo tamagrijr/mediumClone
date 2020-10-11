@@ -1,10 +1,8 @@
 import { handleErrors } from "./utils.js";
-
-const url = (process.env.NODE_ENV === 'development') ? "http://localhost:3000" : "https://medayum.herokuapp.com";
+import { api } from "../../config";
 
 const authorId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID');
 const publishNav = document.querySelector('.publishStory');
-
 
 const form = document.querySelector('.create-story-form');
 const publishStoryButton = document.querySelector('#publishStoryButton');
@@ -18,7 +16,7 @@ publishStoryButton.addEventListener('click', async e =>{
     const obj = {title, body, authorId};
     try {
         // ADD THIS ONCE VALIDATION IS IMPLEMENTED
-        const res = await fetch(`${ url }/api/stories`, {
+        const res = await fetch(`${ api }/api/stories`, {
           method: "POST",
           body: JSON.stringify(obj),
           headers: {
@@ -43,7 +41,7 @@ form.addEventListener('submit', async e => {
     const obj = {title, body, authorId};
     try {
         // ADD THIS ONCE VALIDATION IS IMPLEMENTED
-        const res = await fetch(`${ url }/api/stories`, {
+        const res = await fetch(`${ api }/api/stories`, {
           method: "POST",
           body: JSON.stringify(obj),
           headers: {

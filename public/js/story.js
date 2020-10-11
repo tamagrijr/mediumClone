@@ -3,7 +3,7 @@ const commentForm = document.getElementById('commentForm');
 const commentList = document.getElementById('commentList');
 const commentText = document.getElementById('comment');
 const currentUser = localStorage.MEDIUM_CURRENT_USER_ID;
-const url = (process.env.NODE_ENV === 'development') ? "http://localhost:3000" : "https://medayum.herokuapp.com";
+import { api } from "../../config";
 
 commentSubmitBtn.addEventListener('click', async e => {
   e.preventDefault();
@@ -12,7 +12,7 @@ commentSubmitBtn.addEventListener('click', async e => {
   const commentData = formData.get('comment');
 
   try {
-    let comment = await fetch(`${ url }/api/stories/${ commentForm.dataset.story }/comments`, {
+    let comment = await fetch(`${ api }/api/stories/${ commentForm.dataset.story }/comments`, {
       method: 'POST',
       body: JSON.stringify({ body: commentData, userId: currentUser }),
       headers: {
@@ -66,7 +66,7 @@ commentSubmitBtn.addEventListener('click', async e => {
       myCommentOptions.style.display = 'none';
     });
 
-    let user = await fetch(`${ url }/api/users/${ currentUser }`);
+    let user = await fetch(`${ api }/api/users/${ currentUser }`);
     user = await user.json();
 
     commentText.value = "";
@@ -106,7 +106,7 @@ commentSubmitBtn.addEventListener('click', async e => {
       myCommentOptions.removeChild(myCommentEditBtn);
       submitNewCommentBtn.addEventListener('click', async event => {
         let newCommentBody = commentBodyEl.innerHTML;
-        await fetch(`${ url }/api/comments/${ fullCommentItem.dataset.commentid }`, {
+        await fetch(`${ api }/api/comments/${ fullCommentItem.dataset.commentid }`, {
           method: 'PATCH',
           body: JSON.stringify({ body: newCommentBody }),
           headers: {
@@ -122,7 +122,7 @@ commentSubmitBtn.addEventListener('click', async e => {
     mmyCommentDltBtn.addEventListener('click', async (event) => {
       const fullCommentItem = event.target.parentNode.parentNode.parentNode;
       commentList.removeChild(fullCommentItem);
-      await fetch(`${ url }/api/comments/${ fullCommentItem.dataset.commentid }`, {
+      await fetch(`${ api }/api/comments/${ fullCommentItem.dataset.commentid }`, {
         method: 'DELETE'
       });
     });
@@ -133,7 +133,7 @@ commentSubmitBtn.addEventListener('click', async e => {
 });
 
 window.addEventListener('DOMContentLoaded', async () => {
-  // let follows = await fetch(`${ url }/api/users/${ currentUser }/follows`);
+  // let follows = await fetch(`${ api }/api/users/${ currentUser }/follows`);
   // follows = await follows.json();
   // console.log(follows);
   // follows.map(f => f.Following.id );
@@ -181,7 +181,7 @@ window.addEventListener('DOMContentLoaded', async () => {
           let newCommentBody = commentBodyEl.innerHTML;
           commentBodyEl.style.border = 'none';
           commentBodyEl.style.backgroundColor = 'rgba(0, 0, 0, 0)';
-          await fetch(`${ url }/api/comments/${ fullCommentItem.dataset.commentid }`, {
+          await fetch(`${ api }/api/comments/${ fullCommentItem.dataset.commentid }`, {
             method: 'PATCH',
             body: JSON.stringify({ body: newCommentBody }),
             headers: {
@@ -196,7 +196,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       deleteButton.addEventListener('click', async event => {
         const fullCommentItem = event.target.parentNode.parentNode.parentNode;
         commentList.removeChild(fullCommentItem);
-        await fetch(`${ url }/api/comments/${ fullCommentItem.dataset.commentid }`, {
+        await fetch(`${ api }/api/comments/${ fullCommentItem.dataset.commentid }`, {
           method: 'DELETE'
         });
       });
@@ -225,7 +225,7 @@ document.querySelectorAll('.bkmrk').forEach(bkmrk => {
 //   btn.addEventListener('click', async () => {
 //     const authorId = btn.dataset.author;
 //     console.log('You are user #', currentUser);
-//     let follow = await fetch(`${ url }/api/users/${ currentUser }/follows`, {
+//     let follow = await fetch(`${ api }/api/users/${ currentUser }/follows`, {
 //       method: 'POST',
 //       body: JSON.stringify({ followingId: authorId }),
 //       headers: {
