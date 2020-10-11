@@ -20,24 +20,78 @@ block feedBlock
             .storyImgDiv
               img(src=`/assets/stories/${story.id}-1.jpg`)
           +storyIcons(story)
-    .bookmarkFeedContainer
-      .bookmarkSection
-        .bookmarkTitle
-        .bookmarkAuthor
-      .bookmarkSection
-        .bookmarkTitle
-        .bookmarkAuthor
-      .bookmarkSection
-        .bookmarkTitle
-        .bookmarkAuthor
-      .bookmarkSection
-        .bookmarkTitle
-        .bookmarkAuthor
-      .bookmarkSection
-        .bookmarkTitle
-        .bookmarkAuthor
         //- .bookmarkTitle #{bookmark.title}
         //- .bookmarkAuthor #{bookmark.authorId}
+        //- .curiosityContainer
+        //-     .recommendedPostsContainer
+        //-         .bigRecommendedStorySection
+        //-         .smallRecommendedStorySection
+        //-     .usersToFollowContainer
+        //-         .authorsToFollowSection
+        .trendingStory
+          .trendingHeaderContainer: .trendingSectionHeaderTitle   TRENDING ON MEDIUM
+          .trendingPostBlock
+            .trendingPostNumberSection 01
+            .trendingPostAuthor Clayton Reinhardt
+            .trendingPostTitle Da bears
+            .trendingPostDate 29/16/2020 • <30 min read
+          .trendingPostBlock
+            .trendingPostNumberSection 02
+            .trendingPostAuthor Jasmine Lotomau
+            .trendingPostTitle The Beach
+            .trendingPostDate 29/16/2020 • <30 min read   
+          .trendingPostBlock
+            .trendingPostNumberSection 02
+            .trendingPostAuthor Jasmine Lotomau
+            .trendingPostTitle The Beach
+            .trendingPostDate 29/16/2020 • <30 min read   
+          .trendingPostBlock
+            .trendingPostNumberSection 02
+            .trendingPostAuthor Jasmine Lotomau
+            .trendingPostTitle The Beach
+            .trendingPostDate 29/16/2020 • <30 min read  
+          .trendingPostBlock
+            .trendingPostNumberSection 02
+            .trendingPostAuthor Jasmine Lotomau
+            .trendingPostTitle The Beach
+            .trendingPostDate 29/16/2020 • <30 min read  
+          .trendingPostBlock
+            .trendingPostNumberSection 02
+            .trendingPostAuthor Jasmine Lotomau
+            .trendingPostTitle The Beach
+            .trendingPostDate 29/16/2020 • <30 min read  
+        .feedContainer
+          .storyContainer
+            each story in stories
+              .storySection
+                .storyInfoDiv
+                  .storyAuthorName: a(href=`${ api }/users/${story.authorId}`) #{story.Author.firstName} #{story.Author.lastName}
+                  .storyLink: a(href=`/stories/${story.authorId}`) #{story.title}
+                  .storyCreatedAt #{date} • <30min read
+                  .createBookmarkButtonFeed: a(data-storyid=story.storyId).bookmarkButtonFeed
+                .storyPicDiv
+                  .storyImgDiv
+          .bookmarkFeedContainer
+            .noBookmarksForAuthor
+              .bookmarkMessage        Bookmark stories for later
+              .bookmarkInstructions   Start saving stories by clicking the bookmark icon and you’ll find them all here.
+            //- .bookmarkSection
+            //-     .bookmarkTitle
+            //-     .bookmarkAuthor
+            //- .bookmarkSection
+            //-     .bookmarkTitle
+            //-     .bookmarkAuthor
+            //- .bookmarkSection
+            //-     .bookmarkTitle
+            //-     .bookmarkAuthor
+            //- .bookmarkSection
+            //-     .bookmarkTitle
+            //-     .bookmarkAuthor
+            //- .bookmarkSection
+            //-     .bookmarkTitle
+            //-     .bookmarkAuthor
+            //- .bookmarkTitle #{bookmark.title}
+            //- .bookmarkAuthor #{bookmark.authorId}
 
 
 //-  each bookmark in bookmarks
