@@ -142,7 +142,7 @@
         'title title'
         'created bookmark'
     ;
-    gap: 1em 1em;
+    /* gap: 1em 1em; */
     width: 100%;
     height: 100%;
     position: relative;
@@ -224,7 +224,10 @@ justify-self: center;
     height: fit-content; */
     /* background-size: fit-content; */
 }
-
+.storyImgDiv > img {
+  height: 100%;
+  
+}
 
 .bookmarkButtonFeed::before {
     content: '';

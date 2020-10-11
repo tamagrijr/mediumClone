@@ -127,6 +127,7 @@ frontEndRouter.get("/", asyncHandler( async(req, res) => {
   try {
     let stories = await fetch(`${api}/api/stories`);
     stories = await stories.json();
+    stories = getDates(stories);
 
     res.render('index', { stories, api });
   } catch (error) {

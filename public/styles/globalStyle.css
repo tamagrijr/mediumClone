@@ -102,7 +102,13 @@ footer .links {
 .bookmarkIcon:hover {
   background-image: url("/icons/copy.svg")
 }
-
+.btnIconic {
+  margin: 0 0.5rem;
+  border-radius: 5px;
+  border: 1px solid rgb(4, 150, 255);
+  color: rgb(4, 150, 255);
+  background-color: white;
+}
 
 /* For mixin authorBlurb */
 .authorBlurb {

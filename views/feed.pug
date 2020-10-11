@@ -1,3 +1,5 @@
+include includes/utils
+
 //- .feedBody
 //- script(defer type="module" src="js/feed.js")
 link(rel='stylesheet' type='text/css' href='/styles/feed.css')
@@ -6,17 +8,18 @@ block feedBlock
   .feedContainer
     .storyContainer
       each story in stories
-        .storySection
+        .storySection.card
           .storyInfoDiv
             +authorBlurb(story.Author)
             //- .storyAuthorName: a(href=`${ api }/users/${story.authorId}`) #{story.Author.firstName} #{story.Author.lastName}
             //-   img(src=`/assets/av/${story.authorId}.jpg` alt=`${story.Author.firstName} ${story.Author.lastName}`).authorAv
-            .storyLink: a(href=`/stories/${story.id}`) #{story.title}
+            h2.storyLink: a(href=`/stories/${story.id}`).cardTitle #{story.title}
             .storyCreatedAt #{story.createdAt}
-            .createBookmarkButtonFeed: a(data-storyid=story.storyId).bookmarkButtonFeed
+            //- .createBookmarkButtonFeed: a(data-storyid=story.storyId).bookmarkButtonFeed
           .storyPicDiv
             .storyImgDiv
               img(src=`/assets/stories/${story.id}-1.jpg`)
+          +storyIcons(story)
     .bookmarkFeedContainer
       .bookmarkSection
         .bookmarkTitle
