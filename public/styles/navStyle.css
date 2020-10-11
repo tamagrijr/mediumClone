@@ -56,10 +56,28 @@
 }
 
 /* .main-nav a {
+.logo {
+	margin: 0;
+	font-size: 1.45em;
+}
+.logo a,
+.main-nav a.button {
 	padding: 10px 15px;
 	text-transform: uppercase;
 	text-align: center;
 	display: block;
+}
+.main-nav a {
+    color: #34495e;
+}
+.main-nav a:hover {
+	color: #718daa;
+}
+.topNavStyles {
+  padding-top: .5em;
+	padding-bottom: .5em;
+	display: flex;
+	border-radius: 5px;
 }
 .topnav a.button:hover {
 	color: #c9c3c3;
@@ -96,6 +114,11 @@ a:hover {
   position: absolute;
   top: 2.5rem;
 }
+
+/* .dropdown:hover #dropdown-menu {
+	display: block;
+	position: absolute;
+} */
 .demoLogIn {
   background-color: rgba(4, 150, 255, .8);
   font-weight: bold;
@@ -112,7 +135,7 @@ a:hover {
 	padding: 0;
 	border-bottom: 1px solid #a2a2a2;
 	width: 40%;
-	margin-bottom: 5em;
+	margin-bottom: 3em;
 	margin-top: 2em;
 }
 .splashFooter {

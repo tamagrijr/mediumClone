@@ -1,2 +1,37 @@
-.feedContainer
-script(defer type="module" src="js/feed.js")
+//- .feedBody
+//- script(defer type="module" src="js/feed.js")
+link(rel='stylesheet' type='text/css' href='/styles/feed.css')
+//- .feedBody NEED 'readtime' FOR TIME TO READ ARTICLE
+block feedBlock
+    .feedContainer
+        .storyContainer
+            each story in stories
+                .storySection
+                    .storyInfoDiv
+                        .storyAuthorName: a(href=`http://localhost:3000/users/${story.authorId}`) #{story.Author.firstName} #{story.Author.lastName}
+                        .storyLink: a(href=`http://localhost:3000/stories/${story.authorId}`) #{story.title}
+                        .storyCreatedAt #{date} • <30min read
+                        .createBookmarkButtonFeed: a(data-storyid=story.storyId).bookmarkButtonFeed
+                    .storyPicDiv
+                        .storyImgDiv
+        .bookmarkFeedContainer
+            .bookmarkSection
+                .bookmarkTitle 
+                .bookmarkAuthor
+            .bookmarkSection
+                .bookmarkTitle 
+                .bookmarkAuthor
+            .bookmarkSection
+                .bookmarkTitle 
+                .bookmarkAuthor
+            .bookmarkSection
+                .bookmarkTitle 
+                .bookmarkAuthor
+            .bookmarkSection
+                .bookmarkTitle 
+                .bookmarkAuthor
+                //- .bookmarkTitle #{bookmark.title}
+                //- .bookmarkAuthor #{bookmark.authorId}
+            
+    
+//-  each bookmark in bookmarks
