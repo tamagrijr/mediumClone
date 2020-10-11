@@ -1,10 +1,10 @@
 
 block.splashBody
   .headlineOne
-    h1.splashSubHeadGroup Show everyone what matters
+    h1.splashSubHeadGroup.splashPageText Show everyone what matters
     //- h1.splashSubHeadGroup what matters
-    h1.splashSubHeadGroup to you.
-    p.headlineOneTag Explore new interests and bring discussion to the table.
+    h1.splashSubHeadGroup.splashPageText to you.
+    h2.headlineOneTag.splashPageText Explore new interests and bring discussion to the table.
     .gridOfButtons
       .bearButton1.bearButtonContainer.bearButtonContainerHover
         img(src="/icons/Bear_of_California_(Black).svg" class="buttonBear" width=30 height=30 viewbox="0 0 30 30" fill="none")
@@ -52,20 +52,22 @@ block.splashBody
         img(src="/icons/Bear_of_California_(Black).svg" class="buttonBear" width=30 height=30 viewbox="0 0 30 30" fill="none")
         .bearButtonText Bears
     .signUpBanner
-      button.signUpBanner#signUpBanner Get Started
+      button.signUpBanner#signUpBanner.splashPageText Get Started
     .borderLine
-  h1.spashHead ME DAYUM
+  h1.spashHead.splashPageText ME DAYUM
   .healineOneSpan
     img(src="/icons/Bear_of_California_glow_2.svg" class="californiaBear")
-    h3.splashTextOne Find riveting stories about bears here!
+    h2.splashTextOne Find riveting stories about bears here!
   .borderLine
   .headlineTwo
-    h1.splashHead YOU DAYUM
+    .headlineTextContainer
+      h1.splashHead1.splashPageText YOU DAYUM
+      h2.splashHead3.splashPageText Tell us all about why you love bears just as much as we do!
     .slideShowContainer
       .slideShowImgContainer
         .slideShowText.slide1
-          h3.splashText Show us what you've got,
-          h3.splashText  and bring your stories to life!
+          h2.splashText.splashPageText Show us what you've got,
+          h2.splashText.splashPageText  and bring your stories to life!
         img(src="/icons/sunBear.jpg").slideImg.slide2.hidden
         img(src="/icons/polar.jpg").slideImg.slide3.hidden
         img(src="/icons/happyGrizzly.jpg").slideImg.slide4.hidden
@@ -79,8 +81,10 @@ block.splashBody
 
   .borderLine
   .headlineThree
-    h1.splashHead WE DAYUM
-    .leftHThreediv
-      h3.splashText Become a part of our community!
+    .headlineTextContainer
+      h1.splashHead.splashPageText WE DAYUM
+      h2.splashHead3.spashPageText Join an ever growing community of at least four people!
+    .headlineTextContainer
+      h2.splashText.splashPageText Become a part of our community!
       .signUpBanner
-      button.signUpBanner#signUpBanner Get Started
+      button.signUpBanner#signUpBanner.splashPageText Get Started

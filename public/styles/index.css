@@ -360,6 +360,19 @@ a.swapToLogIn {
 .currentSlideButton {
   background-color: #0496FF;
 }
+.splashPageText {
+  font-family: Cambria, Gabriola, serif;
+}
+.headlineTextContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.modalInput {
+  font-size: 1.2em;
+  margin: .5em;
+}
 .hidden {
   display: none;
 }
