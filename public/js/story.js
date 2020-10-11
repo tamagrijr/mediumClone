@@ -65,7 +65,7 @@ commentSubmitBtn.addEventListener('click', async e => {
       myCommentOptions.style.display = 'none';
     });
 
-    let user = await fetch(`http://localhost:3000/api/users/${ currentUser }`);
+    let user = await fetch(`/api/users/${ currentUser }`);
     user = await user.json();
 
     commentText.value = "";
@@ -105,7 +105,7 @@ commentSubmitBtn.addEventListener('click', async e => {
       myCommentOptions.removeChild(myCommentEditBtn);
       submitNewCommentBtn.addEventListener('click', async event => {
         let newCommentBody = commentBodyEl.innerHTML;
-        await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
+        await fetch(`/api/comments/${ fullCommentItem.dataset.commentid }`, {
           method: 'PATCH',
           body: JSON.stringify({ body: newCommentBody }),
           headers: {
@@ -121,7 +121,7 @@ commentSubmitBtn.addEventListener('click', async e => {
     mmyCommentDltBtn.addEventListener('click', async (event) => {
       const fullCommentItem = event.target.parentNode.parentNode.parentNode;
       commentList.removeChild(fullCommentItem);
-      await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
+      await fetch(`/api/comments/${ fullCommentItem.dataset.commentid }`, {
         method: 'DELETE'
       });
     });
@@ -180,7 +180,7 @@ window.addEventListener('DOMContentLoaded', async () => {
           let newCommentBody = commentBodyEl.innerHTML;
           commentBodyEl.style.border = 'none';
           commentBodyEl.style.backgroundColor = 'rgba(0, 0, 0, 0)';
-          await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
+          await fetch(`/api/comments/${ fullCommentItem.dataset.commentid }`, {
             method: 'PATCH',
             body: JSON.stringify({ body: newCommentBody }),
             headers: {
@@ -195,7 +195,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       deleteButton.addEventListener('click', async event => {
         const fullCommentItem = event.target.parentNode.parentNode.parentNode;
         commentList.removeChild(fullCommentItem);
-        await fetch(`http://localhost:3000/api/comments/${ fullCommentItem.dataset.commentid }`, {
+        await fetch(`/api/comments/${ fullCommentItem.dataset.commentid }`, {
           method: 'DELETE'
         });
       });

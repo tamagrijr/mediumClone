@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 async function getAllStoryInfo(req) {
     const storyId = parseInt(req.params.id);
-    let story = await fetch(`http://localhost:3000/api/stories/${ storyId }`);
+    let story = await fetch(`/api/stories/${ storyId }`);
     story = await story.json();
     let {
       title,
@@ -17,21 +17,21 @@ async function getAllStoryInfo(req) {
       hour: 'numeric',
       minute: '2-digit' });
     createdAt = dateFormat.format(createdAt, dateFormat);
-    let author = await fetch(`http://localhost:3000/api/users/${ authorId }`);
+    let author = await fetch(`/api/users/${ authorId }`);
     author = await author.json();
     const authorInfo = {
       authorId,
       authorFN: author.firstName,
       authorLN: author.lastName
     };
-    let likes = await fetch(`http://localhost:3000/api/stories/${ storyId }/likes`);
+    let likes = await fetch(`/api/stories/${ storyId }/likes`);
     if (likes.statusCode === 200) {
       likes = await likes.json();
     } else {
       likes = [];
     }
     const likeCount = likes.length;
-    let comments = await fetch(`http://localhost:3000/api/stories/${ storyId }/comments`);
+    let comments = await fetch(`/api/stories/${ storyId }/comments`);
     comments = await comments.json();
     if (comments.length) {
       comments = comments.map(comment => {
