@@ -3,6 +3,8 @@ const navHeader = document.querySelector('.navHeader');
 const topnav = document.querySelector('.topnav');
 const footer = document.querySelector('.splashFooter');
 const greeting = document.querySelector('.greetingTag')
+const dropdownDiv = document.querySelector('#dropdown-menu')
+const dropdownButton = document.querySelector('.dropdown-toggle')
 
 document.addEventListener('DOMContentLoaded', async e => {
   let logged = loggedIn();
@@ -45,4 +47,12 @@ profileButton.addEventListener('click', e => {
 })
 writeStoryButton.addEventListener('click', e => {
   window.location.href = '/create'
+})
+
+dropdownButton.addEventListener('click', e => {
+  if(dropdownDiv.classList.contains('clickedDropdownMenu')){
+    dropdownDiv.classList.remove('clickedDropdownMenu')
+  }else{
+    dropdownDiv.classList.add('clickedDropdownMenu')
+  }
 })
