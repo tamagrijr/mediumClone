@@ -1,0 +1,28 @@
+.mainFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 20%;
+  background-color: #333;
+  text-align: center;
+}
+.mainFooter *, .mainFooter a {
+  color: white;
+}
+.mainFooter a {
+  text-decoration: none;
+}
+.mainFooter a:hover {
+  color: rgb(4, 150, 255)
+}
+.footerNavList {
+  display: flex;
+  padding: 0;
+  list-style: none;
+}
+.footerNavList li {
+  border-top: 1px double white;
+  border-bottom: 1px double white;
+  padding: 0.4rem;
+  font-size: 0.8rem;
+}

@@ -3,67 +3,62 @@ include includes/utils.pug
 
 block content
   script(defer type="module" src="/js/profile.js")
-
-  h1 Profile - #{user.firstName} #{user.lastName}
+  link(rel="stylesheet" type="text/css" href="/styles/profile.css")
 
   article
-    heading
-
-      h2 #{user.firstName} #{user.lastName}
+    heading.pr-userInfo
+      #userContainer 
+        h2#profileName #{user.firstName} #{user.lastName}
+        button.btnIconic Follow
       //- span.user-description #{user.description}
-      p MeDaYum member since #{user.createdAt}
-      //- TODO MIRA Change this to display 'Month Year'
+      p#joinDate MeDaYum member since #{user.createdAt}.
 
-      img(src="/assets/icons/icon-user-1000x.png" alt=user.firstName user.lastName)
+      img(src=`/assets/av/1.png` alt=`${user.firstName} ${user.lastName}`)#userAv
 
       //- .follows
         //- #{userFollows.length} Following | #{userFollowers.length} Followers
       //-     //- TODO Confirm .length works here
-      button Edit Profile
-      button Follow
+      //- button Edit Profile
       
-    hr
-    nav.user-collections
-      ul
-        li Stories
-          ul
-          each story in userStories
-            li: +storyCardFull(story)
-          hr
-        li Comments
-          ul
-          each comment in userComments
-            li
-              h3= comment.Story.title
-              p #{comment.Story.Author.firstName} #{comment.Story.Author.lastName}
-              //- +storyCardMini(comment.story)
-              //- +authorDate
-              p= comment.createdAt
-              p "#{comment.body}"
-          hr
-        li Likes
-          ul
-          each like in userLikes
-            li: +storyCardFull(like.Story)
+      
+    nav.userCollections
+      ul.profileTabs
+        li.storyTab Stories
+          ul.profileFeed
+            each story in userStories
+              li.storyCard: +storyCardFull(story)
+        li.commentTab Comments
+          ul.profileFeed
+            each comment in userComments
+              li.commentCard
+                h3.prFeed= comment.Story.title
+                p #{comment.Story.Author.firstName} #{comment.Story.Author.lastName}
+                //- +storyCardMini(comment.story)
+                //- +authorDate
+                p= comment.createdAt
+                p "#{comment.body}"
+        li.likeTab Likes
+          ul.profileFeed
+            each like in userLikes
+              li: +storyCardFull(like.Story)
             
-        li Follows
-          hr
-          ul
-          each user in followedUsers
-            li
-              h3 #{user.Following.firstName} #{user.Following.lastName}
-              img(src=`/assets/av/${user.id}.png` alt=`${user.Following.firstName} ${user.Following.lastName}`)
-              button Follow
-          hr
-        li Followers
-          ul
-          each user in followingUsers
-            li
-              h3 #{user.Follower.firstName} #{user.Follower.lastName}
-              img(src=`/assets/av/${user.id}.png` alt=`${user.Follower.firstName} ${user.Follower.lastName}`)
-              button Follow
-          hr
-        li Bookmarks
-          ul
-          each bookmark in bookmarkedStories
-            li: +storyCardFull(bookmark.Story)
+        li.followTab Follows
+          ul.profileFeed
+            each user in followedUsers
+              li
+                h3 #{user.Following.firstName} #{user.Following.lastName}
+                img(src=`/assets/av/${user.id}.png` alt=`${user.Following.firstName} ${user.Following.lastName}`)
+                button.btnIconic Follow
+                
+        li.followerTab Followers
+          ul.profileFeed
+            each user in followingUsers
+              li
+                h3 #{user.Follower.firstName} #{user.Follower.lastName}
+                img(src=`/assets/av/${user.id}.png` alt=`${user.Follower.firstName} ${user.Follower.lastName}`)
+                button.btnIconic Follow
+
+        li.bookmarkTab Bookmarks
+          ul.profileFeed
+            each bookmark in bookmarkedStories
+              li: +storyCardFull(bookmark.Story)
