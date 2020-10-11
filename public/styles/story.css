@@ -117,3 +117,7 @@ article.story-container {
   border-width: .1em;
   color: #0496FF;
 }
+.btn-primary:hover {
+  background-color: #0496FF;
+  color: white;
+}
