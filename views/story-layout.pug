@@ -11,7 +11,8 @@ block content
         span(class="top-story-date")= storyInfo.createdAt
         button(class="follow-button top-author-follow btn-primary-inverted" data-author=storyInfo.authorInfo.authorId) Follow
 
-      img(class="bkmrk bookmark-top md-icon clickable-icon" src="/icons/bookmark.svg")
+      .bookmark-wing
+        img(class="bkmrk bookmark-top md-icon clickable-icon" src="/icons/bookmark.svg")
 
       img(class="story-image" src=`/assets/stories/${ storyInfo.storyId }-1.jpg` alt="Story Image")
 
