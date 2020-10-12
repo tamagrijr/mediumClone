@@ -68,6 +68,9 @@
 	position: sticky;
   top: 0;
   z-index: 1;
+  box-shadow: 0px 0px 14px 0px rgba(150,150,150,0.5);
+  background-color: #F4FAFF;
+  opacity: 0.85;
 }
 
 /* .main-nav a {
