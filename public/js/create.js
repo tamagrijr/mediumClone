@@ -1,3 +1,4 @@
+import { placeholder } from "sequelize/types/lib/operators";
 import { handleErrors } from "./utils.js";
 
 const authorId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID');
@@ -6,6 +7,8 @@ const publishNav = document.querySelector('.publishStory');
 const form = document.querySelector('.create-story-form');
 const publishStoryButton = document.querySelector('#publishStoryButton');
 publishNav.classList.remove('hidden');
+
+
 
 publishStoryButton.addEventListener('click', async e =>{
   e.preventDefault();
