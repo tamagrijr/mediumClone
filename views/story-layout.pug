@@ -17,8 +17,6 @@ block content
 
       .story-body= storyInfo.body
 
-      hr
-
       div(class="below-body-options")
         img(class="sm-icon" src="/icons/heart.svg")
         span(class="bottom-option-span") #{ storyInfo.likeCount } Likes
@@ -43,13 +41,15 @@ block content
 
 
     .comments-bar
-      h2 Comments (#{ storyInfo.commentsCount })
+      span(id="comment-bar-header")
+        h2 Comments (#{ storyInfo.commentsCount })
+        img(class="md-icon" alt="close comments" src="/icons/close_icon.svg")
       form(method="post" action="/comments" id="commentForm" data-story=storyInfo.storyId)
         span(id="curentCommentingUserDisplay")
           img(class="sm-icon" src="/icons/avatar (1).svg")
           span(id="currentUserName")
         textarea(id="comment" name="comment" placeholder="Tell us what you think...")
-        button(type="submit" id="submitComment") Submit Comment
+        button(type="submit" id="submitComment" class="btn-primary") Submit Comment
       ul(id="commentList")
         if storyInfo.commentsCount > 0
           each comment in storyInfo.comments
@@ -61,5 +61,5 @@ block content
                 li(class="comment-body")= comment.body
                 li(class="comment-time")= comment.created
                 li(class="my-comment-options" data-user=comment.userId)
-                  button(class="editBtn") Edit
-                  button(class="dltBtn") Delete
+                  button(class="editBtn btn-primary") Edit
+                  button(class="dltBtn btn-primary-red") Delete

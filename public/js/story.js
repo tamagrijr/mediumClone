@@ -133,15 +133,10 @@ commentSubmitBtn.addEventListener('click', async e => {
   }
 });
 
-document.addEventListener('click', () => {
-  const activeElement = document.activeElement;
-  if (activeElement === document.getElementById('comment')) {
-    document.getElementById('submitComment').style.display = 'inline-block';
-    document.getElementById('curentCommentingUserDisplay').style.display = 'inline-block';
-  } else {
-    document.getElementById('submitComment').style.display = 'none';
-    document.getElementById('curentCommentingUserDisplay').style.display = 'none';
-  }
+document.getElementById('comment').addEventListener('click', e => {
+  e.target.classList.add('editing');
+  document.getElementById('submitComment').style.display = 'inline-block';
+  document.getElementById('curentCommentingUserDisplay').style.display = 'inline-block';
 });
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -151,10 +146,12 @@ window.addEventListener('DOMContentLoaded', async () => {
     commentOptions.style.display = 'none';
     comment.addEventListener('mouseover', () => {
       if (comment.dataset.user === currentUser) {
+        commentOptions.parentNode.style.gridTemplateRows = 'repeat(4, 1.5em)';
         commentOptions.style.display = 'block';
       }
     });
     comment.addEventListener('mouseout', () => {
+      commentOptions.parentNode.style.gridTemplateRows = 'repeat(3, 1.5em)';
       commentOptions.style.display = 'none';
     })
     if (comment.dataset.user === currentUser) {
@@ -165,13 +162,10 @@ window.addEventListener('DOMContentLoaded', async () => {
         const fullCommentItem = event.target.parentNode.parentNode.parentNode;
         const commentBodyEl = fullCommentItem.querySelectorAll('.comment-body')[0];
         commentBodyEl.setAttribute('contenteditable', 'true');
-        // commentBodyEl.style.borderWidth = '2px';
-        // commentBodyEl.style.borderStyle = 'solid';
-        // commentBodyEl.style.borderColor = '#0496FF';
-        // commentBodyEl.style.borderRadius = '0.25em';
-        // commentBodyEl.style.backgroundColor = '#C0C0C0';
+        commentBodyEl.classList.add('editing');
         const submitNewCommentBtn = document.createElement('button');
         submitNewCommentBtn.innerHTML = 'Submit Edit';
+        submitNewCommentBtn.classList.add('btn-primary');
         myCommentOptions.insertBefore(submitNewCommentBtn, editButton);
         myCommentOptions.removeChild(editButton);
         submitNewCommentBtn.addEventListener('click', async event => {
