@@ -25,7 +25,7 @@ if (logged) {
     user = await user.json();
     greeting.innerHTML = `Hello, ${user.firstName}`
 } else {
-  footer.classList.remove('hidden')
+  // footer.classList.remove('hidden')
   topnav.classList.remove('topNavStyles');
 }
 
