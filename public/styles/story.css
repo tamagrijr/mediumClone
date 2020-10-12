@@ -23,33 +23,35 @@ article.story-container {
 .story-author-info-top {
   grid-area: author;
   display: grid;
-  grid-gap: 5px;
+  grid-column-gap: 20px;
   grid-template-areas:
-    "img img name name follow follow"
-    "img img date date follow follow";
+    "img name follow"
+    "img date follow";
   grid-template-rows: 1fr 1fr 0.5fr 1fr;
 }
 
 .top-author-img {
   align-self: center;
   grid-area: img;
+  justify-self: end;
 }
 
 .top-author-name {
   align-self: end;
   grid-area: name;
-  justify-self: center;
+  justify-self: start;
 }
 
 .top-story-date {
   align-self: start;
   grid-area: date;
-  justify-self: center;
+  justify-self: start;
 }
 
 .top-author-follow {
   align-self: center;
   grid-area: follow;
+  justify-self: start;
 }
 
 .below-body-options {
@@ -153,6 +155,23 @@ img.author-below-item.md-icon {
 .btn-primary:hover {
   background-color: #0496FF;
   color: white;
+}
+
+.btn-primary-inverted {
+  margin: .5em;
+  font-weight: 700;
+  background-color:  #0496FF;
+  border-radius: .3em;
+  text-align: center;
+  padding: .3em;
+  border-color: white;
+  border-width: .1em;
+  color: white;
+}
+
+.btn-primary-inverted:hover {
+  background-color: white;
+  color: #0496FF;
 }
 
 .btn-primary-red {
