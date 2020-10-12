@@ -8,36 +8,40 @@ const {
   deleteForStory,
   checkForContent } = require('../../utils');
 const db = require('../../db/models');
+const { sequelize } = require('../../db/models');
 const { Story, Comment, Like, Bookmark, User } = db;
 
 const router = express.Router();
 
+const storyInclude = [{
+  model: User,
+  as: "Author",
+  attributes: ["id", "firstName", "lastName"]
+}, {
+  model: Comment,
+  attributes: ["id"],
+}, {
+  model: Like,
+  attributes: ["id"]
+}]
+
 const authorValidation = [
   // MIRA Tested
   check('authorId')
-    .exists({
-      checkNull: true,
-      checkFalsy: true
-    })
+    .exists({ checkFalsy: true })
     .withMessage('Your story must specify the author.')
 ];
 
 const storyValidations = [
   // MIRA Tested
   check('title')
-    .exists({
-      checkNull: true,
-      checkFalsy: true
-    })
+    .exists({ checkFalsy: true })
     .withMessage('Your story must have a title')
     .isLength({ max: 255 })
     .withMessage('Your title may not be longer than 255 characters.'),
   // MIRA Tested
   check('body')
-    .exists({
-      checkNull: true,
-      checkFalsy: true
-    })
+    .exists({ checkFalsy: true })
     .withMessage('Your story needs a body.')
 ];
 
@@ -45,23 +49,11 @@ const storyValidations = [
 // Include Author (id, firstName, lastName),
 //    Comments (id, body, userId),
 //    Likes (id, userId)
-// get a list of all stories, just for now for the splash page
-// at least until topics
 router.get(
   '/stories',
   asyncHandler(async (req, res) => {
     let stories = await Story.findAll({
-      include: [{
-        model: User,
-        as: "Author",
-        attributes: ["id", "firstName", "lastName"]
-      }, {
-        model: Comment,
-        attributes: ["id"],
-      }, {
-        model: Like,
-        attributes: ["id"]
-      }],
+      include: storyInclude,
       order: [['createdAt', 'DESC']]
     })
     checkForContent(res, stories);
@@ -75,23 +67,21 @@ router.get("/users/:id/stories",
   asyncHandler(async (req, res) => {
     let stories = await Story.findAll({
       where: { authorId: req.params.id },
-      include: [{
-        model: User,
-        as: "Author",
-        attributes: ["id", "firstName", "lastName"]
-      }, {
-        model: Comment,
-        attributes: ["id"]
-      }, {
-        model: Like,
-        attributes: ["id"]
-      }],
+      include: storyInclude,
       order: [['createdAt', 'DESC']]
     })
     res.json(stories)
-    // checkForContent(res, stories)
   })
 )
+
+router.get("/stories/trending", asyncHandler(async (req, res) => {
+  let stories = await Story.findAll({
+    include: storyInclude,
+    order: sequelize.random(),
+    limit: 6,
+  })
+  res.json(stories)
+}))
 
 // TODO MIRA I just barfed this real quick, untested, haven't done includes
 // Get all stories by User Follows

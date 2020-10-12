@@ -3,49 +3,32 @@ include includes/utils
 //- .feedBody
 //- script(defer type="module" src="js/feed.js")
 link(rel='stylesheet' type='text/css' href='/styles/feed.css')
-//- .feedBody NEED 'readtime' FOR TIME TO READ ARTICLE
+
 block feedBlock
 
-  //- .bookmarkTitle #{bookmark.title}
-  //- .bookmarkAuthor #{bookmark.authorId}
+  p(style="color: lightgrey; margin: 2rem;") Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah
+  
+  p(style="color: lightgreyl margin: 2rem;") Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah Woah
+  //- .bookmarkTitle
+  //- .bookmarkAuthor
   //- .curiosityContainer
   //-     .recommendedPostsContainer
   //-         .bigRecommendedStorySection
   //-         .smallRecommendedStorySection
   //-     .usersToFollowContainer
   //-         .authorsToFollowSection
+
+  hr.divider
   .trendingStory
-    .trendingHeaderContainer: .trendingSectionHeaderTitle   TRENDING ON MEDIUM
-    .trendingPostBlock
-      .trendingPostNumberSection 01
-      .trendingPostAuthor Clayton Reinhardt
-      .trendingPostTitle Da bears
-      .trendingPostDate 29/16/2020 • <30 min read
-    .trendingPostBlock
-      .trendingPostNumberSection 02
-      .trendingPostAuthor Jasmine Lotomau
-      .trendingPostTitle The Beach
-      .trendingPostDate 29/16/2020 • <30 min read   
-    .trendingPostBlock
-      .trendingPostNumberSection 02
-      .trendingPostAuthor Jasmine Lotomau
-      .trendingPostTitle The Beach
-      .trendingPostDate 29/16/2020 • <30 min read   
-    .trendingPostBlock
-      .trendingPostNumberSection 02
-      .trendingPostAuthor Jasmine Lotomau
-      .trendingPostTitle The Beach
-      .trendingPostDate 29/16/2020 • <30 min read  
-    .trendingPostBlock
-      .trendingPostNumberSection 02
-      .trendingPostAuthor Jasmine Lotomau
-      .trendingPostTitle The Beach
-      .trendingPostDate 29/16/2020 • <30 min read  
-    .trendingPostBlock
-      .trendingPostNumberSection 02
-      .trendingPostAuthor Jasmine Lotomau
-      .trendingPostTitle The Beach
-      .trendingPostDate 29/16/2020 • <30 min read
+    .trendingHeaderContainer: .trendingSectionHeaderTitle   DISCOVER ON MEDAYUM
+    each story in trendingStories
+      .trendingPostBlock
+        .trendingPostNumberSection 0#{story.rank}
+        h2.trendingPostTitle= story.title
+        .trendingPostAuthor: +authorBlurb(story.Author)
+        .trendingPostDate.cardCreatedDate= story.createdAt
+  hr.divider
+
   //- MIRA I'm messing around and breaking stuff, ignore this for now.
   //- .feedContainer
   //-   .storyContainer
@@ -66,10 +49,11 @@ block feedBlock
       each story in stories
         .storySection
           .storyInfoDiv
-            .storyAuthorName: a(href=`${ api }/users/${story.authorId}`) #{story.Author.firstName} #{story.Author.lastName}
-            .storyLink: a(href=`/stories/${story.id}`) #{story.title}
-            .storyCreatedAt #{date} • <30min read
-            .createBookmarkButtonFeed: a(data-storyid=story.storyId).bookmarkButtonFeed
+            .storyAuthorName: +authorBlurb(story.Author)
+            a(href=`/stories/${story.id}`).storyLink #{story.title}
+            .storyCreatedAt= story.createdAt
+            +storyIcons(story)
+            //- .createBookmarkButtonFeed: a(data-storyid=story.storyId).bookmarkButtonFeed
           .storyPicDiv
             .storyImgDiv
               img(src=`/assets/stories/${story.id}-1.jpg`)
@@ -77,18 +61,6 @@ block feedBlock
       .noBookmarksForAuthor
         .bookmarkMessage        Bookmark stories for later
         .bookmarkInstructions   Start saving stories by clicking the bookmark icon and you’ll find them all here.
-      //- .bookmarkSection
-      //-     .bookmarkTitle
-      //-     .bookmarkAuthor
-      //- .bookmarkSection
-      //-     .bookmarkTitle
-      //-     .bookmarkAuthor
-      //- .bookmarkSection
-      //-     .bookmarkTitle
-      //-     .bookmarkAuthor
-      //- .bookmarkSection
-      //-     .bookmarkTitle
-      //-     .bookmarkAuthor
       //- .bookmarkSection
       //-     .bookmarkTitle
       //-     .bookmarkAuthor
