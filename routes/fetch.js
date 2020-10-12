@@ -49,7 +49,23 @@ async function getAllStoryInfo(req) {
         };
         return comment;
       });
+      let userId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID')
+      let bookmarks = await fetch(`${ api }/api/${ userId }/bookmarks`);
+      bookmarks = await bookmarks.json();
+      if (bookmarks.length) {
+        bookmarks = bookmarks.map(bookmark => {
+          bookmark = {
+            userId: bookmark.authorId,
+            storyId: bookmark.storyId
+          }
+          return bookmarks;
+        })
+      } else {
+        return false;
+      }
     }
+    //todo get array of bookmarks for user
+    //todo get array of followers for user
     const commentsCount = comments.length;
     const storyInfo = {
       storyId,
@@ -59,7 +75,8 @@ async function getAllStoryInfo(req) {
       authorInfo,
       likeCount,
       comments,
-      commentsCount
+      commentsCount,
+      bookmarks
     };
     return storyInfo;
 }
