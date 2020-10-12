@@ -51,8 +51,8 @@ async function getAllStoryInfo(req) {
       });
       let userId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID')
       let bookmarks = await fetch(`${ api }/api/${ userId }/bookmarks`);
-      bookmarks = await bookmarks.json();
-      if (bookmarks.length) {
+      if (bookmarks.statusCode === 200) {
+        bookmarks = await bookmarks.json();
         bookmarks = bookmarks.map(bookmark => {
           bookmark = {
             userId: bookmark.authorId,

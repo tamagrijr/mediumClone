@@ -128,22 +128,27 @@ frontEndRouter.get("/", asyncHandler( async(req, res) => {
     let stories = await fetch(`${api}/api/stories`);
     stories = await stories.json();
     stories = getDates(stories);
+    stories = stories.map(story => {
+      req.params.id = story.id;
+      return getAllStoryInfo(req);
+    })
     const user = await getUser(req.params.id)
     let storyInfo = await getAllStories(user);
+    let bookmarkedStories = await getBookmarkedStoriesForUser(user)
     let bookmarks = storyInfo.bookmarks;
-    let hasBookmarks;
-    if (storyInfo.bookmarks) {
+    // let hasBookmarks;
+    // if (storyInfo.bookmarks) {
  
-        hasBookmarks = 'true' 
+    //   hasBookmarks = 'true' 
         
         
-    } else {
+    // } else {
 
-      hasBookmarks = null;
+    //   hasBookmarks = null;
     
-    }
+    // }
       
-    res.render('index', { stories, storyInfo, hasBookmarks, bookmarks, api });
+    res.render('index', { stories, storyInfo, bookmarkedStories, bookmarks, api });
 
   } catch (error) {
     res.render('index')
