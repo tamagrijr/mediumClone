@@ -1,4 +1,3 @@
-import { placeholder } from "sequelize/types/lib/operators";
 import { handleErrors } from "./utils.js";
 
 const authorId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID');
