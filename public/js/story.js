@@ -49,6 +49,13 @@ commentSubmitBtn.addEventListener('click', async e => {
     });
     comment = await comment.json();
 
+    let commentCount = await fetch(`/api/stories/${ commentForm.dataset.story }/comments`);
+    commentCount = await commentCount.json();
+    commentCount = commentCount.length;
+    document.querySelectorAll('.the-comment-count')[0].innerHTML = `${ commentCount }`;
+    document.querySelectorAll('.the-comment-count')[1].innerHTML = `${ commentCount })`;
+
+
     const commentItem = document.createElement('li');
     commentItem.setAttribute('class', 'full-comment');
     commentItem.setAttribute('data-commentid', comment.id);
@@ -68,11 +75,11 @@ commentSubmitBtn.addEventListener('click', async e => {
     myCommentOptions.setAttribute('class', 'my-comment-options');
     commentContainer.appendChild(myCommentOptions);
     const myCommentEditBtn = document.createElement('button');
-    myCommentEditBtn.setAttribute('class', 'editBtn');
+    myCommentEditBtn.setAttribute('class', 'editBtn btn-primary');
     myCommentEditBtn.innerHTML = 'Edit';
     myCommentOptions.appendChild(myCommentEditBtn);
     const mmyCommentDltBtn = document.createElement('button');
-    mmyCommentDltBtn.setAttribute('class', 'dltBtn');
+    mmyCommentDltBtn.setAttribute('class', 'dltBtn btn-primary-red');
     mmyCommentDltBtn.innerHTML = 'Delete';
     myCommentOptions.appendChild(mmyCommentDltBtn);
 
@@ -115,11 +122,10 @@ commentSubmitBtn.addEventListener('click', async e => {
       const fullCommentItem = event.target.parentNode.parentNode.parentNode;
       const commentBodyEl = fullCommentItem.querySelectorAll('.comment-body')[0];
       commentBodyEl.setAttribute('contenteditable', 'true');
-      commentBodyEl.style.borderWidth = '2px';
-      commentBodyEl.style.borderStyle = 'solid';
-      commentBodyEl.style.borderColor = '#393D3F';
+      commentBodyEl.style.border = '2px solid #0596FF';
       commentBodyEl.style.borderRadius = '0.25em';
-      commentBodyEl.style.backgroundColor = '#C0C0C0';
+      commentBodyEl.style.backgroundColor = 'rgba(4, 150, 255, 0.2)';
+      commentBodyEl.style.padding = '3px';
       const submitNewCommentBtn = document.createElement('button');
       submitNewCommentBtn.innerHTML = 'Submit Edit';
       myCommentOptions.insertBefore(submitNewCommentBtn, myCommentEditBtn);
@@ -152,12 +158,20 @@ commentSubmitBtn.addEventListener('click', async e => {
   }
 });
 
+// create a new comment - active form
 document.getElementById('comment').addEventListener('click', e => {
+  let commentArea = document.querySelector('.my-original-comment');
+  commentArea.style.backgroundColor = '#F4FAFF';
+  commentArea.style.border = '2px solid #0496FF';
+  commentArea.style.borderRadius = '5px';
+  commentArea.style.height = '5em';
+  commentArea.style.padding = '3px';
+  commentArea.style.resize = 'none';
   document.getElementById('submitComment').style.display = 'inline-block';
   userNameDisplay.style.display = 'inline-block';
-  userNameDisplay.style.alignSelf = 'center';
+  userNameDisplay.style.verticalAlign = 'center';
   document.getElementById('commenting-person-head').style.display = 'inline-block';
-  document.getElementById('curentCommentingUserDisplay').style.display = 'inline-block';
+  // document.getElementById('curentCommentingUserDisplay').style.display = 'inline-block';
 });
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -192,7 +206,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         submitNewCommentBtn.addEventListener('click', async event => {
           let newCommentBody = commentBodyEl.innerHTML;
           commentBodyEl.style.border = 'none';
-          commentBodyEl.style.backgroundColor = 'none';
+          commentBodyEl.style.backgroundColor = 'transparent';
           await fetch(`/api/comments/${ fullCommentItem.dataset.commentid }`, {
             method: 'PATCH',
             body: JSON.stringify({ body: newCommentBody }),
@@ -232,6 +246,18 @@ document.querySelectorAll('.bkmrk').forEach(bkmrk => {
     }
   });
 });
+
+document.querySelectorAll('.editBtn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    const fullCommentItem = e.target.parentNode.parentNode.parentNode;
+    const commentBodyEl = fullCommentItem.querySelectorAll('.comment-body')[0];
+    commentBodyEl.setAttribute('contenteditable', 'true');
+    commentBodyEl.style.border = '2px solid rgba(4, 150, 255, 0.7)';
+    commentBodyEl.style.borderRadius = '0.25em';
+    commentBodyEl.style.backgroundColor = 'rgba(4, 150, 255, 0.1)';
+    commentBodyEl.style.padding = '3px';
+  })
+})
 
 // document.querySelectorAll('.follow-button').forEach(btn => {
 //   btn.addEventListener('click', async () => {
