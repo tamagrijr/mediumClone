@@ -61,8 +61,18 @@ article.story-container {
   grid-area: bottomOps;
 }
 
-.bookmark-top {
+.bookmark-wing {
+  display: grid;
   grid-area: bookmark;
+  grid-template-areas:
+    ". . . bkmrk . ."
+    ". . . bkmrk . .";
+}
+
+.bookmark-top {
+  align-self: start;
+  grid-area: bkmrk;
+  justify-self: start;
 }
 
 .sm-icon {
@@ -91,8 +101,12 @@ article.story-container {
 }
 
 .story-image {
+  border-radius: 10px;
   grid-area: img;
-  max-width: 100%;
+  justify-self: center;
+  object-fit: cover;
+  width: 80%;
+  max-height: 600px;
 }
 
 .story-body {
