@@ -23,33 +23,35 @@ article.story-container {
 .story-author-info-top {
   grid-area: author;
   display: grid;
-  grid-gap: 5px;
+  grid-column-gap: 20px;
   grid-template-areas:
-    "img img name name follow follow"
-    "img img date date follow follow";
+    "img name follow"
+    "img date follow";
   grid-template-rows: 1fr 1fr 0.5fr 1fr;
 }
 
 .top-author-img {
   align-self: center;
   grid-area: img;
+  justify-self: end;
 }
 
 .top-author-name {
   align-self: end;
   grid-area: name;
-  justify-self: center;
+  justify-self: start;
 }
 
 .top-story-date {
   align-self: start;
   grid-area: date;
-  justify-self: center;
+  justify-self: start;
 }
 
 .top-author-follow {
   align-self: center;
   grid-area: follow;
+  justify-self: start;
 }
 
 .below-body-options {
@@ -155,6 +157,23 @@ img.author-below-item.md-icon {
   color: white;
 }
 
+.btn-primary-inverted {
+  margin: .5em;
+  font-weight: 700;
+  background-color:  #0496FF;
+  border-radius: .3em;
+  text-align: center;
+  padding: .3em;
+  border-color: white;
+  border-width: .1em;
+  color: white;
+}
+
+.btn-primary-inverted:hover {
+  background-color: white;
+  color: #0496FF;
+}
+
 .btn-primary-red {
   margin: .5em;
   font-weight: 700;
@@ -194,20 +213,26 @@ img.author-below-item.md-icon {
   margin-bottom: 5px;
 }
 
+.clickable-icon {
+  cursor: pointer;
+}
+
 #comment {
   border: 2px solid #393D3F;
   border-radius: 5px;
   background-color: #F4FAFF;
   height: 2em;
   padding: 3px;
+  resize: none;
 }
 
-#comment.editing {
+.comment-focus {
   background-color: #F4FAFF;
   border: 2px solid #0496FF;
   border-radius: 5px;
   height: 5em;
   padding: 3px;
+  resize: none;
 }
 
 #commentForm {
@@ -228,7 +253,7 @@ img.author-below-item.md-icon {
 .full-comment {
   background-color: #E4EAEF;
   border-radius: 10px;
-  margin: 10px;
+  margin: 10px 10px 10px -10%;
   padding: 10px;
 }
 
@@ -237,21 +262,44 @@ img.author-below-item.md-icon {
   display: grid;
   grid-gap: 5px;
   grid-template-rows: 1.5em auto 1.5em;
+  list-style-type: none;
   margin-bottom: 10px;
   position: relative;
 }
 
 .comments-bar {
-  bottom: 0%;
+  background-color: rgba(4, 150, 255, 0.2);
+  border-radius: 10px;
   overflow-y: scroll;
+  padding: 10px;
   position: fixed;
   left: 75%;
   top: 50px;
   width: 25%;
 }
 
+#curentCommentingUserDisplay {
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+}
+
 #comment-bar-header {
   align-items: center;
   display: flex;
   justify-content: space-between;
+}
+
+#commentList {
+  display: flex;
+  /* justify-self: center; */
+  flex-direction: column;
+  list-style-type: none;
+}
+
+.commenting-user,
+.comment-body,
+.comment-time,
+.my-comment-options {
+  margin-left: -15%;
 }
