@@ -43,16 +43,28 @@ if (logged) {
 }
 })
 
-document.addEventListener('DOMContentLoaded', async (e) => {
+// document.addEventListener('DOMContentLoaded', async (e) => {
   const signUpInputs = document.querySelectorAll('.signUpInput');
   signUpInputs.forEach(data => {
       let placeholderVal;
       data.addEventListener('click', (e) => {
           placeholderVal = e.target.getAttribute('placeholder')
-          e.target.removeAttribute('placeholder');
+          if (e.target.value) {
+            e.target.value = '';
+          } else if(placeholderVal !== '') {
+            e.target.removeAttribute('placeholder');
+          } 
       })
     })
+  const loginEmailInput = document.querySelector('input.emailLogIn')
+  const loginPasswordInput = document.querySelector('input.passwordLogIn')
+  const logInInputs = [ loginEmailInput, loginPasswordInput ];
+  logInInputs.forEach(logInput => {
+    logInput.addEventListener('click', (e) => {
+      e.target.removeAttribute('placeholder');
+    })
   })
+  // })
 
   // })
 // signUpInputs.forEach(data => {
