@@ -1,3 +1,5 @@
+const e = require("express");
+
 const commentSubmitBtn = document.getElementById('submitComment');
 const commentForm = document.getElementById('commentForm');
 const commentList = document.getElementById('commentList');
@@ -5,22 +7,30 @@ const commentText = document.getElementById('comment');
 const currentUser = localStorage.MEDIUM_CURRENT_USER_ID;
 const userNameDisplay = document.getElementById('currentUserName');
 
-
+//display current user's name on the comment form
 async function displayCurrentName() {
   let currentUserName = await fetch(`/api/users/${ currentUser }`);
   currentUserName = await currentUserName.json();
   let { firstName, lastName } = currentUserName;
   userNameDisplay.innerHTML = `${ firstName } ${ lastName }`;
 }
-
 displayCurrentName();
+
+//close comments bar
+document.querySelector('.close-comments-btn').addEventListener('click', () => {
+  document.querySelector('.comments-bar').style.display = 'none';
+});
+
+document.addEventListener('click', () => {
+  if (e.target.contains(document.querySelector('.editBtn'))) {
+    document.querySelector('.comments-bar').style.display = 'none';
+  }
+})
 
 commentSubmitBtn.addEventListener('click', async e => {
   e.preventDefault();
-
   const formData = new FormData(commentForm);
   const commentData = formData.get('comment');
-
   try {
     let comment = await fetch(`/api/stories/${ commentForm.dataset.story }/comments`, {
       method: 'POST',
@@ -58,6 +68,7 @@ commentSubmitBtn.addEventListener('click', async e => {
     mmyCommentDltBtn.innerHTML = 'Delete';
     myCommentOptions.appendChild(mmyCommentDltBtn);
 
+    //options for comments (edit/delete) show and dissappear
     myCommentOptions.style.display = 'none';
     commentContainer.addEventListener('mouseover', () => {
       myCommentOptions.style.display = 'block';

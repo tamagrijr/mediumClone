@@ -43,7 +43,7 @@ block content
     .comments-bar
       span(id="comment-bar-header")
         h2 Comments (#{ storyInfo.commentsCount })
-        img(class="md-icon" alt="close comments" src="/icons/close_icon.svg")
+        img(class="md-icon close-comments-btn" alt="close comments" src="/icons/close_icon.svg")
       form(method="post" action="/comments" id="commentForm" data-story=storyInfo.storyId)
         span(id="curentCommentingUserDisplay")
           img(class="sm-icon" src="/icons/avatar (1).svg")

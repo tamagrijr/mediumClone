@@ -245,7 +245,7 @@ img.author-below-item.md-icon {
   bottom: 0%;
   overflow-y: scroll;
   position: fixed;
-  right: 0px;
+  left: 75%;
   top: 50px;
   width: 25%;
 }
