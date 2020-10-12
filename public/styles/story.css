@@ -92,7 +92,7 @@ article.story-container {
 
 .story-image {
   grid-area: img;
-  max-width: 100%;
+  max-width: 80%;
 }
 
 .story-body {
