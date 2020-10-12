@@ -3,14 +3,32 @@ const commentForm = document.getElementById('commentForm');
 const commentList = document.getElementById('commentList');
 const commentText = document.getElementById('comment');
 const currentUser = localStorage.MEDIUM_CURRENT_USER_ID;
+const userNameDisplay = document.getElementById('currentUserName');
 
+//display current user's name on the comment form
+async function displayCurrentName() {
+  let currentUserName = await fetch(`/api/users/${ currentUser }`);
+  currentUserName = await currentUserName.json();
+  let { firstName, lastName } = currentUserName;
+  userNameDisplay.innerHTML = `${ firstName } ${ lastName }`;
+}
+displayCurrentName();
+
+//close comments bar
+document.querySelector('.close-comments-btn').addEventListener('click', () => {
+  document.querySelector('.comments-bar').style.display = 'none';
+});
+
+document.addEventListener('click', () => {
+  if (e.target.contains(document.querySelector('.editBtn'))) {
+    document.querySelector('.comments-bar').style.display = 'none';
+  }
+})
 
 commentSubmitBtn.addEventListener('click', async e => {
   e.preventDefault();
-
   const formData = new FormData(commentForm);
   const commentData = formData.get('comment');
-
   try {
     let comment = await fetch(`/api/stories/${ commentForm.dataset.story }/comments`, {
       method: 'POST',
@@ -21,16 +39,6 @@ commentSubmitBtn.addEventListener('click', async e => {
     });
     comment = await comment.json();
 
-    // li(class= "full-comment") => commentItem
-    //   ul(class= "comment-ul") => commentContainer
-    //     li(class= "commenting-user") => commentingUser = fn ln
-    //     li(class= "comment-body") => commentBody = comment text
-    //     li(class= "comment-time") => commentTime = Oct 10, 9:17 AM
-    //     li(class= "my-comment-options")
-    //       button(class="Edit") Edit
-    //       button(class="Delete") Edit
-
-    // img(src="/icons/avatar (1).svg")
     const commentItem = document.createElement('li');
     commentItem.setAttribute('class', 'full-comment');
     commentItem.setAttribute('data-commentid', comment.id);
@@ -58,6 +66,7 @@ commentSubmitBtn.addEventListener('click', async e => {
     mmyCommentDltBtn.innerHTML = 'Delete';
     myCommentOptions.appendChild(mmyCommentDltBtn);
 
+    //options for comments (edit/delete) show and dissappear
     myCommentOptions.style.display = 'none';
     commentContainer.addEventListener('mouseover', () => {
       myCommentOptions.style.display = 'block';
@@ -74,6 +83,7 @@ commentSubmitBtn.addEventListener('click', async e => {
     let commentingUserName = document.createElement('span');
     let commentingUserImg = document.createElement('img');
     commentingUserImg.setAttribute('src', '/icons/avatar (1).svg');
+    commentingUserImg.setAttribute('class', 'sm-icon');
     commentingUser.appendChild(commentingUserImg);
     commentingUserName.innerHTML = `${ user.firstName } ${ user.lastName }`;
     commentingUser.appendChild(commentingUserName);
@@ -132,32 +142,25 @@ commentSubmitBtn.addEventListener('click', async e => {
   }
 });
 
+document.getElementById('comment').addEventListener('click', e => {
+  e.target.classList.add('editing');
+  document.getElementById('submitComment').style.display = 'inline-block';
+  document.getElementById('curentCommentingUserDisplay').style.display = 'inline-block';
+});
+
 window.addEventListener('DOMContentLoaded', async () => {
-  // let follows = await fetch(`/api/users/${ currentUser }/follows`);
-  // follows = await follows.json();
-  // console.log(follows);
-  // follows.map(f => f.Following.id );
-  // document.querySelectorAll('.follow-button').forEach(btn => {
-  //   if (follows.includes(btn.dataset.author)) {
-  //     console.log('You are already following this user')
-  //     btn.innerHTML = 'Unfollow';
-  //   } else {
-  //     console.log('You are not following this user');
-  //     btn.innerHTML = 'Follow';
-  //   }
-  // });
   const eachComment = document.querySelectorAll('.full-comment');
-  // const editButtons = document.querySelectorAll('.editBtn');
-  // const deleteButtons = document.querySelectorAll('.dltBtn');
   eachComment.forEach(async comment => {
     const commentOptions = comment.querySelectorAll('.my-comment-options')[0];
     commentOptions.style.display = 'none';
     comment.addEventListener('mouseover', () => {
       if (comment.dataset.user === currentUser) {
+        commentOptions.parentNode.style.gridTemplateRows = 'repeat(4, 1.5em)';
         commentOptions.style.display = 'block';
       }
     });
     comment.addEventListener('mouseout', () => {
+      commentOptions.parentNode.style.gridTemplateRows = 'repeat(3, 1.5em)';
       commentOptions.style.display = 'none';
     })
     if (comment.dataset.user === currentUser) {
@@ -168,13 +171,10 @@ window.addEventListener('DOMContentLoaded', async () => {
         const fullCommentItem = event.target.parentNode.parentNode.parentNode;
         const commentBodyEl = fullCommentItem.querySelectorAll('.comment-body')[0];
         commentBodyEl.setAttribute('contenteditable', 'true');
-        commentBodyEl.style.borderWidth = '2px';
-        commentBodyEl.style.borderStyle = 'solid';
-        commentBodyEl.style.borderColor = '#0496FF';
-        commentBodyEl.style.borderRadius = '0.25em';
-        commentBodyEl.style.backgroundColor = '#C0C0C0';
+        commentBodyEl.classList.add('editing');
         const submitNewCommentBtn = document.createElement('button');
         submitNewCommentBtn.innerHTML = 'Submit Edit';
+        submitNewCommentBtn.classList.add('btn-primary');
         myCommentOptions.insertBefore(submitNewCommentBtn, editButton);
         myCommentOptions.removeChild(editButton);
         submitNewCommentBtn.addEventListener('click', async event => {
