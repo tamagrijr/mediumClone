@@ -6,12 +6,12 @@ block logIn
     .logHeader
       a.button.closeForm X
     h2 Log In
-    div(class='errors-container')
-    form(class="logInForm")
+    .errors-container
+    form(class="logInForm").modalForm
       input(type="hidden" name="_csrf" value=csrfToken)
-      input(name='email' class='emailLogIn' type='email' placeholder='Enter Email' required)
-      input(name='password' class='passwordLogIn' type='password' placeholder='Enter Password' required)
-      button.btn.btn-primary(type='submit') Log In
+      input(name='email' class='emailLogIn' type='email' placeholder='Enter Email' required).modalInput
+      input(name='password' class='passwordLogIn' type='password' placeholder='Enter Password' required).modalInput
+      button.btn.btn-primary(type='submit').modalInput Log In
     //- button.demo.btn.btn-primary(type='submit') Demo Login
     p Don't have an account?
       a.swapToSignUp  Sign up here.
