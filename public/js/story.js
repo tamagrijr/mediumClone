@@ -13,17 +13,27 @@ async function displayCurrentName() {
   userNameDisplay.innerHTML = `${ firstName } ${ lastName }`;
 }
 displayCurrentName();
-
-//close comments bar
+// hide comments bar from start
+document.querySelector('.comments-bar').style.display = 'none';
+// close comments bar
 document.querySelector('.close-comments-btn').addEventListener('click', () => {
+  // hide comments bar
   document.querySelector('.comments-bar').style.display = 'none';
+  // hide submit comment button
+  document.getElementById('submitComment').style.display = 'none';
+  // hide user's name on comment form
+  userNameDisplay.style.display = 'none';
+  // hide user's avatar on comment form
+  document.getElementById('commenting-person-head').style.display = 'none';
 });
 
-document.addEventListener('click', () => {
-  if (e.target.contains(document.querySelector('.editBtn'))) {
-    document.querySelector('.comments-bar').style.display = 'none';
-  }
-})
+// open the comments bar when you click on a comments icon
+document.querySelectorAll('.comment-show').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelector('.comments-bar').style.maxHeight = window.innerHeight - 300;
+    document.querySelector('.comments-bar').style.display = 'block';
+  });
+});
 
 commentSubmitBtn.addEventListener('click', async e => {
   e.preventDefault();
@@ -143,8 +153,10 @@ commentSubmitBtn.addEventListener('click', async e => {
 });
 
 document.getElementById('comment').addEventListener('click', e => {
-  e.target.classList.add('editing');
   document.getElementById('submitComment').style.display = 'inline-block';
+  userNameDisplay.style.display = 'inline-block';
+  userNameDisplay.style.alignSelf = 'center';
+  document.getElementById('commenting-person-head').style.display = 'inline-block';
   document.getElementById('curentCommentingUserDisplay').style.display = 'inline-block';
 });
 
@@ -180,7 +192,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         submitNewCommentBtn.addEventListener('click', async event => {
           let newCommentBody = commentBodyEl.innerHTML;
           commentBodyEl.style.border = 'none';
-          commentBodyEl.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+          commentBodyEl.style.backgroundColor = 'none';
           await fetch(`/api/comments/${ fullCommentItem.dataset.commentid }`, {
             method: 'PATCH',
             body: JSON.stringify({ body: newCommentBody }),

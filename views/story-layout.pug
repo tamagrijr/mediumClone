@@ -18,10 +18,12 @@ block content
       .story-body= storyInfo.body
 
       div(class="below-body-options")
-        img(class="sm-icon" src="/icons/heart.svg")
-        span(class="bottom-option-span") #{ storyInfo.likeCount } Likes
-        img(class="sm-icon" src="/icons/chat.svg")
-        span(class="bottom-option-span") #{ storyInfo.commentsCount } Comments
+        .likes-on-side
+          img(class="sm-icon" src="/icons/heart.svg")
+          span(class="bottom-option-span") #{ storyInfo.likeCount } Likes
+        .comments-on-side.comment-show
+          img(class="sm-icon" src="/icons/chat.svg")
+          span(class="bottom-option-span") #{ storyInfo.commentsCount } Comments
 
       div(class="author-below-body")
         img(class="author-below-item md-icon" src="/icons/avatar (1).svg" alt=`Author ${ storyInfo.authorInfo.authorFN } ${ storyInfo.authorInfo.authorLN }`)
@@ -34,7 +36,7 @@ block content
       span(class="flex-opt double")
         img(class="sm-icon" src="/icons/heart.svg")
         span(class="count")= storyInfo.likeCount
-      span(class="flex-opt double")
+      span(class="flex-opt double comment-show")
         img(class="sm-icon" src="/icons/chat.svg")
         span(class="count")= storyInfo.commentsCount
       img(class="bkmrk sm-icon flex-opt" src="/icons/bookmark.svg")
@@ -46,7 +48,7 @@ block content
         img(class="md-icon close-comments-btn" alt="close comments" src="/icons/close_icon.svg")
       form(method="post" action="/comments" id="commentForm" data-story=storyInfo.storyId)
         span(id="curentCommentingUserDisplay")
-          img(class="sm-icon" src="/icons/avatar (1).svg")
+          img(class="sm-icon" id="commenting-person-head" src="/icons/avatar (1).svg")
           span(id="currentUserName")
         textarea(id="comment" name="comment" placeholder="Tell us what you think...")
         button(type="submit" id="submitComment" class="btn-primary") Submit Comment

@@ -202,7 +202,7 @@ img.author-below-item.md-icon {
   padding: 3px;
 }
 
-#comment.editing {
+#comment:focus {
   background-color: #F4FAFF;
   border: 2px solid #0496FF;
   border-radius: 5px;
@@ -228,7 +228,7 @@ img.author-below-item.md-icon {
 .full-comment {
   background-color: #E4EAEF;
   border-radius: 10px;
-  margin: 10px;
+  margin: 10px 10px 10px -15%;
   padding: 10px;
 }
 
@@ -237,21 +237,44 @@ img.author-below-item.md-icon {
   display: grid;
   grid-gap: 5px;
   grid-template-rows: 1.5em auto 1.5em;
+  list-style-type: none;
   margin-bottom: 10px;
   position: relative;
 }
 
 .comments-bar {
-  bottom: 0%;
+  background-color: rgba(4, 150, 255, 0.2);
+  border-radius: 10px;
   overflow-y: scroll;
+  padding: 10px;
   position: fixed;
   left: 75%;
   top: 50px;
   width: 25%;
 }
 
+#curentCommentingUserDisplay {
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+}
+
 #comment-bar-header {
   align-items: center;
   display: flex;
   justify-content: space-between;
+}
+
+#commentList {
+  display: flex;
+  /* justify-self: center; */
+  flex-direction: column;
+  list-style-type: none;
+}
+
+.commenting-user,
+.comment-body,
+.comment-time,
+.my-comment-options {
+  margin-left: -20%;
 }
