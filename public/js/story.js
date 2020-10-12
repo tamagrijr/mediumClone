@@ -1,5 +1,3 @@
-const e = require("express");
-
 const commentSubmitBtn = document.getElementById('submitComment');
 const commentForm = document.getElementById('commentForm');
 const commentList = document.getElementById('commentList');
