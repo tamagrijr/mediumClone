@@ -13,15 +13,15 @@ html(lang='en')
       nav.topnav.navbar-default.topNavStyles
         .leftNav
           h1.logo: a(href="/") MeDaYum
-          //- p.greetingTag
+          p.greetingTag
         ul.main-nav
           li.demoLogIn.hidden: a.button.demo#demoLink Demo Login
           li.signInButton: a.button#signInButton.signInBanner Login
           li.signUpButton: a.button#signUpButton.signUpBanner Sign up
           li.publishStory.hidden: a.button#publishStoryButton Publish
-          p.greetingTag
+          //- p.greetingTag
           li.dropdown
-          
+
             .dropdown-container.button.dropdown-toggle
               a.button.dropdown-toggle: .navAv
                 img(src=`/assets/av/1.jpg`)
@@ -29,9 +29,9 @@ html(lang='en')
                 li: a.button#profileButton Profile
                 li: a.button#createStoryButton Write
                 li: a.button#logoutButton Log out
-                
+
     block content
-    
+
     footer.mainFooter.splashFooter.hidden
       h2.logo: a(href="/").footerLogo M
       p The place to get the latest Yum. We can put credits and stuff here for icons, pictures, ourselves, and what have yous.
