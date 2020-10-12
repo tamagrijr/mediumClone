@@ -27,10 +27,10 @@ async function getAllStoryInfo(req) {
       authorLN: author.lastName
     };
     let likes = await fetch(`${ api }/api/stories/${ storyId }/likes`);
-    if (likes.statusCode === 200) {
-      likes = await likes.json();
-    } else {
+    if (!likes.ok) {
       likes = [];
+    } else {
+      likes = await likes.json();
     }
     const likeCount = likes.length;
     let comments = await fetch(`${ api }/api/stories/${ storyId }/comments`);

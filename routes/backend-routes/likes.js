@@ -78,7 +78,7 @@ router.post(
       res.status(204).end()
     } else {
       const createdLike = await Like.create(newLike);
-      res.json(createdLike);
+      res.status(200).json(createdLike);
     }
   })
 );
