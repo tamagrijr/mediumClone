@@ -43,17 +43,41 @@ if (logged) {
 }
 })
 
-logoutButton.addEventListener('click', (e) => {
-  localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
-  localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
-  window.location.href = "/";
-})
-profileButton.addEventListener('click', e => {
-  window.location.href = `/users/${userId}`
-})
-writeStoryButton.addEventListener('click', e => {
-  window.location.href = '/create'
-})
-dropdownButton.addEventListener('click', e => {
-  dropdownDiv.classList.toggle('clickedDropdownMenu')
+document.addEventListener('DOMContentLoaded', async (e) => {
+  const signUpInputs = document.querySelectorAll('.signUpInput');
+  signUpInputs.forEach(data => {
+      let placeholderVal;
+      data.addEventListener('click', (e) => {
+          placeholderVal = e.target.getAttribute('placeholder')
+          e.target.removeAttribute('placeholder');
+      })
+    })
+  })
+
+  // })
+// signUpInputs.forEach(data => {
+//   let placeholderVal;
+//   data.addEventListener('focus', (e) => {
+//     placeholderVal = e.target.getAttribute('placeholder');
+//     e.target.setAttribute('placeholder', '');
+//     })
+//     data.addEventListener('blur', (e) => {
+//       e.target.setAttribute('placeholder', placeholderVal);
+//     })
+  
+// signUpInputs
+
+  logoutButton.addEventListener('click', (e) => {
+    localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
+    localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
+    window.location.href = "/";
+    })
+  profileButton.addEventListener('click', e => {
+    window.location.href = `/users/${userId}`
+  })
+  writeStoryButton.addEventListener('click', e => {
+    window.location.href = '/create'
+  })
+  dropdownButton.addEventListener('click', e => {
+    dropdownDiv.classList.toggle('clickedDropdownMenu')
 })

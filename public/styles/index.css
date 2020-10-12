@@ -30,6 +30,12 @@
   flex-direction: column;
   align-items: center;
 }
+h2.sign-up-h2 {
+  font-size: xx-large;
+  text-shadow: .3rem .3rem 3rem #0496FF;
+  opacity: 75%;
+  color: black;
+}
 
 /* STYLING FOR THE SPLASH */
 #signUpBanner {
@@ -121,7 +127,7 @@
   text-align: center;
   padding: .3em;
   border-color: #0496FF;
-  border-width: .1em;
+  border-width: .12rem;
   color: #0496FF;
 }
 .btn-primary:hover {
@@ -137,8 +143,11 @@
   padding: .3em;
   margin: .1em;
 }
+.signUpInput:hover {
+  border: .2rem solid #0496FF;
+}
 .emailLogIn::placeholder{
-  color: #0496FF;
+  color: lightgrey;
 }
 .passwordLogIn {
   font-weight: 700;
@@ -150,18 +159,21 @@
   margin: .1em;
 }
 .passwordLogIn::placeholder{
-  color: #0496FF;
+  color: lightgrey;
 }
 .signUpInput {
   font-weight: 700;
   border-radius: .3em;
   text-align: center;
-  border-color: #0496FF;
+  border-color: lightgrey;
   border-width: .1em;
   padding: .3em;
   margin: .1em;
 }
 .signUpInput::placeholder {
+  color: lightgrey;
+}
+.signUpInput::placeholder.activeInput {
   color: #0496FF;
 }
 a.swapToSignUp {
