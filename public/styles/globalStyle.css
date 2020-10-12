@@ -75,7 +75,7 @@ button {
   background-image: url("/icons/heart.svg")
 }
 .likeIcon:hover {
-  background-image: url("/icons/heart-h.svg")
+  background-image: url("/icons/heart_red.svg")
 }
 .commentIcon {
   background-image: url("/icons/chat.svg")
