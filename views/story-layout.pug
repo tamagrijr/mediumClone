@@ -19,7 +19,7 @@ block content
 
       div(class="below-body-options")
         .likes-on-side.clickable-icon
-          img(class="sm-icon i-like-this" src="/icons/heart.svg" data-storyid=storyInfo.storyId)
+          img(class="sm-icon i-like-this" src="/icons/heart.svg" data-storyid=storyInfo.storyId data-likes=storyInfo.likes)
           span(class="bottom-option-span") #{ storyInfo.likeCount } Likes
         .comments-on-side.comment-show.clickable-icon
           if storyInfo.commentsCount > 0
@@ -37,7 +37,7 @@ block content
       span #{ storyInfo.authorInfo.authorFN } #{ storyInfo.authorInfo.authorLN }
       button(class="follow-button btn-primary" data-author=storyInfo.authorInfo.authorId) Follow
       span(class="flex-opt double clickable-icon")
-        img(class="sm-icon i-like-this" src="/icons/heart.svg" data-storyid=storyInfo.storyId)
+        img(class="sm-icon i-like-this" src="/icons/heart.svg" data-storyid=storyInfo.storyId data-likes=storyInfo.likes)
         span(class="count")= storyInfo.likeCount
       span(class="flex-opt double comment-show clickable-icon")
         if storyInfo.commentsCount > 0

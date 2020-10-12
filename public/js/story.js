@@ -230,6 +230,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 });
 
+// BOOKMARKS =====================================================================
+
 document.querySelectorAll('.bkmrk').forEach(bkmrk => {
   bkmrk.addEventListener('click', e => {
     if (e.target.classList.contains('bookmarked')) {
@@ -245,6 +247,7 @@ document.querySelectorAll('.bkmrk').forEach(bkmrk => {
     }
   });
 });
+// ===============================================================================
 
 document.querySelectorAll('.editBtn').forEach(btn => {
   btn.addEventListener('click', e => {
@@ -260,40 +263,56 @@ document.querySelectorAll('.editBtn').forEach(btn => {
 
 
 // LIKES =========================================================================
-window.addEventListener('DOMContentLoaded', async () => {
-  let likes = await fetch(`/api/stories/${ document.querySelectorAll('.i-like-this')[0].dataset.storyid }/likes`);
-  if (!likes.ok) {
-    likes = [];
-  } else {
-    likes = await likes.json();
-    likes = likes.map(like => {
-      return like.userId;
-    });
-  }
-  if (likes.includes(currentUser)) {
+let isLiked = false;
+function checkForLikes() {
+  isLiked = !!document.querySelectorAll('.i-like-this')[0].filter(like => like.userId === currentUser);
+  if (isLiked) {
     document.querySelectorAll('.i-like-this').forEach(btn => {
       btn.setAttribute('src', '/icons/heart_red.svg');
     });
+  } else {
+    document.querySelectorAll('.i-like-this').forEach(btn => {
+      btn.setAttribute('src', '/icons/heart.svg');
+    });
   }
-  document.querySelectorAll('.i-like-this').forEach(async likeBtn => {
-    likeBtn.addEventListener('click', async e => {
-      let like = await fetch(`/api/stories/${ likeBtn.dataset.storyid }/likes`, {
-        method: 'POST',
-        body: JSON.stringify({ userId: currentUser }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!likes.ok) {
-        document.querySelectorAll('.i-like-this').forEach(btn => {
-          btn.setAttribute('src', '/icons/heart.svg');
-        });
-      } else {
-        document.querySelectorAll('.i-like-this').forEach(btn => {
-          btn.setAttribute('src', '/icons/heart_red.svg');
-        });
+  // let likes = await fetch(`/api/stories/${ document.querySelectorAll('.i-like-this')[0].dataset.storyid }/likes`);
+  // if (!likes.ok) {
+  //   likes = [];
+  // } else {
+  //   likes = await likes.json();
+  //   likes = likes.map(like => {
+  //     return like.userId;
+  //   });
+  // }
+  // if (likes.includes(currentUser)) {
+  //   document.querySelectorAll('.i-like-this').forEach(btn => {
+  //     btn.setAttribute('src', '/icons/heart_red.svg');
+  //   });
+  // }
+}
+checkForLikes();
+document.querySelectorAll('.i-like-this').forEach(async likeBtn => {
+  likeBtn.addEventListener('click', async e => {
+    let like = await fetch(`/api/stories/${ likeBtn.dataset.storyid }/likes`, {
+      method: 'POST',
+      body: JSON.stringify({ userId: currentUser }),
+      headers: {
+        'Content-Type': 'application/json'
       }
     });
+    if (!likes.ok) {
+      document.querySelectorAll('.i-like-this').forEach(btn => {
+        btn.setAttribute('src', '/icons/heart.svg');
+      });
+    } else {
+      document.querySelectorAll('.i-like-this').forEach(btn => {
+        btn.setAttribute('src', '/icons/heart_red.svg');
+      });
+    }
   });
 });
+// ===============================================================================
+
+// FOLLOWS =======================================================================
+// TODO: Set up follow functionality
 // ===============================================================================
