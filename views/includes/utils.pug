@@ -19,9 +19,10 @@ mixin splashTag(icon, title, storyId)
 //- MIRA Mixins
 mixin userCard(user)
   .userCard
-    h3.userName #{user.firstName} #{user.lastName}
-    button.btnIconic.btnFollow Follow
     img(src=`/assets/av/${user.id}.jpg` alt=`${user.firstName} ${user.lastName}`).userCardAv
+    .userCardInfo
+      h3.userName #{user.firstName} #{user.lastName}
+      button.btnIconic.btnFollow Follow
 
 
 mixin storyCardFull(story)
@@ -45,9 +46,11 @@ mixin storyIcons(story)
       div.storyIcon.bookmarkIcon
 
 mixin storyCardMini(story)
-  h4= story.title
-  a(href=`/users/${story.authorId}`)= story.Author.fullName
-  +storyIcons
+  .storyCardMini
+    h4.cardTitleMini= story.title
+    +authorBlurb(story.Author)
+    br
+    +storyIcons(story)
 
 mixin authorBlurb(author)
   .authorBlurb

@@ -3,11 +3,11 @@ include includes/utils
 
 block userTabContent
   ul.profileFeed
+    h2.tabTitle #{user.firstName} #{user.lastName}'s Comments
     each comment in userComments
-      li.commentCard
-        h3.prFeed= comment.Story.title
-        p #{comment.Story.Author.firstName} #{comment.Story.Author.lastName}
-        //- +storyCardMini(comment.story)
-        //- +authorDate
-        p= comment.createdAt
-        p "#{comment.body}"
+      li.commentCard.card
+        +storyCardMini(comment.Story)
+        p.cardCreatedDate= comment.createdAt
+        p.commentBody "#{comment.body}"
+          
+        +authorBlurb(user)

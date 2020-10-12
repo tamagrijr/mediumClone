@@ -9,24 +9,29 @@ block content
     heading.pr-userInfo
       #userContainer 
         h2#profileName #{user.firstName} #{user.lastName}
-        button.btnIconic Follow
+        button.btnFollow.btnBig.btnIconic Follow
+        span.followCount
+          a(href=`/users/${user.id}/follows#content`) Following
+          span.followCount | 
+          a(href=`/users/${user.id}/followers#content`) Followers
       //- span.user-description #{user.description}
       p#joinDate MeDaYum member since #{user.createdAt}.
 
       #userAvContainer
         img(src=`/assets/av/1.jpg` alt=`${user.firstName} ${user.lastName}`).userAv
 
-      //- .follows
+      .follows 
       //- #{userFollows.length} Following | #{userFollowers.length} Followers
       //- button Edit Profile
 
     nav.userCollections
       ul.profileTabs
         li.storyTab: a(href=`/users/${user.id}`) Stories
-        li.commentTab: a(href=`/users/${user.id}/comments`) Comments
+        li.bookmarkTab: a(href=`/users/${user.id}/bookmarks`) Bookmarks
         li.likeTab: a(href=`/users/${user.id}/likes`) Likes
+        li.commentTab: a(href=`/users/${user.id}/comments`) Comments
         li.followTab: a(href=`/users/${user.id}/follows`) Follows
         li.followerTab: a(href=`/users/${user.id}/followers`) Followers
-        li.bookmarkTab: a(href=`/users/${user.id}/bookmarks`) Bookmarks
 
+    #content
     block userTabContent

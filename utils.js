@@ -1,5 +1,5 @@
 const { validationResult } = require("express-validator")
-const { User, Story, Comment } = require("./db/models")
+const { User, Story, Comment, Like } = require("./db/models")
 
 
 function asyncHandler(handler) {
@@ -63,6 +63,18 @@ function checkForContent(res, content) {
   res.json(content)
 }
 
+const storyInclude = [{
+  model: User,
+  as: "Author",
+  attributes: ["id", "firstName", "lastName"]
+}, {
+  model: Comment,
+  attributes: ["id"],
+}, {
+  model: Like,
+  attributes: ["id"]
+}]
+
 module.exports = {
   asyncHandler,
   handleValidationErrors,
@@ -71,5 +83,6 @@ module.exports = {
   checkForStory,
   checkForUser,
   checkForComment,
-  checkForContent
+  checkForContent,
+  storyInclude
 }

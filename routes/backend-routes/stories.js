@@ -6,24 +6,15 @@ const {
   checkForStory,
   checkForUser,
   deleteForStory,
-  checkForContent } = require('../../utils');
+  storyInclude,
+ } = require('../../utils');
 const db = require('../../db/models');
 const { sequelize } = require('../../db/models');
 const { Story, Comment, Like, Bookmark, User } = db;
 
 const router = express.Router();
 
-const storyInclude = [{
-  model: User,
-  as: "Author",
-  attributes: ["id", "firstName", "lastName"]
-}, {
-  model: Comment,
-  attributes: ["id"],
-}, {
-  model: Like,
-  attributes: ["id"]
-}]
+
 
 const authorValidation = [
   // MIRA Tested
@@ -56,7 +47,7 @@ router.get(
       include: storyInclude,
       order: [['createdAt', 'DESC']]
     })
-    checkForContent(res, stories);
+    res.json(stories);
   })
 );
 
@@ -100,7 +91,7 @@ router.get("/users/:id(\\d+)/follows/stories",
         where: { authorId }
       })
     })
-    checkForContent(res, followedAuthorIds)
+    res.json(followedAuthorIds)
   })
 )
 

@@ -8,7 +8,7 @@ const {
   checkForStory,
   checkForUser,
   checkForComment,
-  checkForContent
+  storyInclude
 } = require('../../utils');
 const router = express.Router();
 
@@ -53,11 +53,7 @@ router.get('/users/:id(\\d+)/comments',
       include: [{
         model: Story,
         attributes: ["id", "title", "authorId", "createdAt"],
-        include: {
-          model: User,
-          as: "Author",
-          attributes: ["firstName", "lastName"]
-        }
+        include: storyInclude
       }]
     });
     res.json(userComments)
