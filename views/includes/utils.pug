@@ -20,7 +20,7 @@ mixin splashTag(icon, title, storyId)
 mixin userCard(user)
   .userCard
     h3.userName #{user.firstName} #{user.lastName}
-    button.btnIconic Follow
+    button.btnIconic.btnFollow Follow
     img(src=`/assets/av/${user.id}.jpg` alt=`${user.firstName} ${user.lastName}`).userCardAv
 
 
@@ -30,7 +30,7 @@ mixin storyCardFull(story)
     p.cardCreatedDate= story.createdAt
     //- p story.hook
   +authorBlurb(story.Author)
-  img(src=`/assets/stories/${story.id}-1.jpg` href="Story splash banner.").cardBanner
+  img(src=`/assets/stories/${story.id}-1.jpg` href=`${story.title}`).cardBanner
   +storyIcons(story)
 
 mixin storyIcons(story)
@@ -38,10 +38,9 @@ mixin storyIcons(story)
     button(name="like").btnLike
       div.storyIcon.likeIcon
       span.iconLabel #{story.Likes.length} Likes
-    a(href=`/stories/${story.id}#comments`)
-      button(name="comments").btnComment
-        span.storyIcon.commentIcon
-        span.iconLabel #{story.Comments.length} Comments
+    button(name="comments").btnComment
+      span.storyIcon.commentIcon
+      span.iconLabel #{story.Comments.length} Comments
     button(name="bookmark")
       div.storyIcon.bookmarkIcon
 
@@ -54,5 +53,5 @@ mixin authorBlurb(author)
   .authorBlurb
     img(src=`/assets/av/${author.id}.jpg` alt=`${author.firstName} ${author.lastName}`).authorAv
     .authorInfo
-      button.btnIconic Follow
+      button.btnIconic.btnFollow Follow
       a(href=`/users/${author.id}`).authorName #{author.firstName} #{author.lastName}

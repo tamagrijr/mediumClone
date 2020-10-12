@@ -154,7 +154,7 @@
 .storyAuthorName,
 .storyLink,
 .storyCreatedAt{
-    padding: 5px;
+    /* padding: 5px; */
     /* border: 1px dotted black; */
     width: fit-content;
     /* height: 100%; */
@@ -178,6 +178,7 @@
     position: relative;
     height: fit-content;
     width: 100%;
+    border-bottom: 1px solid lightgrey;
     /* border: 2px solid purple;
     border-radius: 18px; */
     padding: 1em;
@@ -203,35 +204,27 @@
 }
 .storyAuthorName {
     grid-area: name;
+    justify-self: end;
     font-size: xx-small;
-    font-weight: 700;
-    letter-spacing: .5px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
 }
-.storyAuthorName::before {
-    /* replace content with pic */
-    content: '';
-    background-image: url('/icons/icon-user-blue.png');
-    background-size: cover;
-    height: 100%;
-    width: 100%;
-    /* color: cyan; */
-    padding: 1px 11px 1px 1px;
-    /* padding-right: 11px; */
-    margin-right: 1em;
-}
+
 
 .storyLink {
     grid-area: title;
+    align-self: center;
     margin: 0;
-    font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
     /* width: 90%;
     max-width: 90%; */
 }
 
 .storyCreatedAt {
     grid-area: created;
+    align-self: center;
     color: #666;
     font-size: 0.8rem;
     font-style: italic;
@@ -342,14 +335,11 @@ a {
     ;
     gap: 1em;
     height: fit-content;
-    width: 100%;
-    border-top: 1px solid lightgray;
-    border-right: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
+    width: 70%;
     position: relative;
     /* margin-right: 1rem; */
-    margin-top: 2em;
-    padding: 4em;
+    margin-top: 1rem;
+    padding: 2rem 0;
 }
 
 .trendingHeaderContainer {
@@ -388,16 +378,18 @@ a {
     /* grid-area: trendPost; */
     display: grid;
     grid-template-columns: 0.2fr 1fr;
-    grid-template-rows: .2fr 1fr .2fr;
+    grid-template-rows: .2fr .4fr .2fr;
     grid-template-areas: 
-        'tPostRating tPostName'
-        '...         tPostTitle'
+        'tPostRating tPostTitle'
         '...         tPostDate'
+        '...         tPostName'
     ;
-    gap: 1em;
+    column-gap: 1em;
     position: relative;
-    height: 100%;
+    height: min-content;
     width: 100%;
+    border-right: 1px lightgrey solid;
+    padding: 0.5rem;
     /* border: 2px dotted lime; */
 }
 
@@ -419,28 +411,19 @@ a {
     justify-self: flex-start;
     height: fit-content;
     width: fit-content;
-    font-size: small;
-    font-weight: 600;
+    margin-left: -1rem;
 }
-.trendingPostAuthor::before {
-    content: '';
-    background-image: url(/icons/icon-user-blue.png);
-    height: cover;
-    width: cover;
-    padding-right: 2em;
-}
+
 .trendingPostTitle {
     grid-area: tPostTitle;
-    align-self: center;
+    align-self: flex-start;
     justify-self: flex-start;
     width: fit-content;
     height: fit-content;
-    font-size: x-large;
-    font-weight: 600;
+    margin: 0;
+    font-size: 1rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .trendingPostDate {
     grid-area: tPostDate;
-    font-weight: 400;
-    color: gray;
-    font-size: small;
 }

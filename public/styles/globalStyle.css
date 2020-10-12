@@ -26,6 +26,20 @@ button {
   cursor: pointer;
 }
 
+/* For Follow button */
+.btnFollow::before {
+  content: '';
+  background-image: url(/icons/avatar.svg);
+  background-repeat: no-repeat;
+  height: cover;
+  width: cover;
+  padding-right: 1rem;
+}
+
+.divider {
+  border: 1px solid lightgrey;
+  width: 100vw;
+}
 
 /* For mixins storyIcons */
 .iconLabel {
@@ -84,7 +98,7 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 1rem;
+  margin: 0 1rem;
   font-size: 0.8
 }
 .authorName {
@@ -116,7 +130,7 @@ button {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .cardCreatedDate {
-  margin: 0 1rem;
+  margin: 0;
   color: #888;
   font-size: 0.7rem;
   font-style: italic;
