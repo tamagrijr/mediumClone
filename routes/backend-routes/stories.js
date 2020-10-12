@@ -51,11 +51,17 @@ router.get(
   '/stories',
   asyncHandler(async (req, res) => {
     let stories = await Story.findAll({
-      include: {
+      include: [{
         model: User,
         as: "Author",
         attributes: ["id", "firstName", "lastName"]
-      },
+      }, {
+        model: Comment,
+        attributes: ["id"],
+      }, {
+        model: Like,
+        attributes: ["id"]
+      }],
       order: [['createdAt', 'DESC']]
     })
     checkForContent(res, stories);

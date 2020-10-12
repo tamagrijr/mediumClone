@@ -30,7 +30,8 @@
     border-radius: 18px; */
     align-self: center;
     justify-self: flex-start;
-    top: 50px;
+    /* top: 150px; */
+    padding-top: 5em;
     /* right: 15%; */
 }
 
@@ -41,10 +42,11 @@
     height: fit-content;
     width: 100%;
     grid-area: bookmark;
-    border: 2px solid pink;
+    /* border: 2px solid pink; */
     border-radius: 18px;
-    position: relative;
+    position: sticky;
     top: 1.85%;
+    background-color: rgb(240, 240, 240);
 }
 
 .bookmarkSection {
@@ -76,9 +78,60 @@
     height: 100%;
     width: 100%;
     position: relative;
-    border: 1px solid greenyellow;
-    border-radius: 18px;
+    /* border: 1px solid greenyellow;
+    border-radius: 18px; */
 }
+
+.noBookmarksForAuthor {
+    display: grid;
+    grid-template-columns: repeat(1fr, auto);
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    'bookmarkMessage'
+    'bookmarkInstructions'
+    ;
+    gap: .6em;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    /* border: 2px dotted indigo; */
+    border-radius: 18px;
+    padding: .9em;
+}
+
+
+.noBookmarksForAuthor.hidden {
+    display: none;
+}
+.bookmarkMessage {
+    grid-area: bookmarkMessage;
+    height: fit-content;
+    width: fit-content;
+    position: relative;
+    /* border: 1px solid greenyellow;
+    border-radius: 18px; */
+    font-size: 600;
+    font-weight: 600;
+    align-self: center;
+}
+.bookmarkMessage::after {
+    content: '';
+    background-image: url(/icons/bookmark.svg);
+    height: fit-content;
+    width: fit-content;
+    padding-left: .92em;
+    margin-left: 1em;
+}
+.bookmarkInstructions {
+    grid-area: bookmarkInstructions;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    /* border: 1px solid greenyellow;
+    border-radius: 18px; */
+    color: gray;
+}
+
 
 
 .storyContainer {
@@ -142,7 +195,7 @@
         'title title'
         'created bookmark'
     ;
-    gap: 1em 1em;
+    /* gap: 1em 1em; */
     width: 100%;
     height: 100%;
     position: relative;
@@ -153,13 +206,10 @@
     font-size: xx-small;
     font-weight: 700;
     letter-spacing: .5px;
-    color: black;
 }
 .storyAuthorName::before {
     /* replace content with pic */
     content: '';
-    /* content: ''; */
-    
     background-image: url('/icons/icon-user-blue.png');
     background-size: cover;
     height: 100%;
@@ -172,18 +222,19 @@
 
 .storyLink {
     grid-area: title;
-    font-weight: 600;
-    font-size: medium;
-    font-style: normal;
-    color: black;
+    margin: 0;
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     /* width: 90%;
     max-width: 90%; */
 }
 
 .storyCreatedAt {
     grid-area: created;
-    font-weight: 200;
-    font-size: x-small;
+    color: #666;
+    font-size: 0.8rem;
+    font-style: italic;
 }
 
 .createBookmarkButtonFeed {
@@ -216,17 +267,19 @@ justify-self: center;
 }
 .storyImgDiv {
     position: relative;
-    content: url('/icons/happyGrizzly.jpg');
-    height: 100%;
-    width: 100%;
-    max-width: 150px;
-    max-height: 150px;
-    justify-self: stretch;
-    align-self: stretch;
-    /* content: ''; */
+    object-fit: contain;
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+    /* justify-self: stretch; */
+    /* align-self: stretch; */
     /* width: fit-content;
     height: fit-content; */
     /* background-size: fit-content; */
+}
+.storyImgDiv > img {
+  height: 100%;
+  
 }
 
 .bookmarkButtonFeed::before {
@@ -271,3 +324,123 @@ a {
 .storyDate {
 
 } */
+/* .trendingStory {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-
+} */
+
+.trendingStory {
+    display: grid;
+    grid-template-columns: 1fr, 1fr, 1fr;
+    grid-template-rows: 0.25fr, 1fr, 1fr;
+    grid-template-areas: 
+        'title title title'
+        'trendPost trendPost trendPost'
+        'trendPost trendPost trendPost'
+    ;
+    gap: 1em;
+    height: fit-content;
+    width: 100%;
+    border-top: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    position: relative;
+    /* margin-right: 1rem; */
+    margin-top: 2em;
+    padding: 4em;
+}
+
+.trendingHeaderContainer {
+    position: relative;
+    grid-area: title;
+    grid-template-areas: 'headTitle ... ...';
+    /* gap: 1em; */
+    display: grid;
+    content: fit-content;
+    /* left: 3em; */
+    height: 100%;
+    width: fit-content;
+    /* border: 1px dotted blue; */
+}
+
+.trendingSectionHeaderTitle {
+    grid-area: headTitle;
+    position: relative;
+    height: fit-content;
+    padding: 1em;
+    font-size: small;
+    left: .23em;
+}
+
+.trendingSectionHeaderTitle::before {
+    content: '';
+    background-image: url(/icons/Bear_of_California_glow.svg);
+    height: 100%;
+    width: 100%;
+    padding-right: 1.85rem;
+    letter-spacing: 1.4px;
+    margin-right: 2.2em;
+}
+
+.trendingPostBlock {
+    /* grid-area: trendPost; */
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+    grid-template-rows: .2fr 1fr .2fr;
+    grid-template-areas: 
+        'tPostRating tPostName'
+        '...         tPostTitle'
+        '...         tPostDate'
+    ;
+    gap: 1em;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    /* border: 2px dotted lime; */
+}
+
+.trendingPostNumberSection {
+    grid-area: tPostRating;
+    color: lightgrey;
+    font-weight: 600;
+    font-size: xx-large;
+    align-self: center;
+    justify-self: center;
+    height: fit-content;
+    width: fit-content;
+    /* padding-right: 1em; */
+    /* text-shadow: black; */
+}
+.trendingPostAuthor {
+    grid-area: tPostName;
+    align-self: flex-end;
+    justify-self: flex-start;
+    height: fit-content;
+    width: fit-content;
+    font-size: small;
+    font-weight: 600;
+}
+.trendingPostAuthor::before {
+    content: '';
+    background-image: url(/icons/icon-user-blue.png);
+    height: cover;
+    width: cover;
+    padding-right: 2em;
+}
+.trendingPostTitle {
+    grid-area: tPostTitle;
+    align-self: center;
+    justify-self: flex-start;
+    width: fit-content;
+    height: fit-content;
+    font-size: x-large;
+    font-weight: 600;
+}
+.trendingPostDate {
+    grid-area: tPostDate;
+    font-weight: 400;
+    color: gray;
+    font-size: small;
+}

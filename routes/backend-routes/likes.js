@@ -31,7 +31,7 @@ router.get("/users/:id(\\d+)/likes",
         }, {
           model: User,
           as: "Author",
-          attributes: ["firstName", "lastName"]
+          attributes: ["id", "firstName", "lastName"]
         }]
       }
     });
