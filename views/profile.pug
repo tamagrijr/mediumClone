@@ -11,7 +11,7 @@ block content
         h2#profileName #{user.firstName} #{user.lastName}
         button.btnFollow.btnBig.btnIconic Follow
         span.followCount
-          a(href=`/users/${user.id}/follows#content`) #{followCounts.followed} Following
+          a(href=`/users/${user.id}/following#content`) #{followCounts.followed} Following
           span.followCount | 
           a(href=`/users/${user.id}/followers#content`) #{followCounts.followers} Followers
       //- span.user-description #{user.description}

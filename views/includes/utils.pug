@@ -40,10 +40,11 @@ mixin storyIcons(story)
       div.storyIcon.likeIcon
       span.iconLabel #{story.Likes.length} Likes
     button(name="comments").btnComment
-      span.storyIcon.commentIcon
-      span.iconLabel #{story.Comments.length} Comments
-    button(name="bookmark")
+      div.storyIcon.commentIcon
+      span.iconLabel #{story.Comments.length} Replies
+    button(name="bookmark").btnBookmark
       div.storyIcon.bookmarkIcon
+      //- span.iconLabel Save
 
 mixin storyCardMini(story)
   .storyCardMini

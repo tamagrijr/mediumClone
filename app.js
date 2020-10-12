@@ -9,6 +9,7 @@ const bookmarksRouter = require("./routes/backend-routes/bookmarks")
 const likesRouter = require("./routes/backend-routes/likes")
 const storiesRouter = require("./routes/backend-routes/stories")
 const commentsRouter = require("./routes/backend-routes/comments")
+const topicsRouter = require("./routes/backend-routes/topics")
 const path = require("path");
 
 const app = express()
@@ -31,6 +32,7 @@ app.use("/api", storiesRouter)
 app.use("/api", commentsRouter)
 app.use("/api", bookmarksRouter)
 app.use("/api", likesRouter)
+app.use("/api/topics", topicsRouter)
 app.use(express.static(path.join(__dirname, "public")));
 
 

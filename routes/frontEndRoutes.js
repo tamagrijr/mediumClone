@@ -144,9 +144,11 @@ frontEndRouter.get("/stories/:id(\\d+)", async (req, res) => {
 });
 
 //actual splash page
-frontEndRouter.get("/splash", (req, res) => {
-  res.render('splash', { title: "MEDAYUM", api });
-});
+// frontEndRouter.get("/splash", asyncHandler(async (req, res) => {
+//   const topics = await fetch("/api/topics")
+//   console.log("FETCHED TOPICS", topics)
+//   res.render('splash', { title: "MEDAYUM", topics, api });
+// }));
 //splash page
 frontEndRouter.get("/", asyncHandler(async (req, res) => {
   try {
@@ -163,7 +165,10 @@ frontEndRouter.get("/", asyncHandler(async (req, res) => {
         return story
       })
     }
-    res.render('index', { title: "MeDaYum Feed", stories, trendingStories, bookmarkedStories, isEnoughBookmarks, api });
+    let topics = await fetch(`${api}/api/topics`)
+    topics = await topics.json()
+    console.log("FETCHED TOPICS", topics)
+    res.render('index', { title: "MeDaYum Feed", stories, topics, trendingStories, bookmarkedStories, isEnoughBookmarks, api });
   } catch (error) {
     res.render('index')
   }

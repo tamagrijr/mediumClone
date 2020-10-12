@@ -31,7 +31,13 @@ button {
   content: ' ';
   background-image: url(/icons/avatar1_blue.svg);
   background-repeat: no-repeat;
-  padding: 0 0.5rem 0 1rem;
+  padding: 0 0.2rem 0 1rem;
+}
+.btnFollow:hover::before {
+  content: ' ';
+  background-image: url(/icons/avatar1_white.svg);
+  background-repeat: no-repeat;
+  padding: 0 0.2rem 0 1rem;
 }
 
 .divider {
@@ -61,7 +67,7 @@ button {
   font-size: 1rem;
 }
 .btnLike,
-.btnComment {
+.btnComment, .btnBookmark {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -93,11 +99,11 @@ span.btnLike > .iconLabel {
   background-repeat: no-repeat;
 }
 .bookmarkIcon {
-  background-image: url("/icons/copy_gray.svg");
+  background-image: url("/icons/bookmark_gray.svg");
   background-repeat: no-repeat;
 }
 .bookmarkIcon:hover {
-  background-image: url("/icons/copy_blue.svg");
+  background-image: url("/icons/bookmark_blue.svg");
   background-repeat: no-repeat;
 }
 .btnIconic {
@@ -107,6 +113,10 @@ span.btnLike > .iconLabel {
   padding: 0.2em 0.5em;
   color: rgb(4, 150, 255);
   background-color: white;
+}
+.btnIconic:hover {
+  color: white;
+  background-color: rgb(4, 150, 255);
 }
 
 /* For mixin authorBlurb */
@@ -183,5 +193,3 @@ p.cardCreatedDate {
 .btnBig {
   font-size: 1rem;
 }
-
-

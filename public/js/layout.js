@@ -1,4 +1,4 @@
-import { loggedIn } from './utils.js';
+import { loggedIn, handleErrors } from './utils.js';
 const navHeader = document.querySelector('.navHeader');
 const topnav = document.querySelector('.topnav');
 const footer = document.querySelector('.splashFooter');
@@ -92,4 +92,28 @@ if (logged) {
   })
   dropdownButton.addEventListener('click', e => {
     dropdownDiv.classList.toggle('clickedDropdownMenu')
+})
+
+// const selectAll = document.querySelectorAll
+const likeIcons = document.querySelectorAll(".btnLike")
+// const chatIcons = selectAll(".commentIcon")
+// const bookmarkIcons = selectAll(".bookmarkIcon")
+
+likeIcons.forEach(icon => {
+  icon.addEventListener("click", async (ev) => {
+    try {
+      const res = await fetch(`/api/users/${userId}/likes`, {
+        method: "POST"
+      })
+      const result = await res.json()
+      console.log("RESULT\n", result)
+      if (!res.ok) {
+        throw res;
+      }
+    } catch (err) {
+      console.log("caught the like error", err.ok, err)
+      handleErrors(err);
+    }
+    //     likeIcons.classList.toggle(`.liked`)
+  })
 })

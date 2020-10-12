@@ -100,9 +100,7 @@
 
 /* Comment Cards */
 .storyCardMini {
-  /* border-top: 1px lightgrey solid; */
-  /* border-bottom: 1px lightgrey solid; */
-  background: linear-gradient(240deg,  rgba(244,250,250,1) 0%,rgba(220,222,226,1) 100%);
+  background: linear-gradient(240deg,  rgba(244,250,250,1) 0%,rgba(220,230,240,1) 100%);
   padding: 1rem;
 }
 .cardTitleMini {
@@ -120,18 +118,22 @@
 }
 .followCount > a {
   margin: 0 0.5rem;
-  border-bottom: 1px solid #aaa;
   color: #aaa;
+}
+.followCount > a:hover {
+  color: rgb(4, 150, 255);
+  border-bottom: 1px solid rgb(4, 150, 255);
 }
 
 .tabTitle {
-  width: 40%;
+  width: 50%;
   border-radius: 1rem;
   border-top: 4px #aaa double;
   border-bottom:  4px #aaa double;
-  padding: 0.5rem 50px;
+  padding: 0.5rem 2rem;
   color: #aaa;
   /* text-align: center; */
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-weight: normal;
+  font-style: italic;
 }

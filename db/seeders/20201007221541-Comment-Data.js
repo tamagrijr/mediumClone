@@ -13,11 +13,11 @@ module.exports = {
         userId: 2,
         storyId: 1
       },
-      // {
-      //   body: "Did you just comment on your own story?",
-      //   userId: 3,
-      //   storyId: 1
-      // },
+      {
+        body: "Did you just comment on your own story?",
+        userId: 3,
+        storyId: 1
+      },
       {
         body: "Hm. Interesting perspective.",
         userId: 3,
