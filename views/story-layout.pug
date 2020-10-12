@@ -19,10 +19,13 @@ block content
 
       div(class="below-body-options")
         .likes-on-side.clickable-icon
-          img(class="sm-icon" src="/icons/heart.svg")
+          img(class="sm-icon i-like-this" src="/icons/heart.svg" data-storyid=storyInfo.storyId data-likes=storyInfo.likes)
           span(class="bottom-option-span") #{ storyInfo.likeCount } Likes
         .comments-on-side.comment-show.clickable-icon
-          img(class="sm-icon" src="/icons/chat.svg")
+          if storyInfo.commentsCount > 0
+            img(class="sm-icon" src="/icons/chat_blue.svg")
+          else
+            img(class="sm-icon" src="/icons/chat.svg")
           span(class="bottom-option-span") #{ storyInfo.commentsCount } Comments
 
       div(class="author-below-body")
@@ -34,10 +37,13 @@ block content
       span #{ storyInfo.authorInfo.authorFN } #{ storyInfo.authorInfo.authorLN }
       button(class="follow-button btn-primary" data-author=storyInfo.authorInfo.authorId) Follow
       span(class="flex-opt double clickable-icon")
-        img(class="sm-icon" src="/icons/heart.svg")
+        img(class="sm-icon i-like-this" src="/icons/heart.svg" data-storyid=storyInfo.storyId data-likes=storyInfo.likes)
         span(class="count")= storyInfo.likeCount
       span(class="flex-opt double comment-show clickable-icon")
-        img(class="sm-icon" src="/icons/chat.svg")
+        if storyInfo.commentsCount > 0
+          img(class="sm-icon" src="/icons/chat_blue.svg")
+        else
+          img(class="sm-icon" src="/icons/chat.svg")
         span(class="the-comment-count")= storyInfo.commentsCount
       img(class="bkmrk sm-icon flex-opt clickable-icon" src="/icons/bookmark.svg")
 

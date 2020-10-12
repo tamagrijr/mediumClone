@@ -171,7 +171,6 @@ document.getElementById('comment').addEventListener('click', e => {
   userNameDisplay.style.display = 'inline-block';
   userNameDisplay.style.verticalAlign = 'center';
   document.getElementById('commenting-person-head').style.display = 'inline-block';
-  // document.getElementById('curentCommentingUserDisplay').style.display = 'inline-block';
 });
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -231,6 +230,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 });
 
+// BOOKMARKS =====================================================================
+
 document.querySelectorAll('.bkmrk').forEach(bkmrk => {
   bkmrk.addEventListener('click', e => {
     if (e.target.classList.contains('bookmarked')) {
@@ -246,6 +247,7 @@ document.querySelectorAll('.bkmrk').forEach(bkmrk => {
     }
   });
 });
+// ===============================================================================
 
 document.querySelectorAll('.editBtn').forEach(btn => {
   btn.addEventListener('click', e => {
@@ -256,24 +258,61 @@ document.querySelectorAll('.editBtn').forEach(btn => {
     commentBodyEl.style.borderRadius = '0.25em';
     commentBodyEl.style.backgroundColor = 'rgba(4, 150, 255, 0.1)';
     commentBodyEl.style.padding = '3px';
-  })
-})
+  });
+});
 
-// document.querySelectorAll('.follow-button').forEach(btn => {
-//   btn.addEventListener('click', async () => {
-//     const authorId = btn.dataset.author;
-//     console.log('You are user #', currentUser);
-//     let follow = await fetch(`/api/users/${ currentUser }/follows`, {
-//       method: 'POST',
-//       body: JSON.stringify({ followingId: authorId }),
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     });
-//     if (btn.innerHTML === 'Follow') {
-//       btn.innerHTML = 'Unfollow';
-//     } else {
-//       btn.innerHTML = 'Follow';
-//     }
-//   });
-// });
+
+// LIKES =========================================================================
+let isLiked = false;
+function checkForLikes() {
+  isLiked = !!document.querySelectorAll('.i-like-this')[0].filter(like => like.userId === currentUser);
+  if (isLiked) {
+    document.querySelectorAll('.i-like-this').forEach(btn => {
+      btn.setAttribute('src', '/icons/heart_red.svg');
+    });
+  } else {
+    document.querySelectorAll('.i-like-this').forEach(btn => {
+      btn.setAttribute('src', '/icons/heart.svg');
+    });
+  }
+  // let likes = await fetch(`/api/stories/${ document.querySelectorAll('.i-like-this')[0].dataset.storyid }/likes`);
+  // if (!likes.ok) {
+  //   likes = [];
+  // } else {
+  //   likes = await likes.json();
+  //   likes = likes.map(like => {
+  //     return like.userId;
+  //   });
+  // }
+  // if (likes.includes(currentUser)) {
+  //   document.querySelectorAll('.i-like-this').forEach(btn => {
+  //     btn.setAttribute('src', '/icons/heart_red.svg');
+  //   });
+  // }
+}
+checkForLikes();
+document.querySelectorAll('.i-like-this').forEach(async likeBtn => {
+  likeBtn.addEventListener('click', async e => {
+    let like = await fetch(`/api/stories/${ likeBtn.dataset.storyid }/likes`, {
+      method: 'POST',
+      body: JSON.stringify({ userId: currentUser }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if (!likes.ok) {
+      document.querySelectorAll('.i-like-this').forEach(btn => {
+        btn.setAttribute('src', '/icons/heart.svg');
+      });
+    } else {
+      document.querySelectorAll('.i-like-this').forEach(btn => {
+        btn.setAttribute('src', '/icons/heart_red.svg');
+      });
+    }
+  });
+});
+// ===============================================================================
+
+// FOLLOWS =======================================================================
+// TODO: Set up follow functionality
+// ===============================================================================
