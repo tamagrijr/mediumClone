@@ -8,7 +8,7 @@ block feedBlock
 
   p(style="color: lightgrey; margin: 2rem;") Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah
   
-  p(style="color: lightgreyl margin: 2rem;") Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah Woah
+  p(style="color: lightgrey; margin: 2rem;") Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah WoahWoah Woah Woah Woah Woah Woah Woah Woah Woah
   //- .bookmarkTitle
   //- .bookmarkAuthor
   //- .curiosityContainer
@@ -21,12 +21,20 @@ block feedBlock
   hr.divider
   .trendingStory
     .trendingHeaderContainer: .trendingSectionHeaderTitle   DISCOVER ON MEDAYUM
-    each story in trendingStories
-      .trendingPostBlock
-        .trendingPostNumberSection 0#{story.rank}
-        h2.trendingPostTitle= story.title
-        .trendingPostAuthor: +authorBlurb(story.Author)
-        .trendingPostDate.cardCreatedDate= story.createdAt
+    if isEnoughBookmarks
+      each bookmark in bookmarkedStories
+        .trendingPostBlock
+          .trendingPostNumberSection 0#{bookmark.rank}
+          h2.trendingPostTitle: a(href=`/stories/${bookmark.Story.id}`)= bookmark.Story.title
+          .trendingPostAuthor: +authorBlurb(bookmark.Story.Author)
+          .trendingPostDate.cardCreatedDate= bookmark.Story.createdAt
+    else
+      each story in trendingStories
+        .trendingPostBlock
+          .trendingPostNumberSection 0#{story.rank}
+          h2.trendingPostTitle: a(href=`/stories/${story.id}`)= story.title
+          .trendingPostAuthor: +authorBlurb(story.Author)
+          .trendingPostDate.cardCreatedDate= story.createdAt
   hr.divider
 
   //- MIRA I'm messing around and breaking stuff, ignore this for now.

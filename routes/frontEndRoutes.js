@@ -31,7 +31,6 @@ async function getTrendingStories() {
   stories = getDates(stories)
   let count = 1
   stories = stories.map(story => {
-    console.log("story!", story)
     story.rank = count;
     count++
     return story
@@ -145,7 +144,19 @@ frontEndRouter.get("/", asyncHandler(async (req, res) => {
   try {
     let stories = await getAllStories()
     const trendingStories = await getTrendingStories()
-    res.render('index', { title: "MeDaYum Feed", stories, trendingStories, api });
+    let bookmarkedStories = await getBookmarkedStoriesForUser(1)
+    const isEnoughBookmarks = bookmarkedStories.length >= 6
+    let count = 1
+    console.log(isEnoughBookmarks)
+    if (isEnoughBookmarks) {
+      bookmarkedStories = bookmarkedStories.slice(0, 6)
+      bookmarkedStories = bookmarkedStories.map(story => {
+        story.rank = count
+        count++
+        return story
+      })
+    }
+    res.render('index', { title: "MeDaYum Feed", stories, trendingStories, bookmarkedStories, isEnoughBookmarks, api });
   } catch (error) {
     res.render('index')
   }

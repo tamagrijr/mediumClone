@@ -30,7 +30,7 @@
   grid:
     "name avatar" min-content
     "joindate avatar" min-content
-    / [name] max-content [av] max-content;
+    / [name] max-content [av] min-content;
   justify-content: space-around;
   justify-items: start;
   align-items: start;
@@ -39,8 +39,10 @@
 }
 #userContainer {
   grid-area: name;
-  display: flex;
-  align-items: center;
+  justify-self: start;
+  align-self: flex-end;
+  /* display: flex; */
+  /* align-items: center; */
   align-content: center;
 }
 #userAvContainer {
@@ -53,8 +55,8 @@
   border-radius: 50%;
   border-top: 2px solid rgb(4, 150, 255);
   border-bottom: 2px solid rgb(4, 150, 255);
-  /* border-left: 2px solid transparent; */
-  /* border-right: 2px solid transparent; */
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
 }
 .userAv {
   width: 8rem;
@@ -69,8 +71,8 @@
 }
 #joinDate {
   grid-area: joindate;
-  margin: 0;
-  color: #666;
+  margin: 0.5rem;
+  color: #aaa;
   font-size: 1rem;
   font-style: italic;
 }
@@ -94,4 +96,30 @@
 .profileFeed > li {
   list-style: none;
   margin: 1rem 0;
+}
+
+/* Comment Cards */
+.storyCardMini {
+  /* border-top: 1px lightgrey solid; */
+  /* border-bottom: 1px lightgrey solid; */
+  background: linear-gradient(240deg,  rgba(244,250,250,1) 0%,rgba(220,222,226,1) 100%);
+  padding: 1rem;
+}
+.cardTitleMini {
+  margin: 0 1rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.commentBody {
+  margin: 1rem 2rem;
+}
+
+.followCount {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+.followCount > a {
+  margin: 0 0.5rem;
+  border-bottom: 1px solid #aaa;
+  color: #aaa;
 }
