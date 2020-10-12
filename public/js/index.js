@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 import { loggedIn } from "./utils.js";
 import { handleErrors } from "./utils.js";
 // import { api } from "../../config";
@@ -29,7 +30,7 @@ window.addEventListener("DOMContentLoaded", async e => {
   }
 })
 
-signInButton.forEach( e => {
+signInButton.forEach(e => {
   e.addEventListener('click', e => {
     e.preventDefault();
     signInDisplay.classList.remove('hidden');
@@ -45,12 +46,12 @@ signInButton.forEach( e => {
 //     e.innerHTML = '';
 //   })
 // })
-signUpButton.forEach( e => {
-  e.addEventListener('click' , e => {
+signUpButton.forEach(e => {
+  e.addEventListener('click', e => {
     e.preventDefault();
     signUpDisplay.classList.remove('hidden');
     errorsContainer.forEach(e => {
-    e.innerHTML = '';
+      e.innerHTML = '';
     })
   })
 })
@@ -93,32 +94,32 @@ logInForm.addEventListener("submit", async (e) => {
   const email = formData.get("email");
   email.toLowerCase();
   const password = formData.get("password");
-  const body = {email, password};
+  const body = { email, password };
 
   try {
-      // ADD THIS ONCE VALIDATION IS IMPLEMENTED
-      const res = await fetch(`/api/users/token`, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!res.ok) {
-        throw res;
-      }
-      const {
-        token,
-        user: { id },
-      } = await res.json();
-      // storage access_token in localStorage:
-      localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
-      localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
-      // redirect to home page:
-      window.location.href = "/";
-    } catch (err) {
-      handleErrors(err);
+    // ADD THIS ONCE VALIDATION IS IMPLEMENTED
+    const res = await fetch(`/api/users/token`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!res.ok) {
+      throw res;
     }
+    const {
+      token,
+      user: { id },
+    } = await res.json();
+    // storage access_token in localStorage:
+    localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
+    localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
+    // redirect to home page:
+    window.location.href = "/";
+  } catch (err) {
+    handleErrors(err);
+  }
 })
 signUpForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -198,136 +199,136 @@ let b14 = document.querySelector('.bearButton14')
 let b15 = document.querySelector('.bearButton15')
 
 b1.addEventListener('click', e => {
-  if(b1.classList.contains('clickedBearButton')){
+  if (b1.classList.contains('clickedBearButton')) {
     b1.classList.remove('clickedBearButton');
     b1.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b1.classList.add('clickedBearButton');
     b1.classList.remove('bearButtonContainerHover');
   }
 })
 b2.addEventListener('click', e => {
-  if(b2.classList.contains('clickedBearButton')){
+  if (b2.classList.contains('clickedBearButton')) {
     b2.classList.remove('clickedBearButton');
     b2.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b2.classList.add('clickedBearButton');
     b2.classList.remove('bearButtonContainerHover');
   }
 })
 b3.addEventListener('click', e => {
-  if(b3.classList.contains('clickedBearButton')){
+  if (b3.classList.contains('clickedBearButton')) {
     b3.classList.remove('clickedBearButton');
     b3.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b3.classList.add('clickedBearButton');
     b3.classList.remove('bearButtonContainerHover');
   }
 })
 b4.addEventListener('click', e => {
-  if(b4.classList.contains('clickedBearButton')){
+  if (b4.classList.contains('clickedBearButton')) {
     b4.classList.remove('clickedBearButton');
     b4.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b4.classList.add('clickedBearButton');
     b4.classList.remove('bearButtonContainerHover');
   }
 })
 b5.addEventListener('click', e => {
-  if(b5.classList.contains('clickedBearButton')){
+  if (b5.classList.contains('clickedBearButton')) {
     b5.classList.remove('clickedBearButton');
     b5.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b5.classList.add('clickedBearButton');
     b5.classList.remove('bearButtonContainerHover');
   }
 })
 b6.addEventListener('click', e => {
-  if(b6.classList.contains('clickedBearButton')){
+  if (b6.classList.contains('clickedBearButton')) {
     b6.classList.remove('clickedBearButton');
     b6.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b6.classList.add('clickedBearButton');
     b6.classList.remove('bearButtonContainerHover');
   }
 })
 b7.addEventListener('click', e => {
-  if(b7.classList.contains('clickedBearButton')){
+  if (b7.classList.contains('clickedBearButton')) {
     b7.classList.remove('clickedBearButton');
     b7.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b7.classList.add('clickedBearButton');
     b7.classList.remove('bearButtonContainerHover');
   }
 })
 b8.addEventListener('click', e => {
-  if(b8.classList.contains('clickedBearButton')){
+  if (b8.classList.contains('clickedBearButton')) {
     b8.classList.remove('clickedBearButton');
     b8.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b8.classList.add('clickedBearButton');
     b8.classList.remove('bearButtonContainerHover');
   }
 })
 b9.addEventListener('click', e => {
-  if(b9.classList.contains('clickedBearButton')){
+  if (b9.classList.contains('clickedBearButton')) {
     b9.classList.remove('clickedBearButton');
     b9.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b9.classList.add('clickedBearButton');
     b9.classList.remove('bearButtonContainerHover');
   }
 })
 b10.addEventListener('click', e => {
-  if(b10.classList.contains('clickedBearButton')){
+  if (b10.classList.contains('clickedBearButton')) {
     b10.classList.remove('clickedBearButton');
     b10.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b10.classList.add('clickedBearButton');
     b10.classList.remove('bearButtonContainerHover');
   }
 })
 b11.addEventListener('click', e => {
-  if(b11.classList.contains('clickedBearButton')){
+  if (b11.classList.contains('clickedBearButton')) {
     b11.classList.remove('clickedBearButton');
     b11.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b11.classList.add('clickedBearButton');
     b11.classList.remove('bearButtonContainerHover');
   }
 })
 b12.addEventListener('click', e => {
-  if(b12.classList.contains('clickedBearButton')){
+  if (b12.classList.contains('clickedBearButton')) {
     b12.classList.remove('clickedBearButton');
     b12.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b12.classList.add('clickedBearButton');
     b12.classList.remove('bearButtonContainerHover');
   }
 })
 b13.addEventListener('click', e => {
-  if(b13.classList.contains('clickedBearButton')){
+  if (b13.classList.contains('clickedBearButton')) {
     b13.classList.remove('clickedBearButton');
     b13.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b13.classList.add('clickedBearButton');
     b13.classList.remove('bearButtonContainerHover');
   }
 })
 b14.addEventListener('click', e => {
-  if(b14.classList.contains('clickedBearButton')){
+  if (b14.classList.contains('clickedBearButton')) {
     b14.classList.remove('clickedBearButton');
     b14.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b14.classList.add('clickedBearButton');
     b14.classList.remove('bearButtonContainerHover');
   }
 })
 b15.addEventListener('click', e => {
-  if(b15.classList.contains('clickedBearButton')){
+  if (b15.classList.contains('clickedBearButton')) {
     b15.classList.remove('clickedBearButton');
     b15.classList.add('bearButtonContainerHover');
-  }else{
+  } else {
     b15.classList.add('clickedBearButton');
     b15.classList.remove('bearButtonContainerHover');
   }
@@ -377,25 +378,41 @@ const displaySlide = (slide, slideButton) => {
   slide.classList.remove('hidden')
   slideButton.classList.add('currentSlideButton')
 }
-setInterval(function dynamicDisplay(){
-  if(count === 1){
+setInterval(function dynamicDisplay() {
+  if (count === 1) {
     displaySlide(slide2, slideButton2);
     count++
   }
-  else if(count === 2){
+  else if (count === 2) {
     displaySlide(slide3, slideButton3);
     count++
   }
-  else if(count === 3){
+  else if (count === 3) {
     displaySlide(slide4, slideButton4);
     count++
   }
-  else if(count === 4){
+  else if (count === 4) {
     displaySlide(slide5, slideButton5);
     count++
   }
-  else if(count === 5){
+  else if (count === 5) {
     displaySlide(slide1, slideButton1);
     count = 1
   }
 }, 7000)
+
+
+
+const selectAll = document.querySelectorAll
+const likeIcons = selectAll(".likeIcon")
+const chatIcons = selectAll(".commentIcon")
+const bookmarkIcons = selectAll(".bookmarkIcon")
+
+likeIcons.forEach(icon => {
+  icon.addEventListener("click", (ev) => {
+    await fetch(`${api}/api/users/userId/likes`, {
+      method: `POST`
+    })
+    likeIcons.classList.toggle(`.liked`)
+  })
+})

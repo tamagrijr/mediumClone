@@ -22,8 +22,8 @@
 .profileTabs > li > a:hover {
   position: relative;
   top: 1px;
-  color: #333;
-  border-bottom: 1px solid #333
+  color: crimson;
+  border-bottom: 1px solid crimson;
 }
 .pr-userInfo {
   display: grid;
@@ -53,10 +53,10 @@
   width: 9rem;
   height: 9rem;
   border-radius: 50%;
-  border-top: 2px solid rgb(4, 150, 255);
-  border-bottom: 2px solid rgb(4, 150, 255);
-  border-left: 2px solid transparent;
-  border-right: 2px solid transparent;
+  border-left: 2px solid crimson;
+  border-right: 2px solid crimson;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
 }
 .userAv {
   width: 8rem;
@@ -122,4 +122,16 @@
   margin: 0 0.5rem;
   border-bottom: 1px solid #aaa;
   color: #aaa;
+}
+
+.tabTitle {
+  width: 40%;
+  border-radius: 1rem;
+  border-top: 4px #aaa double;
+  border-bottom:  4px #aaa double;
+  padding: 0.5rem 50px;
+  color: #aaa;
+  /* text-align: center; */
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: normal;
 }
