@@ -194,20 +194,26 @@ img.author-below-item.md-icon {
   margin-bottom: 5px;
 }
 
+.clickable-icon {
+  cursor: pointer;
+}
+
 #comment {
   border: 2px solid #393D3F;
   border-radius: 5px;
   background-color: #F4FAFF;
   height: 2em;
   padding: 3px;
+  resize: none;
 }
 
-#comment:focus {
+.comment-focus {
   background-color: #F4FAFF;
   border: 2px solid #0496FF;
   border-radius: 5px;
   height: 5em;
   padding: 3px;
+  resize: none;
 }
 
 #commentForm {
@@ -228,7 +234,7 @@ img.author-below-item.md-icon {
 .full-comment {
   background-color: #E4EAEF;
   border-radius: 10px;
-  margin: 10px 10px 10px -15%;
+  margin: 10px 10px 10px -10%;
   padding: 10px;
 }
 
@@ -276,5 +282,5 @@ img.author-below-item.md-icon {
 .comment-body,
 .comment-time,
 .my-comment-options {
-  margin-left: -20%;
+  margin-left: -15%;
 }
