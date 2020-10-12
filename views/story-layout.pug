@@ -11,17 +11,17 @@ block content
         span(class="top-story-date")= storyInfo.createdAt
         button(class="follow-button top-author-follow btn-primary" data-author=storyInfo.authorInfo.authorId) Follow
 
-      img(class="bkmrk bookmark-top md-icon" src="/icons/bookmark.svg")
+      img(class="bkmrk bookmark-top md-icon clickable-icon" src="/icons/bookmark.svg")
 
       img(class="story-image" src="/icons/happyGrizzly.jpg" alt="Story Image")
 
       .story-body= storyInfo.body
 
       div(class="below-body-options")
-        .likes-on-side
+        .likes-on-side.clickable-icon
           img(class="sm-icon" src="/icons/heart.svg")
           span(class="bottom-option-span") #{ storyInfo.likeCount } Likes
-        .comments-on-side.comment-show
+        .comments-on-side.comment-show.clickable-icon
           img(class="sm-icon" src="/icons/chat.svg")
           span(class="bottom-option-span") #{ storyInfo.commentsCount } Comments
 
@@ -33,24 +33,25 @@ block content
     div(class="story-options")
       span #{ storyInfo.authorInfo.authorFN } #{ storyInfo.authorInfo.authorLN }
       button(class="follow-button btn-primary" data-author=storyInfo.authorInfo.authorId) Follow
-      span(class="flex-opt double")
+      span(class="flex-opt double clickable-icon")
         img(class="sm-icon" src="/icons/heart.svg")
         span(class="count")= storyInfo.likeCount
-      span(class="flex-opt double comment-show")
+      span(class="flex-opt double comment-show clickable-icon")
         img(class="sm-icon" src="/icons/chat.svg")
-        span(class="count")= storyInfo.commentsCount
-      img(class="bkmrk sm-icon flex-opt" src="/icons/bookmark.svg")
+        span(class="the-comment-count")= storyInfo.commentsCount
+      img(class="bkmrk sm-icon flex-opt clickable-icon" src="/icons/bookmark.svg")
 
 
     .comments-bar#comments
       span(id="comment-bar-header")
-        h2 Comments (#{ storyInfo.commentsCount })
+        h2 Comments (
+          span(class="the-comment-count") #{ storyInfo.commentsCount })
         img(class="md-icon close-comments-btn" alt="close comments" src="/icons/close_icon.svg")
       form(method="post" action="/comments" id="commentForm" data-story=storyInfo.storyId)
         span(id="curentCommentingUserDisplay")
           img(class="sm-icon" id="commenting-person-head" src="/icons/avatar (1).svg")
           span(id="currentUserName")
-        textarea(id="comment" name="comment" placeholder="Tell us what you think...")
+        textarea(id="comment" class="my-original-comment" name="comment" placeholder="Tell us what you think...")
         button(type="submit" id="submitComment" class="btn-primary") Submit Comment
       ul(id="commentList")
         if storyInfo.commentsCount > 0
