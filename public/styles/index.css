@@ -361,6 +361,7 @@ a.swapToLogIn {
 }
 .splashPageText {
   font-family: Cambria, Gabriola, serif;
+  text-align: center;
 }
 .headlineTextContainer {
   display: flex;
