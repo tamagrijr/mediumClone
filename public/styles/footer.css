@@ -63,3 +63,6 @@ footer .links {
   margin-top: 1em;
   color: white;
 }
+.hidden {
+  display: none;
+}

@@ -142,7 +142,7 @@ h2.log-in-h2 {
   font-weight: 700;
   border-radius: .3em;
   text-align: center;
-  border-color: #0496FF;
+  /* border-color: #0496FF; */
   border-width: .1em;
   padding: .3em;
   margin: .1em;
@@ -158,7 +158,7 @@ input.modalInput:hover {
   font-weight: 700;
   border-radius: .3em;
   text-align: center;
-  border-color: #0496FF;
+  border-color: lightgrey;
   border-width: .1em;
   padding: .3em;
   margin: .1em;
@@ -347,14 +347,13 @@ a.swapToLogIn {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
   margin-top: 1em;
 }
 .slideImg {
-  object-fit: cover;
-  width: 100%;
-  overflow: hidden;
+  width: 100;
+  height: 100%;
   border-radius: 2px;
 }
 .slideShowNavigation {
@@ -363,11 +362,11 @@ a.swapToLogIn {
   align-items: center;
 }
 .slideShowButton {
-  width: 0.6rem;
-  height: 0.6rem;
+  width: 0.7rem;
+  height: 0.7rem;
   border: 1px solid white;
   border-radius: 50%;
-  margin: 1rem;
+  margin: 10px;
   cursor: pointer;
 }
 .slideShowButton:hover {
@@ -375,7 +374,7 @@ a.swapToLogIn {
   border: none;
 }
 .currentSlideButton {
-  border-color: #0496FF;
+  border: 1px solid #0496FF;
   background-color: #0496FF;
 }
 .splashPageText {

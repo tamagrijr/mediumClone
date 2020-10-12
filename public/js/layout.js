@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', async e => {
     let user = await fetch(`/api/users/${logged}`);
     user = await user.json();
     greeting.innerHTML = `Hello, ${user.firstName}`
-  } else {
-    footer.classList.remove('hidden')
-    topnav.classList.remove('topNavStyles');
-  }
+} else {
+  // footer.classList.remove('hidden')
+  topnav.classList.remove('topNavStyles');
+}
 
   if (logged) {
     // navHeader.classList.remove('navHeaderStyles');
@@ -44,27 +44,27 @@ document.addEventListener('DOMContentLoaded', async e => {
 })
 
 // document.addEventListener('DOMContentLoaded', async (e) => {
-const signUpInputs = document.querySelectorAll('.signUpInput');
-signUpInputs.forEach(data => {
-  let placeholderVal;
-  data.addEventListener('click', (e) => {
-    placeholderVal = e.target.getAttribute('placeholder')
-    if (e.target.value) {
-      e.target.value = '';
-    } else if (placeholderVal !== '') {
-      e.target.removeAttribute('placeholder');
-    }
-  })
-})
-const loginEmailInput = document.querySelector('input.emailLogIn')
-const loginPasswordInput = document.querySelector('input.passwordLogIn')
-const logInInputs = [loginEmailInput, loginPasswordInput];
-logInInputs.forEach(logInput => {
-  logInput.addEventListener('click', (e) => {
-    e.target.removeAttribute('placeholder');
-  })
-})
-// })
+  // const signUpInputs = document.querySelectorAll('.signUpInput');
+  // signUpInputs.forEach(data => {
+  //     let placeholderVal;
+  //     data.addEventListener('click', (e) => {
+  //         placeholderVal = e.target.getAttribute('placeholder')
+  //         if (e.target.value) {
+  //           e.target.value = '';
+  //         } else if(placeholderVal !== '') {
+  //           e.target.removeAttribute('placeholder');
+  //         }
+  //     })
+  //   })
+  // const loginEmailInput = document.querySelector('input.emailLogIn')
+  // const loginPasswordInput = document.querySelector('input.passwordLogIn')
+  // const logInInputs = [ loginEmailInput, loginPasswordInput ];
+  // logInInputs.forEach(logInput => {
+  //   logInput.addEventListener('click', (e) => {
+  //     e.target.removeAttribute('placeholder');
+  //   })
+  // })
+  // })
 
 // })
 // signUpInputs.forEach(data => {
