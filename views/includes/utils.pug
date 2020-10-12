@@ -38,10 +38,12 @@ mixin storyIcons(story)
   .icons
     button(name="like").btnLike
       div.storyIcon.likeIcon
-      span.iconLabel #{story.Likes.length} Likes
+      span.iconLabel Likes
+      //- span.iconLabel #{story.Likes.length} Likes
     button(name="comments").btnComment
       div.storyIcon.commentIcon
-      span.iconLabel #{story.Comments.length} Replies
+      span.iconLabel Replies
+      //- span.iconLabel #{story.Comments.length} Replies
     button(name="bookmark").btnBookmark
       div.storyIcon.bookmarkIcon
       //- span.iconLabel Save

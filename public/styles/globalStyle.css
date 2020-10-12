@@ -90,6 +90,11 @@ span.btnLike > .iconLabel {
   background-image: url("/icons/heart_red.svg");
   background-repeat: no-repeat;
 }
+.liked {
+  background-image: url("/icons/heart_filled.svg");
+  background-repeat: no-repeat;
+  
+}
 .commentIcon {
   background-image: url("/icons/chat_gray.svg");
   background-repeat: no-repeat;
@@ -106,6 +111,12 @@ span.btnLike > .iconLabel {
   background-image: url("/icons/bookmark_blue.svg");
   background-repeat: no-repeat;
 }
+.bookmarked {
+  background-image: url("/icons/bookmark_filled.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .btnIconic {
   margin: 0 0.5em;
   border-radius: 5px;

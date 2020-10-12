@@ -72,6 +72,7 @@ router.post(
       storyId: req.params.id
     }
     const like = await Like.findOne({ where: newLike });
+    console.log("like", like)
     if (!user) contentNotFound(req.body.userId, "User")
     else if (like) {
       await like.destroy()
@@ -83,6 +84,29 @@ router.post(
   })
 );
 
+// Create or Delete a Like to a Story by id
+// MIRA Tested
+router.post(
+  '/users/:id(\\d+)/likes',
+  asyncHandler(checkForUser),
+  asyncHandler(async (req, res) => {
+    const story = await Story.findByPk(req.body.storyId)
+    const newLike = {
+      userId: req.params.id,
+      storyId: req.body.userId,
+    }
+    const like = await Like.findOne({ where: newLike });
+    console.log("like", like)
+    if (!story) contentNotFound(req.body.storyId, "Story")
+    else if (like) {
+      await like.destroy()
+      res.status(204).end()
+    } else {
+      const createdLike = await Like.create(newLike);
+      res.status(200).json(createdLike);
+    }
+  })
+);
 // Delete a Like by Story and User ids
 // MIRA Tested
 // Existing like: 204, deletes like
