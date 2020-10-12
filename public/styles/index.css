@@ -142,7 +142,7 @@ h2.log-in-h2 {
   font-weight: 700;
   border-radius: .3em;
   text-align: center;
-  border-color: #0496FF;
+  /* border-color: #0496FF; */
   border-width: .1em;
   padding: .3em;
   margin: .1em;
