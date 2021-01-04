@@ -22,7 +22,7 @@ mixin userCard(user)
     img(src=`/assets/av/${user.id}.jpg` alt=`${user.firstName} ${user.lastName}`).userCardAv
     .userCardInfo
       h3.userName #{user.firstName} #{user.lastName}
-      button.btnIconic.btnFollow Follow
+      button.btnIconic.btnFollow.btnBig Follow
 
 
 mixin storyCardFull(story)
@@ -38,12 +38,15 @@ mixin storyIcons(story)
   .icons
     button(name="like").btnLike
       div.storyIcon.likeIcon
-      span.iconLabel #{story.Likes.length} Likes
+      span.iconLabel Likes
+      //- span.iconLabel #{story.Likes.length} Likes
     button(name="comments").btnComment
-      span.storyIcon.commentIcon
-      span.iconLabel #{story.Comments.length} Comments
-    button(name="bookmark")
+      div.storyIcon.commentIcon
+      span.iconLabel Replies
+      //- span.iconLabel #{story.Comments.length} Replies
+    button(name="bookmark").btnBookmark
       div.storyIcon.bookmarkIcon
+      //- span.iconLabel Save
 
 mixin storyCardMini(story)
   .storyCardMini

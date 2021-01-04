@@ -145,10 +145,10 @@
     gap: 2.5em 2.5em;
     position: relative;
     height: 100%;
-    width: 100%;
+    width: 80%;
     /* border: 2px solid hotpink;
     border-radius: 18px; */
-    padding: 1rem;
+    /* padding: 1rem; */
     /* background-color: lightgrey; */
 }
 .storyAuthorName,
@@ -177,13 +177,9 @@
     gap: 1em 1em;
     position: relative;
     height: fit-content;
-    width: 100%;
     border-bottom: 1px solid lightgrey;
-    /* border: 2px solid purple;
-    border-radius: 18px; */
-    padding: 1em;
-    /* margin: 1em; */
-    top: 1em;
+    padding: 1rem;
+    top: 1rem;
     /* background-color: whitesmoke; */
 }
 .storyInfoDiv {
@@ -225,7 +221,7 @@
 .storyCreatedAt {
     grid-area: created;
     align-self: center;
-    color: #666;
+    color: #888;
     font-size: 0.8rem;
     font-style: italic;
 }
@@ -254,8 +250,8 @@ justify-self: center;
     grid-area: pic;
     display: grid;
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 150px;
+    height: 150px;
     content: fill;
 }
 .storyImgDiv {

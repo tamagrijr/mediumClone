@@ -252,7 +252,7 @@ a.swapToLogIn {
   '. . button8 button9 button10 button11 button12 . .'
   '. . . button13 button14 button15 . . .';
 }
-.bearButton1{
+/* .bearButton1{
   grid-area: button1;
 }
 .bearButton2 {
@@ -296,8 +296,8 @@ a.swapToLogIn {
 }
 .bearButton15 {
   grid-area: button15;
-}
-.bearButtonContainer {
+} */
+.topicButtonContainer {
   padding: 0.5em;
   border-radius: 99em;
   display: flex;
@@ -307,7 +307,7 @@ a.swapToLogIn {
   color: rgba(117, 117, 117, 1);
   cursor: pointer;
 }
-.bearButtonContainerHover:hover {
+.topicButtonContainerHover:hover {
       background-color: rgba(200, 200, 200, 1);
 }
 .clickedBearButton {
@@ -316,7 +316,7 @@ a.swapToLogIn {
 .clickedBearButton > .bearButtonText {
   color: black;
 }
-.bearButtonText {
+.topicButtonText {
   padding-left: .5em;
   cursor: pointer;
 }
@@ -362,11 +362,11 @@ a.swapToLogIn {
   align-items: center;
 }
 .slideShowButton {
-  width: 1em;
-  height: 1em;
-  border: 1px solid black;
-  border-radius: 99em;
-  margin: 4px 4px;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 1px solid white;
+  border-radius: 50%;
+  margin: 10px;
   cursor: pointer;
 }
 .slideShowButton:hover {
@@ -374,6 +374,7 @@ a.swapToLogIn {
   border: none;
 }
 .currentSlideButton {
+  border: 1px solid #0496FF;
   background-color: #0496FF;
 }
 .splashPageText {

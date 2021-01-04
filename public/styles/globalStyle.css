@@ -32,12 +32,16 @@ button {
 
 /* For Follow button */
 .btnFollow::before {
-  content: '';
-  background-image: url(/icons/avatar.svg);
+  content: ' ';
+  background-image: url(/icons/avatar1_blue.svg);
   background-repeat: no-repeat;
-  height: cover;
-  width: cover;
-  padding-right: 1rem;
+  padding: 0 0.2rem 0 1rem;
+}
+.btnFollow:hover::before {
+  content: ' ';
+  background-image: url(/icons/avatar1_white.svg);
+  background-repeat: no-repeat;
+  padding: 0 0.2rem 0 1rem;
 }
 
 .divider {
@@ -48,7 +52,7 @@ button {
 /* For mixins storyIcons */
 .iconLabel {
   font-size: 0.8rem;
-  color: #666;
+  color: #aaa;
 }
 .storyIcon {
   width: 1rem;
@@ -66,35 +70,68 @@ button {
   background-color: transparent;
   font-size: 1rem;
 }
-.btnLike, .btnComment {
+.btnLike,
+.btnComment, .btnBookmark {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
+.btnLike:hover {
+  color: crimson;
+}
+span.btnLike > .iconLabel {
+  color: inherit
+}
+.btnLike:hover,
+.btnComment:hover {
+  color: #0496FF;
+}
 .likeIcon {
-  background-image: url("/icons/heart.svg")
+  background-image: url("/icons/heart_gray.svg");
+  background-repeat: no-repeat;
 }
 .likeIcon:hover {
-  background-image: url("/icons/heart_red.svg")
+  background-image: url("/icons/heart_red.svg");
+  background-repeat: no-repeat;
+}
+.liked {
+  background-image: url("/icons/heart_filled.svg");
+  background-repeat: no-repeat;
+  
 }
 .commentIcon {
-  background-image: url("/icons/chat.svg")
+  background-image: url("/icons/chat_gray.svg");
+  background-repeat: no-repeat;
 }
 .commentIcon:hover {
-  background-image: url("/icons/chat.svg")
+  background-image: url("/icons/chat_blue.svg");
+  background-repeat: no-repeat;
 }
 .bookmarkIcon {
-  background-image: url("/icons/copy.svg")
+  background-image: url("/icons/bookmark_gray.svg");
+  background-repeat: no-repeat;
 }
 .bookmarkIcon:hover {
-  background-image: url("/icons/copy.svg")
+  background-image: url("/icons/bookmark_blue.svg");
+  background-repeat: no-repeat;
 }
+.bookmarked {
+  background-image: url("/icons/bookmark_filled.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .btnIconic {
-  margin: 0 0.5rem;
+  margin: 0 0.5em;
   border-radius: 5px;
   border: 1px solid rgb(4, 150, 255);
+  padding: 0.2em 0.5em;
   color: rgb(4, 150, 255);
   background-color: white;
+}
+.btnIconic:hover {
+  color: white;
+  background-color: rgb(4, 150, 255);
 }
 
 /* For mixin authorBlurb */
@@ -123,7 +160,7 @@ button {
 
 /* For mixin storyCardFull */
 .card {
-  width: 40%;
+  width: 45%;
   border-radius: 5px;
   padding: 1rem 0;
 	box-shadow: 0px 0px 6px 0px rgba(150,150,150,0.5);
@@ -163,6 +200,7 @@ p.cardCreatedDate {
   float: left;
   width: 4rem;
   height: 4rem;
+  object-fit: cover;
   margin: 0 2rem;
   border-radius: 50%;
 }

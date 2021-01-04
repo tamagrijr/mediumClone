@@ -14,10 +14,10 @@ const followsRouter = express.Router()
 // Non-existing user: 404 User not found
 // Non-integer user: 404 Generic not found
 // Existing user, no follows: 204
-followsRouter.get("/:id(\\d+)/follows",
+followsRouter.get("/:id(\\d+)/followed",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
-    const follows = await Follow.findAll({
+    const followed = await Follow.findAll({
       where: { followerId: req.params.id },
       include: {
         model: User,
@@ -25,7 +25,29 @@ followsRouter.get("/:id(\\d+)/follows",
         attributes: ["id", "firstName", "lastName"]
       }
     })
-    checkForContent(res, follows)
+    res.json(followed)
+  })
+)
+
+followsRouter.get("/:id(\\d+)/follows", asyncHandler(checkForUser),
+  asyncHandler(async (req, res) => {
+    const followed = await Follow.findAll({
+      where: { followerId: req.params.id },
+      include: {
+        model: User,
+        as: "Following",
+        attributes: ["id", "firstName", "lastName"]
+      }
+    })
+    const followers = await Follow.findAll({
+      where: { followingId: req.params.id },
+      include: {
+        model: User,
+        as: "Follower",
+        attributes: ["id", "firstName", "lastName"]
+      },
+    })
+    res.json({ followed: followed.length, followers: followers.length })
   })
 )
 
@@ -46,7 +68,7 @@ followsRouter.get("/:id(\\d+)/followers",
         attributes: ["id", "firstName", "lastName"]
       },
     })
-    checkForContent(res, followers)
+    res.json(followers)
   }))
 
 // Create or Delete a Follow for a User.
