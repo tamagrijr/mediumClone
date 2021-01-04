@@ -1,11 +1,21 @@
 const { validationResult } = require("express-validator")
-const { User, Story, Comment, Like } = require("./db/models")
-
+const { User, Story, Comment, Like, Topic, Tag } = require("./db/models");
 
 function asyncHandler(handler) {
   return (req, res, next) => {
     return handler(req, res, next).catch(next)
   }
+}
+
+
+function getCookies(req) {
+  const rawCookies = req.headers.cookie.split("; ");
+  const bakedCookies = {}
+  rawCookies.forEach(cookie => {
+    const bakedCookie = cookie.split("=")
+    bakedCookies[bakedCookie[0]] = bakedCookie[1]
+  })
+  return bakedCookies
 }
 
 
@@ -29,11 +39,13 @@ function contentNotFound(id, contentType) {
   return err;
 }
 
+
 async function deleteForStory(id, Model) {
   const records = await Model.findAll({ where: { storyId: id } })
   console.log(records)
   records.forEach(async record => await record.destroy())
 }
+
 
 async function checkForStory(req, res, next) {
   const story = await Story.findByPk(req.params.id)
@@ -43,6 +55,8 @@ async function checkForStory(req, res, next) {
     next()
   }
 }
+
+
 async function checkForUser(req, res, next) {
   const user = await User.findByPk(req.params.id)
   if (!user) next(contentNotFound(req.params.id, "User"))
@@ -51,6 +65,8 @@ async function checkForUser(req, res, next) {
     next()
   }
 }
+
+
 async function checkForComment(req, res, next) {
   const comment = await Comment.findByPk(req.params.id)
   if (!comment) next(contentNotFound(req.params.id, "Comment"))
@@ -59,30 +75,68 @@ async function checkForComment(req, res, next) {
     next()
   }
 }
-function checkForContent(res, content) {
-  res.json(content)
+
+
+// Provide a 'createdAt' value and receive a string in form 'Jan 01 2020'
+function getDate(createdAt) {
+  let parsedDate = new Date(createdAt)
+  return parsedDate.toDateString().slice(4)
 }
+
+
+// Provide list of objects with 'createdAt' property to update to form 'Jan 01 2020'.
+function getDates(content) {
+  return content.map(item => {
+    item.createdAt = getDate(item.createdAt)
+    return item
+  })
+}
+
+
+function rankStories(stories) {
+  let count = 1
+  stories = stories.slice(0, 6)
+  return stories.map(story => {
+    story.rank = count
+    count++
+    return story
+  })
+}
+
+
+const userAttributes = ["id", "firstName", "lastName", "bio"]
+const storyAttributes = ["id", "title", "subtitle", "createdAt", "authorId"]
+
 
 const storyInclude = [{
   model: User,
   as: "Author",
-  attributes: ["id", "firstName", "lastName"]
+  attributes: userAttributes
 }, {
   model: Comment,
   attributes: ["id"],
 }, {
   model: Like,
   attributes: ["id"]
+// }, {
+  // model: Tag,
+  // attributes: ["topicId"],
+  // include: { model: Topic, attributes: ["id", "topic"] }
 }]
+
 
 module.exports = {
   asyncHandler,
+  getCookies,
   handleValidationErrors,
   contentNotFound,
   deleteForStory,
   checkForStory,
   checkForUser,
   checkForComment,
-  checkForContent,
-  storyInclude
+  storyInclude,
+  userAttributes,
+  storyAttributes,
+  getDate, getDates,
+  rankStories
 }

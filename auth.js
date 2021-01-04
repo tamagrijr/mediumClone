@@ -19,7 +19,8 @@ const makeUserToken = (user) => {
 };
 
 const restoreUser = (req, res, next) => {
-    const { token } = req;
+  console.log("\ntoken?", token)
+    const { token } = req
 
     if(!token){
         return res.set("WWW-Authenticate", "Bearer").status(401).end();
@@ -29,7 +30,7 @@ const restoreUser = (req, res, next) => {
             err.status = 401;
             return next(err);
         }
-        const { id } = jwtPayload.data;
+        const { id } = jwtPayload
         console.log(jwtPayload)
 
         try{

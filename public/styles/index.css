@@ -1,4 +1,7 @@
 /* GENERAL STYLINGS FOR THE MAIN HIDDEN BODIES */
+
+@import url("splash.css");
+
 .mainBody {
   display: flex;
   flex-direction: column;

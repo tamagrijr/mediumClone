@@ -3,7 +3,6 @@ const {
   asyncHandler,
   checkForUser,
   checkForStory,
-  checkForContent,
   contentNotFound,
 } = require("../../utils")
 const { User, Like, Story, Comment } = require("../../db/models")
@@ -36,7 +35,6 @@ router.get("/users/:id(\\d+)/likes",
       }
     });
     res.json(userLikes)
-    // checkForContent(res, userLikes)
   })
 )
 
@@ -56,7 +54,7 @@ router.get(
         attributes: ["id", "firstName", "lastName"]
       }
     })
-    checkForContent(res, likes)
+    res.json(likes)
   })
 );
 

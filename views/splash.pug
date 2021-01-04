@@ -3,13 +3,13 @@ block.splashBody
   .headlineOne
     h1.splashSubHeadGroup.splashPageText Show everyone <br> what matters to you.
     h2.headlineOneTag.splashPageText Explore new interests and bring discussion to the table.
-    .gridOfButtons
-      each topic in topics
-        .topicContainer(style=`grid-area: button${topic.id}`)
-          .topicButtonContainer.topicButtonContainerHover
-            img(src=`/assets/topics/${topic.id}.svg` class="topicButton"  width=30 height=30 viewbox="0 0 30 30" fill="none")
-            .topicButton=  topic.name
 
+    section.splash
+      .splashTopics
+        each topic in topics
+          button.topicButton
+            img(src=`/assets/topics/${topic.id}.svg` class="topicButton"  width=30 height=30 viewbox="0 0 30 30" fill="none")
+            span=    topic.topic
     .signUpBanner
       button.signUpBanner#signUpBanner.splashPageText Get Started
   //- h1.spashHead.splashPageText ME DAYUM

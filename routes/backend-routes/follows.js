@@ -3,7 +3,6 @@ const {
   asyncHandler,
   checkForUser,
   contentNotFound,
-  checkForContent
 } = require("../../utils")
 const { Follow, User } = require("../../db/models")
 const followsRouter = express.Router()

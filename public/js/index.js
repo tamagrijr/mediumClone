@@ -59,10 +59,12 @@ signUpButton.forEach(e => {
 demoLogin.forEach(elem => {
   elem.addEventListener('click', async (e) => {
     e.preventDefault();
+    console.log("\ntrying token get...")
     const email = 'demo@user.com'
     const password = '1234567890'
     const body = { email, password }
     try {
+      console.log("\ntrying token get...")
       // ADD THIS ONCE VALIDATION IS IMPLEMENTED
       const res = await fetch(`/api/users/token`, {
         method: "POST",
@@ -71,14 +73,18 @@ demoLogin.forEach(elem => {
           "Content-Type": "application/json",
         },
       });
+      console.log("\nres ok?", res.ok)
       if (!res.ok) {
         throw res;
       }
       const {
         token,
-        user: { id },
+        user: {id},
       } = await res.json();
+
       // storage access_token in localStorage:
+      // document.cookie = `MEDAYUM_TOKEN=${token}`
+      // document.cookie = `MEDAYUM_USER_ID=${id}`
       localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
       localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
       // redirect to home page
@@ -113,6 +119,8 @@ logInForm.addEventListener("submit", async (e) => {
       user: { id },
     } = await res.json();
     // storage access_token in localStorage:
+    // document.cookie = `MEDAYUM_TOKEN=${token}`
+    // document.cookie = `MEDAYUM_USER_ID=${id}`
     localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
     localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
     // redirect to home page:
@@ -148,6 +156,8 @@ signUpForm.addEventListener("submit", async (e) => {
       console.log("jsonRes is ", jsonRes)
       const { token, newUser: { id } } = jsonRes
       // storage access_token in localStorage:
+      document.cookie = `MEDAYUM_TOKEN=${token}`
+      document.cookie = `MEDAYUM_USER_ID=${id}`
       localStorage.setItem("MEDIUM_ACCESS_TOKEN", token);
       localStorage.setItem("MEDIUM_CURRENT_USER_ID", id);
       // redirect to home page
@@ -179,41 +189,6 @@ closeForm.forEach(e => {
     signInDisplay.classList.add('hidden');
     signUpDisplay.classList.add('hidden');
   })
-})
-
-
-let b1 = document.querySelector('.bearButton1')
-let b2 = document.querySelector('.bearButton2')
-let b3 = document.querySelector('.bearButton3')
-let b4 = document.querySelector('.bearButton4')
-let b5 = document.querySelector('.bearButton5')
-let b6 = document.querySelector('.bearButton6')
-let b7 = document.querySelector('.bearButton7')
-let b8 = document.querySelector('.bearButton8')
-let b9 = document.querySelector('.bearButton9')
-let b10 = document.querySelector('.bearButton10')
-let b11 = document.querySelector('.bearButton11')
-let b12 = document.querySelector('.bearButton12')
-let b13 = document.querySelector('.bearButton13')
-let b14 = document.querySelector('.bearButton14')
-let b15 = document.querySelector('.bearButton15')
-
-const bList = [b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15]
-
-window.addEventListener('DOMContentLoaded', e => {
-  console.log("HBDRAFD L;FKJDSA")
-  b = document.querySelector('.gridOfButtons')
-  console.log(b)
-
-  b.addEventListener('click', ev => {
-    console.log("clioock")
-    if (ev.target.classList.contains('topicButtonContainer'))
-      console.log("hwloo")
-    ev.target.classList.toggle('clickedBearButton');
-    ev.target.classList.toggle('bearButtonContainerHover');
-  })
-
-
 })
 
 //Slideshow handlers

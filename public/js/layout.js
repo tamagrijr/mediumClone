@@ -7,6 +7,7 @@ const dropdownDiv = document.querySelector('#dropdown-menu')
 const dropdownButton = document.querySelector('.dropdown-toggle')
 
 const userId = window.localStorage.getItem('MEDIUM_CURRENT_USER_ID')
+// const userId = cookies('MEDIUM_USER_ID')
 const logoutButton = document.querySelector('#logoutButton');
 
 const profileButton = document.querySelector('#profileButton');
@@ -80,6 +81,7 @@ document.addEventListener('DOMContentLoaded', async e => {
 // signUpInputs
 
 logoutButton.addEventListener('click', (e) => {
+  
   localStorage.removeItem('MEDIUM_ACCESS_TOKEN');
   localStorage.removeItem('MEDIUM_CURRENT_USER_ID');
   window.location.href = "/";

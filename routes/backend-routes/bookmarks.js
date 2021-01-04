@@ -4,7 +4,6 @@ const {
   checkForUser,
   checkForStory,
   contentNotFound,
-  checkForContent
 } = require("../../utils")
 const { Bookmark, Story, User, Comment, Like } = require("../../db/models")
 
@@ -24,6 +23,7 @@ const userAttributes = ["id", "firstName", "lastName"]
 bookmarksRouter.get("/users/:id(\\d+)/bookmarks",
   asyncHandler(checkForUser),
   asyncHandler(async (req, res) => {
+    console.log("\nbookmarks")
     const userBookmarks = await Bookmark.findAll({
       where: { userId: req.params.id },
       include: [
@@ -44,7 +44,8 @@ bookmarksRouter.get("/users/:id(\\d+)/bookmarks",
         }
       ]
     })
-    checkForContent(res, userBookmarks)
+    console.log("\nbookmarks?", userBookmarks)
+    res.json(userBookmarks)
   }))
 
 // Get a list of Bookmarks for a Story
@@ -65,7 +66,7 @@ bookmarksRouter.get("/stories/:id(\\d+)/bookmarks",
         { model: Story, attributes: ["id", "title", "createdAt"] }
       ]
     })
-    checkForContent(res, storyBookmarks)
+    res.json(storyBookmarks)
   })
 )
 

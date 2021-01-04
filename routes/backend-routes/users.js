@@ -6,7 +6,7 @@ const {
   handleValidationErrors,
   checkForUser
 } = require("../../utils")
-const { makeUserToken, requireAuthentication } = require("../../auth")
+const { makeUserToken, requireAuth } = require("../../auth")
 const { User, Story, Comment, Like, Bookmark, Follow } = require("../../db/models")
 // const { values } = require("sequelize/types/lib/operators")
 // const { Model } = require("sequelize/types")
@@ -35,9 +35,9 @@ const emailValidator = [
     .withMessage("Please give us a valid email address.")
     .isLength({ max: 80 })
     .withMessage("An email can't be longer than 80 characters in length.")
-    .custom(async (val, {req}) => {
-      let emailExists = await User.findOne({where: {email: val}})
-      if(emailExists){
+    .custom(async (val, { req }) => {
+      let emailExists = await User.findOne({ where: { email: val } })
+      if (emailExists) {
         throw new Error("Email is in use")
       }
     })
@@ -49,10 +49,10 @@ const passwordValidator = [
     .withMessage("Please give us a password.")
     .isLength({ min: 10, max: 20 })
     .withMessage("A password must be between 10 to 20 characters in length.")
-    .custom((val, {req}) => {
-      if(val !== req.body.confirmPassword) {
+    .custom((val, { req }) => {
+      if (val !== req.body.confirmPassword) {
         throw new Error('Passwords do not match')
-      }else{
+      } else {
         return val;
       }
     })
@@ -69,6 +69,18 @@ usersRouter.get("/:id(\\d+)",
   })
 )
 
+usersRouter.get("/user",
+  (req, res, next) => {
+    console.log("gettiiiing...", req)
+    next()
+  },
+  requireAuth,
+  asyncHandler(async (req, res, next) => {
+    console.log("am I in?")
+    const { id } = req.user
+    await res.json({ id })
+  }))
+
 // Create a new User.
 // Valid body: 201 Creates user
 // No body: 400 Bad Request, error messages 'needs first name, valid email, etc.'
@@ -84,6 +96,10 @@ usersRouter.post("/",
       firstName, lastName, email, hashedPassword
     })
     const token = makeUserToken(newUser) // TODO Implement auth AFTER routes.
+    delete newUser.hashedPassword
+    // const maxAge = 720 * 60 * 60
+    // res.cookie("MEDAYUM_TOKEN", token, { maxAge })
+    // res.cookie("MEDAYUM_ID", user.id, { maxAge })
     res.status(201).json({ token, newUser })
   })
 )
@@ -91,6 +107,7 @@ usersRouter.post("/",
 // Create a new JWT token for a user on login(?)
 usersRouter.post("/token",
   asyncHandler(async (req, res, next) => {
+    console.log("\ntoken???")
     const { email, password } = req.body
     const user = await User.findOne({ where: { email } })
     if (!user || !user.validatePassword(password)) {
@@ -101,6 +118,10 @@ usersRouter.post("/token",
       return next(err)
     }
     const token = makeUserToken(user)
+    // const maxAge = 720 * 60 * 60
+    // res.cookie("MEDAYUM_TOKEN", token, { maxAge })
+    // res.cookie("MEDAYUM_ID", user.id, { maxAge })
+    console.log("\ntoken!", token, user)
     await res.json({ token, user })
   })
 )

@@ -43,10 +43,13 @@ const storyValidations = [
 router.get(
   '/stories',
   asyncHandler(async (req, res) => {
+    console.log("include", storyInclude)
     let stories = await Story.findAll({
       include: storyInclude,
       order: [['createdAt', 'DESC']]
     })
+    
+    console.log("\ngetting stories?", stories)
     res.json(stories);
   })
 );
@@ -64,6 +67,17 @@ router.get("/users/:id/stories",
     res.json(stories)
   })
 )
+
+// Get 6 random Stories. Includes limited Author, Comments, Likes, Topics data.
+router.get("/stories/discover",
+  asyncHandler(async (req, res) => {
+  let stories = await Story.findAll({
+    include: storyInclude,
+    order: sequelize.random(),
+    limit: 6,
+  })
+  res.json(stories)
+}))
 
 router.get("/stories/trending", asyncHandler(async (req, res) => {
   let stories = await Story.findAll({
